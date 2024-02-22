@@ -26,8 +26,8 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore DomainStorm.Project.TWC.Report.sln
+      run: dotnet restore DomainStorm.Project.TWCrepair.Report.sln
     - name: Build
-      run: dotnet build DomainStorm.Project.TWC.Report.sln --no-restore
+      run: dotnet build DomainStorm.Project.TWCrepair.Report.sln --no-restore
     - name: Test
-      run: dotnet test DomainStorm.Project.TWC.Report.sln --no-build --verbosity normal       
+      run: dotnet test DomainStorm.Project.TWCrepair.Report.sln --no-build --verbosity normal       

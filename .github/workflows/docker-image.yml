@@ -41,7 +41,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          file: ./DomainStorm.Project.TWC.Report.Web/Dockerfile
+          file: ./DomainStorm.Project.TWCrepair.Report.Web/Dockerfile
           context: .
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
