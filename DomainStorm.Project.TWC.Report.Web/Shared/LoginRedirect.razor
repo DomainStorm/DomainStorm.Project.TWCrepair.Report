@@ -1,0 +1,8 @@
+﻿@inject NavigationManager UriHelper
+@code {
+    protected override void OnInitialized()
+    {
+        var returnUrl = UriHelper.ToBaseRelativePath(UriHelper.Uri);
+        UriHelper.NavigateTo($"./login?redirectUri={returnUrl}", forceLoad: true);
+    }
+}

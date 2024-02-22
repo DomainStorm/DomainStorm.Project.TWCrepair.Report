@@ -1,0 +1,12 @@
+[submodule "DomainStorm.Framework"]
+	path = DomainStorm.Framework
+	url = https://github.com/DomainStorm/DomainStorm.Framework.git
+[submodule "DomainStorm.Report.BlazorComponent"]
+	path = DomainStorm.Report.BlazorComponent
+	url = https://github.com/DomainStorm/DomainStorm.Report.BlazorComponent.git
+[submodule "DomainStorm.JwtAuthApi"]
+	path = DomainStorm.JwtAuthApi
+	url = https://github.com/DomainStorm/DomainStorm.JwtAuthApi.git
+[submodule "DomainStorm.Project.TWCrepair.Repository"]
+	path = DomainStorm.Project.TWCrepair.Repository
+	url = https://github.com/DomainStorm/DomainStorm.Project.TWCrepair.Repository.git

@@ -1,0 +1,34 @@
+﻿@using Dapr.Client
+@using System.Net
+@inject NavigationManager UriHelper
+
+@if (_isLoginRedirect)
+{
+    <LoginRedirect></LoginRedirect>
+}
+
+@code {
+    [Parameter]
+    public Exception Exception { get; set; } = null!;
+
+    private bool _isLoginRedirect = false;
+
+    protected override void OnInitialized()
+    {
+        switch (Exception)
+        {
+            case InvocationException exception:
+            {
+                if(exception.Response.StatusCode is HttpStatusCode.Unauthorized or HttpStatusCode.Forbidden)
+                    _isLoginRedirect = true;
+                break;
+            }
+            case HttpRequestException exception:
+            {
+                if (exception.StatusCode is HttpStatusCode.Unauthorized or HttpStatusCode.Forbidden)
+                    _isLoginRedirect = true;
+                break;
+            }
+        }
+    }
+}

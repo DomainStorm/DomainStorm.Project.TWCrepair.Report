@@ -1,0 +1,440 @@
+version: '3.4'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    hostname: sqlserver
+    environment:
+      TZ: Asia/Taipei
+      SA_PASSWORD: Pass@word
+      ACCEPT_EULA: Y
+    ports:
+      - "5434:1433"
+    volumes:
+      - type: volume
+        source: sqlserver-volume-data
+        target: /var/opt/mssql/data 
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-Usa", "-PPass@word", "-Q", "select 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 50 
+    networks:
+      - backend
+  openldap:
+    image: osixia/openldap:1.5.0
+    environment:
+      TZ: Asia/Taipei
+      LDAP_LOG_LEVEL: "256"
+      LDAP_ORGANISATION: "Example Inc."
+      LDAP_DOMAIN: "example.org"
+      LDAP_BASE_DN: ""
+      LDAP_ADMIN_PASSWORD: "admin"
+      LDAP_CONFIG_PASSWORD: "config"
+      LDAP_READONLY_USER: "false"
+      #LDAP_READONLY_USER_USERNAME: "readonly"
+      #LDAP_READONLY_USER_PASSWORD: "readonly"
+      LDAP_RFC2307BIS_SCHEMA: "false"
+      LDAP_BACKEND: "mdb"
+      LDAP_TLS: "true"
+      LDAP_TLS_CRT_FILENAME: "ldap.crt"
+      LDAP_TLS_KEY_FILENAME: "ldap.key"
+      LDAP_TLS_DH_PARAM_FILENAME: "dhparam.pem"
+      LDAP_TLS_CA_CRT_FILENAME: "ca.crt"
+      LDAP_TLS_ENFORCE: "false"
+      LDAP_TLS_CIPHER_SUITE: "SECURE256:-VERS-SSL3.0"
+      LDAP_TLS_VERIFY_CLIENT: "demand"
+      LDAP_REPLICATION: "false"
+      #LDAP_REPLICATION_CONFIG_SYNCPROV: 'binddn="cn=admin,cn=config" bindmethod=simple credentials="$$LDAP_CONFIG_PASSWORD" searchbase="cn=config" type=refreshAndPersist retry="60 +" timeout=1 starttls=critical'
+      #LDAP_REPLICATION_DB_SYNCPROV: 'binddn="cn=admin,$$LDAP_BASE_DN" bindmethod=simple credentials="$$LDAP_ADMIN_PASSWORD" searchbase="$$LDAP_BASE_DN" type=refreshAndPersist interval=00:00:00:10 retry="60 +" timeout=1 starttls=critical'
+      #LDAP_REPLICATION_HOSTS: "#PYTHON2BASH:['ldap://ldap.example.org','ldap://ldap2.example.org']"
+      KEEP_EXISTING_CONFIG: "false"
+      LDAP_REMOVE_CONFIG_AFTER_SETUP: "true"
+      LDAP_SSL_HELPER_PREFIX: "ldap"
+    tty: true
+    stdin_open: true
+    #volumes:
+    #  - /var/lib/ldap
+    #  - /etc/ldap/slapd.d
+    #  - /container/service/slapd/assets/certs/
+    volumes:
+      - type: volume
+        source: ldap-volume-data
+        target: /var/lib/ldap
+      - type: volume
+        source: ldap-volume-slapd
+        target: /etc/ldap/slapd.d
+    ports:
+      - "389:389"
+      - "636:636"
+    # For replication to work correctly, domainname and hostname must be
+    # set correctly so that "hostname"."domainname" equates to the
+    # fully-qualified domain name for the host.
+    domainname: "example.org"
+    hostname: "openldap"
+    healthcheck:
+      test: ldapsearch -x -H ldap://localhost -b dc=example,dc=org -D "cn=admin,dc=example,dc=org" -w admin
+      interval: 10s
+      timeout: 10s
+      retries: 50   
+    networks:
+      - backend
+  phpldapadmin:
+    image: osixia/phpldapadmin:latest
+    environment:
+      TZ: Asia/Taipei
+      PHPLDAPADMIN_LDAP_HOSTS: "openldap"
+      PHPLDAPADMIN_HTTPS: "false"
+    ports:
+      - "8099:80"
+    networks:
+      - backend
+  mongo:
+    image: mongo:5.0.9
+    restart: on-failure
+    volumes:
+      - mongo-volume-data:/data/db
+    ports:
+      - 27017:27017
+    environment:
+      TZ: Asia/Taipei
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    healthcheck:       
+      test: mongo localhost:27017/test --quiet || exit 1
+      interval: 10s
+      timeout: 10s
+      retries: 50 
+    networks:
+      - backend
+  mongo-express:
+    image: mongo-express
+    restart: on-failure
+    ports:
+      - 8081:8081
+    environment:
+      TZ: Asia/Taipei
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+    depends_on:
+      mongo:
+          condition: service_healthy
+    networks:
+      - backend
+  placement:
+    image: daprio/dapr:1.8.7-mariner
+    environment:
+      TZ: Asia/Taipei
+    command: ["./placement", "-port", "50006"]
+    ports:
+      - "50006:50006"
+    networks:
+      - backend
+  redis:
+    image: "redis:7.0.5-alpine3.17"
+    environment:
+      TZ: Asia/Taipei
+    ports:
+      - "6380:6379"
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
+      interval: 10s
+      timeout: 10s
+      retries: 50 
+    volumes:
+        - redis-volume-data:/data
+    networks:
+      - backend
+  zipkin:
+    image: "openzipkin/zipkin"
+    environment:
+      TZ: Asia/Taipei
+    restart: on-failure
+    ports:
+      - "9411:9411"
+    networks:
+      - backend
+  seq:
+    image: datalust/seq:latest
+    restart: on-failure
+    environment:
+      TZ: Asia/Taipei
+      ACCEPT_EULA: 'Y'
+    ports:
+      - "5342:80"
+      - "5341:5341"
+    volumes:
+      - seq-logs:/data
+    networks:
+      - backend
+  zookeeper:
+    image: wurstmeister/zookeeper:latest
+    restart: on-failure
+    ports:
+      - "2181:2181"
+    volumes:
+      - zookeeper-data:/opt/zookeeper-3.4.13/data
+      - zookeeper-conf:/opt/zookeeper-3.4.13/conf
+    networks:
+      - backend
+  kafka:
+    image: wurstmeister/kafka:2.13-2.8.1
+    restart: on-failure
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_CREATE_TOPICS: "sampletopic:1:1"
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      #KAFKA_LOG_CLEANUP_POLICY: compact
+      #KAFKA_LOG_CLEANUP_ENABLE: "true"
+      KAFKA_LOG_DIRS: /data/kafka-data
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - kafka:/kafka
+      - kafka-data:/data/kafka-data
+    depends_on:
+      zookeeper:
+          condition: service_started    
+    healthcheck:
+      test: nc -z localhost 9092 || exit -1
+      interval: 10s
+      timeout: 10s
+      retries: 50 
+    networks:
+      - backend
+  kafka-ui:
+    image: provectuslabs/kafka-ui
+    ports:
+      - "8282:8080"
+    restart: on-failure
+    environment:
+      - KAFKA_CLUSTERS_0_NAME=local
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:9092
+    depends_on:
+      kafka:
+        condition: service_healthy  
+    networks:
+      - backend
+
+  ############################
+  # domainstorm.jwtauthapi service
+  ############################
+  domainstorm.jwtauthapi:
+    image: ${DOCKER_REGISTRY-}domainstormjwtauthapi
+    build:
+      context: .
+      dockerfile: DomainStorm.JwtAuthApi/DomainStorm.JwtAuthApi/Dockerfile
+    environment:
+      TZ: Asia/Taipei
+    depends_on:
+      openldap:
+          condition: service_healthy
+      mongo:
+          condition: service_healthy
+      redis:
+          condition: service_healthy
+      placement:
+          condition: service_started
+      kafka:
+          condition: service_healthy   
+    healthcheck:       
+      test: curl -f http://localhost:80/healthz || exit
+      interval: 10s
+      timeout: 10s
+      retries: 50   
+    networks:
+      - backend
+  domainstorm.jwtauthapi-dapr:
+    image: "daprio/daprd:1.8.7-mariner"
+    environment:
+      TZ: Asia/Taipei
+    command: ["./daprd",
+        "-app-id", "JwtAuthApi",
+        "-app-port", "80",
+        "-dapr-http-port", "3500",
+        "-log-level", "debug",
+        "-placement-host-address", "placement:50006",
+        "-config", "/.dapr/config.yaml",
+        "-components-path", "/.dapr/components",
+        "-dapr-http-max-request-size", "200",
+        "-dapr-http-read-buffer-size", "100"]
+    volumes:
+      - "./.dapr/config.yaml:/.dapr/config.yaml"
+      - "./.dapr/components/:/.dapr/components"
+    depends_on:
+      - domainstorm.jwtauthapi
+    network_mode: "service:domainstorm.jwtauthapi"
+  ############################
+  # domainstorm.jwtauthapi.openidprovider service
+  ############################
+  domainstorm.jwtauthapi.openidprovider:
+    image: ${DOCKER_REGISTRY-}domainstormjwtauthapiopenidprovider
+    environment:
+      TZ: Asia/Taipei
+    build:
+      context: ./DomainStorm.JwtAuthApi
+      dockerfile: DomainStorm.OpenId/Dockerfile
+    depends_on:
+      sqlserver:
+        condition: service_healthy  
+      mongo:
+        condition: service_healthy
+      kafka:  
+        condition: service_healthy
+    healthcheck:       
+      test: curl -f http://localhost:5050/healthz || exit
+      interval: 10s
+      timeout: 10s
+      retries: 50         
+    networks:
+      - backend
+
+  ############################
+  # domainstorm.project.report service
+  ############################
+
+  domainstorm.project.report.web:
+    image: ${DOCKER_REGISTRY-}domainstormprojectreportweb
+    build:
+      context: .
+      dockerfile: DomainStorm.Project.TWC.Report.Web/Dockerfile
+    volumes:
+      - input-files-volume-data:/input
+      - output-files-volume-data:/output
+    environment:
+      TZ: Asia/Taipei
+    depends_on: 
+      sqlserver:
+        condition: service_healthy  
+      redis:
+        condition: service_healthy 
+      placement:
+        condition: service_started
+      kafka:  
+        condition: service_healthy
+      domainstorm.jwtauthapi.openidprovider:
+        condition: service_started 
+    healthcheck:       
+      test: curl -f http://localhost:80/healthz || exit
+      interval: 10s
+      timeout: 10s
+      retries: 50
+    network_mode: "service:domainstorm.jwtauthapi.openidprovider"
+
+  domainstorm.project.report.web-dapr:
+    image: "daprio/daprd:1.8.7-mariner"
+    environment:
+      TZ: Asia/Taipei
+    command: ["./daprd",
+        "-app-id", "ReportWebApi",
+        "-app-port", "80",
+        "-log-level", "debug",
+        "-placement-host-address", "placement:50006",
+        "-config", "/.dapr/config.yaml",
+        "-components-path", "/.dapr/components",
+        "-dapr-http-max-request-size", "200",
+        "-dapr-http-read-buffer-size", "100"]
+    volumes:
+      - "./.dapr/config.yaml:/.dapr/config.yaml"
+      - "./.dapr/components/:/.dapr/components"
+    depends_on:
+      - domainstorm.project.report.web
+    network_mode: "service:domainstorm.project.report.web"
+
+  gotenberg:
+    image: thecodingmachine/gotenberg:7.7.2
+    container_name: gotenberg
+    restart: on-failure
+    environment:
+      TZ: Asia/Taipei
+    ports:
+      - "3000:3000"
+    networks:
+      - backend
+    volumes:
+      - "./DomainStorm.Project.TWC.Report.Web/wwwroot/fonts/kaiu.ttf:/usr/local/share/fonts/kaiu.ttf"
+    depends_on:
+      redis:
+          condition: service_healthy
+      placement:
+          condition: service_started   
+      kafka:
+          condition: service_healthy             
+    command:
+      - "gotenberg"
+      - "--log-level=debug"
+      - "--api-timeout=120s"
+      
+
+  gotenberg-dapr:
+    image: "daprio/daprd:1.8.7-mariner"
+    environment:
+      TZ: Asia/Taipei
+    command: ["./daprd",
+        "-app-id", "Gotenberg",
+        "-app-port", "3000",
+        "-dapr-http-port", "3500",
+        "-log-level", "debug",
+        "-placement-host-address", "placement:50006",
+        "-config", "/.dapr/config.yaml",
+        "-components-path", "/.dapr/components",
+        "-dapr-http-max-request-size", "200",
+        "-dapr-http-read-buffer-size", "100"]
+    volumes:
+      - "./.dapr/config.yaml:/.dapr/config.yaml"
+      - "./.dapr/components/:/.dapr/components"
+    depends_on:
+      - gotenberg
+    network_mode: "service:gotenberg"
+
+  domainstorm.servicebus:
+    image: yanshibainu/servicebus:0.0.5
+    environment:
+      TZ: Asia/Taipei
+    healthcheck:       
+      test: curl -f http://localhost:80/healthz || exit
+      interval: 10s
+      timeout: 10s
+      retries: 50
+    networks:
+      - backend
+
+  domainstorm.servicebus-dapr:
+    image: "daprio/daprd:1.8.7-mariner"
+    environment:
+      TZ: Asia/Taipei
+    command: ["./daprd",
+        "-app-id", "ServiceBus",
+        "-app-port", "80",
+        "-log-level", "debug",
+        "-placement-host-address", "placement:50006",
+        "-config", "/.dapr/config.yaml",
+        "-components-path", "/.dapr/components",
+        "-dapr-http-max-request-size", "200",
+        "-dapr-http-read-buffer-size", "100"]
+    volumes:
+      - "./.dapr/config.yaml:/.dapr/config.yaml"
+      - "./.dapr/components/:/.dapr/components"
+    depends_on:
+      - domainstorm.servicebus
+    network_mode: "service:domainstorm.servicebus"
+
+volumes:
+  input-files-volume-data:
+  output-files-volume-data:
+  sqlserver-volume-data:
+  mongo-volume-data:
+  redis-volume-data:
+  seq-logs:
+  ldap-volume-data:
+  ldap-volume-slapd:
+  kafka-data:
+  kafka:
+  zookeeper-data:
+  zookeeper-conf:
+
+networks:
+  backend:

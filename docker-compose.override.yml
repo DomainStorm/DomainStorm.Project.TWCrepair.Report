@@ -1,0 +1,64 @@
+version: '3.4'
+
+x-gateway-config: &gateway-env
+  DomainStorm_Gateway__EndPoint: ${Api_Gateway_EndPoint:-https://localhost:9005}
+  DomainStorm_OpenIDConnectOptions__Authority: ${OpenIDConnectOptions_Authority:-http://localhost:5050}
+
+
+services:
+
+  domainstorm.jwtauthapi:
+    environment:
+      <<: *gateway-env
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      DomainStorm_MongoDbOptions__ConnectionString: mongodb://root:example@mongo:27017
+      DomainStorm_MongoDbOptions__DatabaseName: JwtAuth
+      DomainStorm_SqlDbOptions__ConnectionString: ${SQL_Server_JwtauthApi_ConnectionString:-Server=sqlserver;Database=JwtAuthEventDb;User Id=sa;Password=Pass@word;}
+    ports:
+      - "8888:80"
+      - "7777:443"
+      - "3500:3500"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  domainstorm.jwtauthapi.openidprovider:
+    environment:
+      <<: *gateway-env
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:5051;http://+:5050
+      DomainStorm_MongoDbOptions__ConnectionString: mongodb://root:example@mongo:27017
+      DomainStorm_MongoDbOptions__DatabaseName: JwtAuth
+      DomainStorm_SqlServerOptions__ConnectionString: ${SQL_Server_OpenIddict_ConnectionString:-Server=sqlserver;Database=OpenIddict;User Id=sa;Password=Pass@word;}
+    ports:
+      - "9004:80"
+      - "9005:443"
+      - "5050:5050"
+      #- "5051"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  domainstorm.project.report.web:
+    environment:
+      <<: *gateway-env
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      DomainStorm_ENVIRONMENT: Staging
+      DomainStorm_SqlDbOptions__ConnectionString: ${SQL_Server_TWCWeb_ConnectionString:-Server=sqlserver;Database=TWCWeb;User Id=sa;Password=Pass@word;}
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  domainstorm.servicebus:
+    environment:
+      <<: *gateway-env
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    ports:
+      - "5507:80"
+      - "5607:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro

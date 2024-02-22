@@ -1,0 +1,57 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "composeLaunchAction": "LaunchBrowser",
+      "composeLaunchServiceName": "domainstorm.project.report.web",
+      "composeLaunchUrl": "https://localhost:9005",
+      "serviceActions": {
+        "domainstorm.jwtauthapi": "StartDebugging",
+        "domainstorm.jwtauthapi.openidprovider": "DoNotStart",
+        "domainstorm.jwtauthapi-dapr": "StartWithoutDebugging",
+        "domainstorm.project.report.web": "StartDebugging",
+        "domainstorm.project.report.web-dapr": "StartWithoutDebugging",
+        "kafka": "DoNotStart",
+        "kafka-ui": "DoNotStart",
+        "mongo": "DoNotStart",
+        "mongo-express": "DoNotStart",
+        "openldap": "DoNotStart",
+        "phpldapadmin": "DoNotStart",
+        "placement": "DoNotStart",
+        "redis": "DoNotStart",
+        "seq": "DoNotStart",
+        "sqlserver": "DoNotStart",
+        "zipkin": "DoNotStart",
+        "zookeeper": "DoNotStart",
+        "gotenberg": "StartWithoutDebugging",
+        "gotenberg-dapr": "StartWithoutDebugging"
+      }
+    },
+    "Docker Compose Shared Services": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "domainstorm.jwtauthapi": "DoNotStart",
+        "domainstorm.jwtauthapi.openidprovider": "StartWithoutDebugging",
+        "domainstorm.jwtauthapi-dapr": "DoNotStart",
+        "domainstorm.project.report.web": "DoNotStart",
+        "domainstorm.project.report.web-dapr": "DoNotStart",
+        "gotenberg": "DoNotStart",
+        "gotenberg-dapr": "DoNotStart",
+        "kafka": "StartWithoutDebugging",
+        "kafka-ui": "StartWithoutDebugging",
+        "mongo": "StartWithoutDebugging",
+        "mongo-express": "StartWithoutDebugging",
+        "openldap": "StartWithoutDebugging",
+        "phpldapadmin": "StartWithoutDebugging",
+        "placement": "StartWithoutDebugging",
+        "redis": "StartWithoutDebugging",
+        "seq": "StartWithoutDebugging",
+        "sqlserver": "StartWithoutDebugging",
+        "zipkin": "StartWithoutDebugging",
+        "zookeeper": "StartWithoutDebugging"
+      }
+    }
+  }
+}
