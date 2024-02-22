@@ -1,11 +1,10 @@
 ﻿using System.Net;
 using Dapr.Client;
 using DomainStorm.Framework;
-using DomainStorm.Framework.Extensions;
+using DomainStorm.Framework.BlazorComponent.ViewModel;
 using DomainStorm.Framework.Services;
-using DomainStorm.Project.TWC.Report.Web.ViewModel;
-using static DomainStorm.Project.TWC.Web.CommandModel.Department.V1;
-using static DomainStorm.Project.TWC.Web.CommandModel.Post.V1;
+using static DomainStorm.Framework.BlazorComponent.CommandModel.Department.V1;
+using static DomainStorm.Framework.BlazorComponent.CommandModel.Post.V1;
 
 namespace DomainStorm.Project.TWC.Report.Web.Services.Impl.Staging
 {
@@ -63,7 +62,7 @@ namespace DomainStorm.Project.TWC.Report.Web.Services.Impl.Staging
             return department;
         }
 
-        public async Task<Department> QuerySite(QuerySite condition)
+        public async Task<Department> QuerySite(Framework.BlazorComponent.CommandModel.Department.V1.QuerySite condition)
         {
 
             var sites = new List<Department>();
@@ -128,7 +127,7 @@ namespace DomainStorm.Project.TWC.Report.Web.Services.Impl.Staging
         //    }
         //}
 		
-		public async Task<Department> GetParentByLevel(GetParentByLevel condition)
+		public async Task<Department> GetParentByLevel(Framework.BlazorComponent.CommandModel.Department.V1.GetParentByLevel condition)
 		{
             try
             {

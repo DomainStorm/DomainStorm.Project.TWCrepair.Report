@@ -58,7 +58,7 @@
     <ProjectReference Include="..\DomainStorm.Framework\DomainStorm.Framework.SqlDb\DomainStorm.Framework.SqlDb.csproj" />
     <ProjectReference Include="..\DomainStorm.Framework\DomainStorm.Framework.WebApi\DomainStorm.Framework.WebApi.csproj" />
     <ProjectReference Include="..\DomainStorm.Framework\DomainStorm.Framework\DomainStorm.Framework.csproj" />
-    <ProjectReference Include="..\DomainStorm.Project.TWC.Repository\DomainStorm.Project.TWC.Repository.csproj" />
+    <ProjectReference Include="..\DomainStorm.Project.TWCrepair.Repository\DomainStorm.Project.TWCrepair.Repository.csproj" />
     <ProjectReference Include="..\DomainStorm.Report.BlazorComponent\DomainStorm.Report.BlazorComponent.csproj" />
   </ItemGroup>
 
@@ -72,6 +72,15 @@
 	<Compile Update="Views\RA002.cs">
       <DependentUpon>%(Filename).cshtml</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+    <Folder Include="InputModel\" />
+    <Folder Include="Pages\Dashboards\" />
+    <Folder Include="Pages\RA001\" />
+    <Folder Include="Pages\RA002\" />
+    <Folder Include="Pages\RA999\" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
-﻿using DomainStorm.Framework.Services;
+﻿using DomainStorm.Framework.BlazorComponent.ViewModel;
+using DomainStorm.Framework.Services;
 using DomainStorm.Project.TWC.Report.Web.ViewModel;
 using DomainStorm.Project.TWC.Report.Web.Views.Dashboards;
 using static DomainStorm.Project.TWC.Report.Web.ReportCommandModel.DA001.V1;

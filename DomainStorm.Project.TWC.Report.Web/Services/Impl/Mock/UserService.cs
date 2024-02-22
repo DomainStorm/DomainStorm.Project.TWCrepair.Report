@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using DomainStorm.Framework.BlazorComponent.ViewModel;
 using DomainStorm.Framework.Services;
-using UserCommandModel = DomainStorm.Project.TWC.Report.Web.CommandModel.User.V1;
+using UserCommandModel = DomainStorm.Framework.BlazorComponent.CommandModel.User.V1;
 
 namespace DomainStorm.Project.TWC.Report.Web.Services.Impl.Mock;
 

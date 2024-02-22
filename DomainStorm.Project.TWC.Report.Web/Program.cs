@@ -9,35 +9,21 @@ using DomainStorm.Framework.Services;
 using DomainStorm.Framework.SqlDb;
 using DomainStorm.Framework.WebApi;
 using DomainStorm.Project.TWC.Report.Web;
-using DomainStorm.Project.TWC.Report.Web.InputModel;
-using DomainStorm.Project.TWC.Report.Web.Services;
 using DomainStorm.Project.TWC.Report.Web.Services.Impl;
 using DomainStorm.Project.TWC.Report.Web.Services.Impl.Mock;
 using DomainStorm.Project.TWC.Report.Web.Services.Impl.Staging;
 using DomainStorm.Project.TWC.Report.Web.ViewModel;
 using DomainStorm.Project.TWC.Report.Web.Views;
 using DomainStorm.Project.TWC.Report.Web.Views.Dashboards;
-using DomainStorm.Project.TWC.Web.Models;
-using DomainStorm.Project.TWC.Web.Models.Form;
+using DomainStorm.Project.TWCrepair.Repository.Models.Form;
 using DotNetEnv;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.DataProtection;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Serilog;
-using static DomainStorm.Project.TWC.Report.Web.ReportCommandModel.RA001.V1;
-using static DomainStorm.Project.TWC.Report.Web.ReportCommandModel.RA002.V1;
-using static DomainStorm.Project.TWC.Report.Web.ReportCommandModel.RA999.V1;
-using static DomainStorm.Project.TWC.Report.Web.ReportCommandModel.DA001.V1;
 using static DomainStorm.Project.TWC.Report.Web.ReportCommandModel.Report.V1;
 using DepartmentService = DomainStorm.Project.TWC.Report.Web.Services.Impl.Staging.DepartmentService;
-using RA001Service = DomainStorm.Project.TWC.Report.Web.Services.Impl.Staging.RA001Service;
-using RA002Service = DomainStorm.Project.TWC.Report.Web.Services.Impl.Staging.RA002Service;
-using RA999Service = DomainStorm.Project.TWC.Report.Web.Services.Impl.Staging.RA999Service;
-using DA001Service = DomainStorm.Project.TWC.Report.Web.Services.Impl.Staging.DA001Service;
 using ReportService = DomainStorm.Project.TWC.Report.Web.Services.Impl.Staging.ReportService;
 using UserService = DomainStorm.Project.TWC.Report.Web.Services.Impl.Staging.UserService;
-using WaterRegisterChangeForm = DomainStorm.Project.TWC.Web.Models.WaterRegisterChangeForm;
 
 try
 {
@@ -122,41 +108,32 @@ try
 
     }
 
-    builder.Services
-        .AddScoped<IReportInputOutputService<RA001, RA001_InputModel, QueryRA001>,
-            ReportInputOutputService<RA001, RA001_InputModel, QueryRA001>>();
-    builder.Services
-        .AddScoped<IReportInputOutputService<RA002, RA002_InputModel, QueryRA002>,
-            ReportInputOutputService<RA002, RA002_InputModel, QueryRA002>>();
-    builder.Services
-        .AddScoped<IReportInputOutputService<RA999, RA999_InputModel, QueryRA999>,
-            ReportInputOutputService<RA999, RA999_InputModel, QueryRA999>>();
     if (!string.IsNullOrWhiteSpace(builder.Configuration["SqlDbOptions:ConnectionString"]))
     {
-        builder.Services.Configure<SqlDbOptions>(builder.Configuration.GetSection("SqlDbOptions"));
-        builder.Services.AddScoped<GetSession>(
-            c =>
-            {
-                var options = c.GetRequiredService<IOptions<SqlDbOptions>>();
-                var contextOption = new DbContextOptionsBuilder<TWCWebDbContext>()
-                    .UseSqlServer(options.Value.ConnectionString).Options;
+        //builder.Services.Configure<SqlDbOptions>(builder.Configuration.GetSection("SqlDbOptions"));
+        //builder.Services.AddScoped<GetSession>(
+        //    c =>
+        //    {
+        //        var options = c.GetRequiredService<IOptions<SqlDbOptions>>();
+        //        var contextOption = new DbContextOptionsBuilder<TWCWebDbContext>()
+        //            .UseSqlServer(options.Value.ConnectionString).Options;
 
-                DbContext GetDbContext()
-                {
-                    return new TWCWebDbContext(contextOption);
-                }
+        //        DbContext GetDbContext()
+        //        {
+        //            return new TWCWebDbContext(contextOption);
+        //        }
 
-                return GetDbContext;
-            }
-        );
-        builder.Services.AddDbContext<TWCWebDbContext>(options =>
-        {
-            options.UseSqlServer(builder.Configuration["SqlDbOptions:ConnectionString"]);
-        });
+        //        return GetDbContext;
+        //    }
+        //);
+        //builder.Services.AddDbContext<TWCWebDbContext>(options =>
+        //{
+        //    options.UseSqlServer(builder.Configuration["SqlDbOptions:ConnectionString"]);
+        //});
 
-        builder.Services.AddTransient<IRepository<WaterRegisterChangeForm>, SqlDbRepository<WaterRegisterChangeForm>>();
-        builder.Services.AddScoped<GetRepository<IRepository<WaterRegisterChangeForm>>>(
-            c => c.GetRequiredService<IRepository<WaterRegisterChangeForm>>);
+        //builder.Services.AddTransient<IRepository<WaterRegisterChangeForm>, SqlDbRepository<WaterRegisterChangeForm>>();
+        //builder.Services.AddScoped<GetRepository<IRepository<WaterRegisterChangeForm>>>(
+        //    c => c.GetRequiredService<IRepository<WaterRegisterChangeForm>>);
 
         builder.Services.AddTransient<IRepository<Form>, SqlDbRepository<Form>>();
         builder.Services.AddScoped<GetRepository<IRepository<Form>>>(

@@ -1,7 +1,7 @@
-﻿using DomainStorm.Framework.Services;
-using DomainStorm.Project.TWC.Report.Web.ViewModel;
-using static DomainStorm.Project.TWC.Web.CommandModel.Department.V1;
-using static DomainStorm.Project.TWC.Web.CommandModel.Post.V1;
+﻿using DomainStorm.Framework.BlazorComponent.ViewModel;
+using DomainStorm.Framework.Services;
+using static DomainStorm.Framework.BlazorComponent.CommandModel.Department.V1;
+using static DomainStorm.Framework.BlazorComponent.CommandModel.Post.V1;
 
 namespace DomainStorm.Project.TWC.Report.Web.Services.Impl.Mock
 {

@@ -10,3 +10,6 @@
 [submodule "DomainStorm.Project.TWCrepair.Repository"]
 	path = DomainStorm.Project.TWCrepair.Repository
 	url = https://github.com/DomainStorm/DomainStorm.Project.TWCrepair.Repository.git
+[submodule "DomainStorm.Project.TWCrepair.Shared"]
+	path = DomainStorm.Project.TWCrepair.Shared
+	url = git@github.com:DomainStorm/DomainStorm.Project.TWCrepair.Shared.git

@@ -1,17 +1,13 @@
-﻿@using DomainStorm.Framework.BlazorComponent
-@using DomainStorm.Framework.Services
-@using DomainStorm.Project.TWC.Report.Web.ViewModel
+﻿=@using DomainStorm.Framework.Services
 @using DomainStorm.Framework.BlazorComponent.ViewModel
 @using DomainStorm.Report.BlazorComponent.ViewModel
 @using DomainStorm.Framework.BlazorComponent.Extensions
-@using static DomainStorm.Project.TWC.Web.CommandModel.Department.V1
 @using static DomainStorm.Project.TWC.Report.Web.ReportCommandModel.Report.V1
 @using AutoMapper
 @using DomainStorm.Framework
-@using DomainStorm.Project.TWC.Report.Web.InputModel
 @using DomainStorm.Project.TWC.Report.Web.Services
 @using System.Text
-@using DomainStorm.Project.TWC.Report.Web.Services.Impl.Staging
+@using static DomainStorm.Framework.BlazorComponent.CommandModel.Department.V1;
 
 @inject IGetService<Department, string> DepartmentGetService
 @* @inject IGetService<TViewModel, string> TViewModelGetService *@
