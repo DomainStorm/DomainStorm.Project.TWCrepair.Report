@@ -7,7 +7,21 @@
     <UserSecretsId>004cbf63-df85-4074-9aa5-adc038a26597</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+    <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\**" />
+    <Compile Remove="InputModel\**" />
+    <Content Remove="Controllers\**" />
+    <Content Remove="InputModel\**" />
+    <EmbeddedResource Remove="Controllers\**" />
+    <EmbeddedResource Remove="InputModel\**" />
+    <EntityDeploy Remove="Controllers\**" />
+    <EntityDeploy Remove="InputModel\**" />
+    <None Remove="Controllers\**" />
+    <None Remove="InputModel\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <Content Remove="Views\Dashboards\_Layout.cshtml" />
@@ -53,8 +67,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="InputModel\" />
     <Folder Include="Views\Dashboards\" />
   </ItemGroup>
 

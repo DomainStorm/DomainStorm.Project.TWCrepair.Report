@@ -17,11 +17,14 @@ using DomainStorm.Project.TWCrepair.Repository.Models.Form;
 using DotNetEnv;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Serilog;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.Report.V1;
 using DepartmentService = DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging.DepartmentService;
 using ReportService = DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging.ReportService;
 using UserService = DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging.UserService;
+using Models = DomainStorm.Project.TWCrepair.Repository.Models;
 
 try
 {
@@ -81,46 +84,110 @@ try
         builder.Services
             .AddScoped<IGetService<Stream, ReportConvertRequest>,
                 DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Mock.ReportService>();
-
-        //builder.Services
-        //    .AddScoped<IGetService<string, ReportConvertRequest>,
-        //        DomainStorm.Project.TWC.Report.Web.Services.Impl.Mock.ReportService>();
     }
 
     if (!string.IsNullOrWhiteSpace(builder.Configuration["SqlDbOptions:ConnectionString"]))
     {
-        //builder.Services.Configure<SqlDbOptions>(builder.Configuration.GetSection("SqlDbOptions"));
-        //builder.Services.AddScoped<GetSession>(
-        //    c =>
-        //    {
-        //        var options = c.GetRequiredService<IOptions<SqlDbOptions>>();
-        //        var contextOption = new DbContextOptionsBuilder<TWCWebDbContext>()
-        //            .UseSqlServer(options.Value.ConnectionString).Options;
+        builder.Services.Configure<SqlDbOptions>(builder.Configuration.GetSection("SqlDbOptions"));
+        builder.Services.AddScoped<GetSession>(
+            c =>
+            {
+                var options = c.GetRequiredService<IOptions<SqlDbOptions>>();
+                var contextOption = new DbContextOptionsBuilder<Models.TWCrepairDbContext>()
+                    .UseSqlServer(options.Value.ConnectionString).Options;
 
-        //        DbContext GetDbContext()
-        //        {
-        //            return new TWCWebDbContext(contextOption);
-        //        }
+                DbContext GetDbContext()
+                {
+                    return new Models.TWCrepairDbContext(contextOption);
+                }
 
-        //        return GetDbContext;
-        //    }
-        //);
-        //builder.Services.AddDbContext<TWCWebDbContext>(options =>
-        //{
-        //    options.UseSqlServer(builder.Configuration["SqlDbOptions:ConnectionString"]);
-        //});
+                return GetDbContext;
+            }
+        );
+        builder.Services.AddDbContext<Models.TWCrepairDbContext>(options =>
+        {
+            options.UseSqlServer(builder.Configuration["SqlDbOptions:ConnectionString"]);
+        });
 
-        //builder.Services.AddTransient<IRepository<WaterRegisterChangeForm>, SqlDbRepository<WaterRegisterChangeForm>>();
-        //builder.Services.AddScoped<GetRepository<IRepository<WaterRegisterChangeForm>>>(
-        //    c => c.GetRequiredService<IRepository<WaterRegisterChangeForm>>);
+        builder.Services
+            .AddTransient<IRepository<Models.Form.Form>, SqlDbRepository<Models.Form.Form>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.Form.Form>>>(
+                c => c.GetRequiredService<IRepository<Models.Form.Form>>);
 
-        builder.Services.AddTransient<IRepository<Form>, SqlDbRepository<Form>>();
-        builder.Services.AddScoped<GetRepository<IRepository<Form>>>(
-            c => c.GetRequiredService<IRepository<Form>>);
+        builder.Services
+            .AddTransient<IRepository<Models.CheckForm>, SqlDbRepository<Models.CheckForm>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.CheckForm>>>(
+                c => c.GetRequiredService<IRepository<Models.CheckForm>>);
+        builder.Services
+            .AddTransient<IRepository<Models.ConfirmForm>, SqlDbRepository<Models.ConfirmForm>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.ConfirmForm>>>(
+                c => c.GetRequiredService<IRepository<Models.ConfirmForm>>);
+        builder.Services
+            .AddTransient<IRepository<Models.ConfirmSituation>, SqlDbRepository<Models.ConfirmSituation>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.ConfirmSituation>>>(
+                c => c.GetRequiredService<IRepository<Models.ConfirmSituation>>);
+        builder.Services
+            .AddTransient<IRepository<Models.CheckFormTransfer>, SqlDbRepository<Models.CheckFormTransfer>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.CheckFormTransfer>>>(
+                c => c.GetRequiredService<IRepository<Models.CheckFormTransfer>>);
 
-        builder.Services.AddTransient<IRepository<FormAttachment>, SqlDbRepository<FormAttachment>>();
-        builder.Services.AddScoped<GetRepository<IRepository<FormAttachment>>>(
-            c => c.GetRequiredService<IRepository<FormAttachment>>);
+        builder.Services
+           .AddTransient<IRepository<Models.FixForm>, SqlDbRepository<Models.FixForm>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.FixForm>>>(
+                c => c.GetRequiredService<IRepository<Models.FixForm>>);
+
+        builder.Services
+            .AddTransient<IRepository<Models.CheckDailyReport>, SqlDbRepository<Models.CheckDailyReport>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.CheckDailyReport>>>(
+                c => c.GetRequiredService<IRepository<Models.CheckDailyReport>>);
+
+        builder.Services
+            .AddTransient<IRepository<Models.CheckDailyReportDetail>, SqlDbRepository<Models.CheckDailyReportDetail>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.CheckDailyReportDetail>>>(
+                c => c.GetRequiredService<IRepository<Models.CheckDailyReportDetail>>);
+
+        builder.Services
+            .AddTransient<IRepository<Models.HR.HRDailyChange>, SqlDbRepository<Models.HR.HRDailyChange>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.HR.HRDailyChange>>>(
+                c => c.GetRequiredService<IRepository<Models.HR.HRDailyChange>>);
+
+        builder.Services
+            .AddTransient<IRepository<Models.HR.HRCurrentPosition>, SqlDbRepository<Models.HR.HRCurrentPosition>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.HR.HRCurrentPosition>>>(
+                c => c.GetRequiredService<IRepository<Models.HR.HRCurrentPosition>>);
+
+        builder.Services
+            .AddTransient<IRepository<Models.HR.HRSalary>, SqlDbRepository<Models.HR.HRSalary>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.HR.HRSalary>>>(
+                c => c.GetRequiredService<IRepository<Models.HR.HRSalary>>);
+
+        builder.Services
+            .AddTransient<IRepository<Models.AttachmentFile>, SqlDbRepository<Models.AttachmentFile>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.AttachmentFile>>>(
+                c => c.GetRequiredService<IRepository<Models.AttachmentFile>>);
+
+        builder.Services
+            .AddTransient<IRepository<Models.Form.FormAttachment>, SqlDbRepository<Models.Form.FormAttachment>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.Form.FormAttachment>>>(
+                c => c.GetRequiredService<IRepository<Models.Form.FormAttachment>>);
+
+
+        builder.Services.AddTransient<IUnitOfWork, SqlDbUnitOfWork>();
+        builder.Services.AddScoped<GetRepository<IUnitOfWork>>(
+            c => c.GetRequiredService<IUnitOfWork>);
 
         builder.Services.AddHostedService<Worker>();
     }
