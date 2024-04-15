@@ -17,8 +17,8 @@ using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.Report.
 namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
 {
     [ApiController]
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    //[Authorize(AuthenticationSchemes = OpenIdConnectDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = OpenIdConnectDefaults.AuthenticationScheme)]
     [Route("api/dashboards")]
     public class DashboardsController : ControllerBase
     {
