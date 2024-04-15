@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace DomainStorm.Project.TWC.Report.Web.Pages
+namespace DomainStorm.Project.TWCrepair.Report.Web.Pages
 {
     [Authorize]
     public class LogoutModel : PageModel
