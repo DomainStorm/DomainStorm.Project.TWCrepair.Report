@@ -12,7 +12,15 @@
         public List<string> Y { get; set; }
         public string Type { get; set; }
         public string Name { get; set; }
+        public TableCell Header { get; set; }
+        public TableCell Cells { get; set; }
     }
+
+    public class TableCell
+    {
+        public List<List<string>> Values { get; set; } = new List<List<string>>();
+    }
+    
 
     public class Layout
     {

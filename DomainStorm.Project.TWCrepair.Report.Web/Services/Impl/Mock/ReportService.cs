@@ -1,11 +1,13 @@
 ﻿using DomainStorm.Framework;
 using DomainStorm.Framework.RazorEngine;
 using DomainStorm.Framework.Services;
+using System.Web;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.Report.V1;
+using System.Text.Json;
 
 namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Mock
 {
-    public class ReportService : IGetService<Stream, ReportConvertRequest>
+    public class ReportService : IGetService<Stream, ReportConvertRequest>, IGetService<PlotlyJson, ReportConvertRequest>
     {
         private readonly IConvert _convert;
         private readonly IRazorViewToStringRenderer _razorRenderer;
@@ -90,6 +92,33 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Mock
         }
 
         public Task<Stream[]> GetListAsync<TQuery>(IQuery condition) where TQuery : IQuery
+        {
+            throw new NotImplementedException();
+        }
+
+        
+        async Task<PlotlyJson> IGetService<PlotlyJson, ReportConvertRequest>.GetAsync(ReportConvertRequest request)
+        {
+            var str = await _razorRenderer.RenderToStringAsync(request.ViewName, request.Model);
+            return JsonSerializer.Deserialize<PlotlyJson>(HttpUtility.HtmlDecode(str))!;
+        }
+
+        Task<PlotlyJson> IGetService<PlotlyJson, ReportConvertRequest>.GetAsync<TQuery>(IQuery condition)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<PlotlyJson[]> IGetService<PlotlyJson, ReportConvertRequest>.GetListAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<PlotlyJson[]> IGetService<PlotlyJson, ReportConvertRequest>.GetListAsync(ReportConvertRequest id)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<PlotlyJson[]> IGetService<PlotlyJson, ReportConvertRequest>.GetListAsync<TQuery>(IQuery condition)
         {
             throw new NotImplementedException();
         }

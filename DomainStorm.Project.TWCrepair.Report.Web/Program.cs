@@ -26,6 +26,7 @@ using SharedMockServices = DomainStorm.Project.TWCrepair.Shared.Services.Impl.Mo
 using SharedStagingServices = DomainStorm.Project.TWCrepair.Shared.Services.Impl.Staging;
 using StagingServices = DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging;
 using MockServices = DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Mock;
+using DomainStorm.Project.TWCrepair.Report.Web.Views.Dashboards;
 
 
 try
@@ -71,7 +72,7 @@ try
         builder.Services.AddScoped<IGetService<PlotlyJson, ReportConvertRequest>, StagingServices.ReportService>();
         builder.Services.AddScoped<IGetService<AutoLoginToken, string>, AutoLoginTokenService>();
         builder.Services.AddScoped<IGetService<Department, string>, SharedStagingServices.DepartmentService>();
-        
+        builder.Services.AddScoped<IGetService<DA001, string>, StagingServices.DA001Service>();
     }
     else
     {
@@ -87,7 +88,7 @@ try
 
         builder.Services.AddScoped<IGetService<Stream, ReportConvertRequest>,MockServices.ReportService>();
         builder.Services.AddScoped<IGetService<PlotlyJson, ReportConvertRequest>, MockServices.ReportService>();
-        
+        builder.Services.AddScoped<IGetService<DA001, string>, MockServices.DA001Service>();
     }
 
     if (!string.IsNullOrWhiteSpace(builder.Configuration["SqlDbOptions:ConnectionString"]))
