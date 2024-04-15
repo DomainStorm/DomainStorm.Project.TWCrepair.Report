@@ -118,11 +118,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DomainStorm.Framework.Clien
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DomainStorm.Project.TWCrepair.Report.Web", "DomainStorm.Project.TWCrepair.Report.Web\DomainStorm.Project.TWCrepair.Report.Web.csproj", "{3CA14552-EF0B-4B71-B0D1-04DF78D11938}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "方案項目", "方案項目", "{347CBBE9-3E1A-44E4-A92D-762C30C32DA5}"
-	ProjectSection(SolutionItems) = preProject
-		..\DomainStorm.Project.TWCrepair.sln = ..\DomainStorm.Project.TWCrepair.sln
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

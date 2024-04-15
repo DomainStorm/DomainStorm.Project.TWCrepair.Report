@@ -293,30 +293,34 @@ services:
       - backend
 
   ############################
-  # domainstorm.project.report service
+  # domainstorm.project.twcrepair.report service
   ############################
 
-  domainstorm.project.report.web:
-    image: ${DOCKER_REGISTRY-}domainstormprojectreportweb
+  domainstorm.project.twcrepair.check.report:
+    image: ${DOCKER_REGISTRY-}domainstormprojecttwcrepairreportweb
+    container_name: twcrepaircheckreport
     build:
       context: .
-      dockerfile: DomainStorm.Project.TWC.Report.Web/Dockerfile
+      dockerfile: DomainStorm.Project.TWCrepair.Report.Web/Dockerfile
     volumes:
       - input-files-volume-data:/input
       - output-files-volume-data:/output
+      - type: volume
+        source: twcrepair-keys-volume-data
+        target: /app/keys/
     environment:
       TZ: Asia/Taipei
     depends_on: 
       sqlserver:
-        condition: service_healthy  
+        condition: service_healthy
       redis:
-        condition: service_healthy 
+        condition: service_healthy
       placement:
         condition: service_started
-      kafka:  
-        condition: service_healthy
+      kafka:
+        condition: service_healthy        
       domainstorm.jwtauthapi.openidprovider:
-        condition: service_started 
+        condition: service_healthy
     healthcheck:       
       test: curl -f http://localhost:80/healthz || exit
       interval: 10s
@@ -324,12 +328,12 @@ services:
       retries: 50
     network_mode: "service:domainstorm.jwtauthapi.openidprovider"
 
-  domainstorm.project.report.web-dapr:
+  domainstorm.project.twcrepair.check.report-dapr:
     image: "daprio/daprd:1.8.7-mariner"
     environment:
       TZ: Asia/Taipei
     command: ["./daprd",
-        "-app-id", "ReportWebApi",
+        "-app-id", "TwcrepairCheckReport",
         "-app-port", "80",
         "-log-level", "debug",
         "-placement-host-address", "placement:50006",
@@ -341,8 +345,61 @@ services:
       - "./.dapr/config.yaml:/.dapr/config.yaml"
       - "./.dapr/components/:/.dapr/components"
     depends_on:
-      - domainstorm.project.report.web
-    network_mode: "service:domainstorm.project.report.web"
+      - domainstorm.project.twcrepair.check.report
+    network_mode: "service:domainstorm.project.twcrepair.check.report"
+
+  domainstorm.project.twcrepair.fix.report:
+    image: ${DOCKER_REGISTRY-}domainstormprojecttwcrepairreportweb
+    container_name: twcrepairfixreport
+    build:
+      context: .
+      dockerfile: DomainStorm.Project.TWCrepair.Report.Web/Dockerfile
+    volumes:
+      - input-files-volume-data:/input
+      - output-files-volume-data:/output
+      - type: volume
+        source: twcrepair-keys-volume-data
+        target: /app/keys/
+    environment:
+      TZ: Asia/Taipei
+    depends_on: 
+      sqlserver:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      placement:
+        condition: service_started
+      kafka:
+        condition: service_healthy        
+      domainstorm.jwtauthapi.openidprovider:
+        condition: service_healthy
+    healthcheck:       
+      test: curl -f http://localhost:80/healthz || exit
+      interval: 10s
+      timeout: 10s
+      retries: 50
+    networks:
+      - backend
+
+  domainstorm.project.twcrepair.fix.report-dapr:
+    image: "daprio/daprd:1.8.7-mariner"
+    environment:
+      TZ: Asia/Taipei
+    command: ["./daprd",
+        "-app-id", "TwcrepairFixReport",
+        "-app-port", "80",
+        "-log-level", "debug",
+        "-placement-host-address", "placement:50006",
+        "-config", "/.dapr/config.yaml",
+        "-components-path", "/.dapr/components",
+        "-dapr-http-max-request-size", "200",
+        "-dapr-http-read-buffer-size", "100"]
+    volumes:
+      - "./.dapr/config.yaml:/.dapr/config.yaml"
+      - "./.dapr/components/:/.dapr/components"
+    depends_on:
+      - domainstorm.project.twcrepair.fix.report
+    network_mode: "service:domainstorm.project.twcrepair.fix.report"
 
   gotenberg:
     image: thecodingmachine/gotenberg:7.7.2
@@ -435,6 +492,7 @@ volumes:
   kafka:
   zookeeper-data:
   zookeeper-conf:
+  twcrepair-keys-volume-data:
 
 networks:
   backend:

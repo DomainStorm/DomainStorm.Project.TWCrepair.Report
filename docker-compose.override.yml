@@ -32,21 +32,37 @@ services:
       DomainStorm_MongoDbOptions__DatabaseName: JwtAuth
       DomainStorm_SqlServerOptions__ConnectionString: ${SQL_Server_OpenIddict_ConnectionString:-Server=sqlserver;Database=OpenIddict;User Id=sa;Password=Pass@word;}
     ports:
-      - "9004:80"
-      - "9005:443"
+      - "9002:443"
       - "5050:5050"
       #- "5051"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
 
-  domainstorm.project.report.web:
+  domainstorm.project.twcrepair.check.report:
+    # ports:
+    #   - "9006:80"
+    #   - "9007:443"
     environment:
       <<: *gateway-env
       ASPNETCORE_ENVIRONMENT: Development
       ASPNETCORE_URLS: https://+:443;http://+:80
       DomainStorm_ENVIRONMENT: Staging
-      DomainStorm_SqlDbOptions__ConnectionString: ${SQL_Server_TWCWeb_ConnectionString:-Server=sqlserver;Database=TWCWeb;User Id=sa;Password=Pass@word;}
+      DomainStorm_SqlDbOptions__ConnectionString: ${SQL_Server_TwcRepairCheckWeb_ConnectionString:-Server=sqlserver;Database=TwcRepairCheckWeb;User Id=sa;Password=Pass@word;}
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  domainstorm.project.twcrepair.fix.report:
+    ports:
+      - "9004:80"
+      - "9003:443"
+    environment:
+      <<: *gateway-env
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      DomainStorm_ENVIRONMENT: Staging
+      DomainStorm_SqlDbOptions__ConnectionString: ${SQL_Server_TwcRepairFixWeb_ConnectionString:-Server=sqlserver;Database=TwcRepairFixWeb;User Id=sa;Password=Pass@word;}
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro

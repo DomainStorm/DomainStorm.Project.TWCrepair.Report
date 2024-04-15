@@ -4,14 +4,12 @@
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
       "composeLaunchAction": "LaunchBrowser",
-      "composeLaunchServiceName": "domainstorm.project.report.web",
-      "composeLaunchUrl": "https://localhost:9005",
+      "composeLaunchServiceName": "domainstorm.project.twcrepair.check.report",
+      "composeLaunchUrl": "https://localhost:9002",
       "serviceActions": {
         "domainstorm.jwtauthapi": "StartDebugging",
         "domainstorm.jwtauthapi.openidprovider": "DoNotStart",
         "domainstorm.jwtauthapi-dapr": "StartWithoutDebugging",
-        "domainstorm.project.report.web": "StartDebugging",
-        "domainstorm.project.report.web-dapr": "StartWithoutDebugging",
         "kafka": "DoNotStart",
         "kafka-ui": "DoNotStart",
         "mongo": "DoNotStart",
@@ -25,7 +23,13 @@
         "zipkin": "DoNotStart",
         "zookeeper": "DoNotStart",
         "gotenberg": "StartWithoutDebugging",
-        "gotenberg-dapr": "StartWithoutDebugging"
+        "gotenberg-dapr": "StartWithoutDebugging",
+        "domainstorm.servicebus": "StartWithoutDebugging",
+        "domainstorm.servicebus-dapr": "StartWithoutDebugging",
+        "domainstorm.project.twcrepair.check.report": "StartDebugging",
+        "domainstorm.project.twcrepair.check.report-dapr": "StartWithoutDebugging",
+        "domainstorm.project.twcrepair.fix.report": "StartDebugging",
+        "domainstorm.project.twcrepair.fix.report-dapr": "StartWithoutDebugging"
       }
     },
     "Docker Compose Shared Services": {
@@ -35,8 +39,6 @@
         "domainstorm.jwtauthapi": "DoNotStart",
         "domainstorm.jwtauthapi.openidprovider": "StartWithoutDebugging",
         "domainstorm.jwtauthapi-dapr": "DoNotStart",
-        "domainstorm.project.report.web": "DoNotStart",
-        "domainstorm.project.report.web-dapr": "DoNotStart",
         "gotenberg": "DoNotStart",
         "gotenberg-dapr": "DoNotStart",
         "kafka": "StartWithoutDebugging",
@@ -50,7 +52,13 @@
         "seq": "StartWithoutDebugging",
         "sqlserver": "StartWithoutDebugging",
         "zipkin": "StartWithoutDebugging",
-        "zookeeper": "StartWithoutDebugging"
+        "zookeeper": "StartWithoutDebugging",
+        "domainstorm.servicebus": "DoNotStart",
+        "domainstorm.servicebus-dapr": "DoNotStart",
+        "domainstorm.project.twcrepair.check.report": "DoNotStart",
+        "domainstorm.project.twcrepair.check.report-dapr": "DoNotStart",
+        "domainstorm.project.twcrepair.fix.report": "DoNotStart",
+        "domainstorm.project.twcrepair.fix.report-dapr": "DoNotStart"
       }
     }
   }
