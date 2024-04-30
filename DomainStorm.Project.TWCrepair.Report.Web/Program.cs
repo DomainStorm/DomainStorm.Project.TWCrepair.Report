@@ -202,7 +202,7 @@ try
     builder.Services.AddHealthChecks();
 
     builder.Services.AddDataProtection().PersistKeysToFileSystem(new DirectoryInfo("keys"))
-        .SetApplicationName("TwcWeb");
+        .SetApplicationName("TWCrepair");
 
     var app = builder.Build();
 
