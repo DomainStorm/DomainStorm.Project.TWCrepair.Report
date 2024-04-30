@@ -8,7 +8,7 @@ using DomainStorm.Framework.RazorEngine;
 using DomainStorm.Framework.Services;
 using DomainStorm.Framework.SqlDb;
 using DomainStorm.Framework.WebApi;
-using DomainStorm.Project.TWC.Report.Web.ViewModel;
+using DomainStorm.Project.TWCrepair.Report.Web.ViewModel;
 using DomainStorm.Project.TWCrepair.Report.Web;
 using DomainStorm.Project.TWCrepair.Report.Web.Services.Impl;
 using DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Mock;
@@ -21,10 +21,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Serilog;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.Report.V1;
-using DepartmentService = DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging.DepartmentService;
-using ReportService = DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging.ReportService;
-using UserService = DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging.UserService;
 using Models = DomainStorm.Project.TWCrepair.Repository.Models;
+using SharedMockServices = DomainStorm.Project.TWCrepair.Shared.Services.Impl.Mock;
+using SharedStagingServices = DomainStorm.Project.TWCrepair.Shared.Services.Impl.Staging;
+using StagingServices = DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging;
+using MockServices = DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Mock;
+using DomainStorm.Project.TWCrepair.Report.Web.Views.Dashboards;
+
 
 try
 {
@@ -59,17 +62,17 @@ try
     {
         builder.Services.AddOpenIdConnectCodeExchange(builder.Configuration);
 
-        builder.Services.AddScoped<IGetService<Function, Guid>, FunctionsService>();
-        builder.Services.AddScoped<IGetService<Function?, Uri>, FunctionsService>();
-        builder.Services.AddScoped<IGetService<User, Guid>, UserService>();
-        builder.Services.AddScoped<IChangeIdentity, UserService>();
+        builder.Services.AddScoped<IGetService<Function, Guid>, SharedStagingServices.FunctionsService>();
+        builder.Services.AddScoped<IGetService<Function?, Uri>, SharedStagingServices.FunctionsService>();
+        builder.Services.AddScoped<IGetService<User, Guid>, SharedStagingServices.UserService>();
+        builder.Services.AddScoped<IChangeIdentity, SharedStagingServices.UserService>();
         builder.Services.AddScoped<IGetService<Navbar, Guid>, NavbarService>();
         builder.Services.AddScoped<IGetService<TreeItem, Guid>, TreeItemService>();
-        builder.Services.AddScoped<IGetService<Stream, ReportConvertRequest>, ReportService>();
-        builder.Services.AddScoped<IGetService<PlotlyJson, ReportConvertRequest>, ReportService>();
+        builder.Services.AddScoped<IGetService<Stream, ReportConvertRequest>, StagingServices.ReportService>();
+        builder.Services.AddScoped<IGetService<PlotlyJson, ReportConvertRequest>, StagingServices.ReportService>();
         builder.Services.AddScoped<IGetService<AutoLoginToken, string>, AutoLoginTokenService>();
-        builder.Services.AddScoped<IGetService<Department, string>, DepartmentService>();
-        
+        builder.Services.AddScoped<IGetService<Department, string>, SharedStagingServices.DepartmentService>();
+        builder.Services.AddScoped<IGetService<DA001, string>, StagingServices.DA001Service>();
     }
     else
     {
@@ -77,13 +80,15 @@ try
 
         builder.Services.AddScoped<AuthenticationStateProvider, MockAuthenticationStateProvider>();
 
-        builder.Services
-            .AddScoped<IGetService<Department, string>,
-                DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Mock.DepartmentService>();
+        builder.Services.AddScoped<IGetService<Function, Guid>, MockServices.FunctionsService>();
+        builder.Services.AddScoped<IGetService<Function?, Uri>, MockServices.FunctionsService>();
 
-        builder.Services
-            .AddScoped<IGetService<Stream, ReportConvertRequest>,
-                DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Mock.ReportService>();
+        builder.Services.AddScoped<IGetService<Department, string>, SharedMockServices.DepartmentService>();
+        builder.Services.AddScoped<IGetService<Post, string>, SharedMockServices.PostService>();
+
+        builder.Services.AddScoped<IGetService<Stream, ReportConvertRequest>,MockServices.ReportService>();
+        builder.Services.AddScoped<IGetService<PlotlyJson, ReportConvertRequest>, MockServices.ReportService>();
+        builder.Services.AddScoped<IGetService<DA001, string>, MockServices.DA001Service>();
     }
 
     if (!string.IsNullOrWhiteSpace(builder.Configuration["SqlDbOptions:ConnectionString"]))

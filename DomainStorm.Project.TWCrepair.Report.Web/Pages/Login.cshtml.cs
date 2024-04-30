@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace DomainStorm.Project.TWC.Report.Web.Pages
+namespace DomainStorm.Project.TWCrepair.Report.Web.Pages
 {
     public class LoginModel : PageModel
     {

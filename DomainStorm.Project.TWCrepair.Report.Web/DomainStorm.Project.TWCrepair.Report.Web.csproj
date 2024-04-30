@@ -11,15 +11,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\**" />
     <Compile Remove="InputModel\**" />
-    <Content Remove="Controllers\**" />
     <Content Remove="InputModel\**" />
-    <EmbeddedResource Remove="Controllers\**" />
     <EmbeddedResource Remove="InputModel\**" />
-    <EntityDeploy Remove="Controllers\**" />
     <EntityDeploy Remove="InputModel\**" />
-    <None Remove="Controllers\**" />
     <None Remove="InputModel\**" />
   </ItemGroup>
 
@@ -63,10 +58,6 @@
     <ProjectReference Include="..\DomainStorm.Project.TWCrepair.Repository\DomainStorm.Project.TWCrepair.Repository.csproj" />
     <ProjectReference Include="..\DomainStorm.Project.TWCrepair.Shared\DomainStorm.Project.TWCrepair.Shared.csproj" />
     <ProjectReference Include="..\DomainStorm.Report.BlazorComponent\DomainStorm.Report.BlazorComponent.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\Dashboards\" />
   </ItemGroup>
 
 </Project>
