@@ -6,8 +6,6 @@ using DomainStorm.Framework.SqlDb;
 using DomainStorm.Framework;
 using static DomainStorm.Framework.BlazorComponent.CommandModel.Post.V1;
 using static DomainStorm.Framework.BlazorComponent.CommandModel.Department.V1;
-using static Nest.JoinField;
-using System.Linq;
 using DomainStorm.Project.TWCrepair.Report.Web.Views.Dashboards;
 
 
