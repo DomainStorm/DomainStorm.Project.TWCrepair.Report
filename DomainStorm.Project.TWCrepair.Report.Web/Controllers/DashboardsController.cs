@@ -40,7 +40,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
             {
                 ViewName = "/Views/Dashboards/DA001.cshtml",
                 Model = da001,
-                //Extension = request.Extension
+                Extension  = IConvert.Extension.JSON
             };
 
             var plotlyJson = await _reportService.GetAsync(convertRequest);
