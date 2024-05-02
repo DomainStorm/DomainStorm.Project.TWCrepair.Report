@@ -23,7 +23,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: yanshibainu/twcreport
+          images: yanshibainu/twcrepairreport
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2
