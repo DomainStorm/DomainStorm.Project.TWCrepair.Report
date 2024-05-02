@@ -13,7 +13,6 @@ using DomainStorm.Project.TWCrepair.Report.Web;
 using DomainStorm.Project.TWCrepair.Report.Web.Services.Impl;
 using DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Mock;
 using DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging;
-using DomainStorm.Project.TWCrepair.Repository.Models.Form;
 using DotNetEnv;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.DataProtection;
@@ -45,7 +44,7 @@ try
     builder.Logging.AddSerilog();
     Log.Information($"Starting web host ({builder.Environment.ApplicationName})");
 
-// Add services to the container.
+    // Add services to the container.
     builder.Services.AddWebApi(builder.Configuration, mvcOptions => mvcOptions.Filters.Add(new DaprExceptionFilter()));
     builder.Services.AddDapr(builder.Configuration);
     builder.Services.AddRazorPages();
@@ -207,7 +206,13 @@ try
 
     var app = builder.Build();
 
-    app.UsePathBase("/twcreport");
+    var pathBase = Environment.GetEnvironmentVariable("ASPNETCORE_PATHBASE");
+
+    if (!string.IsNullOrEmpty(pathBase))
+    {
+        app.UsePathBase(pathBase);
+        Console.WriteLine("Hosting pathBase: " + pathBase);
+    }
 
     // Configure the HTTP request pipeline.
     if (!app.Environment.IsDevelopment())

@@ -3,8 +3,8 @@
 @using DomainStorm.Framework.Services
 @using System.Text.Json
 @using DomainStorm.Framework.BlazorComponent.Extensions;
-@using DomainStorm.Framework.Caching
 @using DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel
+
 @inject IJSRuntime Js
 @inject IGetService<DomainStorm.Project.TWCrepair.Report.Web.Views.Dashboards.DA001, string> _da001Service;
 @inject IGetService<PlotlyJson, Report.V1.ReportConvertRequest> _reportService;
@@ -15,15 +15,11 @@
     <div id="chart"></div>
 </storm-card>
 
-
 @code {
     private ElementReference _stormCardRef;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        // if (levelOneDepartment == null)
-        //     return;
-
         var request = new ReportCommandModel.DA001.V1.QueryDA001();
         var da001 = await _da001Service.GetAsync<ReportCommandModel.DA001.V1.QueryDA001>(request);
         var convertRequest = new Report.V1.ReportConvertRequest
@@ -37,6 +33,8 @@
         await Js.SetProperty(_stormCardRef, "headline", plotlyJson.Layout.Title);
         plotlyJson.Layout.Title = "";
         plotlyJson.Layout.Margin.T = 10;  //T=0  第一條線會不見
+
+        Thread.Sleep(200);
         await Js.InvokeVoidAsync("drawChart", "chart", JsonSerializer.Serialize(plotlyJson, new JsonSerializerOptions(JsonSerializerDefaults.Web)));
     }
 }
