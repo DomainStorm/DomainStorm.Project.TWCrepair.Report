@@ -73,6 +73,7 @@ try
         builder.Services.AddScoped<IGetService<Department, string>, SharedStagingServices.DepartmentService>();
         builder.Services.AddScoped<IGetService<Post, string>, SharedMockServices.PostService>();
         builder.Services.AddScoped<IGetService<DA001, string>, StagingServices.DA001Service>();
+        builder.Services.AddScoped<IGetService<DA002, string>, StagingServices.DA002Service>();
     }
     else
     {
@@ -89,6 +90,7 @@ try
         builder.Services.AddScoped<IGetService<Stream, ReportConvertRequest>,MockServices.ReportService>();
         builder.Services.AddScoped<IGetService<PlotlyJson, ReportConvertRequest>, MockServices.ReportService>();
         builder.Services.AddScoped<IGetService<DA001, string>, MockServices.DA001Service>();
+        builder.Services.AddScoped<IGetService<DA002, string>, MockServices.DA002Service>(); 
     }
 
     if (!string.IsNullOrWhiteSpace(builder.Configuration["SqlDbOptions:ConnectionString"]))
