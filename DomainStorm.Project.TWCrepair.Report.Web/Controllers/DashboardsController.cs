@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
 using System.Text;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA001.V1;
+using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA002.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.Report.V1;
 
 
@@ -41,6 +42,21 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
                 ViewName = "/Views/Dashboards/DA001.cshtml",
                 Model = da001,
                 Extension  = IConvert.Extension.JSON
+            };
+
+            var plotlyJson = await _reportService.GetAsync(convertRequest);
+            return plotlyJson;
+        }
+
+        [HttpPost("da002")]
+        public async Task<PlotlyJson> DA002([FromBody] QueryDA002 request, [FromServices] IGetService<Views.Dashboards.DA002, string> _da002Service)
+        {
+            var da002 = await _da002Service.GetAsync<QueryDA001>(request);
+            var convertRequest = new ReportConvertRequest
+            {
+                ViewName = "/Views/Dashboards/DA002.cshtml",
+                Model = da002,
+                Extension = IConvert.Extension.JSON
             };
 
             var plotlyJson = await _reportService.GetAsync(convertRequest);
