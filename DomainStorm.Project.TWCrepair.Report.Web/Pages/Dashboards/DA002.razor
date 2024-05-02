@@ -1,0 +1,42 @@
+﻿
+@using DomainStorm.Framework
+@using DomainStorm.Framework.Services
+@using System.Text.Json
+@using DomainStorm.Framework.BlazorComponent.Extensions;
+@using DomainStorm.Framework.Caching
+@using DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel
+@inject IJSRuntime Js
+@inject IGetService<DomainStorm.Project.TWCrepair.Report.Web.Views.Dashboards.DA002, string> _da002Service;
+@inject IGetService<PlotlyJson, Report.V1.ReportConvertRequest> _reportService;
+
+@page "/DA002"
+
+<storm-card @ref="_stormCardRef" icon="leaderboard">
+    <div id="chart"></div>
+</storm-card>
+
+
+@code {
+    private ElementReference _stormCardRef;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        // if (levelOneDepartment == null)
+        //     return;
+
+        var request = new ReportCommandModel.DA002.V1.QueryDA002();
+        var da002 = await _da002Service.GetAsync<ReportCommandModel.DA002.V1.QueryDA002>(request);
+        var convertRequest = new Report.V1.ReportConvertRequest
+        {
+            ViewName = "/Views/Dashboards/DA002.cshtml",
+            Model = da002,
+            Extension = IConvert.Extension.JSON
+        };
+
+        var plotlyJson = await _reportService.GetAsync(convertRequest);
+        await Js.SetProperty(_stormCardRef, "headline", plotlyJson.Layout.Title);
+        plotlyJson.Layout.Title = "";
+        plotlyJson.Layout.Margin.T = 10;  //T=0  第一條線會不見
+        await Js.InvokeVoidAsync("drawChart", "chart", JsonSerializer.Serialize(plotlyJson, new JsonSerializerOptions(JsonSerializerDefaults.Web)));
+    }
+}
