@@ -62,7 +62,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging
             
             var repository = _getFixFormRepository();
             var fixForms = await repository.GetListAsync<DA002_Item>(x =>
-                x.CheckFormTransfer != null && x.CheckFormTransfer.CheckForm.SmallRegionId == departmentId  //自己單位的檢漏案件移轉出的修漏案件
+                x.CheckFormTransfer != null && x.CheckFormTransfer.CheckForm.DepartmentId == departmentId  //自己單位的檢漏案件移轉出的修漏案件
                     && x.Form.ModifyTime >= date    //最近 N 天的異動
                     && x.Form.ModifyActionType != "新增",   //排除新增
                 f => new DA002_Item
