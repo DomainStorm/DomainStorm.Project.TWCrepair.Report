@@ -17,6 +17,9 @@ namespace DomainStorm.Project.TWCrepair.Report.Web
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
+            if (Environment.GetEnvironmentVariable("DomainStorm_AutoMigrate") == "false")
+                return;
+
             using var scope = _serviceProvider.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<GetSession>()();
             await Task.Run(() =>
