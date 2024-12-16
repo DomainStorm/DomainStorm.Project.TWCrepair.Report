@@ -74,6 +74,7 @@ try
         builder.Services.AddScoped<IGetService<Post, string>, SharedMockServices.PostService>();
         builder.Services.AddScoped<IGetService<DA001, string>, StagingServices.DA001Service>();
         builder.Services.AddScoped<IGetService<DA002, string>, StagingServices.DA002Service>();
+        builder.Services.AddScoped<IGetService<DA003, string>, StagingServices.DA003Service>();
     }
     else
     {
@@ -90,7 +91,8 @@ try
         builder.Services.AddScoped<IGetService<Stream, ReportConvertRequest>,MockServices.ReportService>();
         builder.Services.AddScoped<IGetService<PlotlyJson, ReportConvertRequest>, MockServices.ReportService>();
         builder.Services.AddScoped<IGetService<DA001, string>, MockServices.DA001Service>();
-        builder.Services.AddScoped<IGetService<DA002, string>, MockServices.DA002Service>(); 
+        builder.Services.AddScoped<IGetService<DA002, string>, MockServices.DA002Service>();
+        builder.Services.AddScoped<IGetService<DA003, string>, MockServices.DA003Service>();
     }
 
     if (!string.IsNullOrWhiteSpace(builder.Configuration["SqlDbOptions:ConnectionString"]))
@@ -190,6 +192,18 @@ try
         builder.Services
             .AddScoped<GetRepository<IRepository<Models.Form.FormAttachment>>>(
                 c => c.GetRequiredService<IRepository<Models.Form.FormAttachment>>);
+
+        builder.Services
+           .AddTransient<IRepository<Models.WaterPressureCheck>, SqlDbRepository<Models.WaterPressureCheck>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.WaterPressureCheck>>>(
+                c => c.GetRequiredService<IRepository<Models.WaterPressureCheck>>);
+
+        builder.Services
+           .AddTransient<IRepository<Models.WaterPressureCheckData>, SqlDbRepository<Models.WaterPressureCheckData>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.WaterPressureCheckData>>>(
+                c => c.GetRequiredService<IRepository<Models.WaterPressureCheckData>>);
 
 
         builder.Services.AddTransient<IUnitOfWork, SqlDbUnitOfWork>();

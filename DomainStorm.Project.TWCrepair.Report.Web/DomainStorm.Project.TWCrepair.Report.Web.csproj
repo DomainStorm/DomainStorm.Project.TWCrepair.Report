@@ -34,6 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Pages\Dashboards\DA003.razor" />
     <None Include="Pages\Dashboards\DA002.razor" />
     <None Include="Pages\Dashboards\DA001.razor" />
   </ItemGroup>
