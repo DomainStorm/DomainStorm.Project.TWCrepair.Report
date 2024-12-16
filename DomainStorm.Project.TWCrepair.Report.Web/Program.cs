@@ -128,15 +128,15 @@ try
             .AddScoped<GetRepository<IRepository<Models.CheckForm>>>(
                 c => c.GetRequiredService<IRepository<Models.CheckForm>>);
         builder.Services
-            .AddTransient<IRepository<Models.ConfirmForm>, SqlDbRepository<Models.ConfirmForm>>();
+            .AddTransient<IRepository<Models.CheckFormConfirmForm>, SqlDbRepository<Models.CheckFormConfirmForm>>();
         builder.Services
-            .AddScoped<GetRepository<IRepository<Models.ConfirmForm>>>(
-                c => c.GetRequiredService<IRepository<Models.ConfirmForm>>);
+            .AddScoped<GetRepository<IRepository<Models.CheckFormConfirmForm>>>(
+                c => c.GetRequiredService<IRepository<Models.CheckFormConfirmForm>>);
         builder.Services
-            .AddTransient<IRepository<Models.ConfirmSituation>, SqlDbRepository<Models.ConfirmSituation>>();
+            .AddTransient<IRepository<Models.CheckFormConfirmSituation>, SqlDbRepository<Models.CheckFormConfirmSituation>>();
         builder.Services
-            .AddScoped<GetRepository<IRepository<Models.ConfirmSituation>>>(
-                c => c.GetRequiredService<IRepository<Models.ConfirmSituation>>);
+            .AddScoped<GetRepository<IRepository<Models.CheckFormConfirmSituation>>>(
+                c => c.GetRequiredService<IRepository<Models.CheckFormConfirmSituation>>);
         builder.Services
             .AddTransient<IRepository<Models.CheckFormTransfer>, SqlDbRepository<Models.CheckFormTransfer>>();
         builder.Services
