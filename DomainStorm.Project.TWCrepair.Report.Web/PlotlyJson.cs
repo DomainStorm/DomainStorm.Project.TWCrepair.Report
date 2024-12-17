@@ -14,6 +14,24 @@
         public string Name { get; set; }
         public TableCell Header { get; set; }
         public TableCell Cells { get; set; }
+        public string Orientation { get; set; }
+        public List<string> Text { get; set; }
+        public string TextPosition { get; set; } //  "inside" | "outside" | "auto" | "none" (outside 沒有成功)
+
+    }
+
+    public class BarDatum : Datum
+    {
+        public Marker Marker { get; set; }   //若把它加在 base Class Datum 中,會搞死曲線圖
+        public BarDatum ()
+        {
+            base.Type = "bar";
+        }
+    }
+
+    public class Marker
+    {
+        public string Color { get; set; }
     }
 
     public class TableCell
@@ -25,23 +43,22 @@
     public class Layout
     {
         public string Title { get; set; }
-        public Xaxis Xaxis { get; set; }
-        public Yaxis Yaxis { get; set; }
+        public Axis Xaxis { get; set; }
+        public Axis Yaxis { get; set; }
         public string Width { get; set; }
         public string Height { get; set; }
         public bool Autosize { get; set; }
         public Margin Margin { get; set; }
     }
 
-    public class Xaxis
+    public class Axis
     {
         public string Title { get; set; }
+        public string GridColor { get; set; }
+        public int GridWidth { get; set; } = 1;
     }
 
-    public class Yaxis
-    {
-        public string Title { get; set; }
-    }
+    
 
     public class Margin
     {

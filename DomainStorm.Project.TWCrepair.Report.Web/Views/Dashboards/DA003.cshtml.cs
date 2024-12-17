@@ -22,8 +22,8 @@ public class DA003 : ReportDataModel
             Title = "當日水壓曲線圖",
             Autosize = true,
             Margin = new Margin(),
-            Xaxis = new Xaxis(),
-            Yaxis = new Yaxis
+            Xaxis = new Axis(),
+            Yaxis = new Axis
             {
                 Title = "壓力：kg/c㎡"
             }

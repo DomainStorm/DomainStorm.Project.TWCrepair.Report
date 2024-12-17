@@ -24,8 +24,8 @@ public class DA001 : ReportDataModel
             Title = "工作日報表未輸入一覽表(單位/人)",
             Autosize = true,
             Margin = new Margin(),
-            Xaxis = new Xaxis(),
-            Yaxis = new Yaxis()
+            Xaxis = new Axis(),
+            Yaxis = new Axis()
         }
     };
 

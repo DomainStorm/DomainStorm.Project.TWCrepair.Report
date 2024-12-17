@@ -31,8 +31,8 @@ public class DA002 : ReportDataModel
             Title = "修漏資料變更一覽表",
             Autosize = true,
             Margin = new Margin(),
-            Xaxis = new Xaxis(),
-            Yaxis = new Yaxis()
+            Xaxis = new Axis(),
+            Yaxis = new Axis()
         }
     };
 

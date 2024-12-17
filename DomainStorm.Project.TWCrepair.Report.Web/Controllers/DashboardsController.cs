@@ -12,6 +12,7 @@ using System.Text;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA001.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA002.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA003.V1;
+using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA004.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.Report.V1;
 
 
@@ -80,6 +81,24 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
             {
                 ViewName = "/Views/Dashboards/DA003.cshtml",
                 Model = da003,
+                Extension = IConvert.Extension.JSON
+            };
+
+            var plotlyJson = await _reportService.GetAsync(convertRequest);
+            return plotlyJson;
+        }
+
+        /// <summary>
+        /// 檢修漏作業水壓比較圖
+        /// </summary>
+        [HttpPost("da004")]
+        public async Task<PlotlyJson> DA004([FromBody] QueryDA004 request, [FromServices] IGetService<Views.Dashboards.DA004, string> _da004Service)
+        {
+            var da004 = await _da004Service.GetAsync<QueryDA004>(request);
+            var convertRequest = new ReportConvertRequest
+            {
+                ViewName = "/Views/Dashboards/DA004.cshtml",
+                Model = da004,
                 Extension = IConvert.Extension.JSON
             };
 

@@ -33,8 +33,8 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
 
     public class RA001_AnalyzeItem
     {
-        public RA001_Pressure BeforePressure { get; set; }
-        public RA001_Pressure AfterPressure { get; set; }
+        public RA001_Pressure BeforePressure { get; set; } = new RA001_Pressure();
+        public RA001_Pressure AfterPressure { get; set; } = new RA001_Pressure();
     }
 
    
