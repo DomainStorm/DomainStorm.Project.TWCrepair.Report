@@ -26,6 +26,7 @@ using SharedStagingServices = DomainStorm.Project.TWCrepair.Shared.Services.Impl
 using StagingServices = DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging;
 using MockServices = DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Mock;
 using DomainStorm.Project.TWCrepair.Report.Web.Views.Dashboards;
+using DomainStorm.Project.TWCrepair.Report.Web.Views;
 
 
 try
@@ -75,6 +76,9 @@ try
         builder.Services.AddScoped<IGetService<DA001, string>, StagingServices.DA001Service>();
         builder.Services.AddScoped<IGetService<DA002, string>, StagingServices.DA002Service>();
         builder.Services.AddScoped<IGetService<DA003, string>, StagingServices.DA003Service>();
+        builder.Services.AddScoped<IGetService<RA001, string>, StagingServices.RA001Service>();
+        builder.Services.AddScoped<IGetService<DateTime, Guid>, StagingServices.RA001Service>();
+
     }
     else
     {
@@ -93,6 +97,8 @@ try
         builder.Services.AddScoped<IGetService<DA001, string>, MockServices.DA001Service>();
         builder.Services.AddScoped<IGetService<DA002, string>, MockServices.DA002Service>();
         builder.Services.AddScoped<IGetService<DA003, string>, MockServices.DA003Service>();
+        builder.Services.AddScoped<IGetService<RA001, string>, MockServices.RA001Service>();
+        builder.Services.AddScoped<IGetService<DateTime, Guid>, MockServices.RA001Service>();
     }
 
     if (!string.IsNullOrWhiteSpace(builder.Configuration["SqlDbOptions:ConnectionString"]))

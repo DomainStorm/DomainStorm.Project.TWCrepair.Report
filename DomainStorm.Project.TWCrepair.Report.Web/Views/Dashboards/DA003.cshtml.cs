@@ -25,7 +25,7 @@ public class DA003 : ReportDataModel
             Xaxis = new Xaxis(),
             Yaxis = new Yaxis
             {
-                Title ="壓力：kg/cm2"
+                Title = "壓力：kg/c㎡"
             }
         }
     };
