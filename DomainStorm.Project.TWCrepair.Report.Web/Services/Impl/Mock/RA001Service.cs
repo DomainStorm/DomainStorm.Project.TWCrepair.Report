@@ -1,21 +1,11 @@
-﻿using DomainStorm.Framework;
-using DomainStorm.Framework.Services;
-using DomainStorm.Framework.SqlDb;
+﻿using DomainStorm.Framework.Services;
 using DomainStorm.Project.TWCrepair.Report.Web.Views;
-using DomainStorm.Project.TWCrepair.Repository.Models;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA001.V1;
 
 namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Mock;
 
 public class RA001Service : IGetService<RA001, string>, IGetService<DateTime, Guid>
 {
-    private readonly GetRepository<IRepository<WaterPressureCheck>> _getRepository;
-
-    public RA001Service(GetRepository<IRepository<WaterPressureCheck>> getRepository)
-    {
-        _getRepository = getRepository;
-    }
-
     public Task<RA001> GetAsync(string id)
     {
         throw new NotImplementedException();
