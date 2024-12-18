@@ -77,6 +77,7 @@ try
         builder.Services.AddScoped<IGetService<DA002, string>, StagingServices.DA002Service>();
         builder.Services.AddScoped<IGetService<DA003, string>, StagingServices.DA003Service>();
         builder.Services.AddScoped<IGetService<DA004, string>, StagingServices.DA004Service>();
+        builder.Services.AddScoped<IGetService<DA005, string>, StagingServices.DA005Service>();
         builder.Services.AddScoped<IGetService<RA001, string>, StagingServices.RA001Service>();
         builder.Services.AddScoped<IGetService<DateTime, Guid>, StagingServices.RA001Service>();
 
@@ -99,6 +100,7 @@ try
         builder.Services.AddScoped<IGetService<DA002, string>, MockServices.DA002Service>();
         builder.Services.AddScoped<IGetService<DA003, string>, MockServices.DA003Service>();
         builder.Services.AddScoped<IGetService<DA004, string>, MockServices.DA004Service>();
+        builder.Services.AddScoped<IGetService<DA005, string>, MockServices.DA005Service>();
         builder.Services.AddScoped<IGetService<RA001, string>, MockServices.RA001Service>();
         builder.Services.AddScoped<IGetService<DateTime, Guid>, MockServices.RA001Service>();
     }

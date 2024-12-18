@@ -13,6 +13,7 @@ using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA001.V
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA002.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA003.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA004.V1;
+using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA005.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.Report.V1;
 
 
@@ -99,6 +100,24 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
             {
                 ViewName = "/Views/Dashboards/DA004.cshtml",
                 Model = da004,
+                Extension = IConvert.Extension.JSON
+            };
+
+            var plotlyJson = await _reportService.GetAsync(convertRequest);
+            return plotlyJson;
+        }
+
+        /// <summary>
+        /// 總水頭分布圖
+        /// </summary>
+        [HttpPost("da005")]
+        public async Task<PlotlyJson> DA005([FromBody] QueryDA005 request, [FromServices] IGetService<Views.Dashboards.DA005, string> _da005Service)
+        {
+            var da005 = await _da005Service.GetAsync<QueryDA005>(request);
+            var convertRequest = new ReportConvertRequest
+            {
+                ViewName = "/Views/Dashboards/DA005.cshtml",
+                Model = da005,
                 Extension = IConvert.Extension.JSON
             };
 
