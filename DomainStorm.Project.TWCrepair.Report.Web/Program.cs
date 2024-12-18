@@ -26,6 +26,7 @@ using SharedStagingServices = DomainStorm.Project.TWCrepair.Shared.Services.Impl
 using StagingServices = DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging;
 using MockServices = DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Mock;
 using DomainStorm.Project.TWCrepair.Report.Web.Views.Dashboards;
+using DomainStorm.Project.TWCrepair.Report.Web.Views;
 
 
 try
@@ -74,6 +75,12 @@ try
         builder.Services.AddScoped<IGetService<Post, string>, SharedMockServices.PostService>();
         builder.Services.AddScoped<IGetService<DA001, string>, StagingServices.DA001Service>();
         builder.Services.AddScoped<IGetService<DA002, string>, StagingServices.DA002Service>();
+        builder.Services.AddScoped<IGetService<DA003, string>, StagingServices.DA003Service>();
+        builder.Services.AddScoped<IGetService<DA004, string>, StagingServices.DA004Service>();
+        builder.Services.AddScoped<IGetService<DA005, string>, StagingServices.DA005Service>();
+        builder.Services.AddScoped<IGetService<RA001, string>, StagingServices.RA001Service>();
+        builder.Services.AddScoped<IGetService<DateTime, Guid>, StagingServices.RA001Service>();
+
     }
     else
     {
@@ -90,7 +97,12 @@ try
         builder.Services.AddScoped<IGetService<Stream, ReportConvertRequest>,MockServices.ReportService>();
         builder.Services.AddScoped<IGetService<PlotlyJson, ReportConvertRequest>, MockServices.ReportService>();
         builder.Services.AddScoped<IGetService<DA001, string>, MockServices.DA001Service>();
-        builder.Services.AddScoped<IGetService<DA002, string>, MockServices.DA002Service>(); 
+        builder.Services.AddScoped<IGetService<DA002, string>, MockServices.DA002Service>();
+        builder.Services.AddScoped<IGetService<DA003, string>, MockServices.DA003Service>();
+        builder.Services.AddScoped<IGetService<DA004, string>, MockServices.DA004Service>();
+        builder.Services.AddScoped<IGetService<DA005, string>, MockServices.DA005Service>();
+        builder.Services.AddScoped<IGetService<RA001, string>, MockServices.RA001Service>();
+        builder.Services.AddScoped<IGetService<DateTime, Guid>, MockServices.RA001Service>();
     }
 
     if (!string.IsNullOrWhiteSpace(builder.Configuration["SqlDbOptions:ConnectionString"]))
@@ -128,15 +140,15 @@ try
             .AddScoped<GetRepository<IRepository<Models.CheckForm>>>(
                 c => c.GetRequiredService<IRepository<Models.CheckForm>>);
         builder.Services
-            .AddTransient<IRepository<Models.ConfirmForm>, SqlDbRepository<Models.ConfirmForm>>();
+            .AddTransient<IRepository<Models.CheckFormConfirmForm>, SqlDbRepository<Models.CheckFormConfirmForm>>();
         builder.Services
-            .AddScoped<GetRepository<IRepository<Models.ConfirmForm>>>(
-                c => c.GetRequiredService<IRepository<Models.ConfirmForm>>);
+            .AddScoped<GetRepository<IRepository<Models.CheckFormConfirmForm>>>(
+                c => c.GetRequiredService<IRepository<Models.CheckFormConfirmForm>>);
         builder.Services
-            .AddTransient<IRepository<Models.ConfirmSituation>, SqlDbRepository<Models.ConfirmSituation>>();
+            .AddTransient<IRepository<Models.CheckFormConfirmSituation>, SqlDbRepository<Models.CheckFormConfirmSituation>>();
         builder.Services
-            .AddScoped<GetRepository<IRepository<Models.ConfirmSituation>>>(
-                c => c.GetRequiredService<IRepository<Models.ConfirmSituation>>);
+            .AddScoped<GetRepository<IRepository<Models.CheckFormConfirmSituation>>>(
+                c => c.GetRequiredService<IRepository<Models.CheckFormConfirmSituation>>);
         builder.Services
             .AddTransient<IRepository<Models.CheckFormTransfer>, SqlDbRepository<Models.CheckFormTransfer>>();
         builder.Services
@@ -190,6 +202,18 @@ try
         builder.Services
             .AddScoped<GetRepository<IRepository<Models.Form.FormAttachment>>>(
                 c => c.GetRequiredService<IRepository<Models.Form.FormAttachment>>);
+
+        builder.Services
+           .AddTransient<IRepository<Models.WaterPressureCheck>, SqlDbRepository<Models.WaterPressureCheck>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.WaterPressureCheck>>>(
+                c => c.GetRequiredService<IRepository<Models.WaterPressureCheck>>);
+
+        builder.Services
+           .AddTransient<IRepository<Models.WaterPressureCheckData>, SqlDbRepository<Models.WaterPressureCheckData>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.WaterPressureCheckData>>>(
+                c => c.GetRequiredService<IRepository<Models.WaterPressureCheckData>>);
 
 
         builder.Services.AddTransient<IUnitOfWork, SqlDbUnitOfWork>();

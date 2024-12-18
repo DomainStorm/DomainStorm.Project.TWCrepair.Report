@@ -62,7 +62,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging
             var dailyReports = await repository.GetListAsync(x => x.ReportDate >= result.dates.First() && x.ReportDate <= result.dates.Last());
 
             //取得工作區的所有層級的單位,職位
-            var tree = await _departmentService.GetAsync<QuerChildren>(new QuerChildren
+            var tree = await _departmentService.GetAsync<QueryChildren>(new QueryChildren
             {
                 TreeFlag = 2,
                 Deep = 0
