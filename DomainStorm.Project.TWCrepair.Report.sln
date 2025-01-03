@@ -118,6 +118,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DomainStorm.Framework.Clien
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DomainStorm.Project.TWCrepair.Report.Web", "DomainStorm.Project.TWCrepair.Report.Web\DomainStorm.Project.TWCrepair.Report.Web.csproj", "{3CA14552-EF0B-4B71-B0D1-04DF78D11938}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DomainStorm.JwtAuthApi.CustomFlows", "DomainStorm.JwtAuthApi\DomainStorm.JwtAuthApi.CustomFlows\DomainStorm.JwtAuthApi.CustomFlows.csproj", "{28FF86AA-549B-421E-9F37-CF736A05A5DE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DomainStorm.JwtAuthApi.CustomFlows.Domain", "DomainStorm.JwtAuthApi\DomainStorm.JwtAuthApi.CustomFlows.Domain\DomainStorm.JwtAuthApi.CustomFlows.Domain.csproj", "{D90EB147-1944-43DE-97BE-63DA0278234B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DomainStorm.JwtAuthApi.CustomFlows.Messages", "DomainStorm.JwtAuthApi\DomainStorm.JwtAuthApi.CustomFlows.Messages\DomainStorm.JwtAuthApi.CustomFlows.Messages.csproj", "{13B1992B-2AA6-427F-963B-49C6C674EF37}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -336,6 +342,18 @@ Global
 		{3CA14552-EF0B-4B71-B0D1-04DF78D11938}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CA14552-EF0B-4B71-B0D1-04DF78D11938}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CA14552-EF0B-4B71-B0D1-04DF78D11938}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28FF86AA-549B-421E-9F37-CF736A05A5DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28FF86AA-549B-421E-9F37-CF736A05A5DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28FF86AA-549B-421E-9F37-CF736A05A5DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28FF86AA-549B-421E-9F37-CF736A05A5DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D90EB147-1944-43DE-97BE-63DA0278234B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D90EB147-1944-43DE-97BE-63DA0278234B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D90EB147-1944-43DE-97BE-63DA0278234B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D90EB147-1944-43DE-97BE-63DA0278234B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13B1992B-2AA6-427F-963B-49C6C674EF37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13B1992B-2AA6-427F-963B-49C6C674EF37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13B1992B-2AA6-427F-963B-49C6C674EF37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13B1992B-2AA6-427F-963B-49C6C674EF37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -390,6 +408,9 @@ Global
 		{B23B270C-06E2-4B13-8A30-A5A98C2583FE} = {3095BA82-3840-40BD-9F07-33BF200DC143}
 		{86DF0477-AB14-4B98-9B7A-16D3F923D1E6} = {3095BA82-3840-40BD-9F07-33BF200DC143}
 		{9D72EA74-E6EB-4BDF-917A-7ECBE372B8AB} = {3095BA82-3840-40BD-9F07-33BF200DC143}
+		{28FF86AA-549B-421E-9F37-CF736A05A5DE} = {F4465661-1A75-4A68-A956-5300CAF8BE4A}
+		{D90EB147-1944-43DE-97BE-63DA0278234B} = {F4465661-1A75-4A68-A956-5300CAF8BE4A}
+		{13B1992B-2AA6-427F-963B-49C6C674EF37} = {F4465661-1A75-4A68-A956-5300CAF8BE4A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {82F138AF-BF3D-4054-8C61-89993E2732AC}
