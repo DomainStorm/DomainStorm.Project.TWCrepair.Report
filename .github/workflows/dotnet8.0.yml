@@ -1,0 +1,33 @@
+name: .NET 8.0
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+  
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Checkout submodules
+      uses: actions/checkout@v2    
+      with:
+        submodules: recursive
+        token: ${{ secrets.ACCESS_TOKEN }}
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 8.0.x
+    - name: Restore dependencies
+      run: dotnet restore DomainStorm.Project.TWCrepair.Report.sln
+    - name: Build
+      run: dotnet build DomainStorm.Project.TWCrepair.Report.sln --no-restore
+    - name: Test
+      run: dotnet test DomainStorm.Project.TWCrepair.Report.sln --no-build --verbosity normal       
