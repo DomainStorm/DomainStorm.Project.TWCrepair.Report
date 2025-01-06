@@ -27,6 +27,7 @@ using StagingServices = DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.S
 using MockServices = DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Mock;
 using DomainStorm.Project.TWCrepair.Report.Web.Views.Dashboards;
 using DomainStorm.Project.TWCrepair.Report.Web.Views;
+using Radzen;
 
 
 try
@@ -57,6 +58,7 @@ try
 
     builder.Services.AddScoped<IConvert, LibreOfficeConvert>();
     builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+    builder.Services.AddRadzenComponents();
 
     if (builder.Configuration.GetSection("ENVIRONMENT").Value == "Staging")
     {

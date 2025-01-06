@@ -1,0 +1,43 @@
+﻿@inject IJSRuntime Js
+@inject IGetService<Views.RA001, string> _ra001Service;
+@inject IGetService<Stream, Report.V1.ReportConvertRequest> _reportService;
+
+@using DomainStorm.Framework.Services
+@using DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel
+@using DomainStorm.Framework
+@using System.Text
+@inherits BasePage
+@page "/RA001"
+
+@if (_previewHtml != null)
+{
+    <storm-card>
+        @(new MarkupString(_previewHtml))
+    </storm-card>
+}
+
+@code {
+
+    private readonly ReportCommandModel.RA001.V1.QueryRA001 _request = new();
+    private string? _previewHtml;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        GetQueryParameters(_request);
+
+        var ra001 = await _ra001Service.GetAsync<ReportCommandModel.RA001.V1.QueryRA001>(_request);
+        var convertRequest = new Report.V1.ReportConvertRequest
+        {
+            ViewName = "/Views/RA001.cshtml",
+            Model = ra001,
+            Extension = IConvert.Extension.HTML
+        };
+
+        var outStream = await _reportService.GetAsync(convertRequest);
+        using var reader = new StreamReader(await _reportService.GetAsync(convertRequest), Encoding.UTF8);
+        outStream.Seek(0, SeekOrigin.Begin);
+        _previewHtml = await reader.ReadToEndAsync();
+
+        await base.OnParametersSetAsync();
+    }
+}
