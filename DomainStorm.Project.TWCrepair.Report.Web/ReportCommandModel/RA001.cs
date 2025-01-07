@@ -44,7 +44,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel
             }
 
             /// <summary>
-            /// 查詢目前單有上傳資料的檢修日期
+            /// 查詢目前單位有上傳資料的檢修日期
             /// </summary>
             public class QueryRA001Date : IQuery 
             {
@@ -79,9 +79,14 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel
                 public int Year { get; set; }
 
                 /// <summary>
-                /// 檢修前後詞庫代碼
+                /// 檢修前後詞庫代碼(代碼和code兩者需傳入其中一個)
                 /// </summary>
-                public Guid BeforeOrAfterWordId { get; set; }
+                public Guid? BeforeOrAfterWordId { get; set; }
+
+                /// <summary>
+                /// 檢修前後詞庫 Code(代碼和code兩者需傳入其中一個)
+                /// </summary>
+                public string? BeforeOrAfterWordCode { get; set; }
             }
 
         }
