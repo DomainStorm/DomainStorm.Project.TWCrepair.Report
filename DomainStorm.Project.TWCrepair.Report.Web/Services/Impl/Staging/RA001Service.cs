@@ -3,6 +3,7 @@ using DomainStorm.Framework.Services;
 using DomainStorm.Framework.SqlDb;
 using DomainStorm.Project.TWCrepair.Report.Web.Views;
 using DomainStorm.Project.TWCrepair.Repository.Models;
+using FluentValidation;
 using LinqKit;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA001.V1;
 
@@ -166,7 +167,6 @@ public class RA001Service : IGetService<RA001, string>, IGetService<DateTime, Gu
             x.MeasureDate.Year == condition.Year 
             && x.DepartmentId == condition.DepartmentId
             && x.WaterSupplySystemId == condition.WaterSupplySystemId
-            && x.BeforeOrAfterWordId == condition.BeforeOrAfterWordId
             && x.WorkSpaceId == condition.WorkSpaceId);
 
         if(condition.SmallRegionId.HasValue)
@@ -176,6 +176,18 @@ public class RA001Service : IGetService<RA001, string>, IGetService<DateTime, Gu
         if (condition.SiteId.HasValue)
         {
             exp = pb.And(x => x.SiteId == condition.SiteId);
+        }
+        if (!string.IsNullOrEmpty(condition.BeforeOrAfterWordCode))
+        {
+            exp = pb.And(x => x.BeforeOrAfter.Code == condition.BeforeOrAfterWordCode);
+        }
+        else if (condition.BeforeOrAfterWordId.HasValue)
+        {
+            exp = pb.And(x => x.BeforeOrAfterWordId== condition.BeforeOrAfterWordId);
+        }
+        else
+        {
+            throw new ValidationException("BeforeOrAfterWordCode 或 BeforeOrAfterWordId 必須有值");
         }
 
         var dates = (await _getRepository().GetListAsync<DateTime>(
