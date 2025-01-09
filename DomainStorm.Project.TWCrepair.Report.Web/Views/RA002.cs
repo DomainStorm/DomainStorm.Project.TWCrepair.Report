@@ -389,6 +389,680 @@ public class RA002 : ReportDataModel
     }
     #endregion
 
+
+    #region 案件屬性_設備屬性
+    /// <summary>
+    /// 案件屬性_設備屬性_管線
+    /// </summary>
+    public bool EquipmentAttribute_IsPipeLine
+    {
+        get
+        {
+            return FixFormDispatch != null && FixFormDispatch.EquipmentAttribute != null && FixFormDispatch.EquipmentAttribute.Name == "管線";
+        }
+    }
+
+    /// <summary>
+    /// 案件屬性_設備屬性_附屬設備
+    /// </summary>
+
+    public bool EquipmentAttribute_IsAffiliated
+    {
+        get
+        {
+            return FixFormDispatch != null && FixFormDispatch.EquipmentAttribute != null && FixFormDispatch.EquipmentAttribute.Name == "附屬設備";
+        }
+    }
+
+    /// <summary>
+    /// 案件屬性_設備屬性_表箱另件
+    /// </summary>
+
+    public bool EquipmentAttribute_IsBox
+    {
+        get
+        {
+            return FixFormDispatch != null && FixFormDispatch.EquipmentAttribute != null && FixFormDispatch.EquipmentAttribute.Name == "表箱另件";
+        }
+    }
+
+    /// <summary>
+    /// 案件屬性_設備屬性_其它
+    /// </summary>
+    public bool EquipmentAttribute_IsOther
+    {
+        get
+        {
+            return FixFormDispatch != null && FixFormDispatch.EquipmentAttribute != null && FixFormDispatch.EquipmentAttribute.Name == "其它";
+        }
+    }
+
+    /// <summary>
+    /// 案件屬性_設備屬性_其它說明
+    /// </summary>
+    public string EquipmentAttribute_Other
+    {
+        get
+        {
+            return FixFormDispatch != null ? FixFormDispatch.EquipmentAttributeOther! : "";
+        }
+    }
+    #endregion
+
+    #region 案件屬性_維修單位
+    /// <summary>
+    /// 案件屬性_維修單位_自修
+    /// </summary>
+    public bool FixUnit_IsSelf
+    {
+        get
+        {
+            return FixFormDispatch != null && FixFormDispatch.FixUnit != null && FixFormDispatch.FixUnit.Name == "自修";
+        }
+    }
+
+    /// <summary>
+    /// 案件屬性_維修單位_委外
+    /// </summary>
+    public bool FixUnit_IsContractor
+    {
+        get
+        {
+            return FixFormDispatch != null && FixFormDispatch.FixUnit != null && FixFormDispatch.FixUnit.Name == "委外";
+        }
+    }
+
+    /// <summary>
+    /// 案件屬性_維修單位_委外_廠商
+    /// </summary>
+    public string FixUnit_Contractor
+    {
+        get
+        {
+            if (FixUnit_IsContractor && FixFormDispatch != null && FixFormDispatch.Contractor != null)
+                return FixFormDispatch.Contractor.Name;
+            else
+                return "";
+        }
+    }
+    // <summary>
+    /// 案件屬性_維修單位_保固修理
+    /// </summary>
+    public bool FixUnit_IsWarranty
+    {
+        get
+        {
+            return FixFormDispatch != null && FixFormDispatch.FixUnit != null && FixFormDispatch.FixUnit.Name == "保固修理外";
+        }
+    }
+
+    // <summary>
+    /// 案件屬性_維修單位_其它
+    /// </summary>
+    public bool FixUnit_IsOther
+    {
+        get
+        {
+            return FixFormDispatch != null && FixFormDispatch.FixUnit != null && FixFormDispatch.FixUnit.Name == "其它";
+        }
+    }
+
+
+    #endregion
+
+    /// <summary>
+    ///管徑
+    /// </summary>
+    public string PipeDiameter 
+    { get
+        {
+            return FixFormDispatch != null && FixFormDispatch.PipeDiameter != null ?
+                FixFormDispatch.PipeDiameter.Name : "";
+        }
+    }
+
+    #region 管種
+    ///// <summary>
+    ///// 管種_DIP
+    ///// </summary>
+    //public bool PipeKind_IsDIP
+    //{
+    //    get
+    //    {
+    //        return FixFormDispatch != null && FixFormDispatch.PipeKind != null && FixFormDispatch.PipeKind.Name == "DIP";
+    //    }
+    //}
+
+    ///// <summary>
+    ///// 管種_CIP
+    ///// </summary>
+    //public bool PipeKind_IsCIP
+    //{
+    //    get
+    //    {
+    //        return FixFormDispatch != null && FixFormDispatch.PipeKind != null && FixFormDispatch.PipeKind.Name == "CIP";
+    //    }
+    //}
+
+    ///// <summary>
+    ///// 管種_SP
+    ///// </summary>
+    //public bool PipeKind_IsSP
+    //{
+    //    get
+    //    {
+    //        return FixFormDispatch != null && FixFormDispatch.PipeKind != null && FixFormDispatch.PipeKind.Name == "SP";
+    //    }
+    //}
+
+    ///// <summary>
+    ///// 管種_SSP
+    ///// </summary>
+    //public bool PipeKind_IsSSP
+    //{
+    //    get
+    //    {
+    //        return FixFormDispatch != null && FixFormDispatch.PipeKind != null && FixFormDispatch.PipeKind.Name == "SSP";
+    //    }
+    //}
+
+    ///// <summary>
+    ///// 管種_PSCP
+    ///// </summary>
+    //public bool PipeKind_IsPSCP
+    //{
+    //    get
+    //    {
+    //        return FixFormDispatch != null && FixFormDispatch.PipeKind != null && FixFormDispatch.PipeKind.Name == "PSCP";
+    //    }
+    //}
+
+    ///// <summary>
+    ///// 管種_PCCP
+    ///// </summary>
+    //public bool PipeKind_IsPCCP
+    //{
+    //    get
+    //    {
+    //        return FixFormDispatch != null && FixFormDispatch.PipeKind != null && FixFormDispatch.PipeKind.Name == "PCCP";
+    //    }
+    //}
+
+    ///// <summary>
+    ///// 管種_FRP
+    ///// </summary>
+    //public bool PipeKind_IsFRP
+    //{
+    //    get
+    //    {
+    //        return FixFormDispatch != null && FixFormDispatch.PipeKind != null && FixFormDispatch.PipeKind.Name == "FRP";
+    //    }
+    //}
+
+    ///// <summary>
+    ///// 管種_PVCP
+    ///// </summary>
+    //public bool PipeKind_IsPVCP
+    //{
+    //    get
+    //    {
+    //        return FixFormDispatch != null && FixFormDispatch.PipeKind != null && FixFormDispatch.PipeKind.Name == "PVCP";
+    //    }
+    //}
+
+    ///// <summary>
+    ///// 管種_PVC/PE
+    ///// </summary>
+    //public bool PipeKind_IsPPVCPE
+    //{
+    //    get
+    //    {
+    //        return FixFormDispatch != null && FixFormDispatch.PipeKind != null && FixFormDispatch.PipeKind.Name == "PVC/PE";
+    //    }
+    //}
+
+    ///// <summary>
+    ///// 管種_ABSP
+    ///// </summary>
+    //public bool PipeKind_IsABSP
+    //{
+    //    get
+    //    {
+    //        return FixFormDispatch != null && FixFormDispatch.PipeKind != null && FixFormDispatch.PipeKind.Name == "ABSP";
+    //    }
+    //}
+
+    ///// <summary>
+    ///// 管種_HDPEP
+    ///// </summary>
+    //public bool PipeKind_IsHDPEP
+    //{
+    //    get
+    //    {
+    //        return FixFormDispatch != null && FixFormDispatch.PipeKind != null && FixFormDispatch.PipeKind.Name == "HDPEP";
+    //    }
+    //}
+
+    ///// <summary>
+    ///// 管種_HIWP
+    ///// </summary>
+    //public bool PipeKind_IsHIWP
+    //{
+    //    get
+    //    {
+    //        return FixFormDispatch != null && FixFormDispatch.PipeKind != null && FixFormDispatch.PipeKind.Name == "HIWP";
+    //    }
+    //}
+
+    ///// <summary>
+    ///// 管種_其他
+    ///// </summary>
+    //public bool PipeKind_IsOther
+    //{
+    //    get
+    //    {
+    //        return FixFormDispatch != null && FixFormDispatch.PipeKind != null && FixFormDispatch.PipeKind.Name == "其他";
+    //    }
+    //}
+
+    ///// <summary>
+    ///// 管種_殘存管
+    ///// </summary>
+    //public bool PipeKind_IsResidual
+    //{
+    //    get
+    //    {
+    //        return FixFormDispatch != null && FixFormDispatch.PipeKind != null && FixFormDispatch.PipeKind.Name == "殘存管";
+    //    }
+    //}
+
+    ///// <summary>
+    ///// 管種_接合管鞍
+    ///// </summary>
+    //public bool PipeKind_IsConnect
+    //{
+    //    get
+    //    {
+    //        return FixFormDispatch != null && FixFormDispatch.PipeKind != null && FixFormDispatch.PipeKind.Name == "接合管鞍";
+    //    }
+    //}
+
+    ///// <summary>
+    ///// 管種_RCP
+    ///// </summary>
+    //public bool PipeKind_IsRCP
+    //{
+    //    get
+    //    {
+    //        return FixFormDispatch != null && FixFormDispatch.PipeKind != null && FixFormDispatch.PipeKind.Name == "RCP";
+    //    }
+    //}
+
+    ///// <summary>
+    ///// 管種_GIP
+    ///// </summary>
+    //public bool PipeKind_IsGIP
+    //{
+    //    get
+    //    {
+    //        return FixFormDispatch != null && FixFormDispatch.PipeKind != null && FixFormDispatch.PipeKind.Name == "GIP";
+    //    }
+    //}
+
+    ///// <summary>
+    ///// 管種_STEEL
+    ///// </summary>
+    //public bool PipeKind_IsSTEEL
+    //{
+    //    get
+    //    {
+    //        return FixFormDispatch != null && FixFormDispatch.PipeKind != null && FixFormDispatch.PipeKind.Name == "STEEL";
+    //    }
+    //}
+
+
+    
+    /// <summary>
+    /// 管種
+    /// </summary>
+    public string PipeKind
+    {
+        get
+        {
+            return FixFormDispatch != null && FixFormDispatch.PipeKind != null ?
+                FixFormDispatch.PipeKind.Name : "";
+        }
+    }
+
+    /// <summary>
+    /// 管種_管線性質_送配給水管(清水)
+    /// </summary>
+    public bool PipeProperty_IsSend
+    {
+        get
+        {
+            return FixFormDispatch != null && FixFormDispatch.PipeProperty != null && FixFormDispatch.PipeProperty.Name.Contains("送配給水管");
+
+        }
+    }
+
+    /// <summary>
+    /// 管種_管線性質_導水管(原水)
+    /// </summary>
+    public bool PipeProperty_IsDirect
+    {
+        get
+        {
+            return FixFormDispatch != null && FixFormDispatch.PipeProperty != null && FixFormDispatch.PipeProperty.Name.Contains("導水管");
+
+        }
+    }
+
+    /// <summary>
+    /// 管種_埋設民國年份
+    /// </summary>
+    public string PipeProperty_SetupYear
+    {
+        get
+        {
+            if (FixFormProperty != null && FixFormProperty.SetupYear.HasValue && FixFormProperty.SetupYear.Value > 0)
+                return FixFormProperty.SetupYear.ToString();
+            else
+                return "";
+        }
+    }
+    /// <summary>
+    /// 管種_管線漏水位置_管體
+    /// </summary>
+    public bool PipeProperty_PipeLeakage_IsBody
+    {
+        get
+        {
+            return FixFormProperty != null && FixFormProperty.PipeLeakageSituation != null && FixFormProperty.PipeLeakageSituation.Name == "管體";
+        }
+    }
+
+    /// <summary>
+    /// 管種_管線漏水位置_另件及接頭
+    /// </summary>
+    public bool PipeProperty_PipeLeakage_IsOtherPart
+    {
+        get
+        {
+            return FixFormProperty != null && FixFormProperty.PipeLeakageSituation != null && FixFormProperty.PipeLeakageSituation.Name == "另件及接頭";
+        }
+    }
+
+    #endregion
+
+    #region 附屬設備
+    /// <summary>
+    /// 附屬設備_制水閥
+    /// </summary>
+    public bool AccessoryEquipment_IsControlValve
+    {
+        get
+        {
+            return FixFormProperty != null && FixFormProperty.AccessoryEquipment != null && FixFormProperty.AccessoryEquipment.Name == "制水閥";
+        }
+    }
+
+    /// <summary>
+    /// 附屬設備_地上消栓
+    /// </summary>
+    public bool AccessoryEquipment_IsOnGround
+    {
+        get
+        {
+            return FixFormProperty != null && FixFormProperty.AccessoryEquipment != null && FixFormProperty.AccessoryEquipment.Name == "地上消栓";
+        }
+    }
+
+    /// <summary>
+    /// 附屬設備_地下消栓
+    /// </summary>
+    public bool AccessoryEquipment_IsUnderGround
+    {
+        get
+        {
+            return FixFormProperty != null && FixFormProperty.AccessoryEquipment != null && FixFormProperty.AccessoryEquipment.Name == "地下消栓";
+        }
+    }
+
+    /// <summary>
+    /// 附屬設備_排氣閥
+    /// </summary>
+    public bool AccessoryEquipment_IsExhaustValve
+    {
+        get
+        {
+            return FixFormProperty != null && FixFormProperty.AccessoryEquipment != null && FixFormProperty.AccessoryEquipment.Name == "排氣閥";
+        }
+    }
+
+    /// <summary>
+    /// 附屬設備_其他
+    /// </summary>
+    public bool AccessoryEquipment_IsOther
+    {
+        get
+        {
+            return FixFormProperty != null && FixFormProperty.AccessoryEquipment != null && FixFormProperty.AccessoryEquipment.Name == "排氣閥";
+        }
+    }
+
+    /// <summary>
+    /// 附屬設備_其他說明
+    /// </summary>
+    public string AccessoryEquipment_Other
+    {
+        get
+        {
+            return FixFormProperty != null ? FixFormProperty.AccessoryEquipmentOther! : "";
+        }
+    }
+
+    /// <summary>
+    /// 附屬設備_處理方式_修理
+    /// </summary>
+    public bool AccessoryEquipmentProcessType_IsFix
+    {
+        get
+        {
+            return FixFormProperty != null && FixFormProperty.AccessoryEquipmentProcessType != null && FixFormProperty.AccessoryEquipmentProcessType.Name == "修理";
+        }
+    }
+
+    /// <summary>
+    /// 附屬設備_處理方式_換新
+    /// </summary>
+    public bool AccessoryEquipmentProcessType_IsChange
+    {
+        get
+        {
+            return FixFormProperty != null && FixFormProperty.AccessoryEquipmentProcessType != null && FixFormProperty.AccessoryEquipmentProcessType.Name == "換新";
+        }
+    }
+
+
+    /// <summary>
+    /// 附屬設備盒箱蓋_制水閥盒
+    /// </summary>
+    public bool AccessoryEquipmentCover_IsControlValve
+    {
+        get
+        {
+            return FixFormProperty != null && FixFormProperty.AccessoryEquipmentCover != null && FixFormProperty.AccessoryEquipmentCover.Name == "制水閥盒";
+        }
+    }
+
+    /// <summary>
+    /// 附屬設備盒箱蓋_消防栓箱
+    /// </summary>
+    public bool AccessoryEquipmentCover_IsHydrantBox
+    {
+        get
+        {
+            return FixFormProperty != null && FixFormProperty.AccessoryEquipmentCover != null && FixFormProperty.AccessoryEquipmentCover.Name == "消防栓箱";
+        }
+    }
+
+    /// <summary>
+    /// 附屬設備盒箱蓋_窨井蓋
+    /// </summary>
+    public bool AccessoryEquipmentCover_IsManholeCover
+    {
+        get
+        {
+            return FixFormProperty != null && FixFormProperty.AccessoryEquipmentCover != null && FixFormProperty.AccessoryEquipmentCover.Name == "窨井蓋";
+        }
+    }
+
+    /// <summary>
+    /// 附屬設備盒箱蓋_其他
+    /// </summary>
+    public bool AccessoryEquipmentCover_IsOther
+    {
+        get
+        {
+            return FixFormProperty != null && FixFormProperty.AccessoryEquipmentCover != null && FixFormProperty.AccessoryEquipmentCover.Name == "其他";
+        }
+    }
+
+    /// <summary>
+    /// 附屬設備盒箱蓋_其他說明
+    /// </summary>
+    public string AccessoryEquipmentCover_Other
+    {
+        get
+        {
+            return FixFormProperty != null ? FixFormProperty.AccessoryEquipmentCoverOther! : "";
+        }
+    }
+
+    /// <summary>
+    /// 附屬設備盒箱蓋_處理方式_升降
+    /// </summary>
+    public bool AccessoryEquipmentCoverProcessType_IsUpDown
+    {
+        get
+        {
+            return FixFormProperty != null && FixFormProperty.AccessoryEquipmentCoverProcessType != null && FixFormProperty.AccessoryEquipmentCoverProcessType.Name == "升降";
+        }
+    }
+
+    /// <summary>
+    /// 附屬設備盒箱蓋_處理方式_修理或換新
+    /// </summary>
+    public bool AccessoryEquipmentCoverProcessType_IsFixOrChange
+    {
+        get
+        {
+            return FixFormProperty != null && FixFormProperty.AccessoryEquipmentCoverProcessType != null && FixFormProperty.AccessoryEquipmentCoverProcessType.Name == "修理或換新";
+        }
+    }
+    #endregion
+
+    #region 表箱另件
+    /// <summary>
+    /// 表箱另件_止水栓
+    /// </summary>
+    public bool BoxAnnex_IsStopValve
+    {
+        get
+        {
+            return FixFormProperty != null && FixFormProperty.BoxAnnex != null && FixFormProperty.BoxAnnex.Name == "止水栓";
+        }
+    }
+
+    /// <summary>
+    /// 表箱另件_管套節
+    /// </summary>
+    public bool BoxAnnex_IsCover
+    {
+        get
+        {
+            return FixFormProperty != null && FixFormProperty.BoxAnnex != null && FixFormProperty.BoxAnnex.Name == "管套節";
+        }
+    }
+
+    /// <summary>
+    /// 表箱另件_其他
+    /// </summary>
+    public bool BoxAnnex_IsOther
+    {
+        get
+        {
+            return FixFormProperty != null && FixFormProperty.BoxAnnex != null && FixFormProperty.BoxAnnex.Name == "其他";
+        }
+    }
+
+    /// <summary>
+    /// 表箱另件_其他說明
+    /// </summary>
+    public string BoxAnnex_Other
+    {
+        get
+        {
+            return FixFormProperty != null ? FixFormProperty.BoxAnnexOther! : "";
+        }
+    }
+
+
+    /// <summary>
+    /// 表箱另件_處理方式_修理
+    /// </summary>
+    public bool BoxAnnexProcessType_IsFix
+    {
+        get
+        {
+            return FixFormProperty != null && FixFormProperty.BoxAnnexProcessType != null && FixFormProperty.BoxAnnexProcessType.Name == "其他";
+        }
+    }
+
+    /// <summary>
+    /// 表箱另件_處理方式_換新
+    /// </summary>
+    public bool BoxAnnexProcessType_IsChange
+    {
+        get
+        {
+            return FixFormProperty != null && FixFormProperty.BoxAnnexProcessType != null && FixFormProperty.BoxAnnexProcessType.Name == "換新";
+        }
+    }
+
+
+    #endregion
+
+
+    public FixFormDigFill FixFormDigFill { get; set; }
+
+
+    #region 挖填狀況
+    /// <summary>
+    /// 挖填狀況_挖土機
+    /// </summary>
+    public bool DigFill_IsExcavator
+    {
+        get
+        {
+            return FixFormDigFill != null && FixFormDigFill.ExcavatorItems != null && FixFormDigFill.ExcavatorItems.Any();
+        }
+    }
+
+    /// <summary>
+    /// 挖填狀況_人工挖掘
+    /// </summary>
+    public bool DigFill_IsManual
+    {
+        get
+        {
+            return FixFormDigFill != null && FixFormDigFill.ManualItems != null && FixFormDigFill.ManualItems.Any();
+        }
+    }
+    #endregion
+
+
     public string ConvertToDateString(DateTime? time)
     {
         if (time.HasValue)
@@ -445,6 +1119,43 @@ public class RA002_FixFormDispatch
     /// </summary>
     public string? CaseAttributeOther { get; set; }
 
+    /// <summary>
+    /// 設備屬性
+    /// </summary>
+    public virtual Word? EquipmentAttribute { get; set; }
+
+    /// <summary>
+    /// 設備屬性其他
+    /// </summary>
+    public string? EquipmentAttributeOther { get; set; }
+
+    /// <summary>
+    /// 維修單位
+    /// </summary>
+    public  Word? FixUnit { get; set; }
+
+    /// <summary>
+    /// "維修單位-委外" 的廠商
+    /// </summary>
+    public  Word? Contractor { get; set; }
+
+
+    /// <summary>
+    ///管徑
+    /// </summary>
+    public Word? PipeDiameter { get; set; }
+
+    /// <summary>
+	/// 管種
+	/// </summary>
+	public Word? PipeKind { get; set; }
+
+    /// <summary>
+    ///管線性質
+    /// </summary>
+    public Word? PipeProperty { get; set; }
+
+
 
 
 }
@@ -460,6 +1171,82 @@ public class RA002_FixFormProperty
     /// </summary>
     public DateTime? FixTime { get; set; }
 
+
+    /// <summary>
+    /// 埋設民國年份
+    /// </summary>
+    public int? SetupYear { get; set; }
+
+    /// <summary>
+    /// 管線漏水情況
+    /// </summary>
+    public Word? PipeLeakageSituation { get; set; }
+
+    /// <summary>
+    /// 附屬設備詞庫
+    /// </summary>
+    public Word? AccessoryEquipment { get; set; }
+
+    /// <summary>
+    /// 附屬設備其它說明
+    /// </summary>
+    public string? AccessoryEquipmentOther { get; set; }
+
+    /// <summary>
+    ///附屬設備處理方式詞庫
+    /// </summary>
+    public Word? AccessoryEquipmentProcessType { get; set; }
+
+    /// <summary>
+    /// 附屬設備盒箱蓋詞庫
+    /// </summary>
+    public Word? AccessoryEquipmentCover { get; set; }
+
+    /// <summary>
+    /// 附屬設備盒箱蓋其它說明
+    /// </summary>
+    public string? AccessoryEquipmentCoverOther { get; set; }
+
+    /// <summary>
+    /// 附屬設備盒箱蓋理方式詞庫
+    /// </summary>
+    public Word? AccessoryEquipmentCoverProcessType { get; set; }
+
+
+    /// <summary>
+    /// 表箱另件詞庫 
+    /// </summary>
+    public Word? BoxAnnex { get; set; }
+
+   
+
+    /// <summary>
+    /// 表箱另件處理方式詞庫 
+    /// </summary>
+    public Word? BoxAnnexProcessType { get; set; }
+
+    /// <summary>
+    /// 表箱另件其它說明
+    /// </summary>
+    public string? BoxAnnexOther { get; set; }
+
+
+
+
+
+}
+
+
+/// <summary>
+/// 挖填狀況
+/// </summary>
+public class RA002_FixFormDigFill
+{
+
+}
+
+public class RA002_FixFormDigFillItem
+{
 
 }
 

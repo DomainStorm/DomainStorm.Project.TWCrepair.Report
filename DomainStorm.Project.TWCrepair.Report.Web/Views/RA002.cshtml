@@ -171,11 +171,11 @@
                                                                                         <table id="ctl15" cellspacing="0" cellpadding="0" style="height:10px;border-collapse:collapse;">
                                                                                             <tbody>
                                                                                                 <tr>
-                                                                                                    <td><input id="ctl15_0" type="checkbox" name="ctl15$0" value="管線                "/><label for="ctl15_0">管線                </label></td>
-                                                                                                    <td><input id="ctl15_1" type="checkbox" name="ctl15$1" value="附屬設備            "/><label for="ctl15_1">附屬設備            </label></td>
-                                                                                                    <td><input id="ctl15_2" type="checkbox" name="ctl15$2" checked="checked" value="&lt;font color=&#39;#000000&#39;&gt;表箱另件            &lt;/font&gt;"/><label for="ctl15_2"><font color="#000000">表箱另件            </font></label></td>
-                                                                                                    <td><input id="ctl15_3" type="checkbox" name="ctl15$3" value="其它                "/><label for="ctl15_3">其它                </label></td>
-                                                                                                    <td><input id="ctl15_4" type="checkbox" name="ctl15$4" value="汰換新管,舊管未廢"/><label for="ctl15_4">汰換新管,舊管未廢</label></td>
+                                                                                                    <td>@Html.CheckBoxFor(m=>m.EquipmentAttribute_IsPipeLine)<label for="ctl15_0">管線</label></td>
+                                                                                                    <td>@Html.CheckBoxFor(m => m.EquipmentAttribute_IsAffiliated)<label for="ctl15_1">附屬設備</label></td>
+                                                                                                    <td>@Html.CheckBoxFor(m => m.EquipmentAttribute_IsBox)<label for="ctl15_2"><font color="#000000">表箱另件</font></label></td>
+                                                                                                    <td>@Html.CheckBoxFor(m => m.EquipmentAttribute_IsOther)<label for="ctl15_3">其它</label></td>
+                                                                                                    <td><label for="ctl15_4">@Model.EquipmentAttribute_Other</label></td>
                                                                                                 </tr>
                                                                                             </tbody>
                                                                                         </table>
@@ -186,17 +186,17 @@
                                                                                         <table id="ctl16" cellspacing="0" cellpadding="0" style="height:10px;border-collapse:collapse;">
                                                                                             <tbody>
                                                                                                 <tr>
-                                                                                                    <td><input id="ctl16_0" type="checkbox" name="ctl16$0" value="自修                "/><label for="ctl16_0">自修                </label></td>
-                                                                                                    <td><input id="ctl16_1" type="checkbox" name="ctl16$1" checked="checked" value="&lt;font color=&#39;#000000&#39;&gt;委外                易原工程有限公司[合約編號:113-12-20]&lt;/font&gt;"/><label for="ctl16_1"><font color="#000000">委外                易原工程有限公司[合約編號:113-12-20]</font></label></td>
-                                                                                                    <td><input id="ctl16_2" type="checkbox" name="ctl16$2" value="保固修理            "/><label for="ctl16_2">保固修理            </label></td>
-                                                                                                    <td><input id="ctl16_3" type="checkbox" name="ctl16$3" value="其它                "/><label for="ctl16_3">其它                </label></td>
+                                                                                                    <td>@Html.CheckBoxFor(m => m.FixUnit_IsSelf)<label for="ctl16_0">自修</label></td>
+                                                                                                    <td>@Html.CheckBoxFor(m => m.FixUnit_IsContractor)<label for="ctl16_1"><font color="#000000">55委外　 @Model.FixUnit_Contractor</font></label></td>
+                                                                                                    <td>@Html.CheckBoxFor(m => m.FixUnit_IsWarranty)<label for="ctl16_2">保固修理</label></td>
+                                                                                                    <td>@Html.CheckBoxFor(m => m.FixUnit_IsOther)<label for="ctl16_3">其它 </label></td>
                                                                                                 </tr>
                                                                                             </tbody>
                                                                                         </table>
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td align="left" colspan="5" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">管徑或規格：<font color="#000000">20</font>&#160;mm</td>
+                                                                                    <td align="left" colspan="5" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">管徑或規格：<font color="#000000"> @Model.PipeDiameter</font>mm</td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td align="left" style="border-color:Black;border-width:1px;border-style:solid;width:70px;white-space:nowrap;">管種：</td>
@@ -204,37 +204,55 @@
                                                                                         <table id="ctl17" cellspacing="0" cellpadding="0" style="height:10px;border-collapse:collapse;">
                                                                                             <tbody>
                                                                                                 <tr>
-                                                                                                    <td><input id="ctl17_0" type="checkbox" name="ctl17$0" value="DIP       "/><label for="ctl17_0">DIP       </label></td>
-                                                                                                    <td><input id="ctl17_1" type="checkbox" name="ctl17$1" value="CIP       "/><label for="ctl17_1">CIP       </label></td>
-                                                                                                    <td><input id="ctl17_2" type="checkbox" name="ctl17$2" value="SP        "/><label for="ctl17_2">SP        </label></td>
-                                                                                                    <td><input id="ctl17_3" type="checkbox" name="ctl17$3" value="SSP       "/><label for="ctl17_3">SSP       </label></td>
-                                                                                                    <td><input id="ctl17_4" type="checkbox" name="ctl17$4" value="PSCP      "/><label for="ctl17_4">PSCP      </label></td>
-                                                                                                    <td><input id="ctl17_5" type="checkbox" name="ctl17$5" value="PCCP      "/><label for="ctl17_5">PCCP      </label></td>
-                                                                                                    <td><input id="ctl17_6" type="checkbox" name="ctl17$6" value="FRP       "/><label for="ctl17_6">FRP       </label></td>
-                                                                                                    <td><input id="ctl17_7" type="checkbox" name="ctl17$7" value="PVCP      "/><label for="ctl17_7">PVCP      </label></td>
-                                                                                                    <td><input id="ctl17_8" type="checkbox" name="ctl17$8" value="PVCP/PE   "/><label for="ctl17_8">PVCP/PE   </label></td>
-                                                                                                    <td><input id="ctl17_9" type="checkbox" name="ctl17$9" value="ABSP      "/><label for="ctl17_9">ABSP      </label></td>
+                                                                                                    @{
+
+                                                                                                        var pipeKinds = new string[] { "DIP", "CIP", "SP", "SSP", "PSCP", "PCCP", "FRP", "PVCP", "PVCP/PE", "ABSP" };
+                                                                                                        foreach(var pipeKind in pipeKinds)
+                                                                                                        {
+                                                                                                            <td>
+                                                                                                            @if (Model.PipeKind == pipeKind)
+                                                                                                            { 
+                                                                                                                <input type="checkbox" checked="checked"/>
+                                                                                                            }
+                                                                                                            else
+                                                                                                            {
+                                                                                                                <input type="checkbox"/>
+                                                                                                            }
+                                                                                                            <label >@pipeKind</label>
+                                                                                                            </td>
+                                                                                                        }
+                                                                                                    }
+                                                                                                    
                                                                                                 </tr>
                                                                                                 <tr>
-                                                                                                    <td><input id="ctl17_10" type="checkbox" name="ctl17$10" value="HDPEP     "/><label for="ctl17_10">HDPEP     </label></td>
-                                                                                                    <td><input id="ctl17_11" type="checkbox" name="ctl17$11" value="HIWP      "/><label for="ctl17_11">HIWP      </label></td>
-                                                                                                    <td><input id="ctl17_12" type="checkbox" name="ctl17$12" value="其他      "/><label for="ctl17_12">其他      </label></td>
-                                                                                                    <td><input id="ctl17_13" type="checkbox" name="ctl17$13" value="殘存管    "/><label for="ctl17_13">殘存管    </label></td>
-                                                                                                    <td><input id="ctl17_14" type="checkbox" name="ctl17$14" value="接合管鞍  "/><label for="ctl17_14">接合管鞍  </label></td>
-                                                                                                    <td><input id="ctl17_15" type="checkbox" name="ctl17$15" value="RCP       "/><label for="ctl17_15">RCP       </label></td>
-                                                                                                    <td><input id="ctl17_16" type="checkbox" name="ctl17$16" value="GIP       "/><label for="ctl17_16">GIP       </label></td>
-                                                                                                    <td><input id="ctl17_17" type="checkbox" name="ctl17$17" value="STEEL     "/><label for="ctl17_17">STEEL     </label></td>
-                                                                                                    <td><input id="ctl17_18" type="checkbox" name="ctl17$18" value="WSP       "/><label for="ctl17_18">WSP       </label></td>
-                                                                                                    <td><input id="ctl17_19" type="checkbox" name="ctl17$19" value="LP        "/><label for="ctl17_19">LP        </label></td>
+                                                                                                    @{
+
+                                                                                                        pipeKinds = new string[] { "HDPEP", "HIWP", "其他", "殘存管", "接合管鞍", "RCP", "GIP", "STEEL", "WSP", "LP" };
+                                                                                                        foreach (var pipeKind in pipeKinds)
+                                                                                                        {
+                                                                                                            <td>
+                                                                                                                @if (Model.PipeKind == pipeKind)
+                                                                                                                {
+                                                                                                                    <input type="checkbox" checked="checked" />
+                                                                                                                }
+                                                                                                                else
+                                                                                                                {
+                                                                                                                    <input type="checkbox" />
+                                                                                                                }
+                                                                                                                <label>@pipeKind</label>
+                                                                                                            </td>
+                                                                                                        }
+                                                                                                    }
+                                                                                                   
                                                                                                 </tr>
                                                                                             </tbody>
                                                                                         </table><table id="ctl18" cellspacing="0" cellpadding="0" style="height:10px;border-collapse:collapse;">
                                                                                             <tbody>
                                                                                                 <tr>
-                                                                                                    <td><input id="ctl18_0" type="checkbox" name="ctl18$0" checked="checked" value="送配給水管(清水)"/><label for="ctl18_0">送配給水管(清水)</label></td>
-                                                                                                    <td><input id="ctl18_1" type="checkbox" name="ctl18$1" value="導水管(原水)&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp埋設民國年份&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 年&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;管線漏水位置"/><label for="ctl18_1">導水管(原水)&#160;&#160;&#160;&#160;&#160;&#160;埋設民國年份&#160;&#160;&#160;&#160;&#160;&#160; 年&#160;&#160;&#160;&#160;管線漏水位置</label></td>
-                                                                                                    <td><input id="ctl18_2" type="checkbox" name="ctl18$2" value="管體"/><label for="ctl18_2">管體</label></td>
-                                                                                                    <td><input id="ctl18_3" type="checkbox" name="ctl18$3" value="另件及接頭"/><label for="ctl18_3">另件及接頭</label></td>
+                                                                                                    <td>@Html.CheckBoxFor(m=>m.PipeProperty_IsSend)<label for="ctl18_0">送配給水管(清水)</label></td>
+                                                                                                    <td>@Html.CheckBoxFor(m=>m.PipeProperty_IsDirect)<label for="ctl18_1">導水管(原水)　埋設民國年份 @Model.PipeProperty_SetupYear 年　管線漏水位置</label></td>
+                                                                                                    <td>@Html.CheckBoxFor(m => m.PipeProperty_PipeLeakage_IsBody)<label for="ctl18_2">管體</label></td>
+                                                                                                    <td>@Html.CheckBoxFor(m => m.PipeProperty_PipeLeakage_IsOtherPart)<label for="ctl18_3">另件及接頭</label></td>
                                                                                                 </tr>
                                                                                             </tbody>
                                                                                         </table>
@@ -246,11 +264,11 @@
                                                                                         <table id="ctl19" cellspacing="0" cellpadding="0" style="height:10px;border-collapse:collapse;">
                                                                                             <tbody>
                                                                                                 <tr>
-                                                                                                    <td><input id="ctl19_0" type="checkbox" name="ctl19$0" value="制水閥    "/><label for="ctl19_0">制水閥    </label></td>
-                                                                                                    <td><input id="ctl19_1" type="checkbox" name="ctl19$1" value="地上消栓  "/><label for="ctl19_1">地上消栓  </label></td>
-                                                                                                    <td><input id="ctl19_2" type="checkbox" name="ctl19$2" value="地下消栓  "/><label for="ctl19_2">地下消栓  </label></td>
-                                                                                                    <td><input id="ctl19_3" type="checkbox" name="ctl19$3" value="排氣閥    "/><label for="ctl19_3">排氣閥    </label></td>
-                                                                                                    <td><input id="ctl19_4" type="checkbox" name="ctl19$4" value="其他      "/><label for="ctl19_4">其他      </label></td>
+                                                                                                    <td>@Html.CheckBoxFor(m => m.AccessoryEquipment_IsControlValve)<label for="ctl19_0">制水閥</label></td>
+                                                                                                    <td>@Html.CheckBoxFor(m => m.AccessoryEquipment_IsOnGround)<label for="ctl19_1">地上消栓</label></td>
+                                                                                                    <td>@Html.CheckBoxFor(m => m.AccessoryEquipment_IsUnderGround)<label for="ctl19_2">地下消栓</label></td>
+                                                                                                    <td>@Html.CheckBoxFor(m => m.AccessoryEquipment_IsExhaustValve)<label for="ctl19_3">排氣閥</label></td>
+                                                                                                    <td>@Html.CheckBoxFor(m => m.AccessoryEquipment_IsOther)<label for="ctl19_4">其他　 @Model.AccessoryEquipment_Other</label></td>
                                                                                                 </tr>
                                                                                             </tbody>
                                                                                         </table>
@@ -259,8 +277,8 @@
                                                                                         <table id="ctl20" cellspacing="0" cellpadding="0" style="height:10px;border-collapse:collapse;">
                                                                                             <tbody>
                                                                                                 <tr>
-                                                                                                    <td><input id="ctl20_0" type="checkbox" name="ctl20$0" value="修理      "/><label for="ctl20_0">修理      </label></td>
-                                                                                                    <td><input id="ctl20_1" type="checkbox" name="ctl20$1" value="換新      "/><label for="ctl20_1">換新      </label></td>
+                                                                                                    <td>@Html.CheckBoxFor(m => m.AccessoryEquipmentProcessType_IsFix)<label for="ctl20_0">修理</label></td>
+                                                                                                    <td>@Html.CheckBoxFor(m => m.AccessoryEquipmentProcessType_IsChange)<label for="ctl20_1">換新</label></td>
                                                                                                 </tr>
                                                                                             </tbody>
                                                                                         </table>
@@ -271,10 +289,10 @@
                                                                                         <table id="ctl21" cellspacing="0" cellpadding="0" style="height:10px;border-collapse:collapse;">
                                                                                             <tbody>
                                                                                                 <tr>
-                                                                                                    <td><input id="ctl21_0" type="checkbox" name="ctl21$0" value="制水閥盒  "/><label for="ctl21_0">制水閥盒  </label></td>
-                                                                                                    <td><input id="ctl21_1" type="checkbox" name="ctl21$1" value="消防栓箱  "/><label for="ctl21_1">消防栓箱  </label></td>
-                                                                                                    <td><input id="ctl21_2" type="checkbox" name="ctl21$2" value="窨井蓋    "/><label for="ctl21_2">窨井蓋    </label></td>
-                                                                                                    <td><input id="ctl21_3" type="checkbox" name="ctl21$3" value="其他      "/><label for="ctl21_3">其他      </label></td>
+                                                                                                    <td>@Html.CheckBoxFor(m => m.AccessoryEquipmentCover_IsControlValve)<label for="ctl21_0">制水閥盒</label></td>
+                                                                                                    <td>@Html.CheckBoxFor(m => m.AccessoryEquipmentCover_IsHydrantBox)<label for="ctl21_1">消防栓箱</label></td>
+                                                                                                    <td>@Html.CheckBoxFor(m => m.AccessoryEquipmentCover_IsManholeCover)<label for="ctl21_2">窨井蓋</label></td>
+                                                                                                    <td>@Html.CheckBoxFor(m => m.AccessoryEquipmentCover_IsOther)<label for="ctl21_3">其他　 @Model.AccessoryEquipmentCover_Other</label></td>
                                                                                                 </tr>
                                                                                             </tbody>
                                                                                         </table>
@@ -283,8 +301,8 @@
                                                                                         <table id="ctl22" cellspacing="0" cellpadding="0" style="height:10px;border-collapse:collapse;">
                                                                                             <tbody>
                                                                                                 <tr>
-                                                                                                    <td><input id="ctl22_0" type="checkbox" name="ctl22$0" value="升降      "/><label for="ctl22_0">升降      </label></td>
-                                                                                                    <td><input id="ctl22_1" type="checkbox" name="ctl22$1" value="修理或換新"/><label for="ctl22_1">修理或換新</label></td>
+                                                                                                    <td>@Html.CheckBoxFor(m => m.AccessoryEquipmentCoverProcessType_IsUpDown)<label for="ctl22_0">升降</label></td>
+                                                                                                    <td>@Html.CheckBoxFor(m => m.AccessoryEquipmentCoverProcessType_IsFixOrChange)<label for="ctl22_1">修理或換新</label></td>
                                                                                                 </tr>
                                                                                             </tbody>
                                                                                         </table>
@@ -296,9 +314,9 @@
                                                                                         <table id="ctl23" cellspacing="0" cellpadding="0" style="height:10px;border-collapse:collapse;">
                                                                                             <tbody>
                                                                                                 <tr>
-                                                                                                    <td><input id="ctl23_0" type="checkbox" name="ctl23$0" checked="checked" value="&lt;font color=&#39;#000000&#39;&gt;止水栓    -更換水心塞及上蓋&lt;/font&gt;"/><label for="ctl23_0"><font color="#000000">止水栓    -更換水心塞及上蓋</font></label></td>
-                                                                                                    <td><input id="ctl23_1" type="checkbox" name="ctl23$1" value="管套節    "/><label for="ctl23_1">管套節    </label></td>
-                                                                                                    <td><input id="ctl23_2" type="checkbox" name="ctl23$2" value="其他      "/><label for="ctl23_2">其他      </label></td>
+                                                                                                    <td>@Html.CheckBoxFor(m => m.BoxAnnex_IsStopValve)<label for="ctl23_0"><font color="#000000">止水栓-更換水心塞及上蓋</font></label></td>
+                                                                                                    <td>@Html.CheckBoxFor(m => m.BoxAnnex_IsCover)<label for="ctl23_1">管套節</label></td>
+                                                                                                    <td>@Html.CheckBoxFor(m => m.BoxAnnex_IsOther)<label for="ctl23_2">其他　 @Model.BoxAnnex_Other</label></td>
                                                                                                 </tr>
                                                                                             </tbody>
                                                                                         </table>
@@ -307,8 +325,8 @@
                                                                                         <table id="ctl24" cellspacing="0" cellpadding="0" style="height:10px;border-collapse:collapse;">
                                                                                             <tbody>
                                                                                                 <tr>
-                                                                                                    <td><input id="ctl24_0" type="checkbox" name="ctl24$0" checked="checked" value="&lt;font color=&#39;#000000&#39;&gt;修理      &lt;/font&gt;"/><label for="ctl24_0"><font color="#000000">修理      </font></label></td>
-                                                                                                    <td><input id="ctl24_1" type="checkbox" name="ctl24$1" value="換新      "/><label for="ctl24_1">換新      </label></td>
+                                                                                                    <td>@Html.CheckBoxFor(m => m.BoxAnnexProcessType_IsFix)<label for="ctl24_0"><font color="#000000">修理</font></label></td>
+                                                                                                    <td>@Html.CheckBoxFor(m => m.BoxAnnexProcessType_IsChange)<label for="ctl24_1">換新</label></td>
                                                                                                 </tr>
                                                                                             </tbody>
                                                                                         </table>
@@ -316,55 +334,105 @@
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td align="left" rowspan="3" style="border-color:Black;border-width:1px;border-style:solid;width:70px;white-space:nowrap;">挖填狀況：</td>
-                                                                                    <td align="left" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;"><input id="ctl25" type="checkbox" name="ctl25"/><label for="ctl25">挖土機</label></td>
-                                                                                    <td align="left" valign="bottom" colspan="3" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">長x寬x深=____x____x____,____x____x____</td>
-                                                                                    <td align="left" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">挖方：_______m<sup>3</sup></td>
+                                                                                    <td align="left" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">@Html.CheckBoxFor(m => m.DigFill_IsExcavator)<label for="ctl25">挖土機</label></td>
+                                                                                    <td align="left" valign="bottom" colspan="3" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">長x寬x深=
+                                                                                        @{
+                                                                                            var length = 2; //至少填兩個空白
+                                                                                            if (Model.DigFill_IsExcavator && Model.FixFormDigFill.ExcavatorItems.Count()>2)
+                                                                                            {
+                                                                                                length = Model.FixFormDigFill.ExcavatorItems.Count();
+                                                                                            }
+                                                                                            @for(var i= 0; i< length; i++)
+                                                                                            {
+                                                                                                @if(i>0)
+                                                                                                {
+                                                                                                    <span>,</span>
+                                                                                                }
+                                                                                                @if(Model.DigFill_IsExcavator && Model.FixFormDigFill.ExcavatorItems.Count() > i)
+                                                                                                {
+                                                                                                    var item = Model.FixFormDigFill.ExcavatorItems[i];
+                                                                                                    <span><u>@item.Length</u>x<u>@item.Width</u>x<u>@item.Depth</u></span>
+                                                                                                }
+                                                                                                else
+                                                                                                {
+                                                                                                    <span>____x____x____</span>
+                                                                                                }
+                                                                                            }
+                                                                                         }
+                                                                                         </td>
+                                                                                    <td align="left" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">挖方：<u>@(Model.FixFormDigFill != null? Model.FixFormDigFill.ExcavatorMass : "　　")</u>m<sup>3</sup></td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td align="left" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;"><input id="ctl26" type="checkbox" name="ctl26"/><label for="ctl26">人工挖掘</label></td>
-                                                                                    <td align="left" valign="bottom" colspan="3" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">長x寬x深=____x____x____,____x____x____</td>
-                                                                                    <td align="left" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">挖方：_______m<sup>3</sup></td>
+                                                                                    <td align="left" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">@Html.CheckBoxFor(m => m.DigFill_IsManual)<label for="ctl26">人工挖掘</label></td>
+                                                                                    <td align="left" valign="bottom" colspan="3" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">長x寬x深=
+                                                                                        @{
+                                                                                            length = 2; //至少填兩個空白
+                                                                                            if (Model.DigFill_IsManual && Model.FixFormDigFill!.ManualItems.Count() > 2)
+                                                                                            {
+                                                                                                length = Model.FixFormDigFill.ManualItems.Count();
+                                                                                            }
+                                                                                            @for (var i = 0; i < length; i++)
+                                                                                            {
+                                                                                                @if (i > 0)
+                                                                                                {
+                                                                                                    <span>,</span>
+                                                                                                }
+                                                                                                @if (Model.DigFill_IsExcavator && Model.FixFormDigFill!.ManualItems.Count() > i)
+                                                                                                {
+                                                                                                    var item = Model.FixFormDigFill.ManualItems[i];
+                                                                                                    <span><u>@item.Length</u>x<u>@item.Width</u>x<u>@item.Depth</u></span>
+                                                                                                }
+                                                                                                else
+                                                                                                {
+                                                                                                    <span>____x____x____</span>
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                    </td>
+                                                                                    <td align="left" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">挖方：<u>@(Model.FixFormDigFill != null ? Model.FixFormDigFill.ManualMass : "　　")</u>m<sup>3</sup></td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td align="left" colspan="5" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">原砂:____m<sup>3</sup>&#160;換填砂:____m<sup>3</sup>&#160;原級配:____m<sup>3</sup>&#160;換填級配:____m<sup>3</sup>&#160;多功能再生混凝土(MRC):____m<sup>3</sup>&#160;<br/>換填高流動性低強度混凝土:____m<sup>3</sup>&#160;原土回填:____m<sup>3</sup>&#160;殘土處理:____m<sup>3</sup>混凝土(141Kg/121Kg):_____m<sup>3</sup></td>
-                                                                                </tr>
+                                                                                    <td align="left" colspan="5" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">原砂:____m<sup>3</sup>&#160;換填砂:____m<sup>3</sup>&#160;原級配:____m<sup>3</sup>&#160;換填級配:____m<sup>3</sup>&#160;多功能再生混凝土(MRC):____m<sup>3</sup>&#160;
+                                                                                            <br/>
+                                                                                                                                                                            換填高流動性低強度混凝土:____m<sup>3</sup>&#160;原土回填:____m<sup>3</sup>&#160;殘土處理:____m<sup>3</sup>混凝土(141Kg/121Kg):_____m<sup>3</sup></td>
+                                                                                                                                                                </tr>
                                                                                 <tr>
                                                                                     <td align="left" rowspan="3" style="border-color:Black;border-width:1px;border-style:solid;width:70px;white-space:nowrap;">柏油路面：</td>
                                                                                     <td align="left" valign="bottom" colspan="2" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">拆除：&#160;長x寬x厚=____x____x____,____x____x____</td>
-                                                                                    <td align="left" colspan="3" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">切割長：____m&#160;拆除：____m<sup>2</sup>&#160;切割：____m<sup>2</sup></td>
-                                                                                </tr>
+                                                                                                                                                                    <td align="left" colspan="3" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">切割長：____m&#160;拆除：____m<sup>2</sup>&#160;切割：____m<sup>2</sup></td>
+                                                                                                                                                                </tr>
                                                                                 <tr>
                                                                                     <td align="left" valign="bottom" colspan="2" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">一次修復&#160;長x寬x厚=____x____x____,____x____x____</td>
-                                                                                    <td align="left" style="border-color:Black;border-width:1px;border-style:solid;width:70px;white-space:nowrap;">面積:____m<sup>2</sup></td>
+                                                                                                                                                                    <td align="left" style="border-color:Black;border-width:1px;border-style:solid;width:70px;white-space:nowrap;">面積:____m<sup>2</sup></td>
                                                                                     <td align="left" colspan="2" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">
-                                                                                        <table id="ctl27" cellspacing="0" cellpadding="0" style="height:10px;border-collapse:collapse;">
-                                                                                            <tbody>
-                                                                                                <tr>
-                                                                                                    <td><input id="ctl27_0" type="checkbox" name="ctl27$0" value="3cm瀝鎂土 "/><label for="ctl27_0">3cm瀝鎂土 </label></td>
-                                                                                                    <td><input id="ctl27_1" type="checkbox" name="ctl27$1" value="5cm熱拌AC "/><label for="ctl27_1">5cm熱拌AC </label></td>
-                                                                                                </tr>
-                                                                                                <tr>
-                                                                                                    <td><input id="ctl27_2" type="checkbox" name="ctl27$2" value="5cm瀝鎂土 "/><label for="ctl27_2">5cm瀝鎂土 </label></td>
-                                                                                                    <td><input id="ctl27_3" type="checkbox" name="ctl27$3" value="10cmAC    "/><label for="ctl27_3">10cmAC    </label></td>
-                                                                                                </tr>
-                                                                                                <tr>
-                                                                                                    <td><input id="ctl27_4" type="checkbox" name="ctl27$4" value="15cmAC    "/><label for="ctl27_4">15cmAC    </label></td>
-                                                                                                    <td><input id="ctl27_5" type="checkbox" name="ctl27$5" value="20cmAC    "/><label for="ctl27_5">20cmAC    </label></td>
-                                                                                                </tr>
-                                                                                            </tbody>
-                                                                                        </table>
+                                                                                            <table id="ctl27" cellspacing="0" cellpadding="0" style="height:10px;border-collapse:collapse;">
+                                                                                                <tbody>
+                                                                                                    <tr>
+                                                                                                        <td><input id="ctl27_0" type="checkbox" name="ctl27$0" value="3cm瀝鎂土 "/><label for="ctl27_0">3cm瀝鎂土 </label></td>
+                                                                                                        <td><input id="ctl27_1" type="checkbox" name="ctl27$1" value="5cm熱拌AC "/><label for="ctl27_1">5cm熱拌AC </label></td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td><input id="ctl27_2" type="checkbox" name="ctl27$2" value="5cm瀝鎂土 "/><label for="ctl27_2">5cm瀝鎂土 </label></td>
+                                                                                                        <td><input id="ctl27_3" type="checkbox" name="ctl27$3" value="10cmAC    "/><label for="ctl27_3">10cmAC    </label></td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td><input id="ctl27_4" type="checkbox" name="ctl27$4" value="15cmAC    "/><label for="ctl27_4">15cmAC    </label></td>
+                                                                                                        <td><input id="ctl27_5" type="checkbox" name="ctl27$5" value="20cmAC    "/><label for="ctl27_5">20cmAC    </label></td>
+                                                                                                    </tr>
+                                                                                                </tbody>
+                                                                                            </table>
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td align="left" colspan="2" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;"><span>二次修復&#160;長x寬x厚=____x____x____,____x____x____<br/>路面正式修復時間:　　年　　月　　日　　時　　分<br/></span><input id="ctl29" type="checkbox" name="ctl29"/><label for="ctl29">路權代修___________元</label></td>
-                                                                                    <td align="left" style="border-color:Black;border-width:1px;border-style:solid;width:70px;white-space:nowrap;">面積:____m<sup>2</sup></td>
+                                                                                                                                                                    <td align="left" style="border-color:Black;border-width:1px;border-style:solid;width:70px;white-space:nowrap;">面積:____m<sup>2</sup></td>
                                                                                     <td align="left" colspan="2" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">
-                                                                                        <table id="ctl30" cellspacing="0" cellpadding="0" style="height:10px;border-collapse:collapse;">
-                                                                                            <tbody>
-                                                                                                <tr>
-                                                                                                    <td><input id="ctl30_0" type="checkbox" name="ctl30$0" value="5cmAC     "/><label for="ctl30_0">5cmAC     </label></td>
-                                                                                                    <td><input id="ctl30_1" type="checkbox" name="ctl30$1" value="5cm瀝鎂土 "/><label for="ctl30_1">5cm瀝鎂土 </label></td>
-                                                                                                </tr>
+                                                                                            <table id="ctl30" cellspacing="0" cellpadding="0" style="height:10px;border-collapse:collapse;">
+                                                                                                <tbody>
+                                                                                                    <tr>
+                                                                                                        <td><input id="ctl30_0" type="checkbox" name="ctl30$0" value="5cmAC     "/><label for="ctl30_0">5cmAC     </label></td>
+                                                                                                        <td><input id="ctl30_1" type="checkbox" name="ctl30$1" value="5cm瀝鎂土 "/><label for="ctl30_1">5cm瀝鎂土 </label></td>
+                                                                                                    </tr>
                                                                                                 <tr>
                                                                                                     <td><input id="ctl30_2" type="checkbox" name="ctl30$2" value="10cmAC    "/><label for="ctl30_2">10cmAC    </label></td>
                                                                                                     <td><input id="ctl30_3" type="checkbox" name="ctl30$3" value="15cmAC    "/><label for="ctl30_3">15cmAC    </label></td>
@@ -410,7 +478,8 @@
                                                                                                 </tr>
                                                                                                 <tr>
                                                                                                     <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">PVCP</td>
-                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
+                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;
+                                                                                            </td>
                                                                                                     <td align="center" style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">m</td>
                                                                                                     <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
                                                                                                     <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
