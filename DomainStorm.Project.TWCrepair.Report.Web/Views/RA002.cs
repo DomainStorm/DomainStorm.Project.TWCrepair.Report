@@ -1,9 +1,5 @@
-﻿using DomainStorm.Framework.BlazorComponent.CommandModel.InvokeMethod.MetadataApi;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.Report.V1;
-using Models = DomainStorm.Project.TWCrepair.Repository.Models;
-using DomainStorm.Project.TWCrepair.Report.Web.ViewModel;
+﻿using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.Report.V1;
+using DomainStorm.Project.TWCrepair.Shared.ViewModel;
 
 namespace DomainStorm.Project.TWCrepair.Report.Web.Views;
 
@@ -21,28 +17,28 @@ public class RA002 : ReportDataModel
     /// 是否免費
     /// </summary>
     //todo 
-    public bool IsFree { get; set; } = false;
+    public bool IsFree
+    {
+        get
+        {
+            return FinalCost_Total == 0;
+        }
+    }
 
     /// <summary>
     /// 是否收費
     /// </summary>
     //todo 
-    public bool IsCharge
+    public bool IsCharge //@Html.CheckBoxFor 不能作 ! 運算,需另訂屬性
     {
         get
         {
-            //@Html.CheckBoxFor 不能作 ! 運算
             return !IsFree;
         }
     }
         
 
-    /// <summary>
-    /// 收費
-    /// </summary>
-    //todo 
-    public decimal Cost { get; set; } = 0;
-
+   
     /// <summary>
     /// 報修位置
     /// </summary>
@@ -196,7 +192,7 @@ public class RA002 : ReportDataModel
         }
     }
 
-    public RA002_FixFormDispatch FixFormDispatch { get; set; }
+    public FixFormDispatch FixFormDispatch { get; set; }
 
     /// <summary>
     /// 派工時間
@@ -264,7 +260,7 @@ public class RA002 : ReportDataModel
     }
 
 
-    public RA002_FixFormProperty FixFormProperty { get; set; }
+    public FixFormProperty FixFormProperty { get; set; }
 
 
     /// <summary>
@@ -1060,6 +1056,361 @@ public class RA002 : ReportDataModel
             return FixFormDigFill != null && FixFormDigFill.ManualItems != null && FixFormDigFill.ManualItems.Any();
         }
     }
+
+
+    #endregion
+
+
+    #region 柏油路面 
+    /// <summary>
+    /// 柏油路面_路權代修
+    /// </summary>
+    public bool Asphalt_IsProxyRepair
+    {
+        get
+        {
+            return FixFormDigFill != null && FixFormDigFill.AsphaltProxyRepair;
+        }
+    }
+
+    //todo 厚度的規格, 原始資料就有缺少 , 要改實修登錄的 DigFill
+    #endregion
+
+    #region 混凝土路
+    public bool Concrete_IsProxyRepair
+    {
+        get
+        {
+            return FixFormDigFill != null && FixFormDigFill.ConcreteProxyRepair;
+        }
+    }
+    #endregion
+
+    public FixFormLeakage FixFormLeakage { get; set; }
+
+    #region 漏水狀況
+    /// <summary>
+    /// 漏水原因_老化腐蝕
+    /// </summary>
+    public bool LeakageRason_IsOldAndCorrosion
+    {
+        get
+        {
+            return FixFormLeakage != null && FixFormLeakage.Reason != null && FixFormLeakage.Reason.Name == "老化腐蝕";
+        }
+    }
+    /// <summary>
+    /// 漏水原因_荷重振動
+    /// </summary>
+    public bool LeakageRason_IsVibration
+    {
+        get
+        {
+            return FixFormLeakage != null && FixFormLeakage.Reason != null && FixFormLeakage.Reason.Name == "荷重振動";
+        }
+    }
+    /// <summary>
+    /// 漏水原因_水錘
+    /// </summary>
+    public bool LeakageRason_IsWaterHammer
+    {
+        get
+        {
+            return FixFormLeakage != null && FixFormLeakage.Reason != null && FixFormLeakage.Reason.Name == "水錘";
+        }
+    }
+    /// <summary>
+    /// 漏水原因_地盤下陷
+    /// </summary>
+    public bool LeakageRason_IsLandSsubsidence
+    {
+        get
+        {
+            return FixFormLeakage != null && FixFormLeakage.Reason != null && FixFormLeakage.Reason.Name == "地盤下陷";
+        }
+    }
+    /// <summary>
+    /// 漏水原因_施工不良
+    /// </summary>
+    public bool LeakageRason_IsPoorConstruction
+    {
+        get
+        {
+            return FixFormLeakage != null && FixFormLeakage.Reason != null && FixFormLeakage.Reason.Name == "施工不良";
+        }
+    }
+
+    /// <summary>
+    /// 漏水原因_回填不良
+    /// </summary>
+    public bool LeakageRason_IsPoorRefill
+    {
+        get
+        {
+            return FixFormLeakage != null && FixFormLeakage.Reason != null && FixFormLeakage.Reason.Name == "回填不良";
+        }
+    }
+    /// <summary>
+    /// 漏水原因_材質不良
+    /// </summary>
+    public bool LeakageRason_IsPoorMaterial
+    {
+        get
+        {
+            return FixFormLeakage != null && FixFormLeakage.Reason != null && FixFormLeakage.Reason.Name == "材質不良";
+        }
+    }
+    /// <summary>
+    /// 漏水原因_材質不良
+    /// </summary>
+    public bool LeakageRason_IsConstruction
+    {
+        get
+        {
+            return FixFormLeakage != null && FixFormLeakage.Reason != null && FixFormLeakage.Reason.Name == "工程施工";
+        }
+    }
+
+    /// <summary>
+    /// 漏水原因_其他
+    /// </summary>
+    public bool LeakageRason_IsOther
+    {
+        get
+        {
+            return FixFormLeakage != null && FixFormLeakage.Reason != null && FixFormLeakage.Reason.Name == "其他";
+        }
+    }
+    /// <summary>
+    /// 漏水原因_其他說明
+    /// </summary>
+    public string LeakageRason_Other
+    {
+        get
+        {
+            return FixFormLeakage != null ? FixFormLeakage.ReasonDescription : "";
+        }
+    }
+
+    /// <summary>
+    /// 漏水原因_老化
+    /// </summary>
+    public bool LeakageRason_IsOld
+    {
+        get
+        {
+            return FixFormLeakage != null && FixFormLeakage.Reason != null && FixFormLeakage.Reason.Name == "老化";
+        }
+    }
+
+    /// <summary>
+    /// 漏水原因_腐蝕
+    /// </summary>
+    public bool LeakageRason_IsCorrosion
+    {
+        get
+        {
+            return FixFormLeakage != null && FixFormLeakage.Reason != null && FixFormLeakage.Reason.Name == "腐蝕";
+        }
+    }
+
+
+
+    #endregion
+
+    #region 修理狀況
+    /// <summary>
+    /// 修理狀況_折斷
+    /// </summary>
+    public bool FixSituation_IsBreak
+    {
+        get
+        {
+            return FixFormLeakage != null && FixFormLeakage.FixSituation != null && FixFormLeakage.FixSituation.Name == "折斷";
+        }
+    }
+    /// <summary>
+    /// 修理狀況_空洞
+    /// </summary>
+    public bool FixSituation_IsHole
+    {
+        get
+        {
+            return FixFormLeakage != null && FixFormLeakage.FixSituation != null && FixFormLeakage.FixSituation.Name == "空洞";
+        }
+    }
+    /// <summary>
+    /// 修理狀況_裂縫
+    /// </summary>
+    public bool FixSituation_IsCrack
+    {
+        get
+        {
+            return FixFormLeakage != null && FixFormLeakage.FixSituation != null && FixFormLeakage.FixSituation.Name == "裂縫";
+        }
+    }
+    /// <summary>
+    /// 修理狀況_脫接
+    /// </summary>
+    public bool FixSituation_IsDisconnected
+    {
+        get
+        {
+            return FixFormLeakage != null && FixFormLeakage.FixSituation != null && FixFormLeakage.FixSituation.Name == "脫接";
+        }
+    }
+    /// <summary>
+    /// 修理狀況_橡皮墊
+    /// </summary>
+    public bool FixSituation_IsRubberPad
+    {
+        get
+        {
+            return FixFormLeakage != null && FixFormLeakage.FixSituation != null && FixFormLeakage.FixSituation.Name == "橡皮墊";
+        }
+    }
+    /// <summary>
+    /// 修理狀況_管鞍
+    /// </summary>
+    public bool FixSituation_PipeSaddle
+    {
+        get
+        {
+            return FixFormLeakage != null && FixFormLeakage.FixSituation != null && FixFormLeakage.FixSituation.Name == "管鞍";
+        }
+    }
+    /// <summary>
+    /// 修理狀況_其他
+    /// </summary>
+    public bool FixSituation_IsOther
+    {
+        get
+        {
+            return FixFormLeakage != null && FixFormLeakage.FixSituation != null && FixFormLeakage.FixSituation.Name == "其他";
+        }
+    }
+
+
+    #endregion
+
+    #region 漏水情形
+    /// <summary>
+    /// 漏水情形_漏出地面
+    /// </summary>
+    public bool LeakageSituation_IsOutOfGround
+    {
+        get
+        {
+            return FixFormLeakage != null && FixFormLeakage.Situation != null && FixFormLeakage.Situation.Name == "漏出地面";
+        }
+    }
+
+    /// <summary>
+    /// 漏水情形_滲入地下
+    /// </summary>
+    public bool LeakageSituation_IsIntoGround
+    {
+        get
+        {
+            return FixFormLeakage != null && FixFormLeakage.Situation != null && FixFormLeakage.Situation.Name == "滲入地下";
+        }
+    }
+
+    /// <summary>
+    /// 漏水情形_其他漏水
+    /// </summary>
+    public bool LeakageSituation_IsOther
+    {
+        get
+        {
+            return FixFormLeakage != null && FixFormLeakage.Situation != null && FixFormLeakage.Situation.Name.Contains("其他");
+        }
+    }
+
+    #endregion
+
+    #region 漏水情形的設備屬性
+    /// <summary>
+    /// 設備屬性_送配水管線及設備
+    /// </summary>
+    public bool LeakageEquipmentAttribute_IsSendPipe
+    {
+        get
+        {
+            return FixFormLeakage != null && FixFormLeakage.EquipmentAttribute != null && FixFormLeakage.EquipmentAttribute.Name == "送配水管線及設備";
+        }
+    }
+
+    /// <summary>
+    /// 設備屬性_用戶外線及設備
+    /// </summary>
+    public bool LeakageEquipmentAttribute_IsOutPipe
+    {
+        get
+        {
+            return FixFormLeakage != null && FixFormLeakage.EquipmentAttribute != null && FixFormLeakage.EquipmentAttribute.Name == "用戶外線及設備";
+        }
+    }
+
+    /// <summary>
+    /// 設備屬性_其他
+    /// </summary>
+    public bool LeakageEquipmentAttribute_IsOther
+    {
+        get
+        {
+            return FixFormLeakage != null && FixFormLeakage.EquipmentAttribute != null && FixFormLeakage.EquipmentAttribute.Name == "其他";
+        }
+    }
+
+    #endregion
+
+    public FixFormAudit FixFormAudit { get; set; }
+
+    
+    /// <summary>
+    /// 材料費用
+    /// </summary>
+    public  List<FixFormMaterialCostItem> FixFormMaterialCostItems { get; set; } = new List<FixFormMaterialCostItem>();
+
+    /// <summary>
+    /// 廢料費用
+    /// </summary>
+    public  List<FixFormScrapCostItem> FixFormScrapCostItems { get; set; } = new List<FixFormScrapCostItem>();
+
+
+    #region 各項小計及總計費用
+    //todo 確認邏輯後可搬至 Model.FixForm (稽核要顯示, 派工單的列印查詢要顯示)
+
+    /// <summary>
+    /// 各項費用_委外施工費
+    /// </summary>
+    public decimal? FinalCost_Outsourcing { get; set; } = 0;
+    /// <summary>
+    /// 各項費用_材料費
+    /// </summary>
+    public decimal? FinalCost_Material { get; set; } = 0;
+    /// <summary>
+    /// 各項費用_路權代修費
+    /// </summary>
+    public decimal? FinalCost_RoadRightProxy { get; set; } = 0;
+    /// <summary>
+    /// todo :各項費用_員工工資 (資料來源?)
+    /// </summary>
+    public decimal? FinalCost_EmployeeSalary { get; set; } = 0;
+
+    /// <summary>
+    /// todo:各項費用_其他(資料來源?)
+    /// </summary>
+    public decimal? FinalCost_Other { get; set; } = 0;
+
+
+    /// <summary>
+    /// 各項費用_總計
+    /// </summary>
+    public decimal? FinalCost_Total { get; set; } = 0;
+
+
     #endregion
 
 
@@ -1074,180 +1425,6 @@ public class RA002 : ReportDataModel
             return "　年　月　日　時　分"; //全型空白,for html 
         }
     }
-}
-
-
-
-/// <summary>
-/// 派工單相關欄位
-/// </summary>
-public class RA002_FixFormDispatch
-{
-    /// <summary>
-    /// 派工時間
-    /// </summary>
-    public DateTime? DispatchTime { get; set; }
-
-    /// <summary>
-    /// 修復期限
-    /// </summary>
-    public DateTime? FixDeadline { get; set; }
-
-    /// <summary>
-    /// 開工時間
-    /// </summary>
-    public DateTime? StartTime { get; set; }
-
-    /// <summary>
-    /// 假日案件
-    /// </summary>
-    public bool HolidayCase { get; set; }
-
-    /// <summary>
-    /// 確認漏水點時間
-    /// </summary>
-    public DateTime? ConfirmTime { get; set; }
-
-
-    /// <summary>
-    /// 案件屬性
-    /// </summary>
-    public Word? CaseAttribute { get; set; }
-
-    /// <summary>
-    /// "案件屬性-其他" 的說明
-    /// </summary>
-    public string? CaseAttributeOther { get; set; }
-
-    /// <summary>
-    /// 設備屬性
-    /// </summary>
-    public virtual Word? EquipmentAttribute { get; set; }
-
-    /// <summary>
-    /// 設備屬性其他
-    /// </summary>
-    public string? EquipmentAttributeOther { get; set; }
-
-    /// <summary>
-    /// 維修單位
-    /// </summary>
-    public  Word? FixUnit { get; set; }
-
-    /// <summary>
-    /// "維修單位-委外" 的廠商
-    /// </summary>
-    public  Word? Contractor { get; set; }
-
-
-    /// <summary>
-    ///管徑
-    /// </summary>
-    public Word? PipeDiameter { get; set; }
-
-    /// <summary>
-	/// 管種
-	/// </summary>
-	public Word? PipeKind { get; set; }
-
-    /// <summary>
-    ///管線性質
-    /// </summary>
-    public Word? PipeProperty { get; set; }
-
-
-
-
-}
-
-
-/// <summary>
-///屬性相關欄位
-/// </summary>
-public class RA002_FixFormProperty
-{
-    /// <summary>
-    /// 修復時間
-    /// </summary>
-    public DateTime? FixTime { get; set; }
-
-
-    /// <summary>
-    /// 埋設民國年份
-    /// </summary>
-    public int? SetupYear { get; set; }
-
-    /// <summary>
-    /// 管線漏水情況
-    /// </summary>
-    public Word? PipeLeakageSituation { get; set; }
-
-    /// <summary>
-    /// 附屬設備詞庫
-    /// </summary>
-    public Word? AccessoryEquipment { get; set; }
-
-    /// <summary>
-    /// 附屬設備其它說明
-    /// </summary>
-    public string? AccessoryEquipmentOther { get; set; }
-
-    /// <summary>
-    ///附屬設備處理方式詞庫
-    /// </summary>
-    public Word? AccessoryEquipmentProcessType { get; set; }
-
-    /// <summary>
-    /// 附屬設備盒箱蓋詞庫
-    /// </summary>
-    public Word? AccessoryEquipmentCover { get; set; }
-
-    /// <summary>
-    /// 附屬設備盒箱蓋其它說明
-    /// </summary>
-    public string? AccessoryEquipmentCoverOther { get; set; }
-
-    /// <summary>
-    /// 附屬設備盒箱蓋理方式詞庫
-    /// </summary>
-    public Word? AccessoryEquipmentCoverProcessType { get; set; }
-
-
-    /// <summary>
-    /// 表箱另件詞庫 
-    /// </summary>
-    public Word? BoxAnnex { get; set; }
-
-   
-
-    /// <summary>
-    /// 表箱另件處理方式詞庫 
-    /// </summary>
-    public Word? BoxAnnexProcessType { get; set; }
-
-    /// <summary>
-    /// 表箱另件其它說明
-    /// </summary>
-    public string? BoxAnnexOther { get; set; }
-
-
-
-
-
-}
-
-
-/// <summary>
-/// 挖填狀況
-/// </summary>
-public class RA002_FixFormDigFill
-{
-
-}
-
-public class RA002_FixFormDigFillItem
-{
-
 }
 
 

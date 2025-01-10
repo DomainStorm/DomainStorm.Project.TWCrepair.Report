@@ -67,7 +67,7 @@
                                                                                 <tr>
                                                                                     <td align="left" style="border-color:Black;width:290px;white-space:nowrap;">案號：<font color="#000000">@Model.FixCaseNo<font color="#000000"></font></font></td>
                                                                                     <td align="left" style="border-color:Black;font-size:11pt;width:170px;white-space:nowrap;">修漏案件處理單</td>
-                                                                                    <td align="left" style="border-color:Black;width:90px;white-space:nowrap;">@Html.CheckBoxFor(m => m.IsCharge)<label for="ctl07">收費：<font color="#000000">@Model.Cost</font>元</label></td>
+                                                                                    <td align="left" style="border-color:Black;width:90px;white-space:nowrap;">@Html.CheckBoxFor(m => m.IsCharge)<label for="ctl07">收費：<font color="#000000">@Model.FinalCost_Total</font>元</label></td>
                                                                                     <td align="left" style="border-color:Black;width:150px;white-space:nowrap;"><span style="color:#000000;">@Html.CheckBoxFor(m => m.IsFree)<label for="ctl08">免費 @Model.PrintDate.ToString("MM/dd/yyyy") 印表</label></span></td>
                                                                                 </tr>
                                                                             </tbody>
@@ -338,7 +338,7 @@
                                                                                     <td align="left" valign="bottom" colspan="3" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">長x寬x深=
                                                                                         @{
                                                                                             var length = 2; //至少填兩個空白
-                                                                                            if (Model.DigFill_IsExcavator && Model.FixFormDigFill.ExcavatorItems.Count()>2)
+                                                                                            if (Model.DigFill_IsExcavator && Model.FixFormDigFill.ExcavatorItems != null && Model.FixFormDigFill.ExcavatorItems.Count()>2)
                                                                                             {
                                                                                                 length = Model.FixFormDigFill.ExcavatorItems.Count();
                                                                                             }
@@ -348,7 +348,7 @@
                                                                                                 {
                                                                                                     <span>,</span>
                                                                                                 }
-                                                                                                @if(Model.DigFill_IsExcavator && Model.FixFormDigFill.ExcavatorItems.Count() > i)
+                                                                                                @if(Model.DigFill_IsExcavator &&  Model.FixFormDigFill.ExcavatorItems != null && Model.FixFormDigFill.ExcavatorItems.Count() > i)
                                                                                                 {
                                                                                                     var item = Model.FixFormDigFill.ExcavatorItems[i];
                                                                                                     <span><u>@item.Length</u>x<u>@item.Width</u>x<u>@item.Depth</u></span>
@@ -360,14 +360,14 @@
                                                                                             }
                                                                                          }
                                                                                          </td>
-                                                                                    <td align="left" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">挖方：<u>@(Model.FixFormDigFill != null? Model.FixFormDigFill.ExcavatorMass : "　　")</u>m<sup>3</sup></td>
+                                                                                    <td align="left" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">挖方：<u>@(Model.FixFormDigFill != null && Model.FixFormDigFill.ExcavatorMass.HasValue ? Model.FixFormDigFill.ExcavatorMass : "　　")</u>m<sup>3</sup></td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td align="left" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">@Html.CheckBoxFor(m => m.DigFill_IsManual)<label for="ctl26">人工挖掘</label></td>
                                                                                     <td align="left" valign="bottom" colspan="3" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">長x寬x深=
                                                                                         @{
                                                                                             length = 2; //至少填兩個空白
-                                                                                            if (Model.DigFill_IsManual && Model.FixFormDigFill!.ManualItems.Count() > 2)
+                                                                                            if (Model.DigFill_IsManual && Model.FixFormDigFill!.ManualItems != null && Model.FixFormDigFill!.ManualItems.Count() > 2)
                                                                                             {
                                                                                                 length = Model.FixFormDigFill.ManualItems.Count();
                                                                                             }
@@ -377,7 +377,7 @@
                                                                                                 {
                                                                                                     <span>,</span>
                                                                                                 }
-                                                                                                @if (Model.DigFill_IsExcavator && Model.FixFormDigFill!.ManualItems.Count() > i)
+                                                                                                @if (Model.DigFill_IsManual && Model.FixFormDigFill!.ManualItems != null && Model.FixFormDigFill!.ManualItems.Count() > i)
                                                                                                 {
                                                                                                     var item = Model.FixFormDigFill.ManualItems[i];
                                                                                                     <span><u>@item.Length</u>x<u>@item.Width</u>x<u>@item.Depth</u></span>
@@ -389,21 +389,88 @@
                                                                                             }
                                                                                         }
                                                                                     </td>
-                                                                                    <td align="left" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">挖方：<u>@(Model.FixFormDigFill != null ? Model.FixFormDigFill.ManualMass : "　　")</u>m<sup>3</sup></td>
+                                                                                    <td align="left" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">挖方：<u>@(Model.FixFormDigFill != null && Model.FixFormDigFill.ManualMass.HasValue ? Model.FixFormDigFill.ManualMass : "　　")</u>m<sup>3</sup></td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td align="left" colspan="5" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">原砂:____m<sup>3</sup>&#160;換填砂:____m<sup>3</sup>&#160;原級配:____m<sup>3</sup>&#160;換填級配:____m<sup>3</sup>&#160;多功能再生混凝土(MRC):____m<sup>3</sup>&#160;
-                                                                                            <br/>
-                                                                                                                                                                            換填高流動性低強度混凝土:____m<sup>3</sup>&#160;原土回填:____m<sup>3</sup>&#160;殘土處理:____m<sup>3</sup>混凝土(141Kg/121Kg):_____m<sup>3</sup></td>
-                                                                                                                                                                </tr>
+                                                                                    <td align="left" colspan="5" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">
+                                                                                        原砂:<u>@(Model.FixFormDigFill != null && Model.FixFormDigFill.RawSand.HasValue ? Model.FixFormDigFill.RawSand : "　　")</u>m<sup>3</sup>&#160;
+                                                                                        換填砂:<u>@(Model.FixFormDigFill != null && Model.FixFormDigFill.ChangedSand.HasValue ? Model.FixFormDigFill.ChangedSand : "　　")</u>m<sup>3</sup>&#160;
+                                                                                        原級配:<u>@(Model.FixFormDigFill != null && Model.FixFormDigFill.RawLevel.HasValue ? Model.FixFormDigFill.RawLevel : "　　")</u>m<sup>3</sup>&#160;
+                                                                                        換填級配:<u>@(Model.FixFormDigFill != null && Model.FixFormDigFill.ChangedLevel.HasValue ? Model.FixFormDigFill.ChangedLevel : "　　")</u>m<sup>3</sup>&#160;
+                                                                                        多功能再生混凝土(MRC):<u>@(Model.FixFormDigFill != null && Model.FixFormDigFill.MRC.HasValue ? Model.FixFormDigFill.MRC : "　　")</u>m<sup>3</sup>&#160;
+                                                                                        <br/>
+                                                                                        換填高流動性低強度混凝土:<u>@(Model.FixFormDigFill != null && Model.FixFormDigFill.LowStrength.HasValue ? Model.FixFormDigFill.LowStrength : "　　")</u>m<sup>3</sup>&#160;
+                                                                                        原土回填:<u>@(Model.FixFormDigFill != null && Model.FixFormDigFill.OriginalSoil.HasValue ? Model.FixFormDigFill.OriginalSoil : "　　")</u>m<sup>3</sup>&#160;
+                                                                                        殘土處理:<u>@(Model.FixFormDigFill != null && Model.FixFormDigFill.ResidueSoil.HasValue ? Model.FixFormDigFill.ResidueSoil : "　　")</u>m<sup>3</sup>&#160;
+                                                                                        混凝土(@(Model.FixFormDigFill != null && Model.FixFormDigFill.OtherConcrete != null ? Model.FixFormDigFill.OtherConcrete.Name : "")):<u>@(Model.FixFormDigFill != null && Model.FixFormDigFill.OtherConcreteMass.HasValue ? Model.FixFormDigFill.OtherConcreteMass : "　　")</u>m<sup>3</sup>
+                                                                                    </td>
+                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td align="left" rowspan="3" style="border-color:Black;border-width:1px;border-style:solid;width:70px;white-space:nowrap;">柏油路面：</td>
-                                                                                    <td align="left" valign="bottom" colspan="2" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">拆除：&#160;長x寬x厚=____x____x____,____x____x____</td>
-                                                                                                                                                                    <td align="left" colspan="3" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">切割長：____m&#160;拆除：____m<sup>2</sup>&#160;切割：____m<sup>2</sup></td>
-                                                                                                                                                                </tr>
+                                                                                    <td align="left" valign="bottom" colspan="2" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">拆除：
+                                                                                        @{
+                                                                                            length = 2; //至少填兩個空白
+                                                                                            if (Model.FixFormDigFill != null && Model.FixFormDigFill!.AsphaltRemoveItems != null && Model.FixFormDigFill!.AsphaltRemoveItems.Count() > 2)
+                                                                                            {
+                                                                                                length = Model.FixFormDigFill.AsphaltRemoveItems.Count();
+                                                                                            }
+                                                                                            @for (var i = 0; i < length; i++)
+                                                                                            {
+                                                                                                @if (i > 0)
+                                                                                                {
+                                                                                                    <span>,</span>
+                                                                                                }
+                                                                                                @if (Model.FixFormDigFill != null && Model.FixFormDigFill!.AsphaltRemoveItems != null && Model.FixFormDigFill!.AsphaltRemoveItems.Count() > i)
+                                                                                                {
+                                                                                                    var item = Model.FixFormDigFill.AsphaltRemoveItems[i];
+                                                                                                    <span><u>@item.Length</u>x<u>@item.Width</u>x<u>@item.Depth</u></span>
+                                                                                                }
+                                                                                                else
+                                                                                                {
+                                                                                                    <span>____x____x____</span>
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                    </td>
+                                                                                    <td align="left" colspan="3" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">
+                                                                                        切割長：<u>@(Model.FixFormDigFill != null && Model.FixFormDigFill.AsphaltCutLength.HasValue ? Model.FixFormDigFill.AsphaltCutLength : "　　")</u>m&#160;
+                                                                                        拆除：<u>@(Model.FixFormDigFill != null && Model.FixFormDigFill.AsphaltRemoveArea.HasValue ? Model.FixFormDigFill.AsphaltRemoveArea : "　　")</u>m<sup>2</sup>&#160;
+                                                                                        切割：<u>@(Model.FixFormDigFill != null && Model.FixFormDigFill.AsphaltCutArea.HasValue ? Model.FixFormDigFill.AsphaltCutArea : "　　")</u>m<sup>2</sup>
+                                                                                    </td>
+                                                                                </tr>
                                                                                 <tr>
-                                                                                    <td align="left" valign="bottom" colspan="2" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">一次修復&#160;長x寬x厚=____x____x____,____x____x____</td>
-                                                                                                                                                                    <td align="left" style="border-color:Black;border-width:1px;border-style:solid;width:70px;white-space:nowrap;">面積:____m<sup>2</sup></td>
+                                                                                    <td align="left" valign="bottom" colspan="2" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">
+                                                                                        一次修復&#160;長x寬x厚=
+                                                                                        @{
+                                                                                            length = 2; //至少填兩個空白
+                                                                                            
+                                                                                            if (Model.FixFormDigFill != null && Model.FixFormDigFill!.AsphaltRepairs != null && Model.FixFormDigFill!.AsphaltRepairs.Any() && Model.FixFormDigFill!.AsphaltRepairs.First().FixFormDigFillItems != null && Model.FixFormDigFill!.AsphaltRepairs.First().FixFormDigFillItems.Count()>2)
+                                                                                            {
+                                                                                                length = Model.FixFormDigFill!.AsphaltRepairs.First().FixFormDigFillItems.Count();
+                                                                                            }
+                                                                                            @for (var i = 0; i < length; i++)
+                                                                                            {
+                                                                                                @if (i > 0)
+                                                                                                {
+                                                                                                    <span>,</span>
+                                                                                                }
+                                                                                                if (Model.FixFormDigFill != null && Model.FixFormDigFill!.AsphaltRepairs != null && Model.FixFormDigFill!.AsphaltRepairs.Any() && Model.FixFormDigFill!.AsphaltRepairs.First().FixFormDigFillItems != null && Model.FixFormDigFill!.AsphaltRepairs.First().FixFormDigFillItems.Count() > i)
+                                                                                                {
+                                                                                                    var item = Model.FixFormDigFill.AsphaltRepairs.First().FixFormDigFillItems[i];
+                                                                                                    <span><u>@item.Length</u>x<u>@item.Width</u>x<u>@item.Depth</u></span>
+                                                                                                }
+                                                                                                else
+                                                                                                {
+                                                                                                    <span>____x____x____</span>
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                    </td>
+                                                                                    <td align="left" style="border-color:Black;border-width:1px;border-style:solid;width:70px;white-space:nowrap;">
+                                                                                        面積:<u>@(Model.FixFormDigFill != null && Model.FixFormDigFill!.AsphaltRepairs != null && Model.FixFormDigFill!.AsphaltRepairs.Any() && Model.FixFormDigFill!.AsphaltRepairs.First().Area.HasValue?
+                                                                                                Model.FixFormDigFill!.AsphaltRepairs.First().Area : "　　")
+                                                                                        </u>m<sup>2</sup>
+                                                                                    </td>
                                                                                     <td align="left" colspan="2" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">
                                                                                             <table id="ctl27" cellspacing="0" cellpadding="0" style="height:10px;border-collapse:collapse;">
                                                                                                 <tbody>
@@ -424,8 +491,43 @@
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td align="left" colspan="2" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;"><span>二次修復&#160;長x寬x厚=____x____x____,____x____x____<br/>路面正式修復時間:　　年　　月　　日　　時　　分<br/></span><input id="ctl29" type="checkbox" name="ctl29"/><label for="ctl29">路權代修___________元</label></td>
-                                                                                                                                                                    <td align="left" style="border-color:Black;border-width:1px;border-style:solid;width:70px;white-space:nowrap;">面積:____m<sup>2</sup></td>
+                                                                                    <td align="left" colspan="2" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;"><span>
+                                                                                        二次修復&#160;長x寬x厚=
+                                                                                            @{
+                                                                                                length = 2; //至少填兩個空白
+
+                                                                                                if (Model.FixFormDigFill != null && Model.FixFormDigFill!.AsphaltRepairs != null && Model.FixFormDigFill!.AsphaltRepairs.Count>1 && Model.FixFormDigFill!.AsphaltRepairs[1].FixFormDigFillItems != null && Model.FixFormDigFill!.AsphaltRepairs[1].FixFormDigFillItems.Count() > 2)
+                                                                                                {
+                                                                                                    length = Model.FixFormDigFill!.AsphaltRepairs[1].FixFormDigFillItems.Count();
+                                                                                                }
+                                                                                                @for (var i = 0; i < length; i++)
+                                                                                                {
+                                                                                                    @if (i > 0)
+                                                                                                    {
+                                                                                                        <span>,</span>
+                                                                                                    }
+                                                                                                    if (Model.FixFormDigFill != null && Model.FixFormDigFill!.AsphaltRepairs != null && Model.FixFormDigFill!.AsphaltRepairs.Count()>1 && Model.FixFormDigFill!.AsphaltRepairs[1].FixFormDigFillItems != null && Model.FixFormDigFill!.AsphaltRepairs[1].FixFormDigFillItems.Count() > i)
+                                                                                                    {
+                                                                                                        var item = Model.FixFormDigFill.AsphaltRepairs[1].FixFormDigFillItems[i];
+                                                                                                        <span><u>@item.Length</u>x<u>@item.Width</u>x<u>@item.Depth</u></span>
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        <span>____x____x____</span>
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        <br/>
+                                                                                        路面正式修復時間: @Model.ConvertToDateString(Model.FixFormDigFill != null ? Model.FixFormDigFill.RoadRepairTime : null ) <br/></span>
+                                                                                        @Html.CheckBoxFor(m=>m.Asphalt_IsProxyRepair)
+                                                                                        <label for="ctl29">路權代修
+                                                                                        <u>@(Model.FixFormDigFill != null && Model.FixFormDigFill.AsphaltProxyCost.HasValue ?  Model.FixFormDigFill.AsphaltProxyCost : "　　　　" )</u>元</label></td>
+                                                                                     <td align="left" style="border-color:Black;border-width:1px;border-style:solid;width:70px;white-space:nowrap;">
+                                                                                        面積:<u>
+                                                                                            @(Model.FixFormDigFill != null && Model.FixFormDigFill!.AsphaltRepairs != null && Model.FixFormDigFill!.AsphaltRepairs.Count()>1 && Model.FixFormDigFill!.AsphaltRepairs[1].Area.HasValue ?
+                                                                                                Model.FixFormDigFill!.AsphaltRepairs[1].Area : "　　")
+                                                                                        </u>m<sup>2</sup>
+                                                                                     </td>
                                                                                     <td align="left" colspan="2" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">
                                                                                             <table id="ctl30" cellspacing="0" cellpadding="0" style="height:10px;border-collapse:collapse;">
                                                                                                 <tbody>
@@ -447,13 +549,74 @@
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td align="left" rowspan="2" style="border-color:Black;border-width:1px;border-style:solid;width:70px;white-space:nowrap;">混凝土路：</td>
-                                                                                    <td align="left" valign="bottom" colspan="2" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">拆除:長x寬x厚=____x____x____,____x____x____</td>
-                                                                                    <td align="left" colspan="3" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">切割長：____m&#160;拆除：____m<sup>3</sup>&#160;切割：____m<sup>2</sup></td>
+                                                                                    <td align="left" valign="bottom" colspan="2" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">
+                                                                                        拆除:長x寬x厚=
+                                                                                        @{
+                                                                                            length = 2; //至少填兩個空白
+                                                                                            if (Model.FixFormDigFill != null && Model.FixFormDigFill!.ConcreteRemoveItems != null && Model.FixFormDigFill!.ConcreteRemoveItems.Count() > 2)
+                                                                                            {
+                                                                                                length = Model.FixFormDigFill.ConcreteRemoveItems.Count();
+                                                                                            }
+                                                                                            @for (var i = 0; i < length; i++)
+                                                                                            {
+                                                                                                @if (i > 0)
+                                                                                                {
+                                                                                                    <span>,</span>
+                                                                                                }
+                                                                                                @if (Model.FixFormDigFill != null && Model.FixFormDigFill!.ConcreteRemoveItems != null && Model.FixFormDigFill!.ConcreteRemoveItems.Count() > i)
+                                                                                                {
+                                                                                                    var item = Model.FixFormDigFill.ConcreteRemoveItems[i];
+                                                                                                    <span><u>@item.Length</u>x<u>@item.Width</u>x<u>@item.Depth</u></span>
+                                                                                                }
+                                                                                                else
+                                                                                                {
+                                                                                                    <span>____x____x____</span>
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                    </td>
+                                                                                    <td align="left" colspan="3" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">
+                                                                                        切割長：<u>@(Model.FixFormDigFill != null && Model.FixFormDigFill.ConcreteCutLength.HasValue ? Model.FixFormDigFill.ConcreteCutLength : "　　")</u>m&#160;
+                                                                                        拆除：<u>@(Model.FixFormDigFill != null && Model.FixFormDigFill.ConcreteRemoveMass.HasValue ? Model.FixFormDigFill.ConcreteRemoveMass : "　　")</u>m<sup>3</sup>&#160;
+                                                                                        切割：<u>@(Model.FixFormDigFill != null && Model.FixFormDigFill.ConcreteCutArea.HasValue ? Model.FixFormDigFill.ConcreteCutArea : "　　")</u>m<sup>2</sup>
+                                                                                    </td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td align="left" valign="bottom" colspan="2" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">修復:長x寬x厚=____x____x____,____x____x____</td>
-                                                                                    <td align="left" style="border-color:Black;border-width:1px;border-style:solid;width:70px;white-space:nowrap;">體積:____m<sup>3</sup></td>
-                                                                                    <td align="left" colspan="2" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;"><input id="ctl31" type="checkbox" name="ctl31"/><label for="ctl31">路權代修________元</label></td>
+                                                                                    <td align="left" valign="bottom" colspan="2" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">
+                                                                                        修復:長x寬x厚=
+                                                                                        @{
+                                                                                            length = 2; //至少填兩個空白
+                                                                                            if (Model.FixFormDigFill != null && Model.FixFormDigFill!.ConcreteRepairItems != null && Model.FixFormDigFill!.ConcreteRepairItems.Count() > 2)
+                                                                                            {
+                                                                                                length = Model.FixFormDigFill.ConcreteRepairItems.Count();
+                                                                                            }
+                                                                                            @for (var i = 0; i < length; i++)
+                                                                                            {
+                                                                                                @if (i > 0)
+                                                                                                {
+                                                                                                    <span>,</span>
+                                                                                                }
+                                                                                                @if (Model.FixFormDigFill != null && Model.FixFormDigFill!.ConcreteRepairItems != null && Model.FixFormDigFill!.ConcreteRepairItems.Count() > i)
+                                                                                                {
+                                                                                                    var item = Model.FixFormDigFill.ConcreteRepairItems[i];
+                                                                                                    <span><u>@item.Length</u>x<u>@item.Width</u>x<u>@item.Depth</u></span>
+                                                                                                }
+                                                                                                else
+                                                                                                {
+                                                                                                    <span>____x____x____</span>
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                    </td>
+                                                                                    <td align="left" style="border-color:Black;border-width:1px;border-style:solid;width:70px;white-space:nowrap;">
+                                                                                        體積:<u>@(Model.FixFormDigFill != null && Model.FixFormDigFill.ConcreteReapirMass.HasValue ? Model.FixFormDigFill.ConcreteReapirMass : "　　")</u>m<sup>3</sup>
+                                                                                    </td>
+                                                                                    <td align="left" colspan="2" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">
+                                                                                        @Html.CheckBoxFor(m => m.Concrete_IsProxyRepair)
+                                                                                        <label for="ctl31">路權代修
+                                                                                            <u>@(Model.FixFormDigFill != null && Model.FixFormDigFill.ConcreteProxyCost.HasValue ? Model.FixFormDigFill.ConcreteProxyCost : "　　　　")</u>元
+                                                                                        </label>
+                                                                                    </td>
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
@@ -474,105 +637,218 @@
                                                                                                     <td align="center" style="border-color:Black;border-width:1px;border-style:solid;width:32px;white-space:nowrap;">數量</td>
                                                                                                     <td align="center" style="border-color:Black;border-width:1px;border-style:solid;width:32px;white-space:nowrap;">單價</td>
                                                                                                     <td align="center" style="border-color:Black;border-width:1px;border-style:solid;width:32px;white-space:nowrap;">金額</td>
-                                                                                                    <td align="left" colspan="2" rowspan="4" style="border-color:Black;border-width:1px;border-style:solid;width:343px;white-space:nowrap;"><span style="display:inline-block;width:85px;">漏水原因：</span><span style="display:inline-block;width:85px;"><input id="ctl34" type="checkbox" name="ctl34"/><label for="ctl34">老化腐蝕</label></span><span style="display:inline-block;width:85px;"><input id="ctl35" type="checkbox" name="ctl35"/><label for="ctl35">荷重振動</label></span><span style="display:inline-block;width:85px;"><input id="ctl36" type="checkbox" name="ctl36"/><label for="ctl36">水錘</label></span><span><br/></span><span style="display:inline-block;width:85px;"><input id="ctl38" type="checkbox" name="ctl38"/><label for="ctl38">地盤下陷</label></span><span style="display:inline-block;width:85px;"><input id="ctl39" type="checkbox" name="ctl39"/><label for="ctl39">施工不良</label></span><span style="display:inline-block;width:85px;"><input id="ctl40" type="checkbox" name="ctl40"/><label for="ctl40">回填不良</label></span><span style="display:inline-block;width:85px;"><input id="ctl41" type="checkbox" name="ctl41"/><label for="ctl41">材質不良</label></span><span><br/></span><span style="display:inline-block;width:90px;"><input id="ctl43" type="checkbox" name="ctl43"/><label for="ctl43">工程施工</label></span><span style="display:inline-block;width:85px;"><input id="ctl44" type="checkbox" name="ctl44"/><label for="ctl44">其他</label></span><span style="display:inline-block;width:85px;"><input id="ctl45" type="checkbox" name="ctl45"/><label for="ctl45">老化</label></span><span style="display:inline-block;width:85px;"><input id="ctl46" type="checkbox" name="ctl46"/><label for="ctl46">腐蝕</label></span></td>
+                                                                                                    <td align="left" colspan="2" rowspan="4" style="border-color:Black;border-width:1px;border-style:solid;width:343px;white-space:nowrap;"><span style="display:inline-block;width:85px;">
+                                                                                                        漏水原因：</span>
+                                                                                                        <span style="display:inline-block;width:85px;">@Html.CheckBoxFor(m=>m.LeakageRason_IsOldAndCorrosion)<label for="ctl34">老化腐蝕</label></span>
+                                                                                                        <span style="display:inline-block;width:85px;">@Html.CheckBoxFor(m => m.LeakageRason_IsVibration)<label for="ctl35">荷重振動</label></span>
+                                                                                                        <span style="display:inline-block;width:85px;">@Html.CheckBoxFor(m => m.LeakageRason_IsWaterHammer)<label for="ctl36">水錘</label></span><span><br /></span>
+                                                                                                        <span style="display:inline-block;width:85px;">@Html.CheckBoxFor(m => m.LeakageRason_IsLandSsubsidence)<label for="ctl38">地盤下陷</label></span>
+                                                                                                        <span style="display:inline-block;width:85px;">@Html.CheckBoxFor(m => m.LeakageRason_IsPoorConstruction)<label for="ctl39">施工不良</label></span>
+                                                                                                        <span style="display:inline-block;width:85px;">@Html.CheckBoxFor(m => m.LeakageRason_IsPoorRefill)<label for="ctl40">回填不良</label></span>
+                                                                                                        <span style="display:inline-block;width:85px;">@Html.CheckBoxFor(m => m.LeakageRason_IsPoorMaterial)<label for="ctl41">材質不良</label></span><span><br /></span>
+                                                                                                        <span style="display:inline-block;width:90px;">@Html.CheckBoxFor(m => m.LeakageRason_IsConstruction)<label for="ctl43">工程施工</label></span>
+                                                                                                        <span style="display:inline-block;width:85px;">@Html.CheckBoxFor(m => m.LeakageRason_IsOther)<label for="ctl44">其他<span>@(Model.FixFormLeakage != null ? Model.FixFormLeakage.ReasonDescription :"")</span></label></span>
+                                                                                                        <span style="display:inline-block;width:85px;">@Html.CheckBoxFor(m => m.LeakageRason_IsOld)<label for="ctl45">老化</label></span>
+                                                                                                        <span style="display:inline-block;width:85px;">@Html.CheckBoxFor(m => m.LeakageRason_IsCorrosion)<label for="ctl46">腐蝕</label></span>
+                                                                                                    </td>
                                                                                                 </tr>
                                                                                                 <tr>
-                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">PVCP</td>
-                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;
-                                                                                            </td>
-                                                                                                    <td align="center" style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">m</td>
-                                                                                                    <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
+                                                                                                    @{
+                                                                                                        var materialCostItem = Model.FixFormMaterialCostItems != null && Model.FixFormMaterialCostItems.Count > 0 ?
+                                                                                                        Model.FixFormMaterialCostItems[0] : null;
+                                                                                                    }
+                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem!=null? materialCostItem.Material.MaterialGroupName : "　")</td>
+                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Material.MaterialSpec : "　")</td>
+                                                                                                    <td align="center" style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Unit : "　")</td>
+                                                                                                    <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Amount : "　")</td>
+                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.UnitPrice : "　")</td>
+                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.TotalPrice : "　")</td>
                                                                                                 </tr>
                                                                                                 <tr>
-                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">DIP</td>
-                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="center" style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">m/件</td>
-                                                                                                    <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
+                                                                                                    @{
+                                                                                                        materialCostItem = Model.FixFormMaterialCostItems != null && Model.FixFormMaterialCostItems.Count > 1 ?
+                                                                                                        Model.FixFormMaterialCostItems[1] : null;
+                                                                                                    }
+                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Material.MaterialGroupName : "　")</td>
+                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Material.MaterialSpec : "　")</td>
+                                                                                                    <td align="center" style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Unit : "　")</td>
+                                                                                                    <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Amount : "　")</td>
+                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.UnitPrice : "　")</td>
+                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.TotalPrice : "　")</td>
                                                                                                 </tr>
                                                                                                 <tr>
-                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">套管</td>
-                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="center" style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">只</td>
-                                                                                                    <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
+                                                                                                    @{
+                                                                                                        materialCostItem = Model.FixFormMaterialCostItems != null && Model.FixFormMaterialCostItems.Count > 2 ?
+                                                                                                        Model.FixFormMaterialCostItems[2] : null;
+                                                                                                    }
+                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Material.MaterialGroupName : "　")</td>
+                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Material.MaterialSpec : "　")</td>
+                                                                                                    <td align="center" style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Unit : "　")</td>
+                                                                                                    <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Amount : "　")</td>
+                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.UnitPrice : "　")</td>
+                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.TotalPrice : "　")</td>
                                                                                                 </tr>
                                                                                                 <tr>
-                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">螺栓壓圈配件</td>
-                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="center" style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">組</td>
-                                                                                                    <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="left" colspan="2" rowspan="3" style="border-color:Black;border-width:1px;border-style:solid;width:343px;white-space:nowrap;"><span style="display:inline-block;width:85px;">修理狀況：</span><span style="display:inline-block;width:60px;"><input id="ctl48" type="checkbox" name="ctl48"/><label for="ctl48">折斷</label></span><span style="display:inline-block;width:60px;"><input id="ctl49" type="checkbox" name="ctl49"/><label for="ctl49">空洞</label></span><span style="display:inline-block;width:60px;"><input id="ctl50" type="checkbox" name="ctl50"/><label for="ctl50">裂縫</label></span><span><br/></span><span style="display:inline-block;width:60px;"><input id="ctl52" type="checkbox" name="ctl52"/><label for="ctl52">脫接</label></span><span style="display:inline-block;width:60px;"><input id="ctl53" type="checkbox" name="ctl53"/><label for="ctl53">橡皮墊</label></span><span style="display:inline-block;width:60px;"><input id="ctl54" type="checkbox" name="ctl54"/><label for="ctl54">管鞍</label></span><span style="display:inline-block;width:60px;"><input id="ctl55" type="checkbox" name="ctl55"/><label for="ctl55">其他</label></span></td>
+                                                                                                    @{
+                                                                                                        materialCostItem = Model.FixFormMaterialCostItems != null && Model.FixFormMaterialCostItems.Count > 3 ?
+                                                                                                        Model.FixFormMaterialCostItems[3] : null;
+                                                                                                    }
+                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Material.MaterialGroupName : "　")</td>
+                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Material.MaterialSpec : "　")</td>
+                                                                                                    <td align="center" style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Unit : "　")</td>
+                                                                                                    <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Amount : "　")</td>
+                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.UnitPrice : "　")</td>
+                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.TotalPrice : "　")</td>
+
+                                                                                                    <td align="left" colspan="2" rowspan="3" style="border-color:Black;border-width:1px;border-style:solid;width:343px;white-space:nowrap;"><span style="display:inline-block;width:85px;">
+                                                                                                        修理狀況：</span>
+                                                                                                        <span style="display:inline-block;width:60px;">@Html.CheckBoxFor(m => m.FixSituation_IsBreak)<label for="ctl48">折斷</label></span>
+                                                                                                        <span style="display:inline-block;width:60px;">@Html.CheckBoxFor(m => m.FixSituation_IsHole)<label for="ctl49">空洞</label></span>
+                                                                                                        <span style="display:inline-block;width:60px;">@Html.CheckBoxFor(m => m.FixSituation_IsCrack)<label for="ctl50">裂縫</label></span><span><br /></span>
+                                                                                                        <span style="display:inline-block;width:60px;">@Html.CheckBoxFor(m => m.FixSituation_IsDisconnected)<label for="ctl52">脫接</label></span>
+                                                                                                        <span style="display:inline-block;width:60px;">@Html.CheckBoxFor(m => m.FixSituation_IsRubberPad)<label for="ctl53">橡皮墊</label></span>
+                                                                                                        <span style="display:inline-block;width:60px;">@Html.CheckBoxFor(m => m.FixSituation_PipeSaddle)<label for="ctl54">管鞍</label></span>
+                                                                                                        <span style="display:inline-block;width:60px;">@Html.CheckBoxFor(m => m.FixSituation_IsOther)<label for="ctl55">其他</label></span>
+                                                                                                    </td>
                                                                                                 </tr>
                                                                                                 <tr>
-                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">伸縮接頭</td>
-                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="center" style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">只</td>
-                                                                                                    <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
+                                                                                                    @{
+                                                                                                        materialCostItem = Model.FixFormMaterialCostItems != null && Model.FixFormMaterialCostItems.Count > 4 ?
+                                                                                                        Model.FixFormMaterialCostItems[4] : null;
+                                                                                                    }
+                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Material.MaterialGroupName : "　")</td>
+                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Material.MaterialSpec : "　")</td>
+                                                                                                    <td align="center" style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Unit : "　")</td>
+                                                                                                    <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Amount : "　")</td>
+                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.UnitPrice : "　")</td>
+                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.TotalPrice : "　")</td>
                                                                                                 </tr>
                                                                                                 <tr>
-                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">止水栓</td>
-                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="center" style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">只</td>
-                                                                                                    <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
+                                                                                                    @{
+                                                                                                        materialCostItem = Model.FixFormMaterialCostItems != null && Model.FixFormMaterialCostItems.Count > 5 ?
+                                                                                                        Model.FixFormMaterialCostItems[5] : null;
+                                                                                                    }
+                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Material.MaterialGroupName : "　")</td>
+                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Material.MaterialSpec : "　")</td>
+                                                                                                    <td align="center" style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Unit : "　")</td>
+                                                                                                    <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Amount : "　")</td>
+                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.UnitPrice : "　")</td>
+                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.TotalPrice : "　")</td>
                                                                                                 </tr>
                                                                                                 <tr>
-                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="center" style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="left" colspan="2" style="border-color:Black;border-width:1px;border-style:solid;width:343px;white-space:nowrap;"><span style="display:inline-block;width:85px;">漏水情形：</span><span style="display:inline-block;width:85px;"><input id="ctl57" type="checkbox" name="ctl57"/><label for="ctl57">漏出地面</label></span><span style="display:inline-block;width:85px;"><input id="ctl58" type="checkbox" name="ctl58"/><label for="ctl58">滲入地下</label></span><span style="display:inline-block;width:85px;"><input id="ctl59" type="checkbox" name="ctl59"/><label for="ctl59">其他漏水</label></span></td>
+                                                                                                    @{
+                                                                                                        materialCostItem = Model.FixFormMaterialCostItems != null && Model.FixFormMaterialCostItems.Count > 6 ?
+                                                                                                        Model.FixFormMaterialCostItems[6] : null;
+                                                                                                    }
+                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Material.MaterialGroupName : "　")</td>
+                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Material.MaterialSpec : "　")</td>
+                                                                                                    <td align="center" style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Unit : "　")</td>
+                                                                                                    <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Amount : "　")</td>
+                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.UnitPrice : "　")</td>
+                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.TotalPrice : "　")</td>
+
+                                                                                                    <td align="left" colspan="2" style="border-color:Black;border-width:1px;border-style:solid;width:343px;white-space:nowrap;">
+                                                                                                        <span style="display:inline-block;width:85px;">漏水情形：</span>
+                                                                                                        <span style="display:inline-block;width:85px;">@Html.CheckBoxFor(m => m.LeakageSituation_IsOutOfGround)<label for="ctl57">漏出地面</label></span>
+                                                                                                        <span style="display:inline-block;width:85px;">@Html.CheckBoxFor(m => m.LeakageSituation_IsIntoGround)<label for="ctl58">滲入地下</label></span>
+                                                                                                        <span style="display:inline-block;width:85px;">@Html.CheckBoxFor(m => m.LeakageSituation_IsOther)<label for="ctl59">其他漏水</label></span>
+                                                                                                    </td>
                                                                                                 </tr>
                                                                                                 <tr>
-                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="center" style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="left" colspan="1" style="border-color:Black;border-width:1px;border-style:solid;width:176px;white-space:nowrap;">修理好水壓：______kg/cm<sup>2</sup></td>
-                                                                                                    <td align="left" colspan="1" style="border-color:Black;border-width:1px;border-style:solid;width:176px;">日漏水量：______CMD</td>
+                                                                                                    
+                                                                                                    @{
+                                                                                                        materialCostItem = Model.FixFormMaterialCostItems != null && Model.FixFormMaterialCostItems.Count > 7 ?
+                                                                                                        Model.FixFormMaterialCostItems[7] : null;
+                                                                                                    }
+                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Material.MaterialGroupName : "　")</td>
+                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Material.MaterialSpec : "　")</td>
+                                                                                                    <td align="center" style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Unit : "　")</td>
+                                                                                                    <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Amount : "　")</td>
+                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.UnitPrice : "　")</td>
+                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.TotalPrice : "　")</td>
+                                                                                                    <td align="left" colspan="1" style="border-color:Black;border-width:1px;border-style:solid;width:176px;white-space:nowrap;">
+                                                                                                        修理好水壓：<u>@(Model.FixFormLeakage != null && Model.FixFormLeakage.PressureAfter > 0 ? Model.FixFormLeakage.PressureAfter : "　　")</u>kg/cm<sup>2</sup>
+                                                                                                    </td>
+                                                                                                    <td align="left" colspan="1" style="border-color:Black;border-width:1px;border-style:solid;width:176px;">
+                                                                                                        日漏水量：<u>@(Model.FixFormLeakage != null && Model.FixFormLeakage.DailyAmount > 0 ? Model.FixFormLeakage.DailyAmount : "　　")</u>CMD
+                                                                                                    </td>
                                                                                                 </tr>
                                                                                                 <tr>
-                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="center" style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="left" colspan="1" style="border-color:Black;border-width:1px;border-style:solid;width:176px;">破管時水壓：______kg/cm<sup>2</sup></td>
-                                                                                                    <td align="left" colspan="1" style="border-color:Black;border-width:1px;border-style:solid;width:176px;">漏水面積：______cm<sup>2</sup></td>
+                                                                                                    @{
+                                                                                                        materialCostItem = Model.FixFormMaterialCostItems != null && Model.FixFormMaterialCostItems.Count > 8 ?
+                                                                                                        Model.FixFormMaterialCostItems[8] : null;
+                                                                                                    }
+                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Material.MaterialGroupName : "　")</td>
+                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Material.MaterialSpec : "　")</td>
+                                                                                                    <td align="center" style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Unit : "　")</td>
+                                                                                                    <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Amount : "　")</td>
+                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.UnitPrice : "　")</td>
+                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.TotalPrice : "　")</td>
+
+                                                                                                    <td align="left" colspan="1" style="border-color:Black;border-width:1px;border-style:solid;width:176px;">
+                                                                                                        破管時水壓：<u>@(Model.FixFormLeakage != null && Model.FixFormLeakage.PressureBefore >0 ? Model.FixFormLeakage.PressureBefore : "　　")</u>kg/cm<sup>2</sup>
+                                                                                                    </td>
+                                                                                                    <td align="left" colspan="1" style="border-color:Black;border-width:1px;border-style:solid;width:176px;">
+                                                                                                        漏水面積：<u>@(Model.FixFormLeakage != null && Model.FixFormLeakage.Area > 0 ? Model.FixFormLeakage.Area : "　　")</u>cm<sup>2</sup>
+                                                                                                    </td>
                                                                                                 </tr>
                                                                                                 <tr>
-                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="center" style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="left" colspan="1" style="border-color:Black;border-width:1px;border-style:solid;width:176px;">漏水時間：<font color="#000000">1.50</font>小時</td>
-                                                                                                    <td align="left" colspan="1" style="border-color:Black;border-width:1px;border-style:solid;width:176px;">總漏水量：______M<sup>3</sup></td>
+                                                                                                    @{
+                                                                                                        materialCostItem = Model.FixFormMaterialCostItems != null && Model.FixFormMaterialCostItems.Count > 9 ?
+                                                                                                        Model.FixFormMaterialCostItems[9] : null;
+                                                                                                    }
+                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Material.MaterialGroupName : "　")</td>
+                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Material.MaterialSpec : "　")</td>
+                                                                                                    <td align="center" style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Unit : "　")</td>
+                                                                                                    <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Amount : "　")</td>
+                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.UnitPrice : "　")</td>
+                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.TotalPrice : "　")</td>
+
+                                                                                                    <td align="left" colspan="1" style="border-color:Black;border-width:1px;border-style:solid;width:176px;">
+                                                                                                        漏水時間：<u>@(Model.FixFormLeakage != null && Model.FixFormLeakage.Duration > 0 ? Model.FixFormLeakage.Duration : "　　")</u>小時
+                                                                                                    </td>
+                                                                                                    <td align="left" colspan="1" style="border-color:Black;border-width:1px;border-style:solid;width:176px;">
+                                                                                                        總漏水量：<u>@(Model.FixFormLeakage != null && Model.FixFormLeakage.TotalAmount > 0 ? Model.FixFormLeakage.TotalAmount : "　　")</u>M<sup>3</sup>
+                                                                                                    </td>
                                                                                                 </tr>
                                                                                                 <tr>
-                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="center" style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">&#160;</td>
-                                                                                                    <td align="left" colspan="2" style="border-color:Black;border-width:1px;border-style:solid;width:343px;white-space:nowrap;"><input id="ctl60" type="checkbox" name="ctl60"/><label for="ctl60">送配水管線及設備</label><input id="ctl61" type="checkbox" name="ctl61"/><label for="ctl61">用戶外線及設備</label><input id="ctl62" type="checkbox" name="ctl62"/><label for="ctl62">其他</label></td>
+                                                                                                    @{
+                                                                                                        materialCostItem = Model.FixFormMaterialCostItems != null && Model.FixFormMaterialCostItems.Count > 10 ?
+                                                                                                        Model.FixFormMaterialCostItems[10] : null;
+                                                                                                    }
+                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Material.MaterialGroupName : "　")</td>
+                                                                                                    <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Material.MaterialSpec : "　")</td>
+                                                                                                    <td align="center" style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Unit : "　")</td>
+                                                                                                    <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Amount : "　")</td>
+                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.UnitPrice : "　")</td>
+                                                                                                    <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.TotalPrice : "　")</td>
+
+                                                                                                    <td align="left" colspan="2" style="border-color:Black;border-width:1px;border-style:solid;width:343px;white-space:nowrap;">
+                                                                                                        @Html.CheckBoxFor(m => m.LeakageEquipmentAttribute_IsSendPipe)<label for="ctl60">送配水管線及設備</label>
+                                                                                                        @Html.CheckBoxFor(m => m.LeakageEquipmentAttribute_IsOutPipe)<label for="ctl61">用戶外線及設備</label>
+                                                                                                        @Html.CheckBoxFor(m => m.LeakageEquipmentAttribute_IsOther)<label for="ctl62">其他</label>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                @if(Model.FixFormMaterialCostItems != null && Model.FixFormMaterialCostItems.Count > 11)
+                                                                                                {
+                                                                                                    //item 如果超過 12 個,要補列
+                                                                                                    for(var i = 11;i<  Model.FixFormMaterialCostItems.Count; i++)
+                                                                                                    {
+                                                                                                        materialCostItem = Model.FixFormMaterialCostItems[i];
+                                                                                                        <tr>
+                                                                                                            <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Material.MaterialGroupName : "　")</td>
+                                                                                                            <td style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Material.MaterialSpec : "　")</td>
+                                                                                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Unit : "　")</td>
+                                                                                                            <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.Amount : "　")</td>
+                                                                                                            <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.UnitPrice : "　")</td>
+                                                                                                            <td align="right" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;font-size:8pt;">@(materialCostItem != null ? materialCostItem.TotalPrice : "　")</td>
+
+                                                                                                            <td align="left" colspan="2" style="border-color:Black;border-width:1px;border-style:solid;width:343px;white-space:nowrap;">　</td>
+                                                                                                        </tr>
+                                                                                                    }
+                                                                                                }
+                                                                                                <tr>
+
                                                                                                 </tr>
                                                                                                 <tr>
                                                                                                     <td align="center" style="border-color:Black;border-width:1px;border-style:solid;width:260px;white-space:nowrap;">其他材料</td>
@@ -591,8 +867,20 @@
                                                                                                     <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;">&#160;</td>
                                                                                                     <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;">&#160;</td>
                                                                                                     <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;">&#160;</td>
-                                                                                                    <td align="left" valign="top" colspan="1" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">技術工_______時_______人</td>
-                                                                                                    <td align="center" valign="top" colspan="1" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;"><font color="#000000">謝金錄</font>   <font color="#000000">0.5</font>時</td>
+                                                                                                    <td align="left" valign="top" colspan="1" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">
+                                                                                                        技術工
+                                                                                                        <u>@(Model.FixFormAudit != null && Model.FixFormAudit.TechnicianHour.HasValue ? Model.FixFormAudit.TechnicianHour : "　　")</u>時
+                                                                                                        <u>@(Model.FixFormAudit != null && Model.FixFormAudit.TechnicianPeople.HasValue ? Model.FixFormAudit.TechnicianPeople : "　　")</u>人
+                                                                                                    </td>
+                                                                                                    <td align="center" valign="top" colspan="1" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">
+                                                                                                        @if(Model.FixFormAudit != null && Model.FixFormAudit.FixFormAuditSupervisors != null && Model.FixFormAudit.FixFormAuditSupervisors.Count > 0)
+                                                                                                        {
+                                                                                                            <font color="#000000">@Model.FixFormAudit.FixFormAuditSupervisors[0].SupervisorUserName</font>
+                                                                                                            <font color="#000000">@Model.FixFormAudit.FixFormAuditSupervisors[0].Hour</font>
+                                                                                                            <span>時</span>
+                                                                                                        }
+                                                                                                        
+                                                                                                    </td>
                                                                                                 </tr>
                                                                                                 <tr>
                                                                                                     <td style="border-color:Black;border-width:1px;border-style:solid;">級配</td>
@@ -601,8 +889,20 @@
                                                                                                     <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;">&#160;</td>
                                                                                                     <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;">&#160;</td>
                                                                                                     <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;">&#160;</td>
-                                                                                                    <td align="left" valign="top" colspan="1" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">大&#160;&#160;&#160;&#160;工&#160;&#160;&#160;_______時_______人</td>
-                                                                                                    <td align="center" valign="top" colspan="1" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">&#160;</td>
+                                                                                                    <td align="left" valign="top" colspan="1" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">
+                                                                                                        大工
+                                                                                                        <u>@(Model.FixFormAudit != null && Model.FixFormAudit.BigWorkHour.HasValue ? Model.FixFormAudit.BigWorkHour : "　　")</u>時
+                                                                                                        <u>@(Model.FixFormAudit != null && Model.FixFormAudit.BigWorkPeople.HasValue ? Model.FixFormAudit.BigWorkPeople : "　　")</u>人
+                                                                                                    </td>
+                                                                                                    <td align="center" valign="top" colspan="1" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">
+                                                                                                        @if (Model.FixFormAudit != null && Model.FixFormAudit.FixFormAuditSupervisors != null && Model.FixFormAudit.FixFormAuditSupervisors.Count > 1)
+                                                                                                        {
+                                                                                                            <font color="#000000">@Model.FixFormAudit.FixFormAuditSupervisors[1].SupervisorUserName</font>
+                                                                                                            <font color="#000000">@Model.FixFormAudit.FixFormAuditSupervisors[1].Hour</font>
+                                                                                                            <span>時</span>
+                                                                                                        }
+
+                                                                                                    </td>
                                                                                                 </tr>
                                                                                                 <tr>
                                                                                                     <td style="border-color:Black;border-width:1px;border-style:solid;">瀝鎂土</td>
@@ -611,41 +911,97 @@
                                                                                                     <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;">&#160;</td>
                                                                                                     <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;">&#160;</td>
                                                                                                     <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;">&#160;</td>
-                                                                                                    <td align="left" valign="top" colspan="1" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">挖土機&#160;&#160;&#160;_______時</td>
-                                                                                                    <td align="center" valign="top" colspan="1" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">&#160;</td>
+                                                                                                    <td align="left" valign="top" colspan="1" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">
+                                                                                                        挖土機<u>@(Model.FixFormAudit != null && Model.FixFormAudit.ExcavatorHour.HasValue ? Model.FixFormAudit.ExcavatorHour : "　　")</u>時
+                                                                                                    </td>
+                                                                                                    <td align="center" valign="top" colspan="1" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">
+                                                                                                        @if (Model.FixFormAudit != null && Model.FixFormAudit.FixFormAuditSupervisors != null && Model.FixFormAudit.FixFormAuditSupervisors.Count > 2)
+                                                                                                        {
+                                                                                                            <font color="#000000">@Model.FixFormAudit.FixFormAuditSupervisors[2].SupervisorUserName</font>
+                                                                                                            <font color="#000000">@Model.FixFormAudit.FixFormAuditSupervisors[2].Hour</font>
+                                                                                                            <span>時</span>
+                                                                                                        }
+
+                                                                                                    </td>
                                                                                                 </tr>
                                                                                                 <tr>
                                                                                                     <td align="center" colspan="2" style="border-color:Black;border-width:1px;border-style:solid;width:260px;white-space:nowrap;">廢料項目</td>
                                                                                                     <td align="center" colspan="2" style="border-color:Black;border-width:1px;border-style:solid;width:80px;white-space:nowrap;">規格</td>
                                                                                                     <td align="center" style="border-color:Black;border-width:1px;border-style:solid;width:32px;white-space:nowrap;">單位</td>
                                                                                                     <td align="center" style="border-color:Black;border-width:1px;border-style:solid;width:32px;white-space:nowrap;">數量</td>
-                                                                                                    <td align="left" valign="top" colspan="1" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">附照片&#160;_______張</td>
-                                                                                                    <td align="center" valign="top" colspan="1" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">&#160;</td>
+                                                                                                    <td align="left" valign="top" colspan="1" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">
+                                                                                                        附照片<u>@(Model.FixFormAudit != null && Model.FixFormAudit.FixFormAuditAttachments != null ? Model.FixFormAudit.FixFormAuditAttachments.Count() : "　　" )</u>張
+                                                                                                    </td>
+                                                                                                    <td align="center" valign="top" colspan="1" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">
+                                                                                                        @if (Model.FixFormAudit != null && Model.FixFormAudit.FixFormAuditSupervisors != null && Model.FixFormAudit.FixFormAuditSupervisors.Count > 3)
+                                                                                                        {
+                                                                                                            //若超過4人(含);所有人填在同一格才不會破壞 table
+                                                                                                            @for (var i = 3; i < Model.FixFormAudit.FixFormAuditSupervisors.Count;i++)
+                                                                                                            {
+                                                                                                                @if(i>3)
+                                                                                                                {
+                                                                                                                    <span>,</span>
+                                                                                                                }
+
+                                                                                                                <font color="#000000">@Model.FixFormAudit.FixFormAuditSupervisors[i].SupervisorUserName</font>
+                                                                                                                <font color="#000000">@Model.FixFormAudit.FixFormAuditSupervisors[i].Hour</font>
+                                                                                                                <span>時</span>
+                                                                                                            }
+                                                                                                            
+                                                                                                        }
+                                                                                                    </td>
                                                                                                 </tr>
                                                                                                 <tr>
-                                                                                                    <td colspan="2" style="border-color:Black;border-width:1px;border-style:solid;">&#160;</td>
-                                                                                                    <td colspan="2" style="border-color:Black;border-width:1px;border-style:solid;font-size:Smaller;">&#160;</td>
-                                                                                                    <td align="center" style="border-color:Black;border-width:1px;border-style:solid;font-size:Smaller;">&#160;</td>
-                                                                                                    <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;">&#160;</td>
-                                                                                                    <td align="left" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">委外施工費__________元</td>
-                                                                                                    <td align="left" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">材料費__________元</td>
+                                                                                                    @{
+                                                                                                        var scrapCostItem = Model.FixFormScrapCostItems != null && Model.FixFormScrapCostItems.Count > 0 ?
+                                                                                                        Model.FixFormScrapCostItems[0] : null;
+                                                                                                    }
+                                                                                                    <td colspan="2" style="border-color:Black;border-width:1px;border-style:solid;">@(scrapCostItem != null ? scrapCostItem.Material.MaterialName :"　")</td>
+                                                                                                    <td colspan="2" style="border-color:Black;border-width:1px;border-style:solid;font-size:Smaller;">@(scrapCostItem != null ? scrapCostItem.Material.MaterialSpec :"　")</td>
+                                                                                                    <td align="center" style="border-color:Black;border-width:1px;border-style:solid;font-size:Smaller;">@(scrapCostItem != null ? scrapCostItem.Unit : "　")</td>
+                                                                                                    <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;">@(scrapCostItem != null ? scrapCostItem.Amount : "　")</td>
+                                                                                                    <td align="left" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">委外施工費<u>@(Model.FinalCost_Outsourcing> 0 ? Model.FinalCost_Outsourcing : "　　　　　" )</u>元</td>
+                                                                                                    <td align="left" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">材料費<u>@(Model.FinalCost_Material > 0 ? Model.FinalCost_Material : "　　　　　")</u>元</td>
                                                                                                 </tr>
                                                                                                 <tr>
-                                                                                                    <td colspan="2" style="border-color:Black;border-width:1px;border-style:solid;">&#160;</td>
-                                                                                                    <td colspan="2" style="border-color:Black;border-width:1px;border-style:solid;font-size:Smaller;">&#160;</td>
-                                                                                                    <td align="center" style="border-color:Black;border-width:1px;border-style:solid;font-size:Smaller;">&#160;</td>
-                                                                                                    <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;">&#160;</td>
-                                                                                                    <td align="left" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">路權代修費__________元</td>
-                                                                                                    <td align="left" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">員工工資<font color="#000000">128.5</font>元</td>
+                                                                                                    @{
+                                                                                                        scrapCostItem = Model.FixFormScrapCostItems != null && Model.FixFormScrapCostItems.Count > 1 ?
+                                                                                                        Model.FixFormScrapCostItems[1] : null;
+                                                                                                    }
+                                                                                                    <td colspan="2" style="border-color:Black;border-width:1px;border-style:solid;">@(scrapCostItem != null ? scrapCostItem.Material.MaterialName : "　")</td>
+                                                                                                    <td colspan="2" style="border-color:Black;border-width:1px;border-style:solid;font-size:Smaller;">@(scrapCostItem != null ? scrapCostItem.Material.MaterialSpec : "　")</td>
+                                                                                                    <td align="center" style="border-color:Black;border-width:1px;border-style:solid;font-size:Smaller;">@(scrapCostItem != null ? scrapCostItem.Unit : "　")</td>
+                                                                                                    <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;">@(scrapCostItem != null ? scrapCostItem.Amount : "　")</td>
+                                                                                                    <td align="left" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">路權代修費<u>@(Model.FinalCost_RoadRightProxy > 0 ? Model.FinalCost_RoadRightProxy : "　　　　　")</u>元</td>
+                                                                                                    <td align="left" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">員工工資<u>@(Model.FinalCost_EmployeeSalary > 0 ? Model.FinalCost_EmployeeSalary : "　　　　　")</u>元</td>
                                                                                                 </tr>
                                                                                                 <tr>
-                                                                                                    <td colspan="2" style="border-color:Black;border-width:1px;border-style:solid;">&#160;</td>
-                                                                                                    <td colspan="2" style="border-color:Black;border-width:1px;border-style:solid;font-size:Smaller;">&#160;</td>
-                                                                                                    <td align="center" style="border-color:Black;border-width:1px;border-style:solid;font-size:Smaller;">&#160;</td>
-                                                                                                    <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;">&#160;</td>
-                                                                                                    <td align="left" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">其他(背面填列)__________元</td>
-                                                                                                    <td align="left" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">金額合計<font color="#000000">128.5</font>元</td>
+                                                                                                    @{
+                                                                                                        scrapCostItem = Model.FixFormScrapCostItems != null && Model.FixFormScrapCostItems.Count > 2 ?
+                                                                                                        Model.FixFormScrapCostItems[2] : null;
+                                                                                                    }
+                                                                                                    <td colspan="2" style="border-color:Black;border-width:1px;border-style:solid;">@(scrapCostItem != null ? scrapCostItem.Material.MaterialName : "　")</td>
+                                                                                                    <td colspan="2" style="border-color:Black;border-width:1px;border-style:solid;font-size:Smaller;">@(scrapCostItem != null ? scrapCostItem.Material.MaterialSpec : "　")</td>
+                                                                                                    <td align="center" style="border-color:Black;border-width:1px;border-style:solid;font-size:Smaller;">@(scrapCostItem != null ? scrapCostItem.Unit : "　")</td>
+                                                                                                    <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;">@(scrapCostItem != null ? scrapCostItem.Amount : "　")</td>
+                                                                                                    <td align="left" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">其他(背面填列)<u>@(Model.FinalCost_Other > 0 ? Model.FinalCost_Other : "　　　　　")</u>元</td>
+                                                                                                    <td align="left" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">金額合計<u>@(Model.FinalCost_Total > 0 ? Model.FinalCost_Total : "　　　　　")</u>元</td>
                                                                                                 </tr>
+                                                                                                @if(Model.FixFormScrapCostItems != null && Model.FixFormScrapCostItems.Count > 3)
+                                                                                                {
+                                                                                                    for (int i = 3; i < Model.FixFormScrapCostItems.Count;i++)
+                                                                                                    {
+                                                                                                        scrapCostItem =Model.FixFormScrapCostItems[i];
+                                                                                                        <tr>
+                                                                                                           <td colspan="2" style="border-color:Black;border-width:1px;border-style:solid;">@(scrapCostItem != null ? scrapCostItem.Material.MaterialName : "　")</td>
+                                                                                                            <td colspan="2" style="border-color:Black;border-width:1px;border-style:solid;font-size:Smaller;">@(scrapCostItem != null ? scrapCostItem.Material.MaterialSpec : "　")</td>
+                                                                                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;font-size:Smaller;">@(scrapCostItem != null ? scrapCostItem.Unit : "　")</td>
+                                                                                                            <td align="center" style="color:#000000;border-color:Black;border-width:1px;border-style:solid;">@(scrapCostItem != null ? scrapCostItem.Amount : "　")</td>
+                                                                                                            <td align="left" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;"></td>
+                                                                                                            <td align="left" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;"></td>
+                                                                                                        </tr>
+                                                                                                    }                                                                              
+                                                                                                }
                                                                                             </tbody>
                                                                                         </table>
                                                                                     </td>
@@ -659,8 +1015,10 @@
                                                                         <table style="border-width:0px;width:700px;">
                                                                             <tbody>
                                                                                 <tr>
-                                                                                    <td align="left" style="border-width:0px;height:10px;width:150px;">&#160;&#160;派工：<font color="#000000">謝金錄</font></td>
-                                                                                    <td align="left" style="border-width:0px;height:10px;width:150px;">稽核人員：<font color="#000000">林芳如</font></td>
+                                                                                    <td align="left" style="border-width:0px;height:10px;width:150px;">
+                                                                                        派工：<font color="#000000">@(Model.FixFormDispatch != null ? Model.FixFormDispatch.DiapatchUserName : "")</font></td>
+                                                                                    <td align="left" style="border-width:0px;height:10px;width:150px;">
+                                                                                        稽核人員：<font color="#000000">@(Model.FixFormAudit != null? Model.FixFormAudit.AuditorUserName : "")</font></td>
                                                                                     <td align="left" style="border-width:0px;height:10px;width:200px;">初驗簽證：<font color="#000000"></font></td>
                                                                                     <td align="left" style="border-width:0px;height:10px;width:200px;">廠商:</td>
                                                                                 </tr>
