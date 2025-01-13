@@ -1089,7 +1089,7 @@ public class RA002 : ReportDataModel
     {
         get
         {
-            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind!.Name == "3cm瀝鎂土");
+            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind != null &&  x.AsphaltRepairKind!.Name == "3cm瀝鎂土");
         }
     }
     
@@ -1100,7 +1100,7 @@ public class RA002 : ReportDataModel
     {
         get
         {
-            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind!.Name == "5cm熱拌AC");
+            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind != null &&  x.AsphaltRepairKind!.Name == "5cm熱拌AC");
         }
     }
 
@@ -1111,7 +1111,7 @@ public class RA002 : ReportDataModel
     {
         get
         {
-            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind!.Name == "5cm瀝鎂土");
+            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind != null &&  x.AsphaltRepairKind!.Name == "5cm瀝鎂土");
         }
     }
 
@@ -1122,7 +1122,7 @@ public class RA002 : ReportDataModel
     {
         get
         {
-            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind!.Name == "10cmAC");
+            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind != null &&  x.AsphaltRepairKind!.Name == "10cmAC");
         }
     }
 
@@ -1133,7 +1133,7 @@ public class RA002 : ReportDataModel
     {
         get
         {
-            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind!.Name == "15cmAC");
+            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind != null &&  x.AsphaltRepairKind!.Name == "15cmAC");
         }
     }
 
@@ -1144,7 +1144,7 @@ public class RA002 : ReportDataModel
     {
         get
         {
-            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind!.Name == "20cmAC");
+            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind != null &&  x.AsphaltRepairKind!.Name == "20cmAC");
         }
     }
 
@@ -1168,7 +1168,7 @@ public class RA002 : ReportDataModel
     {
         get
         {
-            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind!.Name == "5cmAC");
+            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind != null &&  x.AsphaltRepairKind!.Name == "5cmAC");
         }
     }
 
@@ -1179,7 +1179,7 @@ public class RA002 : ReportDataModel
     {
         get
         {
-            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind!.Name == "5cm瀝鎂土");
+            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind != null &&  x.AsphaltRepairKind!.Name == "5cm瀝鎂土");
         }
     }
 
@@ -1190,7 +1190,7 @@ public class RA002 : ReportDataModel
     {
         get
         {
-            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind!.Name == "10cmAC");
+            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind != null &&  x.AsphaltRepairKind!.Name == "10cmAC");
         }
     }
 
@@ -1201,7 +1201,7 @@ public class RA002 : ReportDataModel
     {
         get
         {
-            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind!.Name == "15cmAC");
+            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind != null &&  x.AsphaltRepairKind!.Name == "15cmAC");
         }
     }
 
@@ -1212,7 +1212,7 @@ public class RA002 : ReportDataModel
     {
         get
         {
-            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind!.Name == "20cmAC");
+            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind != null &&  x.AsphaltRepairKind!.Name == "20cmAC");
         }
     }
 
@@ -1223,7 +1223,7 @@ public class RA002 : ReportDataModel
     {
         get
         {
-            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind!.Name == "20cm以上");
+            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind != null &&  x.AsphaltRepairKind!.Name == "20cm以上");
         }
     }
 
