@@ -83,6 +83,7 @@ try
         builder.Services.AddScoped<IGetService<RA001, string>, StagingServices.RA001Service>();
         builder.Services.AddScoped<IGetService<DateTime, Guid>, StagingServices.RA001Service>();
         builder.Services.AddScoped<IGetService<RA002, string>, StagingServices.RA002Service>();
+        builder.Services.AddScoped<IGetService<RA003, string>, StagingServices.RA003Service>();
     }
     else
     {
@@ -106,6 +107,7 @@ try
         builder.Services.AddScoped<IGetService<RA001, string>, MockServices.RA001Service>();
         builder.Services.AddScoped<IGetService<DateTime, Guid>, MockServices.RA001Service>();
         builder.Services.AddScoped<IGetService<RA002, string>, MockServices.RA002Service>();
+        builder.Services.AddScoped<IGetService<RA003, string>, MockServices.RA003Service>();
     }
 
     if (!string.IsNullOrWhiteSpace(builder.Configuration["SqlDbOptions:ConnectionString"]))

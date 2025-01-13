@@ -28,6 +28,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ViewModel\FixFormLeakage.cs.bak" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="Views\_Layout.cshtml" />
     <EmbeddedResource Include="Views\_ViewImports.cshtml" />
     <EmbeddedResource Include="Views\_ViewStart.cshtml" />
@@ -65,6 +69,18 @@
     <ProjectReference Include="..\DomainStorm.Project.TWCrepair.Repository\DomainStorm.Project.TWCrepair.Repository.csproj" />
     <ProjectReference Include="..\DomainStorm.Project.TWCrepair.Shared\DomainStorm.Project.TWCrepair.Shared.csproj" />
     <ProjectReference Include="..\DomainStorm.Report.BlazorComponent\DomainStorm.Report.BlazorComponent.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Update="Views\RA003.cs">
+      <DependentUpon>%(Filename).cshtml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\RA001.cs">
+      <DependentUpon>%(Filename).cshtml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\RA002.cs">
+      <DependentUpon>%(Filename).cshtml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>

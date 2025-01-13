@@ -4,7 +4,7 @@ using DomainStorm.Project.TWCrepair.Shared.ViewModel;
 namespace DomainStorm.Project.TWCrepair.Report.Web.Views;
 
 /// <summary>
-/// 列印派工單
+/// 列印派工單-第一頁
 /// </summary>
 public class RA002 : ReportDataModel
 {
