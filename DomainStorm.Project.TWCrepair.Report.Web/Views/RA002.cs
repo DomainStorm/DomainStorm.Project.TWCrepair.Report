@@ -16,7 +16,6 @@ public class RA002 : ReportDataModel
     /// <summary>
     /// 是否免費
     /// </summary>
-    //todo 
     public bool IsFree
     {
         get
@@ -28,7 +27,6 @@ public class RA002 : ReportDataModel
     /// <summary>
     /// 是否收費
     /// </summary>
-    //todo 
     public bool IsCharge //@Html.CheckBoxFor 不能作 ! 運算,需另訂屬性
     {
         get
@@ -1073,7 +1071,162 @@ public class RA002 : ReportDataModel
         }
     }
 
-    //todo 厚度的規格, 原始資料就有缺少 , 要改實修登錄的 DigFill
+    private List<FixFormDigFillItem> Asphalt_First_Items
+    {
+        get
+        {
+            if (FixFormDigFill != null && FixFormDigFill.AsphaltRepairs != null && FixFormDigFill.AsphaltRepairs.Any())
+                return FixFormDigFill.AsphaltRepairs[0].FixFormDigFillItems;
+            else
+                return null!;
+        }
+    }
+
+    /// <summary>
+    /// 柏油路面_第一次_3cm瀝鎂土
+    /// </summary>
+    public bool Asphalt_First_Is3cm瀝鎂土
+    {
+        get
+        {
+            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind!.Name == "3cm瀝鎂土");
+        }
+    }
+    
+    /// <summary>
+    /// 柏油路面_第一次_5cm熱拌AC
+    /// </summary>
+    public bool Asphalt_First_Is5cm熱拌AC
+    {
+        get
+        {
+            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind!.Name == "5cm熱拌AC");
+        }
+    }
+
+    /// <summary>
+    /// 柏油路面_第一次_5cm瀝鎂土	
+    /// </summary>
+    public bool Asphalt_First_Is5cm瀝鎂土
+    {
+        get
+        {
+            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind!.Name == "5cm瀝鎂土");
+        }
+    }
+
+    /// <summary>
+    /// 柏油路面_第一次_10cmAC	
+    /// </summary>
+    public bool Asphalt_First_Is10cmAC
+    {
+        get
+        {
+            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind!.Name == "10cmAC");
+        }
+    }
+
+    /// <summary>
+    /// 柏油路面_第一次_15cmAC	
+    /// </summary>
+    public bool Asphalt_First_Is15cmAC
+    {
+        get
+        {
+            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind!.Name == "15cmAC");
+        }
+    }
+
+    /// <summary>
+    /// 柏油路面_第一次_20cmAC	
+    /// </summary>
+    public bool Asphalt_First_Is20cmAC
+    {
+        get
+        {
+            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind!.Name == "20cmAC");
+        }
+    }
+
+
+    private List<FixFormDigFillItem> Asphalt_Second_Items
+    {
+        get
+        {
+            if (FixFormDigFill != null && FixFormDigFill.AsphaltRepairs != null && FixFormDigFill.AsphaltRepairs.Count>1)
+                return FixFormDigFill.AsphaltRepairs[1].FixFormDigFillItems;
+            else
+                return null!;
+        }
+    }
+
+
+    /// <summary>
+    /// 柏油路面_第二次_5cmAC
+    /// </summary>
+    public bool Asphalt_Second_Is5cmAC
+    {
+        get
+        {
+            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind!.Name == "5cmAC");
+        }
+    }
+
+    /// <summary>
+    /// 柏油路面_第二次_5cm瀝鎂土
+    /// </summary>
+    public bool Asphalt_Second_Is5cm瀝鎂土
+    {
+        get
+        {
+            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind!.Name == "5cm瀝鎂土");
+        }
+    }
+
+    /// <summary>
+    /// 柏油路面_第二次_10cmAC	
+    /// </summary>
+    public bool Asphalt_Second_Is10cmAC
+    {
+        get
+        {
+            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind!.Name == "10cmAC");
+        }
+    }
+
+    /// <summary>
+    /// 柏油路面_第二次_15cmAC
+    /// </summary>
+    public bool Asphalt_Second_Is15cmAC
+    {
+        get
+        {
+            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind!.Name == "15cmAC");
+        }
+    }
+
+    /// <summary>
+    /// 柏油路面_第二次_20cmAC
+    /// </summary>
+    public bool Asphalt_Second_Is20cmAC
+    {
+        get
+        {
+            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind!.Name == "20cmAC");
+        }
+    }
+
+    /// <summary>
+    /// 柏油路面_第二次_20cm以上
+    /// </summary>
+    public bool Asphalt_Second_Is20cm以上
+    {
+        get
+        {
+            return Asphalt_First_Items != null && Asphalt_First_Items.Any(x => x.AsphaltRepairKind!.Name == "20cm以上");
+        }
+    }
+
     #endregion
 
     #region 混凝土路
@@ -1400,7 +1553,7 @@ public class RA002 : ReportDataModel
     public decimal? FinalCost_EmployeeSalary { get; set; } = 0;
 
     /// <summary>
-    /// todo:各項費用_其他(資料來源?)
+    /// 各項費用_其他(保留空白)
     /// </summary>
     public decimal? FinalCost_Other { get; set; } = 0;
 
