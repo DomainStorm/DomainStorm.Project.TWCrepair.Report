@@ -3,14 +3,14 @@ using DomainStorm.Framework.Services;
 
 namespace DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel;
 
-public static class RA004
+public static class RA005
 {
     public static class V1
     {
         /// <summary>
-        /// 列印派工單-第三頁
+        /// 列印派工單-第四頁
         /// </summary>
-        public class QueryRA004 : IQuery
+        public class QueryRA005 : IQuery
         {
             public Guid Id { get; set; }
             public IConvert.Extension Extension { get; set; }

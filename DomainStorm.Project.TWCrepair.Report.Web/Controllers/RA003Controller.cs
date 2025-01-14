@@ -16,7 +16,6 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers;
 [Route("api/ra003")]
 public class RA003Controller : ControllerBase
 {
-    private readonly IGetService<DateTime, Guid> _ra003DateService;
     private readonly IGetService<RA003, string> _ra003Service;
     private readonly IGetService<Stream, ReportConvertRequest> _reportService;
 
@@ -25,7 +24,6 @@ public class RA003Controller : ControllerBase
         IGetService<RA003, string> ra003Service,
         IGetService<Stream, ReportConvertRequest> reportService)
     {
-        _ra003DateService = ra003DateService;
         _ra003Service = ra003Service;
         _reportService = reportService;
     }

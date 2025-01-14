@@ -10,6 +10,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web
             CreateMap<Models.FixForm, RA002>();
             CreateMap<Models.FixForm, RA003>();
             CreateMap<Models.FixForm, RA004>();
+            CreateMap<Models.FixForm, RA005>();
             CreateMap<Models.FixFormDispatch, TWCrepair.Shared.ViewModel.FixFormDispatch>();
             CreateMap<Models.FixFormProperty, TWCrepair.Shared.ViewModel.FixFormProperty>();
             CreateMap<Models.Word, TWCrepair.Shared.ViewModel.Word >();
@@ -35,6 +36,8 @@ namespace DomainStorm.Project.TWCrepair.Report.Web
             CreateMap<Models.FixFormMaterialCostItem, TWCrepair.Shared.ViewModel.FixFormMaterialCostItem>();
             CreateMap<Models.Material, TWCrepair.Shared.ViewModel.Material>();
             CreateMap<Models.FixFormScrapCostItem, TWCrepair.Shared.ViewModel.FixFormScrapCostItem>();
+            CreateMap<Models.FixFormOutsourcingCost, TWCrepair.Shared.ViewModel.FixFormOutsourcingCost>();
+            CreateMap<Models.FixFormOutsourcingCostItem, TWCrepair.Shared.ViewModel.FixFormOutsourcingCostItem>();
         }
     }
 }
