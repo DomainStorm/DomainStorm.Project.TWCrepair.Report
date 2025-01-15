@@ -1,0 +1,746 @@
+﻿@model DomainStorm.Project.TWCrepair.Report.Web.Views.RA003
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>
+
+    </title>
+
+    <style type="text/css">
+        BODY {
+            FONT-SIZE: 10pt;
+            FONT-FAMILY: 新細明體
+        }
+
+        A:link {
+            FONT-SIZE: 10pt;
+            TEXT-DECORATION: none;
+            COLOR: blue;
+            LINE-HEIGHT: 16px
+        }
+
+        A:visited {
+            FONT-SIZE: 10pt;
+            TEXT-DECORATION: none;
+            COLOR: blue;
+            LINE-HEIGHT: 16px
+        }
+
+        A:hover {
+            FONT-SIZE: 10pt;
+            TEXT-DECORATION: none;
+            COLOR: red;
+            LINE-HEIGHT: 16px
+        }
+
+        TD {
+            FONT-SIZE: 10pt;
+            FONT-FAMILY: 新細明體;
+            LINE-HEIGHT: 16px
+        }
+
+        INPUT {
+            FONT-SIZE: 10pt;
+            FONT-FAMILY: 新細明體;
+            LINE-HEIGHT: 16px
+        }
+
+        SELECT {
+            FONT-SIZE: 10pt;
+            FONT-FAMILY: 新細明體;
+            LINE-HEIGHT: 16px
+        }
+
+        LABEL {
+            FONT-SIZE: 10pt;
+            FONT-FAMILY: 新細明體;
+            LINE-HEIGHT: 16px
+        }
+
+        #Mattc tr td:first-child {
+            min-width: 200px;
+        }
+    </style>
+    <style type="text/css">
+
+        .cPrintOnly {
+            PAGE-BREAK-BEFORE: always;
+            DISPLAY: none
+        }
+
+        .cPrintAfter {
+            PAGE-BREAK-AFTER: always;
+            DISPLAY: block;
+        }
+
+        .avoidBreak {
+            page-break-inside: avoid;
+        }
+
+        .avoidBreak2 {
+            page-break-inside: avoid;
+            display: block;
+        }
+    </style>
+        <style>
+<!--
+ /* Font Definitions */
+ @@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-alt:宋体;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:3 680460288 22 0 262145 0;}
+@@font-face
+	{font-family:新細明體;
+	panose-1:2 2 5 0 0 0 0 0 0 0;
+	mso-font-alt:PMingLiU;
+	mso-font-charset:136;
+	mso-generic-font-family:roman;
+	mso-font-pitch:variable;
+	mso-font-signature:-1610611969 684719354 22 0 1048577 0;}
+@@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:roman;
+	mso-font-pitch:variable;
+	mso-font-signature:-536869121 1107305727 33554432 0 415 0;}
+@@font-face
+	{font-family:標楷體;
+	panose-1:3 0 5 9 0 0 0 0 0 0;
+	mso-font-charset:136;
+	mso-generic-font-family:script;
+	mso-font-pitch:fixed;
+	mso-font-signature:3 135135232 22 0 1048577 0;}
+@@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:-520081665 -1073717157 41 0 66047 0;}
+@@font-face
+	{font-family:"\@@標楷體";
+	mso-font-charset:136;
+	mso-generic-font-family:script;
+	mso-font-pitch:fixed;
+	mso-font-signature:3 135135232 22 0 1048577 0;}
+@@font-face
+	{font-family:"\@@新細明體";
+	panose-1:2 1 6 1 0 1 1 1 1 1;
+	mso-font-charset:136;
+	mso-generic-font-family:roman;
+	mso-font-pitch:variable;
+	mso-font-signature:-1610611969 684719354 22 0 1048577 0;}
+@@font-face
+	{font-family:"\@@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:3 680460288 22 0 262145 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-parent:"";
+	margin:0cm;
+	mso-pagination:none;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:新細明體;
+	mso-font-kerning:1.0pt;}
+p.MsoCommentText, li.MsoCommentText, div.MsoCommentText
+	{mso-style-noshow:yes;
+	mso-style-unhide:no;
+	margin:0cm;
+	mso-pagination:none;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:新細明體;
+	mso-font-kerning:1.0pt;}
+p.MsoHeader, li.MsoHeader, div.MsoHeader
+	{mso-style-unhide:no;
+	margin:0cm;
+	mso-pagination:none;
+	tab-stops:center 207.65pt right 415.3pt;
+	layout-grid-mode:char;
+	font-size:10.0pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:新細明體;
+	mso-font-kerning:1.0pt;}
+p.MsoFooter, li.MsoFooter, div.MsoFooter
+	{mso-style-unhide:no;
+	margin:0cm;
+	mso-pagination:none;
+	tab-stops:center 207.65pt right 415.3pt;
+	layout-grid-mode:char;
+	font-size:10.0pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:新細明體;
+	mso-font-kerning:1.0pt;}
+span.MsoCommentReference
+	{mso-style-noshow:yes;
+	mso-style-unhide:no;
+	mso-style-parent:"";
+	mso-ansi-font-size:9.0pt;
+	mso-bidi-font-size:9.0pt;}
+p.MsoBodyTextIndent2, li.MsoBodyTextIndent2, div.MsoBodyTextIndent2
+	{mso-style-unhide:no;
+	margin-top:0cm;
+	margin-right:5.65pt;
+	margin-bottom:0cm;
+	margin-left:0cm;
+	text-indent:221.2pt;
+	mso-line-height-alt:12.0pt;
+	mso-pagination:none;
+	layout-grid-mode:char;
+	font-size:14.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:標楷體;
+	mso-font-kerning:1.0pt;}
+p.MsoBlockText, li.MsoBlockText, div.MsoBlockText
+	{mso-style-unhide:no;
+	margin-top:9.0pt;
+	margin-right:5.65pt;
+	margin-bottom:0cm;
+	margin-left:62.9pt;
+	text-indent:-26.9pt;
+	mso-line-height-alt:12.0pt;
+	mso-pagination:none;
+	layout-grid-mode:char;
+	font-size:14.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:標楷體;
+	mso-font-kerning:1.0pt;}
+p
+	{mso-style-unhide:no;
+	margin:0cm;
+	mso-pagination:none;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:新細明體;
+	mso-font-kerning:1.0pt;}
+p.MsoCommentSubject, li.MsoCommentSubject, div.MsoCommentSubject
+	{mso-style-noshow:yes;
+	mso-style-unhide:no;
+	mso-style-parent:註解文字;
+	mso-style-next:註解文字;
+	margin:0cm;
+	mso-pagination:none;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:新細明體;
+	mso-font-kerning:1.0pt;
+	font-weight:bold;}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{mso-style-noshow:yes;
+	mso-style-unhide:no;
+	margin:0cm;
+	mso-pagination:none;
+	font-size:9.0pt;
+	font-family:"Arial",sans-serif;
+	mso-fareast-font-family:新細明體;
+	mso-bidi-font-family:"Times New Roman";
+	mso-font-kerning:1.0pt;}
+span.T11
+	{mso-style-name:"樣式 T11 + 深藍色 字元";
+	mso-style-unhide:no;
+	mso-style-parent:"";
+	mso-ansi-font-size:14.0pt;
+	font-family:標楷體;
+	mso-ascii-font-family:標楷體;
+	mso-fareast-font-family:標楷體;
+	color:navy;
+	mso-ansi-language:EN-US;
+	mso-fareast-language:ZH-TW;
+	mso-bidi-language:AR-SA;}
+p.a, li.a, div.a
+	{mso-style-name:" 字元 字元 字元";
+	mso-style-unhide:no;
+	margin-top:0cm;
+	margin-right:12.0pt;
+	margin-bottom:0cm;
+	margin-left:0cm;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	mso-pagination:none;
+	font-size:12.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:"Tahoma",sans-serif;
+	mso-fareast-font-family:SimSun;
+	mso-bidi-font-family:"Times New Roman";
+	color:black;
+	mso-font-kerning:1.0pt;
+	mso-fareast-language:ZH-CN;}
+span.GramE
+	{mso-style-name:"";
+	mso-gram-e:yes;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	mso-default-props:yes;
+	mso-fareast-font-family:新細明體;}
+ 
+ /* List Definitions */
+ @@list l0
+	{mso-list-id:5640500;
+	mso-list-type:hybrid;
+	mso-list-template-ids:236765718 1082282136 -1016059424 1424629320 466643482 1677480298 67698715 67698703 67698713 67698715;}
+@@list l0:level1
+	{mso-level-number-format:taiwanese-counting-thousand;
+	mso-level-text:%1、;
+	mso-level-tab-stop:72.1pt;
+	mso-level-number-position:left;
+	margin-left:96.0pt;
+	text-indent:-24.0pt;
+	mso-ansi-font-size:14.0pt;
+	mso-bidi-font-size:14.0pt;}
+@@list l0:level2
+	{mso-level-number-format:taiwanese-counting-thousand;
+	mso-level-text:"\(%2\)";
+	mso-level-tab-stop:60.0pt;
+	mso-level-number-position:left;
+	margin-left:60.0pt;
+	text-indent:-36.0pt;
+	mso-ansi-font-size:14.0pt;
+	mso-bidi-font-size:14.0pt;}
+@@list l0:level3
+	{mso-level-text:%3、;
+	mso-level-tab-stop:48.1pt;
+	mso-level-number-position:left;
+	margin-left:72.0pt;
+	text-indent:-24.0pt;
+	mso-ansi-font-size:14.0pt;
+	mso-bidi-font-size:14.0pt;
+	font-family:標楷體;}
+@@list l0:level4
+	{mso-level-tab-stop:90.0pt;
+	mso-level-number-position:left;
+	margin-left:90.0pt;
+	text-indent:-18.0pt;
+	font-family:"Times New Roman",serif;}
+@@list l0:level5
+	{mso-level-text:"\(%5\)";
+	mso-level-tab-stop:132.0pt;
+	mso-level-number-position:left;
+	margin-left:132.0pt;
+	text-indent:-36.0pt;
+	font-family:"Times New Roman",serif;}
+@@list l0:level6
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:144.0pt;
+	mso-level-number-position:right;
+	margin-left:144.0pt;
+	text-indent:-24.0pt;}
+@@list l0:level7
+	{mso-level-tab-stop:168.0pt;
+	mso-level-number-position:left;
+	margin-left:168.0pt;
+	text-indent:-24.0pt;}
+@@list l0:level8
+	{mso-level-number-format:ideograph-traditional;
+	mso-level-text:%8、;
+	mso-level-tab-stop:192.0pt;
+	mso-level-number-position:left;
+	margin-left:192.0pt;
+	text-indent:-24.0pt;}
+@@list l0:level9
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:216.0pt;
+	mso-level-number-position:right;
+	margin-left:216.0pt;
+	text-indent:-24.0pt;}
+@@list l1
+	{mso-list-id:682055011;
+	mso-list-type:hybrid;
+	mso-list-template-ids:311606260 1695732768 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@@list l1:level1
+	{mso-level-text:"\(%1\)";
+	mso-level-tab-stop:198.75pt;
+	mso-level-number-position:left;
+	margin-left:198.75pt;
+	text-indent:-24.0pt;}
+@@list l1:level2
+	{mso-level-number-format:ideograph-traditional;
+	mso-level-text:%2、;
+	mso-level-tab-stop:120.0pt;
+	mso-level-number-position:left;
+	margin-left:120.0pt;
+	text-indent:-24.0pt;}
+@@list l1:level3
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:144.0pt;
+	mso-level-number-position:right;
+	margin-left:144.0pt;
+	text-indent:-24.0pt;}
+@@list l1:level4
+	{mso-level-tab-stop:168.0pt;
+	mso-level-number-position:left;
+	margin-left:168.0pt;
+	text-indent:-24.0pt;}
+@@list l1:level5
+	{mso-level-number-format:ideograph-traditional;
+	mso-level-text:%5、;
+	mso-level-tab-stop:192.0pt;
+	mso-level-number-position:left;
+	margin-left:192.0pt;
+	text-indent:-24.0pt;}
+@@list l1:level6
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:216.0pt;
+	mso-level-number-position:right;
+	text-indent:-24.0pt;}
+@@list l1:level7
+	{mso-level-tab-stop:240.0pt;
+	mso-level-number-position:left;
+	margin-left:240.0pt;
+	text-indent:-24.0pt;}
+@@list l1:level8
+	{mso-level-number-format:ideograph-traditional;
+	mso-level-text:%8、;
+	mso-level-tab-stop:264.0pt;
+	mso-level-number-position:left;
+	margin-left:264.0pt;
+	text-indent:-24.0pt;}
+@@list l1:level9
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:288.0pt;
+	mso-level-number-position:right;
+	margin-left:288.0pt;
+	text-indent:-24.0pt;}
+@@list l2
+	{mso-list-id:1509490935;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1641095630 -1862111778 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@@list l2:level1
+	{mso-level-tab-stop:18.0pt;
+	mso-level-number-position:left;
+	margin-left:18.0pt;
+	text-indent:-18.0pt;
+	mso-bidi-font-family:"Times New Roman";}
+@@list l2:level2
+	{mso-level-number-format:ideograph-traditional;
+	mso-level-text:%2、;
+	mso-level-tab-stop:48.0pt;
+	mso-level-number-position:left;
+	margin-left:48.0pt;
+	text-indent:-24.0pt;
+	mso-bidi-font-family:"Times New Roman";}
+@@list l2:level3
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:72.0pt;
+	mso-level-number-position:right;
+	margin-left:72.0pt;
+	text-indent:-24.0pt;
+	mso-bidi-font-family:"Times New Roman";}
+@@list l2:level4
+	{mso-level-tab-stop:96.0pt;
+	mso-level-number-position:left;
+	margin-left:96.0pt;
+	text-indent:-24.0pt;
+	mso-bidi-font-family:"Times New Roman";}
+@@list l2:level5
+	{mso-level-number-format:ideograph-traditional;
+	mso-level-text:%5、;
+	mso-level-tab-stop:120.0pt;
+	mso-level-number-position:left;
+	margin-left:120.0pt;
+	text-indent:-24.0pt;
+	mso-bidi-font-family:"Times New Roman";}
+@@list l2:level6
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:144.0pt;
+	mso-level-number-position:right;
+	margin-left:144.0pt;
+	text-indent:-24.0pt;
+	mso-bidi-font-family:"Times New Roman";}
+@@list l2:level7
+	{mso-level-tab-stop:168.0pt;
+	mso-level-number-position:left;
+	margin-left:168.0pt;
+	text-indent:-24.0pt;
+	mso-bidi-font-family:"Times New Roman";}
+@@list l2:level8
+	{mso-level-number-format:ideograph-traditional;
+	mso-level-text:%8、;
+	mso-level-tab-stop:192.0pt;
+	mso-level-number-position:left;
+	margin-left:192.0pt;
+	text-indent:-24.0pt;
+	mso-bidi-font-family:"Times New Roman";}
+@@list l2:level9
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:216.0pt;
+	mso-level-number-position:right;
+	margin-left:216.0pt;
+	text-indent:-24.0pt;
+	mso-bidi-font-family:"Times New Roman";}
+@@list l3
+	{mso-list-id:1904217885;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1265276126 613417834 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@@list l3:level1
+	{mso-level-number-format:taiwanese-counting-thousand;
+	mso-level-text:%1、;
+	mso-level-tab-stop:36.0pt;
+	mso-level-number-position:left;
+	text-indent:-36.0pt;}
+@@list l3:level2
+	{mso-level-number-format:ideograph-traditional;
+	mso-level-text:%2、;
+	mso-level-tab-stop:48.0pt;
+	mso-level-number-position:left;
+	margin-left:48.0pt;
+	text-indent:-24.0pt;}
+@@list l3:level3
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:72.0pt;
+	mso-level-number-position:right;
+	margin-left:72.0pt;
+	text-indent:-24.0pt;}
+@@list l3:level4
+	{mso-level-tab-stop:96.0pt;
+	mso-level-number-position:left;
+	margin-left:96.0pt;
+	text-indent:-24.0pt;}
+@@list l3:level5
+	{mso-level-number-format:ideograph-traditional;
+	mso-level-text:%5、;
+	mso-level-tab-stop:120.0pt;
+	mso-level-number-position:left;
+	margin-left:120.0pt;
+	text-indent:-24.0pt;}
+@@list l3:level6
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:144.0pt;
+	mso-level-number-position:right;
+	margin-left:144.0pt;
+	text-indent:-24.0pt;}
+@@list l3:level7
+	{mso-level-tab-stop:168.0pt;
+	mso-level-number-position:left;
+	margin-left:168.0pt;
+	text-indent:-24.0pt;}
+@@list l3:level8
+	{mso-level-number-format:ideograph-traditional;
+	mso-level-text:%8、;
+	mso-level-tab-stop:192.0pt;
+	mso-level-number-position:left;
+	margin-left:192.0pt;
+	text-indent:-24.0pt;}
+@@list l3:level9
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:216.0pt;
+	mso-level-number-position:right;
+	margin-left:216.0pt;
+	text-indent:-24.0pt;}
+ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+</head>
+<body style=" margin-left:10px;margin-top:auto" marginwidth="0" marginheight="0">
+    <table id="PrintTable" cellspacing="0" cellpadding="0" style="border-color:Transparent;border-width:0px;border-style:None;width:700px;border-collapse:collapse;">
+        <tbody>
+            
+            <tr>
+                <td align="left" valign="top">
+                    <table cellspacing="0" cellpadding="0" style="border-width:0px;height:1000px;width:707px;border-collapse:collapse;">
+                        <tbody>
+                            <tr class="avoidBreak">
+                                <td align="left" valign="top">
+                                    <table cellspacing="0" cellpadding="0" style="border-width:0px;height:1000px;width:700px;border-collapse:collapse;">
+                                        <tbody>
+                                            <tr>
+                                                <td align="left" valign="middle" style="height:20px;width:273px;">案號: @Model.FixCaseNo</td>
+                                                <td align="left" valign="middle" style="width:427px;">　　　　修漏案件處理單</td>
+                                            </tr>
+                                            <tr>
+                                                <td align="left" valign="top" style="height:250px;width:273px;">
+                                                <table bordercolor="#000000" height="100%" cellspacing="0" cellpadding="0" width="100%" border="0">
+                                                    <tbody><tr><td nowrap="" align="left" colspan="6"><span id="Label16">1‧管線位置示意圖：</span></td></tr>
+                                                    <tr><td colspan="6"><img height="31" src="/wwwroot/img/pipeloc_all_top.gif" width="250" /></td></tr>
+                                                    <tr>
+                                                        <td><img height="25" src="/wwwroot/img/pipeloc_all_dis_1.gif" width="62" /></td>
+                                                        <td width="118" height="25"> @(Model.FixFormAudit != null ? (Model.FixFormAudit.BasePoint != null ? Model.FixFormAudit.BasePoint.Name : Model.FixFormAudit.BasePointInput) : "") </td>
+                                                        <td colspan="2"><img height="25" src="/wwwroot/img/pipeloc_all_dis_3.gif" width="18" /></td>
+                                                        <td width="41" height="25">@(Model.FixFormAudit != null && Model.FixFormAudit.HorizontalDistance.HasValue ? Model.FixFormAudit.HorizontalDistance : "")</td>
+                                                        <td><img height="25" src="/wwwroot/img/pipeloc_all_dis_5.gif" width="11" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="6"><img height="59" src="/wwwroot/img/pipeloc_all_mid.gif" width="250" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="3"><img height="25" src="/wwwroot/img/pipeloc_all_dep_1.gif" width="187" /></td>
+                                                        <td width="52" colspan="2" height="25">@(Model.FixFormAudit != null && Model.FixFormAudit.VerticalDistance.HasValue ? Model.FixFormAudit.VerticalDistance : "" )</td>
+                                                        <td><img height="25" src="/wwwroot/img/pipeloc_all_dep_3.gif" width="11" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="6"><img height="115" src="/wwwroot/img/pipeloc_all_bot.gif" width="250" /></td>
+                                                    </tr>
+                                                 </tbody></table></td>
+                                                <td align="left" valign="top" style="border-color:Black;border-width:1px;border-style:solid;height:170px;width:427px;">
+                                                    <table cellspacing="0" cellpadding="0" style="border-color:Black;border-width:1px;border-style:solid;width:427px;border-collapse:collapse;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td align="left" colspan="7" style="border-color:Black;border-width:1px;border-style:solid;">另件統計表：</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">施工項目</td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">規格1</td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">數量1</td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">規格2</td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">數量2</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">規格3</td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">數量3</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">另件安裝</td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">件</td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">件</td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">件</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">機械接頭</td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">口</td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">;</td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">口</td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">口</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">平口接頭</td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">口</td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">口</td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">口</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">伸縮接頭</td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">處</td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">處</td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">處</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">拆除另件</td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">件</td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">件</td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
+                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">件</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="left" valign="top" colspan="2" style="height:300px;width:700px;">2‧修理位置圖：@Model.Location <br/> <iframe id="frame0" src="" width="700" height="300" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe> </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="left" valign="top" colspan="2" style="height:180px;width:700px;">3‧另件改接示意圖：</td>
+                                            </tr>
+                                            <tr>
+                                                <td align="left" valign="top" colspan="2" style="height:130px;width:700px;"><span style="display:inline-block;width:600px;">4‧修漏案件備註說明：</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr class="cPrintAfter">
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
