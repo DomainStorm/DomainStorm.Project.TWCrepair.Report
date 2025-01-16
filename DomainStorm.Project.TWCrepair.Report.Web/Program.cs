@@ -64,6 +64,12 @@ try
     {
         builder.Services.AddOpenIdConnectCodeExchange(builder.Configuration);
 
+        builder.Services.Configure<CookiePolicyOptions>(options =>
+        {
+            options.MinimumSameSitePolicy = SameSiteMode.None;
+            options.Secure = CookieSecurePolicy.Always;
+        });
+
         builder.Services.AddScoped<IGetService<Function, Guid>, SharedStagingServices.FunctionsService>();
         builder.Services.AddScoped<IGetService<Function?, Uri>, SharedStagingServices.FunctionsService>();
         builder.Services.AddScoped<IGetService<User, Guid>, SharedStagingServices.UserService>();
@@ -265,7 +271,7 @@ try
     }
 
     app.UseStaticFiles();
-
+    app.UseCookiePolicy();
     app.UseRouting();
     app.UseAuthentication();
     app.UseAuthorization();
