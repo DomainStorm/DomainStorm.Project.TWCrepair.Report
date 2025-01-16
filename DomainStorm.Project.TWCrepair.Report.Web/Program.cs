@@ -88,7 +88,10 @@ try
         builder.Services.AddScoped<IGetService<DA005, string>, StagingServices.DA005Service>();
         builder.Services.AddScoped<IGetService<RA001, string>, StagingServices.RA001Service>();
         builder.Services.AddScoped<IGetService<DateTime, Guid>, StagingServices.RA001Service>();
-
+        builder.Services.AddScoped<IGetService<RA002, string>, StagingServices.RA002Service>();
+        builder.Services.AddScoped<IGetService<RA003, string>, StagingServices.RA003Service>();
+        builder.Services.AddScoped<IGetService<RA004, string>, StagingServices.RA004Service>();
+        builder.Services.AddScoped<IGetService<RA005, string>, StagingServices.RA005Service>();
     }
     else
     {
@@ -111,6 +114,10 @@ try
         builder.Services.AddScoped<IGetService<DA005, string>, MockServices.DA005Service>();
         builder.Services.AddScoped<IGetService<RA001, string>, MockServices.RA001Service>();
         builder.Services.AddScoped<IGetService<DateTime, Guid>, MockServices.RA001Service>();
+        builder.Services.AddScoped<IGetService<RA002, string>, MockServices.RA002Service>();
+        builder.Services.AddScoped<IGetService<RA003, string>, MockServices.RA003Service>();
+        builder.Services.AddScoped<IGetService<RA004, string>, MockServices.RA004Service>();
+        builder.Services.AddScoped<IGetService<RA005, string>, MockServices.RA005Service>();
     }
 
     if (!string.IsNullOrWhiteSpace(builder.Configuration["SqlDbOptions:ConnectionString"]))
