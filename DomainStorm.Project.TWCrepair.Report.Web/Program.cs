@@ -19,7 +19,7 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Serilog;
-using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.Report.V1;
+using static DomainStorm.Project.TWCrepair.Repository.CommandModel.Report.V1;
 using Models = DomainStorm.Project.TWCrepair.Repository.Models;
 using SharedMockServices = DomainStorm.Project.TWCrepair.Shared.Services.Impl.Mock;
 using SharedStagingServices = DomainStorm.Project.TWCrepair.Shared.Services.Impl.Staging;
@@ -28,6 +28,9 @@ using MockServices = DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Mock
 using DomainStorm.Project.TWCrepair.Report.Web.Views.Dashboards;
 using DomainStorm.Project.TWCrepair.Report.Web.Views;
 using Radzen;
+using DomainStorm.Project.TWCrepair.Shared.ViewModel;
+using SharedStagingService = DomainStorm.Project.TWCrepair.Shared.Services.Impl.Staging;
+using SharedMockService = DomainStorm.Project.TWCrepair.Shared.Services.Impl.Mock;
 
 
 try
@@ -75,9 +78,9 @@ try
         builder.Services.AddScoped<IGetService<User, Guid>, SharedStagingServices.UserService>();
         builder.Services.AddScoped<IChangeIdentity, SharedStagingServices.UserService>();
         builder.Services.AddScoped<IGetService<Navbar, Guid>, NavbarService>();
-        builder.Services.AddScoped<IGetService<TreeItem, Guid>, TreeItemService>();
-        builder.Services.AddScoped<IGetService<Stream, ReportConvertRequest>, StagingServices.ReportService>();
-        builder.Services.AddScoped<IGetService<PlotlyJson, ReportConvertRequest>, StagingServices.ReportService>();
+        builder.Services.AddScoped<IGetService<DomainStorm.Project.TWCrepair.Report.Web.ViewModel.TreeItem, Guid>, TreeItemService>();
+        builder.Services.AddScoped<IGetService<Stream, ReportConvertRequest>, SharedStagingService.ReportService>();
+        builder.Services.AddScoped<IGetService<PlotlyJson, ReportConvertRequest>, SharedStagingService.ReportService>();
         builder.Services.AddScoped<IGetService<AutoLoginToken, string>, AutoLoginTokenService>();
         builder.Services.AddScoped<IGetService<Department, string>, SharedStagingServices.DepartmentService>();
         builder.Services.AddScoped<IGetService<Post, string>, SharedMockServices.PostService>();
@@ -105,8 +108,8 @@ try
         builder.Services.AddScoped<IGetService<Department, string>, SharedMockServices.DepartmentService>();
         builder.Services.AddScoped<IGetService<Post, string>, SharedMockServices.PostService>();
 
-        builder.Services.AddScoped<IGetService<Stream, ReportConvertRequest>,MockServices.ReportService>();
-        builder.Services.AddScoped<IGetService<PlotlyJson, ReportConvertRequest>, MockServices.ReportService>();
+        builder.Services.AddScoped<IGetService<Stream, ReportConvertRequest>, SharedMockService.ReportService>();
+        builder.Services.AddScoped<IGetService<PlotlyJson, ReportConvertRequest>, SharedMockService.ReportService>();
         builder.Services.AddScoped<IGetService<DA001, string>, MockServices.DA001Service>();
         builder.Services.AddScoped<IGetService<DA002, string>, MockServices.DA002Service>();
         builder.Services.AddScoped<IGetService<DA003, string>, MockServices.DA003Service>();

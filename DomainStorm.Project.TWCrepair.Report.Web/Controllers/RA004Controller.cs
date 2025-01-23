@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using DomainStorm.Framework.Services;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA004.V1;
-using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.Report.V1;
+using static DomainStorm.Project.TWCrepair.Repository.CommandModel.Report.V1;
 using System.Net.Mime;
 using DomainStorm.Project.TWCrepair.Report.Web.Views;
 

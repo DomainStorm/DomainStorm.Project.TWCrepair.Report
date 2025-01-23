@@ -1,11 +1,12 @@
 ﻿@inject IJSRuntime Js
 @inject IGetService<Views.RA001, string> _ra001Service;
-@inject IGetService<Stream, Report.V1.ReportConvertRequest> _reportService;
+@inject IGetService<Stream, ReportConvertRequest> _reportService;
 
 @using DomainStorm.Framework.Services
-@using DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel
 @using DomainStorm.Framework
 @using System.Text
+@using DomainStorm.Project.TWCrepair.Shared.ViewModel
+@using static DomainStorm.Project.TWCrepair.Repository.CommandModel.Report.V1;
 @inherits BasePage
 @page "/RA001"
 
@@ -26,7 +27,7 @@
         GetQueryParameters(_request);
 
         var ra001 = await _ra001Service.GetAsync<ReportCommandModel.RA001.V1.QueryRA001>(_request);
-        var convertRequest = new Report.V1.ReportConvertRequest
+        var convertRequest = new ReportConvertRequest
         {
             ViewName = "/Views/RA001.cshtml",
             Model = ra001,

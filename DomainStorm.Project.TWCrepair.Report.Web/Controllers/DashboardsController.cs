@@ -3,6 +3,7 @@ using DomainStorm.Framework.RazorEngine;
 using DomainStorm.Framework.Services;
 using DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel;
 using DomainStorm.Project.TWCrepair.Report.Web.Views.Dashboards;
+using DomainStorm.Project.TWCrepair.Shared.ViewModel;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
@@ -14,7 +15,7 @@ using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA002.V
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA003.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA004.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA005.V1;
-using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.Report.V1;
+using static DomainStorm.Project.TWCrepair.Repository.CommandModel.Report.V1;
 
 
 
