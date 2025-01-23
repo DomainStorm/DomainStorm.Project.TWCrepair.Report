@@ -1,4 +1,5 @@
-﻿using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.Report.V1;
+﻿using DomainStorm.Project.TWCrepair.Shared.ViewModel;
+using static DomainStorm.Project.TWCrepair.Repository.CommandModel.Report.V1;
 
 
 namespace DomainStorm.Project.TWCrepair.Report.Web.Views.Dashboards;

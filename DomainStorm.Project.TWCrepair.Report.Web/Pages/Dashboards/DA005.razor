@@ -3,10 +3,11 @@
 @using System.Text.Json
 @using DomainStorm.Framework.BlazorComponent.Extensions;
 @using DomainStorm.Framework.Caching
-@using DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel
+@using DomainStorm.Project.TWCrepair.Shared.ViewModel
+@using static DomainStorm.Project.TWCrepair.Repository.CommandModel.Report.V1;
 @inject IJSRuntime Js
 @inject IGetService<DomainStorm.Project.TWCrepair.Report.Web.Views.Dashboards.DA005, string> _DA005Service;
-@inject IGetService<PlotlyJson, Report.V1.ReportConvertRequest> _reportService;
+@inject IGetService<PlotlyJson, ReportConvertRequest> _reportService;
 
 @page "/DA005"
 
@@ -22,7 +23,7 @@
     {
         var request = new ReportCommandModel.DA005.V1.QueryDA005();
         var DA005 = await _DA005Service.GetAsync<ReportCommandModel.DA005.V1.QueryDA005>(request);
-        var convertRequest = new Report.V1.ReportConvertRequest
+        var convertRequest = new ReportConvertRequest
         {
             ViewName = "/Views/Dashboards/DA005.cshtml",
             Model = DA005,
