@@ -44,34 +44,16 @@ public class RA002Service : IGetService<RA002, string>
 
         var fixForm = await _getRepository().GetAsync(condition.Id);
         fixForm.Sorting();
-        if(fixForm.FixFormOutsourcingCost != null)
-        {
-            result.FinalCost_Outsourcing = fixForm.FixFormOutsourcingCost.FinalTotal;
-        }
-        if(fixForm.FixFormDigFill != null)
-        {
-            result.FinalCost_RoadRightProxy = (fixForm.FixFormDigFill.AsphaltProxyCost ?? 0)
-                + (fixForm.FixFormDigFill.ConcreteProxyCost ?? 0);
-        }
-        if(fixForm.FixFormMaterialCostItems != null)
-        {
-            result.FinalCost_Material = fixForm.FixFormMaterialCostItems.Sum(x => x.TotalPrice);
-        }
-        //if (fixForm.FixFormScrapCostItems != null)
-        //{
-        //    result.FinalCost_Material += fixForm.FixFormScrapCostItems.Sum(x => x.TotalPrice);
-        //}
-
-
-
-        result.FinalCost_Total = (result.FinalCost_Outsourcing ?? 0)
-            + (result.FinalCost_RoadRightProxy ?? 0)
-            + (result.FinalCost_EmployeeSalary ?? 0)
-            + (result.FinalCost_Material ?? 0)
-            + (result.FinalCost_Other ?? 0);
-
         _mapper.Map(fixForm, result);
         
+        var final = fixForm.CalculateFinalCost();
+        result.FinalCost_Outsourcing = final.FinalCost_Outsourcing;
+        result.FinalCost_RoadRightProxy = final.FinalCost_RoadRightProxy;
+        result.FinalCost_Material = final.FinalCost_Material;
+        result.FinalCost_EmployeeSalary = final.FinalCost_EmployeeSalary;
+        result.FinalCost_Other = final.FinalCost_Other;
+        result.FinalCost_Total = final.FinalCost_Total;
+
         return result;
     }
 
