@@ -98,6 +98,8 @@ try
         builder.Services.AddScoped<IGetService<RA006, string>, StagingServices.RA006Service>();
         builder.Services.AddScoped<IGetService<RA007, string>, StagingServices.RA007Service>();
         builder.Services.AddScoped<IGetService<RA008, string>, StagingServices.RA008Service>();
+        builder.Services.AddScoped<IGetService<RA009, string>, StagingServices.RA009Service>();
+        builder.Services.AddScoped<IGetService<RA010, string>, StagingServices.RA010Service>();
     }
     else
     {
@@ -127,6 +129,8 @@ try
         builder.Services.AddScoped<IGetService<RA006, string>, MockServices.RA006Service>();
         builder.Services.AddScoped<IGetService<RA007, string>, MockServices.RA007Service>();
         builder.Services.AddScoped<IGetService<RA008, string>, MockServices.RA008Service>();
+        builder.Services.AddScoped<IGetService<RA009, string>, MockServices.RA009Service>();
+        builder.Services.AddScoped<IGetService<RA010, string>, MockServices.RA010Service>();
     }
 
     if (!string.IsNullOrWhiteSpace(builder.Configuration["SqlDbOptions:ConnectionString"]))
