@@ -1,5 +1,4 @@
-﻿
-using static DomainStorm.Project.TWCrepair.Repository.CommandModel.Report.V1;
+﻿using static DomainStorm.Project.TWCrepair.Repository.CommandModel.Report.V1;
 
 namespace DomainStorm.Project.TWCrepair.Report.Web.Views
 {
@@ -8,17 +7,6 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
     /// </summary>
     public class RA006 : ReportDataModel
     {
-
-        /// <summary>
-        /// 年度(民國年)
-        /// </summary>
-        public int Year { get; set; }
-
-        /// <summary>
-        /// 預算書所屬單位代碼
-        /// </summary>
-        public Guid DepartmentId { get; set; }
-
         /// <summary>
         /// 預算書所屬單位名稱
         /// </summary>
@@ -96,31 +84,6 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         /// </summary>
         public decimal? TotalPrice { get; set; } = 0;
 
-        /// <summary>
-        /// 進度說明
-        /// </summary>
-        public string? Schedule { get; set; }
-
-        /// <summary>
-        /// 建立時間
-        /// </summary>
-        public DateTime CreateTime { get; set; } = DateTime.Now;
-
-
-        /// <summary>
-        /// 建立者 Id
-        /// </summary>
-        public Guid CreateUserId { get; set; }
-
-        /// <summary>
-        /// 建立者姓名
-        /// </summary>
-        public string CreateUserName { get; set; }
-
-        public DateTime? ModifyTime { get; set; }
-
-        public Guid? ModifyUserId { get; set; }
-
         
         /// <summary>
         /// 設計圖張數
@@ -151,8 +114,6 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         /// 備註
         /// </summary>
         public string? Notes { get; set; }
-
-
     }
 }
 

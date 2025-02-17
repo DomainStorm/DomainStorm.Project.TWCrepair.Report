@@ -4,19 +4,19 @@ using DomainStorm.Framework.Services;
 using DomainStorm.Framework.SqlDb;
 using DomainStorm.Project.TWCrepair.Report.Web.Views;
 using DomainStorm.Project.TWCrepair.Repository.Models;
-using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA006.V1;
+using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA007.V1;
 
 namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Mock;
 
 /// <summary>
-/// 預算書-封面
+/// 預算書-詳細總表
 /// </summary>
-public class RA006Service : IGetService<RA006, string>
+public class RA007Service : IGetService<RA007, string>
 {
     private readonly GetRepository<IRepository<FixForm>> _getRepository;
     private readonly IMapper _mapper;
 
-    public RA006Service(
+    public RA007Service(
         GetRepository<IRepository<FixForm>> getRepository,
         IMapper mapper)
     {
@@ -24,23 +24,23 @@ public class RA006Service : IGetService<RA006, string>
         _mapper = mapper;
     }
 
-    public Task<RA006> GetAsync(string id)
+    public Task<RA007> GetAsync(string id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<RA006> GetAsync<TQuery>(IQuery condition) where TQuery : IQuery
+    public Task<RA007> GetAsync<TQuery>(IQuery condition) where TQuery : IQuery
     {
         return condition switch
         {
-            QueryRA006 e => QueryRA006(e),
+            QueryRA007 e => QueryRA007(e),
             _ => throw new ArgumentOutOfRangeException(nameof(condition), condition, null)
         };
     }
 
-    private async Task<RA006> QueryRA006(QueryRA006 condition) 
+    private async Task<RA007> QueryRA007(QueryRA007 condition) 
     {
-        var result = new RA006
+        var result = new RA007
         {
             PrintDate = DateTime.Now,
             DepartmentName = "台中給水廠",
@@ -49,17 +49,10 @@ public class RA006Service : IGetService<RA006, string>
             MaterialPrice = 3000000.00M,
             SubTotalPrice = 34760199.00M,
             Tax = 1738010.00M,
-            TotalPrice = 36498209.00M,
-            EngineeringNumber = "W4-114-0401-504",
-            EngineeringLocation = "廠所供水轄區",
-            EngineeringMethod = "單價發包",
-            EngineeringSummary = "台中給水廠東工區管線設備修理工程",
-            PlanStartDate = DateTime.Parse("2025/01/01"),
-            PlanEndDate = DateTime.Parse("2025/12/31"),
-            DetailTableAmount = 7,
-            UnitPriceAmount = 43
+            TotalPrice= 36498209.00M
         };
         return result;
+
     }
 
     public Task<DateTime> GetAsync(Guid id)
@@ -67,17 +60,17 @@ public class RA006Service : IGetService<RA006, string>
         throw new NotImplementedException();
     }
 
-    public Task<RA006[]> GetListAsync()
+    public Task<RA007[]> GetListAsync()
     {
         throw new NotImplementedException();
     }
 
-    public Task<RA006[]> GetListAsync(string id)
+    public Task<RA007[]> GetListAsync(string id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<RA006[]> GetListAsync<TQuery>(IQuery condition) where TQuery : IQuery
+    public Task<RA007[]> GetListAsync<TQuery>(IQuery condition) where TQuery : IQuery
     {
         throw new NotImplementedException();
     }
