@@ -52,6 +52,20 @@ public class RA009Service : IGetService<RA009, string>
                     }
 
                 },
+                Detail_SubTotal = 25486135,
+                Detail_SafetyAndHealthAmount = 4.72M,
+                Detail_SafetyAndHealthUnitPrice = 131286,
+                Detail_SafetyAndHealthPrice = 619670,
+                Detail_MaterialCustodyPrice = 30000,
+                Detail_InsuranceSubsidyForFixPercentage = 1.7M,
+                Detail_InsuranceSubsidyForFixPrice = 433264,
+                Detail_TurbidWaterPrice = 254861,
+                Detail_InsuranceSubsidyPrice = 2132795,
+                Detail_QualityControlPrice = 509722,
+                Detail_ProfitPrice = 2293752,
+                Detail_Total= 31760199,
+                Detail_Tax = 1588010,
+                Detail_FinalTotal = 33348209
 
             }
 
