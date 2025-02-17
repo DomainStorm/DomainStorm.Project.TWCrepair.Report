@@ -95,6 +95,7 @@ try
         builder.Services.AddScoped<IGetService<RA003, string>, StagingServices.RA003Service>();
         builder.Services.AddScoped<IGetService<RA004, string>, StagingServices.RA004Service>();
         builder.Services.AddScoped<IGetService<RA005, string>, StagingServices.RA005Service>();
+        builder.Services.AddScoped<IGetService<RA006, string>, StagingServices.RA006Service>();
     }
     else
     {
@@ -121,6 +122,7 @@ try
         builder.Services.AddScoped<IGetService<RA003, string>, MockServices.RA003Service>();
         builder.Services.AddScoped<IGetService<RA004, string>, MockServices.RA004Service>();
         builder.Services.AddScoped<IGetService<RA005, string>, MockServices.RA005Service>();
+        builder.Services.AddScoped<IGetService<RA006, string>, MockServices.RA006Service>();
     }
 
     if (!string.IsNullOrWhiteSpace(builder.Configuration["SqlDbOptions:ConnectionString"]))
@@ -233,6 +235,11 @@ try
             .AddScoped<GetRepository<IRepository<Models.WaterPressureCheckData>>>(
                 c => c.GetRequiredService<IRepository<Models.WaterPressureCheckData>>);
 
+        builder.Services
+           .AddTransient<IRepository<Models.Budget.BudgetDoc>, SqlDbRepository<Models.Budget.BudgetDoc>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.Budget.BudgetDoc>>>(
+                c => c.GetRequiredService<IRepository<Models.Budget.BudgetDoc>>);
 
         builder.Services.AddTransient<IUnitOfWork, SqlDbUnitOfWork>();
         builder.Services.AddScoped<GetRepository<IUnitOfWork>>(

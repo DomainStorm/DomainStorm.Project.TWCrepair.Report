@@ -1533,8 +1533,6 @@ public class RA002 : ReportDataModel
 
 
     #region 各項小計及總計費用
-    //todo 確認邏輯後可搬至 Model.FixForm (稽核要顯示, 派工單的列印查詢要顯示)
-
     /// <summary>
     /// 各項費用_委外施工費
     /// </summary>
