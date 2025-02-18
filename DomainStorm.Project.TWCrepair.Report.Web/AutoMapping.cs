@@ -11,6 +11,11 @@ namespace DomainStorm.Project.TWCrepair.Report.Web
             CreateMap<Models.FixForm, RA003>();
             CreateMap<Models.FixForm, RA004>();
             CreateMap<Models.FixForm, RA005>();
+            CreateMap<Models.Budget.BudgetDoc, RA006>();
+            CreateMap<Models.Budget.BudgetDoc, RA007>();
+            CreateMap<Models.Budget.BudgetDoc, RA008>();
+            CreateMap<Models.Budget.BudgetDoc, RA010>();
+            CreateMap<Models.Budget.BudgetDoc, RA011>();
             CreateMap<Models.FixFormDispatch, TWCrepair.Shared.ViewModel.FixFormDispatch>();
             CreateMap<Models.FixFormProperty, TWCrepair.Shared.ViewModel.FixFormProperty>();
             CreateMap<Models.Word, TWCrepair.Shared.ViewModel.Word >();
@@ -38,6 +43,14 @@ namespace DomainStorm.Project.TWCrepair.Report.Web
             CreateMap<Models.FixFormScrapCostItem, TWCrepair.Shared.ViewModel.FixFormScrapCostItem>();
             CreateMap<Models.FixFormOutsourcingCost, TWCrepair.Shared.ViewModel.FixFormOutsourcingCost>();
             CreateMap<Models.FixFormOutsourcingCostItem, TWCrepair.Shared.ViewModel.FixFormOutsourcingCostItem>();
+            CreateMap<Models.Budget.BudgetDocUnitPrice, TWCrepair.Shared.ViewModel.BudgetDocDetailItem>()
+                .ForMember(vm => vm.DayPrice, opt => opt.MapFrom(m => m.TotalDayPrice))
+                .ForMember(vm => vm.NightPrice, opt => opt.MapFrom(m => m.TotalNightPrice));
+            CreateMap<Models.Budget.BudgetDoc, TWCrepair.Shared.ViewModel.BudgetDocDetail>()
+                .ForMember(vm => vm.BudgetDocDetailItems, opt => opt.MapFrom(m => m.BudgetDocUnitPrices));
+            CreateMap<Models.Budget.BudgetDocUnitPriceMember, TWCrepair.Shared.ViewModel.BudgetDocUnitPriceMember>();
+            CreateMap<Models.Budget.BudgetDocUnitPrice, TWCrepair.Shared.ViewModel.BudgetDocUnitPrice>();
+            CreateMap<Models.Budget.ResourceWorkMaterial, TWCrepair.Shared.ViewModel.BudgetDocResourceStatisticsItem>();
         }
     }
 }

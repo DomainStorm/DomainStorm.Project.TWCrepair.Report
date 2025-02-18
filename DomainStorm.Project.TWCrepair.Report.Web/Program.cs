@@ -31,6 +31,7 @@ using Radzen;
 using DomainStorm.Project.TWCrepair.Shared.ViewModel;
 using SharedStagingService = DomainStorm.Project.TWCrepair.Shared.Services.Impl.Staging;
 using SharedMockService = DomainStorm.Project.TWCrepair.Shared.Services.Impl.Mock;
+using static DomainStorm.Framework.BlazorComponent.CommandModel.SysManagementLog.V1;
 
 
 try
@@ -95,6 +96,14 @@ try
         builder.Services.AddScoped<IGetService<RA003, string>, StagingServices.RA003Service>();
         builder.Services.AddScoped<IGetService<RA004, string>, StagingServices.RA004Service>();
         builder.Services.AddScoped<IGetService<RA005, string>, StagingServices.RA005Service>();
+        builder.Services.AddScoped<IGetService<RA006, string>, StagingServices.RA006Service>();
+        builder.Services.AddScoped<IGetService<RA007, string>, StagingServices.RA007Service>();
+        builder.Services.AddScoped<IGetService<RA008, string>, StagingServices.RA008Service>();
+        builder.Services.AddScoped<IGetService<RA009, string>, StagingServices.RA009Service>();
+        builder.Services.AddScoped<IGetService<RA010, string>, StagingServices.RA010Service>();
+        builder.Services.AddScoped<IGetService<RA011, string>, StagingServices.RA011Service>();
+        builder.Services.AddScoped<IGetService<BudgetDocResourceStatistics, Guid>, SharedStagingServices.BudgetDocResourceStatisticsService>();
+        builder.Services.AddScoped<ICommandService<CreateSysManagementLog, DeleteSysManagementLog>, SharedMockServices.SysManagementLogService>(); //故意用mock,上面的 service 會用到,但不會去寫 log
     }
     else
     {
@@ -121,6 +130,14 @@ try
         builder.Services.AddScoped<IGetService<RA003, string>, MockServices.RA003Service>();
         builder.Services.AddScoped<IGetService<RA004, string>, MockServices.RA004Service>();
         builder.Services.AddScoped<IGetService<RA005, string>, MockServices.RA005Service>();
+        builder.Services.AddScoped<IGetService<RA006, string>, MockServices.RA006Service>();
+        builder.Services.AddScoped<IGetService<RA007, string>, MockServices.RA007Service>();
+        builder.Services.AddScoped<IGetService<RA008, string>, MockServices.RA008Service>();
+        builder.Services.AddScoped<IGetService<RA009, string>, MockServices.RA009Service>();
+        builder.Services.AddScoped<IGetService<RA010, string>, MockServices.RA010Service>();
+        builder.Services.AddScoped<IGetService<RA011, string>, MockServices.RA011Service>();
+        builder.Services.AddScoped<IGetService<BudgetDocResourceStatistics, Guid>, SharedMockService.BudgetDocResourceStatisticsService>();
+        builder.Services.AddScoped<ICommandService<CreateSysManagementLog, DeleteSysManagementLog>, SharedMockServices.SysManagementLogService>();
     }
 
     if (!string.IsNullOrWhiteSpace(builder.Configuration["SqlDbOptions:ConnectionString"]))
@@ -233,6 +250,11 @@ try
             .AddScoped<GetRepository<IRepository<Models.WaterPressureCheckData>>>(
                 c => c.GetRequiredService<IRepository<Models.WaterPressureCheckData>>);
 
+        builder.Services
+           .AddTransient<IRepository<Models.Budget.BudgetDoc>, SqlDbRepository<Models.Budget.BudgetDoc>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.Budget.BudgetDoc>>>(
+                c => c.GetRequiredService<IRepository<Models.Budget.BudgetDoc>>);
 
         builder.Services.AddTransient<IUnitOfWork, SqlDbUnitOfWork>();
         builder.Services.AddScoped<GetRepository<IUnitOfWork>>(
