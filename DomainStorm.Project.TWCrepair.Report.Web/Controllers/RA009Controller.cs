@@ -11,8 +11,8 @@ using DomainStorm.Project.TWCrepair.Report.Web.Views;
 namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers;
 
 [ApiController]
-//[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-//[Authorize(AuthenticationSchemes = OpenIdConnectDefaults.AuthenticationScheme)]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+[Authorize(AuthenticationSchemes = OpenIdConnectDefaults.AuthenticationScheme)]
 [Route("api/ra009")]
 public class RA009Controller : ControllerBase
 {

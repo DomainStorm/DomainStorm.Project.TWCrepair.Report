@@ -15,6 +15,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web
             CreateMap<Models.Budget.BudgetDoc, RA007>();
             CreateMap<Models.Budget.BudgetDoc, RA008>();
             CreateMap<Models.Budget.BudgetDoc, RA010>();
+            CreateMap<Models.Budget.BudgetDoc, RA011>();
             CreateMap<Models.FixFormDispatch, TWCrepair.Shared.ViewModel.FixFormDispatch>();
             CreateMap<Models.FixFormProperty, TWCrepair.Shared.ViewModel.FixFormProperty>();
             CreateMap<Models.Word, TWCrepair.Shared.ViewModel.Word >();
@@ -49,6 +50,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web
                 .ForMember(vm => vm.BudgetDocDetailItems, opt => opt.MapFrom(m => m.BudgetDocUnitPrices));
             CreateMap<Models.Budget.BudgetDocUnitPriceMember, TWCrepair.Shared.ViewModel.BudgetDocUnitPriceMember>();
             CreateMap<Models.Budget.BudgetDocUnitPrice, TWCrepair.Shared.ViewModel.BudgetDocUnitPrice>();
+            CreateMap<Models.Budget.ResourceWorkMaterial, TWCrepair.Shared.ViewModel.BudgetDocResourceStatisticsItem>();
         }
     }
 }
