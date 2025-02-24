@@ -51,69 +51,75 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         /// <summary>
         /// 預計開工日期
         /// </summary>
-        public DateTime? PlanStartDate { get; set; }
+        public string? PlanStartDate { get; set; }
 
         /// <summary>
         /// 預計完工日期
         /// </summary>
-        public DateTime? PlanEndDate { get; set; }
+        public string? PlanEndDate { get; set; }
 
 
         /// <summary>
         /// 工程費用
         /// </summary>
-        public decimal? EngineeringPrice { get; set; } = 0;
+        public string? EngineeringPrice { get; set; }
 
         /// <summary>
         /// 材料費用
         /// </summary>
-        public decimal? MaterialPrice { get; set; } = 0;
+        public string? MaterialPrice { get; set; }
 
         /// <summary>
         /// 小計
         /// </summary>
-        public decimal? SubTotalPrice { get; set; } = 0;
+        public string? SubTotalPrice { get; set; }
 
         /// <summary>
         /// 營業稅
         /// </summary>
-        public decimal? Tax { get; set; } = 0;
+        public string? Tax { get; set; }
 
         /// <summary>
         /// 總計
         /// </summary>
-        public decimal? TotalPrice { get; set; } = 0;
+        public string? TotalPrice { get; set; }
 
         
         /// <summary>
         /// 設計圖張數
         /// </summary>
-        public int? DesignDrawingAmount { get; set; }
+        public string? DesignDrawingAmount { get; set; }
 
         /// <summary>
         /// 說明書頁數
         /// </summary>
-        public int? ManualAmount { get; set; }
+        public string? ManualAmount { get; set; }
 
         /// <summary>
         /// 計算書頁數
         /// </summary>
-        public int? CalculationBookAmount { get; set; }
+        public string? CalculationBookAmount { get; set; }
 
         /// <summary>
         /// 詳細表頁數
         /// </summary>
-        public int? DetailTableAmount { get; set; }
+        public string? DetailTableAmount { get; set; }
 
         /// <summary>
         /// 單價分析表頁數
         /// </summary>
-        public int? UnitPriceAmount { get; set; }
+        public string? UnitPriceAmount { get; set; }
 
         /// <summary>
         /// 備註
         /// </summary>
         public string? Notes { get; set; }
+
+
+        /// <summary>
+        /// 是否儲存為範本
+        /// </summary>
+        public bool IsTemplate { get; set; }
     }
 }
 

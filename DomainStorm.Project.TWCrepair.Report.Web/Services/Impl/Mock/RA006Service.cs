@@ -45,19 +45,19 @@ public class RA006Service : IGetService<RA006, string>
             PrintDate = DateTime.Now,
             DepartmentName = "台中給水廠",
             EngineeringName = "台中給水廠東工區管線設備修理工程",
-            EngineeringPrice = 31760199.00M,
-            MaterialPrice = 3000000.00M,
-            SubTotalPrice = 34760199.00M,
-            Tax = 1738010.00M,
-            TotalPrice = 36498209.00M,
+            EngineeringPrice = "31760199.00M",
+            MaterialPrice = "3000000.00M",
+            SubTotalPrice = "34760199.00M",
+            Tax = "1738010.00M",
+            TotalPrice = "36498209.00M",
             EngineeringNumber = "W4-114-0401-504",
             EngineeringLocation = "廠所供水轄區",
             EngineeringMethod = "單價發包",
             EngineeringSummary = "台中給水廠東工區管線設備修理工程",
-            PlanStartDate = DateTime.Parse("2025/01/01"),
-            PlanEndDate = DateTime.Parse("2025/12/31"),
-            DetailTableAmount = 7,
-            UnitPriceAmount = 43
+            PlanStartDate = "2025/01/01",
+            PlanEndDate ="2025/12/31",
+            DetailTableAmount = "7",
+            UnitPriceAmount = "43"
         };
         return result;
     }

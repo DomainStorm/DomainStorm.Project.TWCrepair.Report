@@ -11,7 +11,10 @@ namespace DomainStorm.Project.TWCrepair.Report.Web
             CreateMap<Models.FixForm, RA003>();
             CreateMap<Models.FixForm, RA004>();
             CreateMap<Models.FixForm, RA005>();
-            CreateMap<Models.Budget.BudgetDoc, RA006>();
+            CreateMap<Models.Budget.BudgetDoc, RA006>()
+                .ForMember(dest => dest.PlanStartDate, opt => opt.MapFrom(src => src.PlanStartDate.HasValue ? src.PlanStartDate.Value.ToString("yyyy-MM-dd") : null))
+                .ForMember(dest => dest.PlanEndDate, opt => opt.MapFrom(src => src.PlanEndDate.HasValue ? src.PlanEndDate.Value.ToString("yyyy-MM-dd") : null));
+            CreateMap<Models.Budget.BudgetDoc, RA007>();
             CreateMap<Models.Budget.BudgetDoc, RA007>();
             CreateMap<Models.Budget.BudgetDoc, RA008>();
             CreateMap<Models.Budget.BudgetDoc, RA010>();

@@ -1801,7 +1801,7 @@
                     </table:table-cell>
                     <table:covered-table-cell table:style-name="ce27" />
                     <table:table-cell table:style-name="ce41" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="2" table:number-rows-spanned="1">
-                        <text:p>@(Model.PlanStartDate.HasValue ? Model.PlanStartDate.Value.ToString("yyyy/MM/dd") : "")</text:p>
+                        <text:p>@(Model.PlanStartDate)</text:p>
                     </table:table-cell>
                     <table:covered-table-cell table:style-name="ce41" />
                     <table:table-cell table:style-name="ce56" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="2" table:number-rows-spanned="1">
@@ -1809,7 +1809,7 @@
                     </table:table-cell>
                     <table:covered-table-cell table:style-name="ce37" />
                     <table:table-cell table:style-name="ce41" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="2" table:number-rows-spanned="1">
-                        <text:p>@(Model.PlanEndDate.HasValue ? Model.PlanEndDate.Value.ToString("yyyy/MM/dd") : "" )</text:p>
+                        <text:p>@(Model.PlanEndDate)</text:p>
                     </table:table-cell>
                     <table:covered-table-cell table:style-name="ce41" />
                     <table:table-cell table:style-name="ce3" table:number-columns-repeated="2" />
@@ -1876,14 +1876,14 @@
                     <table:table-cell table:style-name="ce2" />
                     <table:table-cell table:style-name="ce14" />
                     <table:table-cell table:style-name="ce3" office:value-type="string" calcext:value-type="string">
-                        <text:p>設計圖：@(Model.DesignDrawingAmount.HasValue ? Model.DesignDrawingAmount.Value : "") 張</text:p>
+                        <text:p>設計圖：@(Model.DesignDrawingAmount) 張</text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce3" office:value-type="string" calcext:value-type="string">
-                        <text:p>說明書：@(Model.ManualAmount.HasValue ? Model.ManualAmount.Value : "") 頁</text:p>
+                        <text:p>說明書：@(Model.ManualAmount) 頁</text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce3" />
                     <table:table-cell table:style-name="ce3" office:value-type="string" calcext:value-type="string">
-                        <text:p>計算書：@(Model.CalculationBookAmount.HasValue ? Model.CalculationBookAmount.Value : "") 頁</text:p>
+                        <text:p>計算書：@(Model.CalculationBookAmount) 頁</text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce3" table:number-columns-repeated="2" />
                     <table:table-cell table:style-name="ce67" />
@@ -1897,10 +1897,10 @@
                         <text:p><text:s text:c="9" /></text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce31" office:value-type="string" calcext:value-type="string">
-                        <text:p>詳細表：@(Model.DetailTableAmount.HasValue ? Model.DetailTableAmount.Value : "") 頁</text:p>
+                        <text:p>詳細表：@(Model.DetailTableAmount) 頁</text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce31" office:value-type="string" calcext:value-type="string">
-                        <text:p>單價分析表：@(Model.UnitPriceAmount.HasValue ? Model.UnitPriceAmount.Value : "") 頁</text:p>
+                        <text:p>單價分析表：@(Model.UnitPriceAmount) 頁</text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce2" />
                     <table:table-cell table:style-name="ce3" />
