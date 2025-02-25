@@ -75,7 +75,7 @@ public class RA006Controller : ControllerBase
         var outStream = await _reportService.GetAsync(convertRequest);
         var outFileName = $"{System.IO.Path.GetFileNameWithoutExtension(convertRequest.ViewName)}.{convertRequest.Extension.ToString().ToLower()}";
         return File(outStream, MediaTypeNames.Application.Octet, outFileName);
-
+        
     }
 
     private static string GetInputString(string name, object? value, string type = "text", string style = "")

@@ -44,4 +44,26 @@ public class RA007Controller : ControllerBase
         return File(outStream, MediaTypeNames.Application.Octet, outFileName);
 
     }
+
+    [HttpPost("editor")]
+    public async Task<ActionResult> PostForEditor([FromBody] QueryRA007 request)
+    {
+        var ra007Model = await _ra007Service.GetAsync<QueryRA007>(request);
+        ra007Model.MaterialPrice = GetInputString("MaterialPrice", ra007Model.MaterialPrice, "text", "width: 120px");
+
+        var convertRequest = new ReportConvertRequest
+        {
+            ViewName = "/Views/RA007.cshtml",
+            Model = ra007Model,
+            Extension = request.Extension
+        };
+        var outStream = await _reportService.GetAsync(convertRequest);
+        var outFileName = $"{System.IO.Path.GetFileNameWithoutExtension(convertRequest.ViewName)}.{convertRequest.Extension.ToString().ToLower()}";
+        return File(outStream, MediaTypeNames.Application.Octet, outFileName);
+
+    }
+    private static string GetInputString(string name, object? value, string type = "text", string style = "")
+    {
+        return $"${{<input name=\"{name}\" type=\"{type}\" value=\"{value}\" style=\"{style}\"></input>}}";
+    }
 }

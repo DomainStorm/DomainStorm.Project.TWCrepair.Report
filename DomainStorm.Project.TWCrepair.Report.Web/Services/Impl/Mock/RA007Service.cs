@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Globalization;
+using AutoMapper;
 using DomainStorm.Framework;
 using DomainStorm.Framework.Services;
 using DomainStorm.Framework.SqlDb;
@@ -46,7 +47,7 @@ public class RA007Service : IGetService<RA007, string>
             DepartmentName = "台中給水廠",
             EngineeringName = "台中給水廠東工區管線設備修理工程",
             EngineeringPrice = 31760199.00M,
-            MaterialPrice = 3000000.00M,
+            MaterialPrice = (3000000.00M).ToString(CultureInfo.InvariantCulture),
             SubTotalPrice = 34760199.00M,
             Tax = 1738010.00M,
             TotalPrice= 36498209.00M

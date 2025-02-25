@@ -37,7 +37,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         /// <summary>
         /// 材料費用
         /// </summary>
-        public decimal? MaterialPrice { get; set; } = 0;
+        public string? MaterialPrice { get; set; }
 
         /// <summary>
         /// 小計
