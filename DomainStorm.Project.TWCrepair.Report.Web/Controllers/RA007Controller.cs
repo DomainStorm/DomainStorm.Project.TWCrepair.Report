@@ -7,6 +7,7 @@ using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA007.V
 using static DomainStorm.Project.TWCrepair.Repository.CommandModel.Report.V1;
 using System.Net.Mime;
 using DomainStorm.Project.TWCrepair.Report.Web.Views;
+using static Google.Api.ResourceDescriptor.Types;
 
 namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers;
 
@@ -50,7 +51,8 @@ public class RA007Controller : ControllerBase
     {
         var ra007Model = await _ra007Service.GetAsync<QueryRA007>(request);
         ra007Model.MaterialPrice = GetInputString("MaterialPrice", ra007Model.MaterialPrice, "text", "width: 120px");
-
+        //ra007Model.MaterialPriceMemo = $"${{<p>{ra007Model.MaterialPriceMemo}</p><button>帶入全部材料費</button><p>【{ra007Model.DepartmentName}全部區域材料費<br>※材料費：$<span id=\"全部區域材料費\"></span>】</p>}}";
+        
         var convertRequest = new ReportConvertRequest
         {
             ViewName = "/Views/RA007.cshtml",

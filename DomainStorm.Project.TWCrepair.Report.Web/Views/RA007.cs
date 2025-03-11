@@ -40,6 +40,11 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         public string? MaterialPrice { get; set; }
 
         /// <summary>
+        /// 材料備註
+        /// </summary>
+        public string MaterialPriceMemo { get; set; } = "不列材料明細，直接參考最近一年實支材料費，估列金額。";
+
+        /// <summary>
         /// 小計
         /// </summary>
         public decimal? SubTotalPrice { get; set; } = 0;
