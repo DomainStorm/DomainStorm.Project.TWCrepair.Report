@@ -1,9 +1,5 @@
-﻿using AutoMapper;
-using DomainStorm.Framework;
-using DomainStorm.Framework.Services;
-using DomainStorm.Framework.SqlDb;
+﻿using DomainStorm.Framework.Services;
 using DomainStorm.Project.TWCrepair.Report.Web.Views;
-using DomainStorm.Project.TWCrepair.Repository.Models.Budget;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA010.V1;
 
 namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Mock;
@@ -13,17 +9,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Mock;
 /// </summary>
 public class RA010Service : IGetService<RA010, string>
 {
-    private readonly GetRepository<IRepository<BudgetDoc>> _getRepository;
-    private readonly IMapper _mapper;
-
-    public RA010Service(
-        GetRepository<IRepository<BudgetDoc>> getRepository,
-        IMapper mapper)
-    {
-        _getRepository = getRepository;
-        _mapper = mapper;
-    }
-
+    
     public Task<RA010> GetAsync(string id)
     {
         throw new NotImplementedException();
