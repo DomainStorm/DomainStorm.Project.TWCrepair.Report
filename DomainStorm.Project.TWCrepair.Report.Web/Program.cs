@@ -102,7 +102,16 @@ try
         builder.Services.AddScoped<IGetService<RA009, string>, StagingServices.RA009Service>();
         builder.Services.AddScoped<IGetService<RA010, string>, StagingServices.RA010Service>();
         builder.Services.AddScoped<IGetService<RA011, string>, StagingServices.RA011Service>();
+        builder.Services.AddScoped<IGetService<RA012, string>, StagingServices.RA012Service>();
+        builder.Services.AddScoped<IGetService<RA013, string>, StagingServices.RA013Service>();
+        builder.Services.AddScoped<IGetService<RA014, string>, StagingServices.RA014Service>();
+        builder.Services.AddScoped<IGetService<RA015, string>, StagingServices.RA015Service>();
+        builder.Services.AddScoped<IGetService<RA016, string>, StagingServices.RA016Service>();
+        builder.Services.AddScoped<IGetService<RA017, string>, StagingServices.RA017Service>();
+        builder.Services.AddScoped<IGetService<RA018, string>, StagingServices.RA018Service>();
         builder.Services.AddScoped<IGetService<BudgetDocResourceStatistics, Guid>, SharedStagingServices.BudgetDocResourceStatisticsService>();
+        builder.Services.AddScoped<IGetService<BudgetDocOutSourceResourceStatistics, Guid>, SharedStagingServices.BudgetDocOutSourceResourceStatisticsService>();
+        builder.Services.AddScoped<IGetService<BudgetDocContractResourceStatistics, Guid>, SharedStagingServices.BudgetDocContractResourceStatisticsService>();
         builder.Services.AddScoped<ICommandService<CreateSysManagementLog, DeleteSysManagementLog>, SharedMockServices.SysManagementLogService>(); //故意用mock,上面的 service 會用到,但不會去寫 log
     }
     else
@@ -136,7 +145,16 @@ try
         builder.Services.AddScoped<IGetService<RA009, string>, MockServices.RA009Service>();
         builder.Services.AddScoped<IGetService<RA010, string>, MockServices.RA010Service>();
         builder.Services.AddScoped<IGetService<RA011, string>, MockServices.RA011Service>();
+        builder.Services.AddScoped<IGetService<RA012, string>, MockServices.RA012Service>();
+        builder.Services.AddScoped<IGetService<RA013, string>, MockServices.RA013Service>();
+        builder.Services.AddScoped<IGetService<RA014, string>, MockServices.RA014Service>();
+        builder.Services.AddScoped<IGetService<RA015, string>, MockServices.RA015Service>();
+        builder.Services.AddScoped<IGetService<RA016, string>, MockServices.RA016Service>();
+        builder.Services.AddScoped<IGetService<RA017, string>, MockServices.RA017Service>();
+        builder.Services.AddScoped<IGetService<RA018, string>, MockServices.RA018Service>();
         builder.Services.AddScoped<IGetService<BudgetDocResourceStatistics, Guid>, SharedMockService.BudgetDocResourceStatisticsService>();
+        builder.Services.AddScoped<IGetService<BudgetDocOutSourceResourceStatistics, Guid>, SharedMockService.BudgetDocOutSourceResourceStatisticsService>();
+        builder.Services.AddScoped<IGetService<BudgetDocContractResourceStatistics, Guid>, SharedMockService.BudgetDocContractResourceStatisticsService>();
         builder.Services.AddScoped<ICommandService<CreateSysManagementLog, DeleteSysManagementLog>, SharedMockServices.SysManagementLogService>();
     }
 
@@ -255,6 +273,18 @@ try
         builder.Services
             .AddScoped<GetRepository<IRepository<Models.Budget.BudgetDoc>>>(
                 c => c.GetRequiredService<IRepository<Models.Budget.BudgetDoc>>);
+
+        builder.Services
+           .AddTransient<IRepository<Models.Budget.BudgetDocOutSource>, SqlDbRepository<Models.Budget.BudgetDocOutSource>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.Budget.BudgetDocOutSource>>>(
+                c => c.GetRequiredService<IRepository<Models.Budget.BudgetDocOutSource>>);
+
+        builder.Services
+           .AddTransient<IRepository<Models.Budget.BudgetDocContract>, SqlDbRepository<Models.Budget.BudgetDocContract>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.Budget.BudgetDocContract>>>(
+                c => c.GetRequiredService<IRepository<Models.Budget.BudgetDocContract>>);
 
         builder.Services.AddTransient<IUnitOfWork, SqlDbUnitOfWork>();
         builder.Services.AddScoped<GetRepository<IUnitOfWork>>(

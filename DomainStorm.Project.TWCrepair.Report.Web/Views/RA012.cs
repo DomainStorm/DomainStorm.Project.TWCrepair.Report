@@ -1,0 +1,38 @@
+﻿using static DomainStorm.Project.TWCrepair.Repository.CommandModel.Report.V1;
+
+namespace DomainStorm.Project.TWCrepair.Report.Web.Views
+{
+    /// <summary>
+    /// 發包-進度表
+    /// </summary>
+    public class RA012 : ReportDataModel
+    {
+        /// <summary>
+        /// 工程編號
+        /// </summary>
+        public string? EngineeringNumber { get; set; }
+
+        /// <summary>
+        /// 工程名稱
+        /// </summary>
+        public string EngineeringName { get; set; }
+
+        /// <summary>
+        /// 預計開工日期
+        /// </summary>
+        public DateTime? PlanStartDate { get; set; }
+
+        /// <summary>
+        /// 預計完工日期
+        /// </summary>
+        public DateTime? PlanEndDate { get; set; }
+
+        /// <summary>
+        /// 進度說明
+        /// </summary>
+        public string? Schedule { get; set; }
+
+    }
+}
+
+

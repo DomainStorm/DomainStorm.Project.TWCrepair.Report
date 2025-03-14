@@ -473,8 +473,8 @@ public class RA002 : ReportDataModel
     {
         get
         {
-            if (FixUnit_IsContractor && FixFormDispatch != null && FixFormDispatch.Contractor != null)
-                return FixFormDispatch.Contractor.Name;
+            if (FixUnit_IsContractor && FixFormDispatch != null && FixFormDispatch.Contract != null)
+                return FixFormDispatch.Contract.Contractor;
             else
                 return "";
         }
