@@ -1,37 +1,37 @@
 ﻿using DomainStorm.Framework.Services;
 using DomainStorm.Project.TWCrepair.Report.Web.Views;
-using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA015.V1;
+using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA018.V1;
 
 namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Mock;
 
 /// <summary>
-/// 發包-資源統計表
+/// 合約-資源統計表
 /// </summary>
-public class RA015Service : IGetService<RA015, string>
+public class RA018Service : IGetService<RA018, string>
 {
-    public Task<RA015> GetAsync(string id)
+    public Task<RA018> GetAsync(string id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<RA015> GetAsync<TQuery>(IQuery condition) where TQuery : IQuery
+    public Task<RA018> GetAsync<TQuery>(IQuery condition) where TQuery : IQuery
     {
         return condition switch
         {
-            QueryRA015 e => QueryRA015(e),
+            QueryRA018 e => QueryRA018(e),
             _ => throw new ArgumentOutOfRangeException(nameof(condition), condition, null)
         };
     }
 
-    private async Task<RA015> QueryRA015(QueryRA015 condition) 
+    private async Task<RA018> QueryRA018(QueryRA018 condition) 
     {
         
-        var result = new RA015
+        var result = new RA018
         {
             PrintDate = DateTime.Today,
             EngineeringName = "台中給水廠東工區管線設備修理工程",
             DepartmentName = "台中給水廠",
-            BudgetDocOutSourceResourceStatisticsItems = new List<TWCrepair.Shared.ViewModel.BudgetDocOutSourceResourceStatisticsItem>
+            BudgetDocContractResourceStatisticsItems = new List<TWCrepair.Shared.ViewModel.BudgetDocContractResourceStatisticsItem>
             {
                 new ()
                 {
@@ -60,17 +60,17 @@ public class RA015Service : IGetService<RA015, string>
         throw new NotImplementedException();
     }
 
-    public Task<RA015[]> GetListAsync()
+    public Task<RA018[]> GetListAsync()
     {
         throw new NotImplementedException();
     }
 
-    public Task<RA015[]> GetListAsync(string id)
+    public Task<RA018[]> GetListAsync(string id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<RA015[]> GetListAsync<TQuery>(IQuery condition) where TQuery : IQuery
+    public Task<RA018[]> GetListAsync<TQuery>(IQuery condition) where TQuery : IQuery
     {
         throw new NotImplementedException();
     }

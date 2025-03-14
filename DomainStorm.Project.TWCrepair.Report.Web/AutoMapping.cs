@@ -22,6 +22,8 @@ namespace DomainStorm.Project.TWCrepair.Report.Web
             CreateMap<Models.Budget.BudgetDocOutSource, RA012>();
             CreateMap<Models.Budget.BudgetDocOutSource, RA014>();
             CreateMap<Models.Budget.BudgetDocOutSource, RA015>();
+            CreateMap<Models.Budget.BudgetDocContract, RA017>();
+            CreateMap<Models.Budget.BudgetDocContract, RA018>();
 
             CreateMap<Models.FixFormDispatch, TWCrepair.Shared.ViewModel.FixFormDispatch>();
             CreateMap<Models.FixFormProperty, TWCrepair.Shared.ViewModel.FixFormProperty>();
@@ -68,6 +70,16 @@ namespace DomainStorm.Project.TWCrepair.Report.Web
             CreateMap<Models.Budget.BudgetDocOutSourceUnitPrice, TWCrepair.Shared.ViewModel.BudgetDocOutSourceUnitPrice>();
             CreateMap<Models.Budget.BudgetDocOutSource, TWCrepair.Shared.ViewModel.BudgetDocOutSourceResourceStatistics>();
             CreateMap<Models.Budget.ResourceWorkMaterial, TWCrepair.Shared.ViewModel.BudgetDocOutSourceResourceStatisticsItem>();
+
+            CreateMap<Models.Budget.BudgetDocContractUnitPrice, TWCrepair.Shared.ViewModel.BudgetDocContractDetailItem>()
+               .ForMember(vm => vm.DayPrice, opt => opt.MapFrom(m => m.TotalDayPrice))
+               .ForMember(vm => vm.NightPrice, opt => opt.MapFrom(m => m.TotalNightPrice));
+            CreateMap<Models.Budget.BudgetDocContract, TWCrepair.Shared.ViewModel.BudgetDocContractDetail>()
+                .ForMember(vm => vm.BudgetDocContractDetailItems, opt => opt.MapFrom(m => m.BudgetDocContractUnitPrices));
+            CreateMap<Models.Budget.BudgetDocContractUnitPriceMember, TWCrepair.Shared.ViewModel.BudgetDocContractUnitPriceMember>();
+            CreateMap<Models.Budget.BudgetDocContractUnitPrice, TWCrepair.Shared.ViewModel.BudgetDocContractUnitPrice>();
+            CreateMap<Models.Budget.BudgetDocContract, TWCrepair.Shared.ViewModel.BudgetDocContractResourceStatistics>();
+            CreateMap<Models.Budget.ResourceWorkMaterial, TWCrepair.Shared.ViewModel.BudgetDocContractResourceStatisticsItem>();
 
         }
     }
