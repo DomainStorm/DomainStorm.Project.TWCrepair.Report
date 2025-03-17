@@ -1,49 +1,48 @@
 ﻿using DomainStorm.Framework.Services;
 using DomainStorm.Project.TWCrepair.Report.Web.Views;
-using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA010.V1;
+using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA017.V1;
 
 namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Mock;
 
 /// <summary>
-/// 預算書-單價分析表
+/// 合約-單價分析表
 /// </summary>
-public class RA010Service : IGetService<RA010, string>
+public class RA017Service : IGetService<RA017, string>
 {
-    
-    public Task<RA010> GetAsync(string id)
+    public Task<RA017> GetAsync(string id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<RA010> GetAsync<TQuery>(IQuery condition) where TQuery : IQuery
+    public Task<RA017> GetAsync<TQuery>(IQuery condition) where TQuery : IQuery
     {
         return condition switch
         {
-            QueryRA010 e => QueryRA010(e),
+            QueryRA017 e => QueryRA017(e),
             _ => throw new ArgumentOutOfRangeException(nameof(condition), condition, null)
         };
     }
 
-    private async Task<RA010> QueryRA010(QueryRA010 condition) 
+    private async Task<RA017> QueryRA017(QueryRA017 condition) 
     {
         
-        var result = new RA010
+        var result = new RA017
         {
             PrintDate = DateTime.Today,
             EngineeringName = "台中給水廠東工區管線設備修理工程",
             DepartmentName = "台中給水廠",
-            BudgetDocUnitPrices = new List<TWCrepair.Shared.ViewModel.BudgetDocUnitPrice>
+            BudgetDocContractUnitPrices = new List<TWCrepair.Shared.ViewModel.BudgetDocContractUnitPrice>
             {
-                new TWCrepair.Shared.ViewModel.BudgetDocUnitPrice()
+                new TWCrepair.Shared.ViewModel.BudgetDocContractUnitPrice()
                 {
                     Code = "026",
                     Name = "消防栓盒升降或換新",
                     isCombine = true,
                     Unit ="處",
                     UnitAmount = 1M,
-                    BudgetDocUnitPriceMembers = new List<TWCrepair.Shared.ViewModel.BudgetDocUnitPriceMember>
+                    BudgetDocContractUnitPriceMembers = new List<TWCrepair.Shared.ViewModel.BudgetDocContractUnitPriceMember>
                     {
-                        new TWCrepair.Shared.ViewModel.BudgetDocUnitPriceMember()
+                        new TWCrepair.Shared.ViewModel.BudgetDocContractUnitPriceMember()
                         {
                             Name = "拆除柏油路面",
                             Description = "10cm以下",
@@ -79,17 +78,17 @@ public class RA010Service : IGetService<RA010, string>
         throw new NotImplementedException();
     }
 
-    public Task<RA010[]> GetListAsync()
+    public Task<RA017[]> GetListAsync()
     {
         throw new NotImplementedException();
     }
 
-    public Task<RA010[]> GetListAsync(string id)
+    public Task<RA017[]> GetListAsync(string id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<RA010[]> GetListAsync<TQuery>(IQuery condition) where TQuery : IQuery
+    public Task<RA017[]> GetListAsync<TQuery>(IQuery condition) where TQuery : IQuery
     {
         throw new NotImplementedException();
     }
