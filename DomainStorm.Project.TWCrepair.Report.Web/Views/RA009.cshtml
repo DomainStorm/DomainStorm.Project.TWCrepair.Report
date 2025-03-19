@@ -1301,7 +1301,7 @@
     <table:table-header-rows>
      <table:table-row table:style-name="ro1">
       <table:table-cell table:style-name="ce1" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="12" table:number-rows-spanned="1">
-       <text:p>台灣自來水股份有限公司 @Model.BudgetDocDetail.DepartmentName</text:p>
+       <text:p>台灣自來水股份有限公司@($"{Model.BudgetDocDetail.DepartmentName}{Model.BudgetDocDetail.SiteName}")</text:p>
       </table:table-cell>
       <table:covered-table-cell table:number-columns-repeated="11" table:style-name="ce9"/>
      </table:table-row>

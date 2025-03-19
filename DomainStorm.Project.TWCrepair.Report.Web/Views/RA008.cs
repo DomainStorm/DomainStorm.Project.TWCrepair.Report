@@ -7,6 +7,16 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
     public class RA008 : ReportDataModel
     {
         /// <summary>
+        /// 預算書所屬區處名稱
+        /// </summary>
+        public string DepartmentName { get; set; }
+
+        /// <summary>
+        /// 預算書所屬廠所名稱
+        /// </summary>
+        public string SiteName { get; set; }
+
+        /// <summary>
         /// 工程編號
         /// </summary>
         public string? EngineeringNumber { get; set; }
