@@ -44,4 +44,21 @@ public class RA008Controller : ControllerBase
         return File(outStream, MediaTypeNames.Application.Octet, outFileName);
 
     }
+
+    [HttpPost("editor")]
+    public async Task<ActionResult> PostForEditor([FromBody] QueryRA008 request)
+    {
+        var ra008Model = await _ra008Service.GetAsync<QueryRA008>(request);
+        ra008Model.Schedule = $"${{<textarea name=\"Schedule\" style=\"width: 560px; height: 720px;\">{ra008Model.Schedule}</textarea>}}";
+        var convertRequest = new ReportConvertRequest
+        {
+            ViewName = "/Views/RA008.cshtml",
+            Model = ra008Model,
+            Extension = request.Extension
+        };
+        var outStream = await _reportService.GetAsync(convertRequest);
+        var outFileName = $"{System.IO.Path.GetFileNameWithoutExtension(convertRequest.ViewName)}.{convertRequest.Extension.ToString().ToLower()}";
+        return File(outStream, MediaTypeNames.Application.Octet, outFileName);
+
+    }
 }
