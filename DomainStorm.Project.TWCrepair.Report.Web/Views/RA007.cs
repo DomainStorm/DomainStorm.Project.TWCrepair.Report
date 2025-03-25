@@ -47,17 +47,17 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         /// <summary>
         /// 小計
         /// </summary>
-        public decimal? SubTotalPrice { get; set; } = 0;
+        public string? SubTotalPrice { get; set; }
 
         /// <summary>
         /// 營業稅
         /// </summary>
-        public decimal? Tax { get; set; } = 0;
+        public string? Tax { get; set; }
 
         /// <summary>
         /// 總計
         /// </summary>
-        public decimal? TotalPrice { get; set; } = 0;
+        public string? TotalPrice { get; set; }
 
        
 

@@ -33,9 +33,9 @@ public class RA007Service : IGetService<RA007, string>
             EngineeringName = "台中給水廠東工區管線設備修理工程",
             EngineeringPrice = 31760199.00M,
             MaterialPrice = (3000000.00M).ToString(CultureInfo.InvariantCulture),
-            SubTotalPrice = 34760199.00M,
-            Tax = 1738010.00M,
-            TotalPrice= 36498209.00M
+            SubTotalPrice = 34760199.00M.ToString(CultureInfo.InvariantCulture),
+            Tax = 1738010.00M.ToString(CultureInfo.InvariantCulture),
+            TotalPrice = 36498209.00M.ToString(CultureInfo.InvariantCulture),
         };
         return result;
 

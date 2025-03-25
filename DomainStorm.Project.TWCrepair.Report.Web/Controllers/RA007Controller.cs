@@ -51,8 +51,12 @@ public class RA007Controller : ControllerBase
     {
         var ra007Model = await _ra007Service.GetAsync<QueryRA007>(request);
         ra007Model.MaterialPrice = GetInputString("MaterialPrice", ra007Model.MaterialPrice, "text", "width: 120px");
-        //ra007Model.MaterialPriceMemo = $"${{<p>{ra007Model.MaterialPriceMemo}</p><button>帶入全部材料費</button><p>【{ra007Model.DepartmentName}全部區域材料費<br>※材料費：$<span id=\"全部區域材料費\"></span>】</p>}}";
-        
+        ra007Model.MaterialPriceMemo = $"${{<p>{ra007Model.MaterialPriceMemo}</p><button id=\"button_InAllMaterialPrice\">帶入全部材料費</button><p>【{ra007Model.DepartmentName}全部區域材料費<br>※材料費：$<span id=\"span_InAllMaterialPrice\"></span>】</p>}}";
+        ra007Model.SubTotalPrice = GetSpanString("SubTotalPrice", ra007Model.SubTotalPrice);
+        ra007Model.Tax = GetSpanString("Tax", ra007Model.Tax);
+        ra007Model.TotalPrice = GetSpanString("TotalPrice", ra007Model.TotalPrice);
+
+
         var convertRequest = new ReportConvertRequest
         {
             ViewName = "/Views/RA007.cshtml",
@@ -67,5 +71,10 @@ public class RA007Controller : ControllerBase
     private static string GetInputString(string name, object? value, string type = "text", string style = "")
     {
         return $"${{<input name=\"{name}\" type=\"{type}\" value=\"{value}\" style=\"{style}\"></input>}}";
+    }
+
+    private static string GetSpanString(string id, string? text)
+    {
+        return $"${{<span id=\"{id}\">{text}</span>}}";
     }
 }
