@@ -34,13 +34,13 @@
        <config:config-item config:name="IgnoreBreakAfterMultilineField" config:type="boolean">false</config:config-item>
       </config:config-item-map-entry>
       <config:config-item-map-entry config:name="D">
-       <config:config-item config:name="CursorPositionX" config:type="int">15</config:config-item>
-       <config:config-item config:name="CursorPositionY" config:type="int">310</config:config-item>
+       <config:config-item config:name="CursorPositionX" config:type="int">0</config:config-item>
+       <config:config-item config:name="CursorPositionY" config:type="int">0</config:config-item>
        <config:config-item config:name="ActiveSplitRange" config:type="short">2</config:config-item>
        <config:config-item config:name="PositionLeft" config:type="int">0</config:config-item>
        <config:config-item config:name="PositionRight" config:type="int">0</config:config-item>
        <config:config-item config:name="PositionTop" config:type="int">0</config:config-item>
-       <config:config-item config:name="PositionBottom" config:type="int">239</config:config-item>
+       <config:config-item config:name="PositionBottom" config:type="int">0</config:config-item>
        <config:config-item config:name="ZoomType" config:type="short">0</config:config-item>
        <config:config-item config:name="ZoomValue" config:type="int">100</config:config-item>
        <config:config-item config:name="PageViewZoomValue" config:type="int">60</config:config-item>
@@ -1097,7 +1097,7 @@
      <table:table-row table:style-name="ro1">
       <table:table-cell table:style-name="ce1"/>
       <table:table-cell table:style-name="ce6" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="12" table:number-rows-spanned="1">
-       <text:p>台灣自來水股份有限公司 @Model.DepartmentName</text:p>
+      <text:p>台灣自來水股份有限公司@($"{Model.DepartmentName}{Model.SiteName}")</text:p>
       </table:table-cell>
       <table:covered-table-cell table:number-columns-repeated="11" table:style-name="ce9"/>
       <table:table-cell table:style-name="ce1" table:number-columns-repeated="16371"/>
@@ -1260,6 +1260,29 @@
      <table:table-cell table:style-name="ce4"/>
      <table:table-cell table:style-name="ce8" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="4" table:number-rows-spanned="1">
       <text:p>供給材料保管及廢料處理補助費</text:p>
+     </table:table-cell>
+     <table:covered-table-cell table:style-name="ce12"/>
+     <table:covered-table-cell table:style-name="ce13"/>
+     <table:covered-table-cell table:style-name="ce14"/>
+     <table:table-cell table:style-name="ce14" office:value-type="string" calcext:value-type="string">
+      <text:p>全</text:p>
+     </table:table-cell>
+     <table:table-cell table:style-name="ce12" table:number-columns-repeated="2"/>
+     <table:table-cell table:style-name="ce18" table:number-columns-repeated="2"/>
+                    <table:table-cell table:style-name="ce20" office:value-type="float" calcext:value-type="float" table:number-columns-spanned="3" table:number-rows-spanned="1" />
+     <table:covered-table-cell table:style-name="ce21" office:value="0" calcext:value-type="float">
+      <text:p><text:s/>- </text:p>
+     </table:covered-table-cell>
+     <table:covered-table-cell table:style-name="ce23" office:value-type="float" office:value="0" calcext:value-type="float">
+      <text:p><text:s/>- </text:p>
+     </table:covered-table-cell>
+     <table:table-cell table:style-name="ce4"/>
+     <table:table-cell table:number-columns-repeated="16370"/>
+    </table:table-row>
+    <table:table-row table:style-name="ro3">
+     <table:table-cell table:style-name="ce4"/>
+     <table:table-cell table:style-name="ce8" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="4" table:number-rows-spanned="1">
+      <text:p>承商管理、工程保險修漏作業補助費</text:p>
      </table:table-cell>
      <table:covered-table-cell table:style-name="ce12"/>
      <table:covered-table-cell table:style-name="ce13"/>
