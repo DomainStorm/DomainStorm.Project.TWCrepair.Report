@@ -32,11 +32,11 @@ public class RA013Service : IGetService<RA013, string>
         var result = new RA013
         {
             PrintDate = DateTime.Now,
-            BudgetDocOutSourceDetail = new TWCrepair.Shared.ViewModel.BudgetDocOutSourceDetail
+            BudgetDocDetail = new TWCrepair.Shared.ViewModel.BudgetDocDetail
             {
                 EngineeringName = "台中給水廠東工區管線設備修理工程",
                 DepartmentName = "台中給水廠",
-                 BudgetDocOutSourceDetailItems = new List<TWCrepair.Shared.ViewModel.BudgetDocOutSourceDetailItem>
+                 BudgetDocDetailItems = new List<TWCrepair.Shared.ViewModel.BudgetDocDetailItem>
                 {
                     new ()
                     {

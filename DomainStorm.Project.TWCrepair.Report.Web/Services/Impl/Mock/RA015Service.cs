@@ -31,7 +31,7 @@ public class RA015Service : IGetService<RA015, string>
             PrintDate = DateTime.Today,
             EngineeringName = "台中給水廠東工區管線設備修理工程",
             DepartmentName = "台中給水廠",
-            BudgetDocOutSourceResourceStatisticsItems = new List<TWCrepair.Shared.ViewModel.BudgetDocOutSourceResourceStatisticsItem>
+            BudgetDocResourceStatisticsItems = new List<TWCrepair.Shared.ViewModel.BudgetDocResourceStatisticsItem>
             {
                 new ()
                 {

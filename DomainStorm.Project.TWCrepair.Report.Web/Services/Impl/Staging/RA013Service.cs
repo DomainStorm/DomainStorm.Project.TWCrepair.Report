@@ -14,11 +14,11 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging;
 /// </summary>
 public class RA013Service : IGetService<RA013, string>
 {
-    private readonly GetRepository<IRepository<BudgetDocOutSource>> _getRepository;
+    private readonly GetRepository<IRepository<BudgetDoc>> _getRepository;
     private readonly IMapper _mapper;
 
     public RA013Service(
-        GetRepository<IRepository<BudgetDocOutSource>> getRepository,
+        GetRepository<IRepository<BudgetDoc>> getRepository,
         IMapper mapper)
     {
         _getRepository = getRepository;
@@ -42,12 +42,12 @@ public class RA013Service : IGetService<RA013, string>
     private async Task<RA013> QueryRA013(QueryRA013 condition) 
     {
         
-        var budgetDocOutSource = await _getRepository().GetAsync(condition.Id);
-        budgetDocOutSource.BudgetDocOutSourceUnitPrices = budgetDocOutSource.BudgetDocOutSourceUnitPrices.OrderBy(x => x.Code).ToList();
+        var budgetDoc = await _getRepository().GetAsync(condition.Id);
+        budgetDoc.BudgetDocUnitPrices = budgetDoc.BudgetDocUnitPrices.OrderBy(x => x.Code).ToList();
         var result = new RA013
         {
             PrintDate = DateTime.Today,
-            BudgetDocOutSourceDetail = _mapper.Map<BudgetDocOutSourceDetail>(budgetDocOutSource)
+            BudgetDocDetail = _mapper.Map<BudgetDocDetail>(budgetDoc)
         };
         return result;
     }

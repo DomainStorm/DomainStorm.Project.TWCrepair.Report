@@ -48,7 +48,8 @@ public class RA011Service : IGetService<RA011, string>
         var budgetDoc = await _getRepository().GetAsync(condition.Id);
         var result = _mapper.Map<RA011>(budgetDoc);
         var statistic = await _getStatisticService.GetAsync(condition.Id);
-        result.BudgetDocResourceStatisticsItems = statistic.BudgetDocResourceStatisticsItems;
+        //預算書的資源統計表改成顯示全部(含數量=0 者),但報表不需顯示,故排除之
+        result.BudgetDocResourceStatisticsItems = statistic.BudgetDocResourceStatisticsItems.Where(x => x.DayAmount > 0 || x.NightAmount > 0).ToList();
 
         return result;
     }

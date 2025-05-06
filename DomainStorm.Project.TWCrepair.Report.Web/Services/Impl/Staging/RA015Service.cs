@@ -14,13 +14,13 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging;
 /// </summary>
 public class RA015Service : IGetService<RA015, string>
 {
-    private readonly GetRepository<IRepository<BudgetDocOutSource>> _getRepository;
-    private readonly IGetService<BudgetDocOutSourceResourceStatistics, Guid> _getStatisticService;
+    private readonly GetRepository<IRepository<BudgetDoc>> _getRepository;
+    private readonly IGetService<BudgetDocResourceStatistics, Guid> _getStatisticService;
     private readonly IMapper _mapper;
 
     public RA015Service(
-        GetRepository<IRepository<BudgetDocOutSource>> getRepository,
-        IGetService<BudgetDocOutSourceResourceStatistics, Guid> getStatisticService,
+        GetRepository<IRepository<BudgetDoc>> getRepository,
+        IGetService<BudgetDocResourceStatistics, Guid> getStatisticService,
         IMapper mapper)
     {
         _getRepository = getRepository;
@@ -45,11 +45,11 @@ public class RA015Service : IGetService<RA015, string>
     private async Task<RA015> QueryRA015(QueryRA015 condition) 
     {
         
-        var budgetDocOutSource = await _getRepository().GetAsync(condition.Id);
-        var result = _mapper.Map<RA015>(budgetDocOutSource);
+        var budgetDoc = await _getRepository().GetAsync(condition.Id);
+        var result = _mapper.Map<RA015>(budgetDoc);
         var statistic = await _getStatisticService.GetAsync(condition.Id);
-        result.BudgetDocOutSourceResourceStatisticsItems = statistic.BudgetDocOutSourceResourceStatisticsItems;
-
+        //預算書的資源統計表改成顯示全部(含數量=0 者),但報表不需顯示,故排除之
+        result.BudgetDocResourceStatisticsItems = statistic.BudgetDocResourceStatisticsItems.Where(x => x.DayAmount > 0 || x.NightAmount > 0).ToList();
         return result;
     }
 

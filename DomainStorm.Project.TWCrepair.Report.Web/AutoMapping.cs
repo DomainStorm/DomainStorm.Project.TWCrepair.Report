@@ -19,9 +19,9 @@ namespace DomainStorm.Project.TWCrepair.Report.Web
             CreateMap<Models.Budget.BudgetDoc, RA008>();
             CreateMap<Models.Budget.BudgetDoc, RA010>();
             CreateMap<Models.Budget.BudgetDoc, RA011>();
-            CreateMap<Models.Budget.BudgetDocOutSource, RA012>();
-            CreateMap<Models.Budget.BudgetDocOutSource, RA014>();
-            CreateMap<Models.Budget.BudgetDocOutSource, RA015>();
+            CreateMap<Models.Budget.BudgetDoc, RA012>();
+            CreateMap<Models.Budget.BudgetDoc, RA014>();
+            CreateMap<Models.Budget.BudgetDoc, RA015>();
             CreateMap<Models.Budget.BudgetDocContract, RA017>();
             CreateMap<Models.Budget.BudgetDocContract, RA018>();
 
@@ -80,6 +80,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web
             CreateMap<Models.Budget.BudgetDocContractUnitPrice, TWCrepair.Shared.ViewModel.BudgetDocContractUnitPrice>();
             CreateMap<Models.Budget.BudgetDocContract, TWCrepair.Shared.ViewModel.BudgetDocContractResourceStatistics>();
             CreateMap<Models.Budget.ResourceWorkMaterial, TWCrepair.Shared.ViewModel.BudgetDocContractResourceStatisticsItem>();
+            CreateMap<Models.Budget.ResourceWorkMaterial, TWCrepair.Shared.ViewModel.ResourceWorkMaterial>();
 
         }
     }

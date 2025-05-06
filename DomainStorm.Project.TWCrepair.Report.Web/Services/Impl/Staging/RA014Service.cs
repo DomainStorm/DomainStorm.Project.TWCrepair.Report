@@ -13,11 +13,11 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging;
 /// </summary>
 public class RA014Service : IGetService<RA014, string>
 {
-    private readonly GetRepository<IRepository<BudgetDocOutSource>> _getRepository;
+    private readonly GetRepository<IRepository<BudgetDoc>> _getRepository;
     private readonly IMapper _mapper;
 
     public RA014Service(
-        GetRepository<IRepository<BudgetDocOutSource>> getRepository,
+        GetRepository<IRepository<BudgetDoc>> getRepository,
         IMapper mapper)
     {
         _getRepository = getRepository;
@@ -41,15 +41,15 @@ public class RA014Service : IGetService<RA014, string>
     private async Task<RA014> QueryRA014(QueryRA014 condition) 
     {
         
-        var budgetDocOutSource = await _getRepository().GetAsync(condition.Id);
-        budgetDocOutSource.BudgetDocOutSourceUnitPrices = budgetDocOutSource.BudgetDocOutSourceUnitPrices.OrderBy(x => x.Code).ToList();
-        foreach(var up in budgetDocOutSource.BudgetDocOutSourceUnitPrices)
+        var budgetDoc = await _getRepository().GetAsync(condition.Id);
+        budgetDoc.BudgetDocUnitPrices = budgetDoc.BudgetDocUnitPrices.OrderBy(x => x.Code).ToList();
+        foreach(var up in budgetDoc.BudgetDocUnitPrices)
         {
-            up.BudgetDocOutSourceUnitPriceMembers = up.BudgetDocOutSourceUnitPriceMembers.OrderBy(x => x.Sort).ToList();
+            up.BudgetDocUnitPriceMembers = up.BudgetDocUnitPriceMembers.OrderBy(x => x.Sort).ToList();
             if (up.UnitAmount == 0) 
                 up.UnitAmount = 1;
         }
-        var result = _mapper.Map<RA014>(budgetDocOutSource);
+        var result = _mapper.Map<RA014>(budgetDoc);
         return result;
     }
 
