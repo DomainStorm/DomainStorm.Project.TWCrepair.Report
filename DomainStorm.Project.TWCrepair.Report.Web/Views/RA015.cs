@@ -22,7 +22,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         /// </summary>
         public string EngineeringName { get; set; }
 
-        public List<BudgetDocOutSourceResourceStatisticsItem> BudgetDocOutSourceResourceStatisticsItems { get; set; } = new List<BudgetDocOutSourceResourceStatisticsItem>();
+        public List<BudgetDocResourceStatisticsItem> BudgetDocResourceStatisticsItems { get; set; } = new List<BudgetDocResourceStatisticsItem>();
     }
 }
 

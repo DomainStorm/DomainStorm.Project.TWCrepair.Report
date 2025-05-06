@@ -1464,7 +1464,7 @@
       <table:table-cell table:style-name="ce1" table:number-columns-repeated="16372"/>
      </table:table-row>
     </table:table-header-rows>
-    @foreach(var unitPrice in Model.BudgetDocOutSourceUnitPrices)
+    @foreach(var unitPrice in Model.BudgetDocUnitPrices)
     {
     
     <table:table-row table:style-name="ro3">
@@ -1541,7 +1541,7 @@
      <table:table-cell table:style-name="ce57"/>
      <table:table-cell table:style-name="ce61"/>
     </table:table-row>
-    @foreach(var member in unitPrice.BudgetDocOutSourceUnitPriceMembers)
+    @foreach(var member in unitPrice.BudgetDocUnitPriceMembers)
     {
      <table:table-row table:style-name="ro3">
          <table:table-cell table:style-name="ce3"/>
@@ -1556,10 +1556,10 @@
          </table:table-cell>
          <table:table-cell table:style-name="ce29" office:value-type="float" calcext:value-type="float" office:value="@member.DayAmount" />
          <table:table-cell table:style-name="ce29" office:value-type="float" calcext:value-type="float" office:value="@member.NightAmount" />
-         <table:table-cell table:style-name="ce34" office:value-type="float" calcext:value-type="float" office:value="@member.DayUnitPrice" />
-         <table:table-cell table:style-name="ce37" office:value-type="float" calcext:value-type="float" office:value="@member.NightUnitPrice" />
-         <table:table-cell table:style-name="ce42" office:value-type="float" calcext:value-type="float" office:value="@member.DayPrice" />
-         <table:table-cell table:style-name="ce47" office:value-type="float" calcext:value-type="float" office:value="@member.NightPrice" />
+         <table:table-cell table:style-name="ce34" office:value-type="string" calcext:value-type="string" />
+         <table:table-cell table:style-name="ce37" office:value-type="string" calcext:value-type="string" />
+         <table:table-cell table:style-name="ce42" office:value-type="string" calcext:value-type="string" />
+         <table:table-cell table:style-name="ce47" office:value-type="string" calcext:value-type="string" />
          <table:table-cell table:style-name="ce51" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="2" table:number-rows-spanned="1">
           <text:p>@member.Notes</text:p>
          </table:table-cell>
@@ -1602,8 +1602,8 @@
      <table:table-cell table:style-name="ce29" table:number-columns-repeated="2"/>
      <table:table-cell table:style-name="ce34"/>
      <table:table-cell table:style-name="ce37"/>
-     <table:table-cell table:style-name="ce42" office:value-type="float"  calcext:value-type="float" office:value="@unitPrice.TailDayPrice" />
-     <table:table-cell table:style-name="ce47" office:value-type="float"  calcext:value-type="float" office:value="@unitPrice.TailNightPrice" />
+     <table:table-cell table:style-name="ce42" office:value-type="string" calcext:value-type="string" />
+     <table:table-cell table:style-name="ce47" office:value-type="string" calcext:value-type="string" />
      <table:table-cell table:style-name="ce51" table:number-columns-spanned="2" table:number-rows-spanned="1"/>
      <table:covered-table-cell table:style-name="ce58"/>
      <table:table-cell table:style-name="ce61"/>
@@ -1619,8 +1619,8 @@
      <table:table-cell table:style-name="ce32"/>
      <table:table-cell table:style-name="ce35"/>
      <table:table-cell table:style-name="ce34"/>
-     <table:table-cell table:style-name="ce42" office:value-type="float" office:value="@unitPrice.TotalDayPrice" calcext:value-type="float"/>
-     <table:table-cell table:style-name="ce42" office:value-type="float" office:value="@unitPrice.TotalNightPrice" calcext:value-type="float"/>
+     <table:table-cell table:style-name="ce42" office:value-type="string" calcext:value-type="string" />
+     <table:table-cell table:style-name="ce42" office:value-type="string" calcext:value-type="string" />
      <table:table-cell table:style-name="ce53" table:number-columns-spanned="2" table:number-rows-spanned="1"/>
      <table:covered-table-cell table:style-name="ce59"/>
      <table:table-cell table:style-name="ce61"/>
@@ -1632,8 +1632,8 @@
      </table:table-cell>
      <table:covered-table-cell table:number-columns-repeated="5" table:style-name="ce20"/>
      <table:covered-table-cell table:style-name="ce38"/>
-     <table:table-cell table:style-name="ce43" office:value-type="float" office:value="@(unitPrice.TotalDayPrice/unitPrice.UnitAmount)" calcext:value-type="float"/>
-     <table:table-cell table:style-name="ce43" office:value-type="float" office:value="@(unitPrice.TotalNightPrice/unitPrice.UnitAmount)" calcext:value-type="float"/>
+     <table:table-cell table:style-name="ce43" office:value-type="string" calcext:value-type="string" />
+     <table:table-cell table:style-name="ce43" office:value-type="string" calcext:value-type="string" />
      <table:table-cell table:style-name="ce54" table:number-columns-spanned="2" table:number-rows-spanned="1"/>
      <table:covered-table-cell table:style-name="ce60"/>
      <table:table-cell table:style-name="ce1" table:number-columns-repeated="16372"/>

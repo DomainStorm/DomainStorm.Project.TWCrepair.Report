@@ -24,7 +24,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         /// </summary>
         public string EngineeringName { get; set; }
 
-        public List<BudgetDocOutSourceUnitPrice> BudgetDocOutSourceUnitPrices { get; set; }
+        public List<BudgetDocUnitPrice> BudgetDocUnitPrices { get; set; }
     }
 }
 

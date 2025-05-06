@@ -8,7 +8,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
     /// </summary>
     public class RA013 : ReportDataModel
     {
-        public BudgetDocOutSourceDetail BudgetDocOutSourceDetail { get; set; }
+        public BudgetDocDetail BudgetDocDetail { get; set; }
     }
 }
 

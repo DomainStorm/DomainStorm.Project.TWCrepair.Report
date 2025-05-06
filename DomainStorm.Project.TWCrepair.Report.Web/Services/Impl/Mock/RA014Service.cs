@@ -31,18 +31,18 @@ public class RA014Service : IGetService<RA014, string>
             PrintDate = DateTime.Today,
             EngineeringName = "台中給水廠東工區管線設備修理工程",
             DepartmentName = "台中給水廠",
-            BudgetDocOutSourceUnitPrices = new List<TWCrepair.Shared.ViewModel.BudgetDocOutSourceUnitPrice>
+            BudgetDocUnitPrices = new List<TWCrepair.Shared.ViewModel.BudgetDocUnitPrice>
             {
-                new TWCrepair.Shared.ViewModel.BudgetDocOutSourceUnitPrice()
+                new TWCrepair.Shared.ViewModel.BudgetDocUnitPrice()
                 {
                     Code = "026",
                     Name = "消防栓盒升降或換新",
                     isCombine = true,
                     Unit ="處",
                     UnitAmount = 1M,
-                    BudgetDocOutSourceUnitPriceMembers = new List<TWCrepair.Shared.ViewModel.BudgetDocOutSourceUnitPriceMember>
+                    BudgetDocUnitPriceMembers = new List<TWCrepair.Shared.ViewModel.BudgetDocUnitPriceMember>
                     {
-                        new TWCrepair.Shared.ViewModel.BudgetDocOutSourceUnitPriceMember()
+                        new TWCrepair.Shared.ViewModel.BudgetDocUnitPriceMember()
                         {
                             Name = "拆除柏油路面",
                             Description = "10cm以下",

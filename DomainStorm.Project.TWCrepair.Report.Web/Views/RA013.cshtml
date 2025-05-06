@@ -1237,7 +1237,7 @@
                         <table:covered-table-cell table:style-name="ce8" />
                         <table:table-cell table:style-name="ce14" />
                         <table:table-cell table:style-name="ce20" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="9" table:number-rows-spanned="1">
-                            <text:p>台灣自來水股份有限公司@($"{Model.BudgetDocOutSourceDetail.DepartmentName}{Model.BudgetDocOutSourceDetail.SiteName}")</text:p>
+                            <text:p>台灣自來水股份有限公司@($"{Model.BudgetDocDetail.DepartmentName}{Model.BudgetDocDetail.SiteName}")</text:p>
                         </table:table-cell>
                         <table:covered-table-cell table:number-columns-repeated="8" table:style-name="ce25" />
                         <table:table-cell table:style-name="ce44" table:number-columns-repeated="16372" />
@@ -1251,7 +1251,7 @@
                         </table:table-cell>
                         <table:covered-table-cell table:number-columns-repeated="6" table:style-name="ce21" />
                         <table:table-cell table:style-name="ce38" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="2" table:number-rows-spanned="1">
-                            <text:p>@Model.BudgetDocOutSourceDetail.EngineeringName</text:p>
+                            <text:p>@Model.BudgetDocDetail.EngineeringName</text:p>
                         </table:table-cell>
                         <table:covered-table-cell table:style-name="ce38" />
                         <table:table-cell table:style-name="ce45" table:number-columns-repeated="16372" />
@@ -1329,9 +1329,9 @@
                     <table:covered-table-cell table:style-name="ce42" />
                     <table:table-cell table:style-name="ce44" table:number-columns-repeated="16372" />
                 </table:table-row>
-                @for(var i = 0; i < Model.BudgetDocOutSourceDetail.BudgetDocOutSourceDetailItems.Count; i++)
+                @for(var i = 0; i < Model.BudgetDocDetail.BudgetDocDetailItems.Count; i++)
                 {
-                    var item =  Model.BudgetDocOutSourceDetail.BudgetDocOutSourceDetailItems[i];
+                    var item =  Model.BudgetDocDetail.BudgetDocDetailItems[i];
                     <table:table-row table:style-name="ro3">
                         <table:table-cell table:style-name="ce6" office:value-type="string" calcext:value-type="string">
                             <text:p>@(i+1)</text:p>
@@ -1351,9 +1351,9 @@
                         </table:table-cell>
                         <table:table-cell table:style-name="ce35" office:value-type="float" calcext:value-type="float" office:value="@item.DayAmount" />
                         <table:table-cell table:style-name="ce35" office:value-type="float" calcext:value-type="float" office:value="@item.NightAmount" />
-                        <table:table-cell table:style-name="ce37" office:value-type="float" calcext:value-type="float" office:value="@item.DayPrice"/>
-                        <table:table-cell table:style-name="ce37" office:value-type="float" calcext:value-type="float" office:value="@item.NightPrice"/>
-                        <table:table-cell table:style-name="ce39" office:value-type="float" calcext:value-type="float" office:value="@item.TotalPrice"/>
+                        <table:table-cell table:style-name="ce37" office:value-type="string" calcext:value-type="string" />
+                        <table:table-cell table:style-name="ce37" office:value-type="string" calcext:value-type="string" />
+                        <table:table-cell table:style-name="ce39" office:value-type="string" calcext:value-type="string" />
                         <table:table-cell table:style-name="ce43" office:value-type="string" calcext:value-type="string">
                             <text:p>@(item.isCombine ? "組合單價" : "")</text:p>
                         </table:table-cell>

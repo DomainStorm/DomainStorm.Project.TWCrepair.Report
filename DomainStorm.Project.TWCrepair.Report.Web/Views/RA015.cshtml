@@ -1157,7 +1157,7 @@
       <table:table-cell table:style-name="ce3" table:number-columns-repeated="16371"/>
      </table:table-row>
     </table:table-header-rows>
-    @foreach(var item in Model.BudgetDocOutSourceResourceStatisticsItems)
+    @foreach(var item in Model.BudgetDocResourceStatisticsItems)
     {
      <table:table-row table:style-name="ro3">
          <table:table-cell table:style-name="ce4"/>
@@ -1179,11 +1179,11 @@
 
          <table:table-cell table:style-name="ce12" office:value-type="float" office:value="@item.DayAmount" calcext:value-type="float"/>
          <table:table-cell table:style-name="ce12" office:value-type="float" office:value="@item.NightAmount" calcext:value-type="float"/>
-         <table:table-cell table:style-name="ce18" office:value-type="float" office:value="@item.DayUnitPrice" calcext:value-type="float"/>
-         <table:table-cell table:style-name="ce18" office:value-type="float" office:value="@item.NightPrice" calcext:value-type="float"/>
+         <table:table-cell table:style-name="ce18" office:value-type="string" calcext:value-type="string" />
+         <table:table-cell table:style-name="ce18" office:value-type="string" calcext:value-type="string" />
          <table:table-cell table:style-name="ce19" office:value-type="float" office:value="@item.Magnification" calcext:value-type="float"/>
-         <table:table-cell table:style-name="ce21" office:value-type="float" office:value="@item.DayPrice" calcext:value-type="float"/>
-         <table:table-cell table:style-name="ce23" office:value-type="float" office:value="@item.NightPrice" calcext:value-type="float"/>
+         <table:table-cell table:style-name="ce21" office:value-type="string" calcext:value-type="string" />
+         <table:table-cell table:style-name="ce23" office:value-type="string" calcext:value-type="string" />
          <table:table-cell table:style-name="ce4"/>
     </table:table-row>
     }

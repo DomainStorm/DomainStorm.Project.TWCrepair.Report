@@ -4,8 +4,6 @@ using DomainStorm.Framework.Services;
 using DomainStorm.Framework.SqlDb;
 using DomainStorm.Project.TWCrepair.Report.Web.Views;
 using DomainStorm.Project.TWCrepair.Repository.Models.Budget;
-using FluentValidation;
-using LinqKit;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA012.V1;
 
 namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging;
@@ -15,11 +13,11 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging;
 /// </summary>
 public class RA012Service : IGetService<RA012, string>
 {
-    private readonly GetRepository<IRepository<BudgetDocOutSource>> _getRepository;
+    private readonly GetRepository<IRepository<BudgetDoc>> _getRepository;
     private readonly IMapper _mapper;
 
     public RA012Service(
-        GetRepository<IRepository<BudgetDocOutSource>> getRepository,
+        GetRepository<IRepository<BudgetDoc>> getRepository,
         IMapper mapper)
     {
         _getRepository = getRepository;
@@ -42,8 +40,8 @@ public class RA012Service : IGetService<RA012, string>
 
     private async Task<RA012> QueryRA012(QueryRA012 condition) 
     {
-        var budgetDocOutSource = await _getRepository().GetAsync(condition.Id);
-        var result = _mapper.Map<RA012>(budgetDocOutSource);
+        var budgetDoc = await _getRepository().GetAsync(condition.Id);
+        var result = _mapper.Map<RA012>(budgetDoc);
         result.PrintDate = DateTime.Today;
         return result;
     }
