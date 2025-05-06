@@ -286,6 +286,25 @@ try
             .AddScoped<GetRepository<IRepository<Models.Budget.BudgetDocContract>>>(
                 c => c.GetRequiredService<IRepository<Models.Budget.BudgetDocContract>>);
 
+        builder.Services
+          .AddTransient<IRepository<Models.Word>, SqlDbRepository<Models.Word>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.Word>>>(
+                c => c.GetRequiredService<IRepository<Models.Word>>);
+
+        builder.Services
+           .AddTransient<IRepository<Models.Budget.ResourceWorkMaterial>, SqlDbRepository<Models.Budget.ResourceWorkMaterial>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.Budget.ResourceWorkMaterial>>>(
+                c => c.GetRequiredService<IRepository<Models.Budget.ResourceWorkMaterial>>);
+
+        builder.Services
+           .AddTransient<IRepository<Models.Budget.BudgetDocUnitPrice>, SqlDbRepository<Models.Budget.BudgetDocUnitPrice>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.Budget.BudgetDocUnitPrice>>>(
+                c => c.GetRequiredService<IRepository<Models.Budget.BudgetDocUnitPrice>>);
+
+
         builder.Services.AddTransient<IUnitOfWork, SqlDbUnitOfWork>();
         builder.Services.AddScoped<GetRepository<IUnitOfWork>>(
             c => c.GetRequiredService<IUnitOfWork>);
@@ -299,6 +318,8 @@ try
 
     builder.Services.AddDataProtection().PersistKeysToFileSystem(new DirectoryInfo("keys"))
         .SetApplicationName("TWCrepair");
+
+    builder.Services.Configure<List<ResourceWorkMaterialCodeMapping>>(builder.Configuration.GetSection("ResourceWorkMaterialCodeMappings"));
 
     var app = builder.Build();
 
