@@ -61,6 +61,7 @@ try
     builder.Services.AddScoped<TokenProvider>();
 
     builder.Services.AddScoped<IConvert, LibreOfficeConvert>();
+    builder.Services.AddScoped<IMerge, LibreOfficeMerge>();
     builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
     builder.Services.AddRadzenComponents();
 
