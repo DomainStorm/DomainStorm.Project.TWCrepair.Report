@@ -10,6 +10,11 @@ using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA008.V
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA009.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA010.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA011.V1;
+using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA012.V1;
+using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA013.V1;
+using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA014.V1;
+using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA015.V1;
+using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA016.V1;
 
 using static DomainStorm.Project.TWCrepair.Repository.CommandModel.Report.V1;
 using System.Net.Mime;
@@ -31,6 +36,10 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
             IGetService<RA009, string> ra009Service,
             IGetService<RA010, string> ra010Service,
             IGetService<RA011, string> ra011Service,
+            IGetService<RA012, string> ra012Service,
+            IGetService<RA013, string> ra013Service,
+            IGetService<RA014, string> ra014Service,
+            IGetService<RA015, string> ra015Service,
             IGetService<Stream, ReportConvertRequest> reportService,
             IMerge merge)
         : ControllerBase
@@ -76,6 +85,44 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
                         Id = request.Id,
                         Extension = IConvert.Extension.XML
                     }, reportService, "/Views/RA011.cshtml", IConvert.Extension.XML)
+            };
+
+            var stream = merge.Merge(toMergeXmlDocumentList, IMerge.Extension.ODS);
+            var outFileName = $"{request.Id}.{request.Extension.ToString().ToLower()}";
+
+            return File(stream, MediaTypeNames.Application.Octet, outFileName);
+
+        }
+
+        [HttpPost("budgetDocOut")]
+        public async Task<ActionResult> BudgetDocOut([FromBody] QueryPackage request)
+        {
+            var toMergeXmlDocumentList = new List<XmlDocument>
+            {
+                await OutXmlDocument<IGetService<RA012, string>, RA012, QueryRA012>(
+                    ra012Service, new QueryRA012
+                    {
+                        Id = request.Id,
+                        Extension = IConvert.Extension.XML
+                    }, reportService, "/Views/RA012.cshtml", IConvert.Extension.XML),
+                await OutXmlDocument<IGetService<RA013, string>, RA013, QueryRA013>(
+                    ra013Service, new QueryRA013
+                    {
+                        Id = request.Id,
+                        Extension = IConvert.Extension.XML
+                    }, reportService, "/Views/RA013.cshtml", IConvert.Extension.XML),
+                await OutXmlDocument<IGetService<RA014, string>, RA014, QueryRA014>(
+                    ra014Service, new QueryRA014
+                    {
+                        Id = request.Id,
+                        Extension = IConvert.Extension.XML
+                    }, reportService, "/Views/RA014.cshtml", IConvert.Extension.XML),
+                await OutXmlDocument<IGetService<RA015, string>, RA015, QueryRA015>(
+                    ra015Service, new QueryRA015
+                    {   
+                        Id = request.Id,
+                        Extension = IConvert.Extension.XML
+                    }, reportService, "/Views/RA015.cshtml", IConvert.Extension.XML)
             };
 
             var stream = merge.Merge(toMergeXmlDocumentList, IMerge.Extension.ODS);
