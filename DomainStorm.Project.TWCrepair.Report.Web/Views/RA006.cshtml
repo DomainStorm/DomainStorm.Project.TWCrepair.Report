@@ -1407,7 +1407,7 @@
                 <table:table-row table:style-name="ro2">
                     <table:table-cell table:style-name="ce355" />
                     <table:table-cell table:style-name="ce360" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="8" table:number-rows-spanned="1">
-                        <text:p>台灣自來水股份有限公司台水 <text:s />@Model.DepartmentName <text:s text:c="3" />@Model.SiteName</text:p>
+                        <text:p>台灣自來水股份有限公司@($"{Model.DepartmentName}{Model.SiteName}")</text:p>
                     </table:table-cell>
                     <table:covered-table-cell table:number-columns-repeated="7" table:style-name="ce376" />
                     <table:table-cell table:style-name="ce355" table:number-columns-repeated="16375" />
@@ -1779,7 +1779,9 @@
                     <table:table-cell table:style-name="ce373" office:value-type="string" calcext:value-type="string">
                         <text:p>備註：</text:p>
                     </table:table-cell>
-                    <table:table-cell table:style-name="ce388" table:number-columns-spanned="7" table:number-rows-spanned="2" />
+                    <table:table-cell table:style-name="ce388" table:number-columns-spanned="7" table:number-rows-spanned="2">
+                        <text:p>@Model.Notes</text:p>
+                    </table:table-cell>
                     <table:covered-table-cell table:number-columns-repeated="5" table:style-name="ce398" />
                     <table:covered-table-cell table:style-name="ce423" />
                     <table:table-cell table:style-name="ce1" table:number-columns-repeated="2" />
