@@ -45,6 +45,10 @@ public class RA006Service : IGetService<RA006, string>
         var budgetDoc = await _getRepository().GetAsync(condition.Id);
         var result = _mapper.Map<RA006>(budgetDoc);
         result.PrintDate = DateTime.Today;
+        if(string.IsNullOrEmpty(result.Notes))
+        {
+            result.Notes = "本工程所需費用：由當年度「供水管線修護費(510116 -25053202)」項下列支。";
+        }
         return result;
     }
 
