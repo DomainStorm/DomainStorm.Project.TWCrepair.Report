@@ -7,7 +7,6 @@ using DomainStorm.Project.TWCrepair.Report.Web.Views;
 using DomainStorm.Project.TWCrepair.Repository.Models;
 using LinqKit;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA020.V1;
-using static Google.Protobuf.WellKnownTypes.Field.Types;
 
 namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging;
 
@@ -19,9 +18,6 @@ public class RA020Service : IGetService<RA020, string>
     private readonly GetRepository<IRepository<FixForm>> _getRepository;
     private readonly IGetService<Department, string> _departmentService;
     private readonly IMapper _mapper;
-
-
-
 
     public RA020Service(
         GetRepository<IRepository<FixForm>> getRepository,
@@ -83,12 +79,16 @@ public class RA020Service : IGetService<RA020, string>
             AccessoryEquipment = x.FixFormProperty != null && x.FixFormProperty.AccessoryEquipment != null ? x.FixFormProperty.AccessoryEquipment.Name : "",
             BoxAnnex = x.FixFormProperty != null && x.FixFormProperty.BoxAnnex != null ? x.FixFormProperty.BoxAnnex.Name : "",
             Reason = x.FixFormLeakage != null && x.FixFormLeakage.Reason != null ? x.FixFormLeakage.Reason.Name : "",
-            FixSituation = x.FixFormLeakage != null && x.FixFormLeakage.FixSituation != null ? x.FixFormLeakage.FixSituation.Name : ""
+            FixSituation = x.FixFormLeakage != null && x.FixFormLeakage.FixSituation != null ? x.FixFormLeakage.FixSituation.Name : "",
+            DailyAmount = x.FixFormLeakage != null ? x.FixFormLeakage.DailyAmount : 0,
+            TotalAmount = x.FixFormLeakage != null ? x.FixFormLeakage.TotalAmount : 0,
+            Situation = x.FixFormLeakage != null && x.FixFormLeakage.Situation != null ? x.FixFormLeakage.Situation.Name : "",
+            Source = x.Source != null ? x.Source.Name : ""
         });
 
-
+        #region 線線設備
         //管線
-        foreach(var kind in RA020.pipeKinds)
+        foreach (var kind in RA020.pipeKinds)
         {
             var kindFixForms = fixForms.Where(x => x.EquipmentAttribute == RA020.equipmentAttributes[0] && x.PipeKind == kind).ToArray();
             var equipmentData = GetEquipmentData(kindFixForms);
@@ -96,12 +96,56 @@ public class RA020Service : IGetService<RA020, string>
         }
 
         //附屬設備
+        foreach (var accessor in RA020.accessoryEquipments)
+        {
+            var accessorFixForms = fixForms.Where(x => x.EquipmentAttribute == RA020.equipmentAttributes[1] && x.AccessoryEquipment == accessor).ToArray();
+            var equipmentData = GetEquipmentData(accessorFixForms);
+            result.AddEquipmentData(RA020.equipmentAttributes[1], accessor, equipmentData);
+        }
+
         //表箱另件
+        foreach (var box in RA020.boxAnnexs)
+        {
+            var boxFixForms = fixForms.Where(x => x.EquipmentAttribute == RA020.equipmentAttributes[2] && x.BoxAnnex == box).ToArray();
+            var equipmentData = GetEquipmentData(boxFixForms);
+            result.AddEquipmentData(RA020.equipmentAttributes[2], box, equipmentData);
+        }
+
         //其他
+        var otherFixForms = fixForms.Where(x => x.EquipmentAttribute == RA020.equipmentAttributes[3]).ToArray();
+        var otherEquipmentData = GetEquipmentData(otherFixForms);
+        result.AddEquipmentData(RA020.equipmentAttributes[3], "", otherEquipmentData);
+
         //合計
         var totalEquipmentData = new EquipmentData(result.EquipmentDataDic.Values.ToArray());
         result.AddEquipmentData("合計", "", totalEquipmentData);
+        #endregion
 
+
+        //漏水情形
+        foreach (var situation in RA020.situations)
+        {
+            var situationFixForms = fixForms.Where(x => x.Situation == situation ).ToArray();
+            var situationData = GetSituationData(situationFixForms);
+            result.AddSituationData(situation, "", situationData);
+        }
+        var totalSituationData = new SituationData(result.SituationDataDic.Values.ToArray());
+        result.AddSituationData("合計", "", totalSituationData);
+
+
+
+        //案件來源
+        foreach (var source in RA020.sources)
+        {
+            var sourceFixForms = fixForms.Where(x => x.Source== source).ToArray();
+            var sourceData = GetSourceData(sourceFixForms);
+            result.SourceDataDic.Add(source, sourceData);
+        }
+        var totalSourceData = new SourceData(result.SourceDataDic.Values.ToArray());
+        result.SourceDataDic.Add("合計", totalSourceData);
+
+
+        
 
         return result;
     }
@@ -119,12 +163,31 @@ public class RA020Service : IGetService<RA020, string>
             data.FixSituation[i] = fixForms.Count(x => x.FixSituation == RA020.fixSituations[i]);
         }
 
+        data.DailyAmount = fixForms.Select(x => x.DailyAmount ?? 0).Sum();
+        data.TotalAmount = fixForms.Select(x => x.TotalAmount ?? 0).Sum();
+        return data;
+    }
+
+    private SituationData GetSituationData(IReadOnlyCollection<FixFormSummary> fixForms)
+    {
+        var data = new SituationData();
+        data.Count = fixForms.Count();
+        data.LeakageAmount = fixForms.Select(x => x.TotalAmount ?? 0).Sum();
+        return data;
+    }
+
+
+    private SourceData GetSourceData(IReadOnlyCollection<FixFormSummary> fixForms)
+    {
+        var data = new SourceData();
+        data.Count = fixForms.Count();
+        data.LeakageAmount = fixForms.Select(x => x.TotalAmount ?? 0).Sum();
         return data;
     }
 
 
     /// <summary>
-    /// 資料量很大,先簡化只取必要欄位
+    /// 簡化只取必要欄位
     /// </summary>
     public class FixFormSummary
     {
@@ -163,8 +226,27 @@ public class RA020Service : IGetService<RA020, string>
         /// </summary>
         public string FixSituation { get; set; }
 
+        /// <summary>
+        /// 日漏水量
+        /// </summary>
+        public decimal? DailyAmount { get; set; }
+
+        /// <summary>
+        /// 總漏水量
+        /// </summary>
+        public decimal? TotalAmount { get; set; }
 
 
+        /// <summary>
+        /// 案件來源
+        /// </summary>
+        public string Source { get; set; }
+
+
+        /// <summary>
+        /// 漏水情形
+        /// </summary>
+        public string Situation { get; set; }
 
     }
 
