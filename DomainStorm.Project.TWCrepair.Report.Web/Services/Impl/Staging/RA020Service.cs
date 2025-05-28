@@ -82,11 +82,12 @@ public class RA020Service : IGetService<RA020, string>
             FixSituation = x.FixFormLeakage != null && x.FixFormLeakage.FixSituation != null ? x.FixFormLeakage.FixSituation.Name : "",
             DailyAmount = x.FixFormLeakage != null ? x.FixFormLeakage.DailyAmount : 0,
             TotalAmount = x.FixFormLeakage != null ? x.FixFormLeakage.TotalAmount : 0,
+            DistributeEquipmentAttribute = x.FixFormLeakage != null && x.FixFormLeakage.EquipmentAttribute != null ? x.FixFormLeakage.EquipmentAttribute.Name : "",
             Situation = x.FixFormLeakage != null && x.FixFormLeakage.Situation != null ? x.FixFormLeakage.Situation.Name : "",
             Source = x.Source != null ? x.Source.Name : ""
         });
 
-        #region 線線設備
+        #region 管線設備
         //管線
         foreach (var kind in RA020.pipeKinds)
         {
@@ -120,6 +121,26 @@ public class RA020Service : IGetService<RA020, string>
         var totalEquipmentData = new EquipmentData(result.EquipmentDataDic.Values.ToArray());
         result.AddEquipmentData("合計", "", totalEquipmentData);
         #endregion
+
+
+        //送配水及用水設備 (前兩個有兩層式的,用迴圈)
+        for(var i = 0;i <2; i++)
+        {
+            for(var j= 0; j< 2; j++)
+            {
+                var distributeFixForms = fixForms.Where(x => x.DistributeEquipmentAttribute == RA020.distributeEquipments[i] && x.EquipmentAttribute == RA020.equipmentAttributes[j]).ToArray();
+                var distributEquipmentData = GetDistributeEquipmentData(distributeFixForms);
+                result.AddDistributeEquipmentData(RA020.distributeEquipments[i], RA020.equipmentAttributes[j], distributEquipmentData);
+            }
+        }
+        //送配水及用水設備-其他
+        var otherDistributeFixForms = fixForms.Where(x => x.DistributeEquipmentAttribute == RA020.distributeEquipments[2]).ToArray();
+        var otherDistributEquipmentData = GetDistributeEquipmentData(otherDistributeFixForms);
+        result.AddDistributeEquipmentData(RA020.distributeEquipments[2],"", otherDistributEquipmentData);
+        //送配水及用水設備-合計
+        var totalDistributeEquipmentData = new DistributeEquipmentData(result.DistributeEquipmentDataDic.Values.ToArray());
+        result.AddDistributeEquipmentData("合計", "", totalDistributeEquipmentData);
+
 
 
         //漏水情形
@@ -168,6 +189,15 @@ public class RA020Service : IGetService<RA020, string>
         return data;
     }
 
+    private DistributeEquipmentData GetDistributeEquipmentData(IReadOnlyCollection<FixFormSummary> fixForms)
+    {
+        var data = new DistributeEquipmentData();
+        data.Count = fixForms.Count();
+        data.LeakageAmount = fixForms.Select(x => x.TotalAmount ?? 0).Sum();
+        return data;
+    }
+
+
     private SituationData GetSituationData(IReadOnlyCollection<FixFormSummary> fixForms)
     {
         var data = new SituationData();
@@ -197,7 +227,6 @@ public class RA020Service : IGetService<RA020, string>
         /// 設備屬性
         /// </summary>
         public string EquipmentAttribute { get; set; }
-
 
         /// <summary>
         /// 管種
@@ -235,6 +264,12 @@ public class RA020Service : IGetService<RA020, string>
         /// 總漏水量
         /// </summary>
         public decimal? TotalAmount { get; set; }
+
+
+        /// <summary>
+        /// 送配水管線設備屬性(漏水情形的)
+        /// </summary>
+        public string DistributeEquipmentAttribute { get; set; }
 
 
         /// <summary>

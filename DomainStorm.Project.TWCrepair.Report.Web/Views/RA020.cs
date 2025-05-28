@@ -65,6 +65,10 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
             "折斷","空洞","裂縫","脫接","橡皮墊","管鞍","其他"
         };
 
+        public static readonly string[] distributeEquipments =
+        {
+            "送配水管線及設備","用戶外線及設備","其他"
+        };
 
         public static readonly string[] situations =
         {
@@ -74,8 +78,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
 
         public static readonly string[] sources =
         {
-            //"客服系統","抄表後送",  //以我們皩詞庫為準, 但報表沒有這兩個
-            "其他民眾" ,"員工報修" ,"其它機關","委外檢漏案件"
+            "客服系統","抄表後送","其他民眾","檢漏單位","員工報修","其它機關","委外檢漏案件"
         };
 
         #endregion
@@ -106,6 +109,13 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         /// </summary>
         public Dictionary<string, EquipmentData> EquipmentDataDic { get; set; } = new Dictionary<string, EquipmentData>();
 
+
+        /// <summary>
+        /// 依漏送配水及用水設備作統計(key :為設備的兩層資訊合起來 , 例如 "送配水管線及設備-管線" ,  "送配水管線及設備-附屬設備")
+        /// </summary>
+        public Dictionary<string, DistributeEquipmentData> DistributeEquipmentDataDic { get; set; } = new Dictionary<string, DistributeEquipmentData>();
+
+
         /// <summary>
         /// 依漏水情形作統計(key : 漏水情形名稱)
         /// </summary>
@@ -118,7 +128,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         public Dictionary<string, SourceData> SourceDataDic { get; set; } = new Dictionary<string, SourceData>();
 
 
-        public string GetEquipmentDataKey(string level1, string level2)
+        public string GetDataKey(string level1, string level2)
         {
             if (!string.IsNullOrEmpty(level2))
                 return $"{level1}-{level2}";
@@ -128,14 +138,22 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
 
         public void AddEquipmentData(string level1Equip, string level2Equip , EquipmentData data)
         {
-            string key = GetEquipmentDataKey(level1Equip, level2Equip);
+            string key = GetDataKey(level1Equip, level2Equip);
             data.Parent = this;
             EquipmentDataDic.Add(key, data);
         }
 
+        public void AddDistributeEquipmentData(string level1Equip, string level2Equip, DistributeEquipmentData data)
+        {
+            string key = GetDataKey(level1Equip, level2Equip);
+            data.Parent = this;
+            DistributeEquipmentDataDic.Add(key, data);
+        }
+
+
         public void AddSituationData(string level1Equip, string level2Equip, SituationData data)
         {
-            string key = GetEquipmentDataKey(level1Equip, level2Equip);
+            string key = GetDataKey(level1Equip, level2Equip);
             data.Parent = this;
             SituationDataDic.Add(key, data);
         }
@@ -166,7 +184,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         /// <returns></returns>
         public string EquipmentDataHtml(string level1, string level2, bool bottomBold = false)
         {
-            string key = GetEquipmentDataKey(level1, level2);
+            string key = GetDataKey(level1, level2);
             EquipmentData data;
             if (EquipmentDataDic.ContainsKey(key))
             {
@@ -178,6 +196,29 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
             }
             return data.Html(bottomBold);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="level1"></param>
+        /// <param name="level2"></param>
+        /// <param name="bottomBold">底線是否要加粗體</param>
+        /// <returns></returns>
+        public string DistributeEquipmentDataHtml(string level1, string level2, bool bottomBold = false, int rowSpan = 1)
+        {
+            string key = GetDataKey(level1, level2);
+            DistributeEquipmentData data;
+            if (DistributeEquipmentDataDic.ContainsKey(key))
+            {
+                data = DistributeEquipmentDataDic[key];
+            }
+            else
+            {
+                data = new DistributeEquipmentData(this);
+            }
+            return data.Html(bottomBold, rowSpan);
+        }
+
 
         /// <summary>
         /// 
@@ -198,6 +239,29 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
             }
             return data.Html(bottomBold, rowSpan);
         }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="level1"></param>
+        /// <param name="level2"></param>
+        /// <param name="bottomBold">底線是否要加粗體</param>
+        /// <returns></returns>
+        public string SourceDataHtml(string level1,bool bottomBold = false)
+        {
+            SourceData data;
+            if (SourceDataDic.ContainsKey(level1))
+            {
+                data = SourceDataDic[level1];
+            }
+            else
+            {
+                data = new SourceData();
+            }
+            return data.Html(bottomBold);
+        }
+
 
     }
 
@@ -287,11 +351,11 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         {
             StringBuilder sb = new StringBuilder();
             var style1 = bottomBold ? 
-                "ce29" :   //底線加粗
-                "ce28";    //底線normal
+                "ce133" :   //底線加粗
+                "ce132";    //底線normal
             var style2 = bottomBold ? 
-                "ce42" : //底線加粗,右邊加粗
-                "ce41";  //底線正常,右邊加粗
+                "ce146" : //底線加粗,右邊加粗
+                "ce145";  //底線正常,右邊加粗
 
             //漏水原因及合計
             for (var i = 0; i <= LeakageReason.Length; i++)
@@ -334,6 +398,95 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
     }
 
 
+
+    /// <summary>
+    /// 送配水及用水設備
+    /// </summary>
+    public class DistributeEquipmentData
+    {
+        /// <summary>
+        /// 件數
+        /// </summary>
+        public int Count { get; set; }
+
+        /// <summary>
+        /// 件數百分比
+        /// </summary>
+        public double CountPercentage { get => RA020.Percentage(Count, Parent.DistributeEquipmentDataDic["合計"].Count); }
+
+        /// <summary>
+        /// 漏水流量
+        /// </summary>
+        public decimal LeakageAmount { get; set; } = 0;
+
+        /// <summary>
+        /// 漏水流量百分比
+        /// </summary>
+        public double LeakageAmountPercentage
+        {
+            get => RA020.Percentage(
+            decimal.ToDouble(LeakageAmount),
+            decimal.ToDouble(Parent.DistributeEquipmentDataDic["合計"].LeakageAmount));
+        }
+
+
+
+        public RA020 Parent { get; set; }
+
+        public DistributeEquipmentData(RA020 rA020)
+        {
+            Parent = rA020;
+        }
+
+        public DistributeEquipmentData()
+        {
+
+        }
+
+        /// <summary>
+        /// 產生合計列用
+        /// </summary>
+        public DistributeEquipmentData(IReadOnlyCollection<DistributeEquipmentData> datas)
+        {
+            this.Count = datas.Sum(x => x.Count);
+            this.LeakageAmount = datas.Sum(x => x.LeakageAmount);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bottomBold">底線是否要加粗體</param>
+        /// <returns></returns>
+        public string Html(bool bottomBold, int rowSpan)
+        {
+            StringBuilder sb = new StringBuilder();
+            var style1 = bottomBold ?
+                "ce133" :   //底線加粗
+                "ce135";    //底線normal
+            var style2 = bottomBold ?
+                "ce146" : //底線加粗,右邊加粗
+                "ce141";  //底線正常,右邊加粗
+
+
+            sb.AppendLine(@$"<table:table-cell table:style-name=""{style1}"" office:value-type=""string"" calcext:value-type=""string"" table:number-columns-spanned=""2"" table:number-rows-spanned=""{rowSpan}"">
+                          <text:p>{Count}</text:p>
+                         </table:table-cell>
+                         <table:covered-table-cell table:style-name=""{style1}"" />");
+            sb.AppendLine(@$"<table:table-cell table:style-name=""{style1}"" office:value-type=""string"" table:number-rows-spanned=""{rowSpan}"" calcext:value-type=""string"">
+                              <text:p>{CountPercentage}%</text:p>
+                             </table:table-cell>");
+            sb.AppendLine(@$"<table:table-cell table:style-name=""{style1}"" office:value-type=""string"" calcext:value-type=""string"" table:number-columns-spanned=""2"" table:number-rows-spanned=""{rowSpan}"">
+                          <text:p>{LeakageAmount}</text:p>
+                         </table:table-cell>
+                         <table:covered-table-cell table:style-name=""{style1}""/>");
+            sb.AppendLine(@$"<table:table-cell table:style-name=""{style2}"" office:value-type=""string"" table:number-rows-spanned=""{rowSpan}"" calcext:value-type=""string"">
+                          <text:p>{LeakageAmountPercentage}%</text:p>
+                         </table:table-cell>");
+            return sb.ToString();
+        }
+    }
+
+
     /// <summary>
     /// 依來源作統計的數據
     /// </summary>
@@ -361,6 +514,31 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         {
             this.Count = datas.Sum(x => x.Count);
             this.LeakageAmount = datas.Sum(x =>x.LeakageAmount);    
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bottomBold">底線是否要加粗體</param>
+        /// <returns></returns>
+        public string Html(bool bottomBold)
+        {
+            StringBuilder sb = new StringBuilder();
+            var style1 = bottomBold ?
+                "ce137" :   //底線加粗
+                "ce136";    //底線normal
+          
+
+            sb.AppendLine(@$"<table:table-cell table:style-name=""{style1}"" office:value-type=""string"" calcext:value-type=""string"" table:number-columns-spanned=""2"" table:number-rows-spanned=""1"">
+                      <text:p>{Count}</text:p>
+                     </table:table-cell>
+                     <table:covered-table-cell table:style-name=""{style1}""/>
+                     <table:table-cell table:style-name=""{style1}"" office:value-type=""string"" calcext:value-type=""string"" table:number-columns-spanned=""2"" table:number-rows-spanned=""1"">
+                     <text:p>{LeakageAmount}</text:p>
+                     </table:table-cell>");
+
+            return sb.ToString();
         }
     }
 
@@ -424,58 +602,24 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         {
             StringBuilder sb = new StringBuilder();
             var style1 = bottomBold ?
-                "ce32" :   //底線加粗
-                "ce31";    //底線normal
+                "ce133" :   //底線加粗
+                "ce132";    //底線normal
             var style2 = bottomBold ?
-                "ce38" : //底線加粗,右邊加粗
-                "ce37";  //底線正常,右邊加粗
+                "ce146" : //底線加粗,右邊加粗
+                "ce145";  //底線正常,右邊加粗
          
-
-
-            /*
-             * <table:table-cell table:style-name="ce31" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
-                        <text:p>2807</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce34" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
-                        <text:p>70.28%</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce34" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
-                        <text:p>169511.39</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce37" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
-                        <text:p>77.62%</text:p>
-                    </table:table-cell>
-
-
-            
-            <table:table-cell table:style-name="ce32" office:value-type="string" calcext:value-type="string">
-                        <text:p>3994</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce32" office:value-type="string" calcext:value-type="string">
-                        <text:p>100%</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce32" office:value-type="string" calcext:value-type="string">
-                        <text:p>218396.98</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce38" office:value-type="string" calcext:value-type="string">
-                        <text:p>100%</text:p>
-                    </table:table-cell>
-             */
-
-
-
 
             sb.AppendLine(@$"<table:table-cell table:style-name=""{style1}"" office:value-type=""string"" calcext:value-type=""string"" table:number-columns-spanned=""1"" table:number-rows-spanned=""{rowSpan}"">
                         <text:p>{Count}</text:p>
                     </table:table-cell>");
             sb.AppendLine(@$"<table:table-cell table:style-name=""{style1}"" office:value-type=""string"" calcext:value-type=""string"" table:number-columns-spanned=""1"" table:number-rows-spanned=""{rowSpan}"">
-                        <text:p>{CountPercentage}</text:p>
+                        <text:p>{CountPercentage}%</text:p>
                     </table:table-cell>");
             sb.AppendLine(@$"<table:table-cell table:style-name=""{style1}"" office:value-type=""string"" calcext:value-type=""string"" table:number-columns-spanned=""1"" table:number-rows-spanned=""{rowSpan}"">
                         <text:p>{LeakageAmount}</text:p>
                     </table:table-cell>");
             sb.AppendLine(@$"<table:table-cell table:style-name=""{style2}"" office:value-type=""string"" calcext:value-type=""string"" table:number-columns-spanned=""1"" table:number-rows-spanned=""{rowSpan}"">
-                        <text:p>{LeakageAmountPercentage}</text:p>
+                        <text:p>{LeakageAmountPercentage}%</text:p>
                     </table:table-cell>");
 
           
