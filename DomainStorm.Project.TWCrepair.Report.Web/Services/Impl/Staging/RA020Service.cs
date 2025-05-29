@@ -86,84 +86,8 @@ public class RA020Service : IGetService<RA020, string>
             Situation = x.FixFormLeakage != null && x.FixFormLeakage.Situation != null ? x.FixFormLeakage.Situation.Name : "",
             Source = x.Source != null ? x.Source.Name : ""
         });
-
-        #region 管線設備
-        //管線
-        foreach (var kind in RA020.pipeKinds)
-        {
-            var kindFixForms = fixForms.Where(x => x.EquipmentAttribute == RA020.equipmentAttributes[0] && x.PipeKind == kind).ToArray();
-            var equipmentData = GetEquipmentData(kindFixForms);
-            result.AddEquipmentData(RA020.equipmentAttributes[0], kind, equipmentData);
-        }
-
-        //附屬設備
-        foreach (var accessor in RA020.accessoryEquipments)
-        {
-            var accessorFixForms = fixForms.Where(x => x.EquipmentAttribute == RA020.equipmentAttributes[1] && x.AccessoryEquipment == accessor).ToArray();
-            var equipmentData = GetEquipmentData(accessorFixForms);
-            result.AddEquipmentData(RA020.equipmentAttributes[1], accessor, equipmentData);
-        }
-
-        //表箱另件
-        foreach (var box in RA020.boxAnnexs)
-        {
-            var boxFixForms = fixForms.Where(x => x.EquipmentAttribute == RA020.equipmentAttributes[2] && x.BoxAnnex == box).ToArray();
-            var equipmentData = GetEquipmentData(boxFixForms);
-            result.AddEquipmentData(RA020.equipmentAttributes[2], box, equipmentData);
-        }
-
-        //其他
-        var otherFixForms = fixForms.Where(x => x.EquipmentAttribute == RA020.equipmentAttributes[3]).ToArray();
-        var otherEquipmentData = GetEquipmentData(otherFixForms);
-        result.AddEquipmentData(RA020.equipmentAttributes[3], "", otherEquipmentData);
-
-        //合計
-        var totalEquipmentData = new EquipmentData(result.EquipmentDataDic.Values.ToArray());
-        result.AddEquipmentData("合計", "", totalEquipmentData);
-        #endregion
-
-
-        //送配水及用水設備 (前兩個有兩層式的,用迴圈)
-        for(var i = 0;i <2; i++)
-        {
-            for(var j= 0; j< 2; j++)
-            {
-                var distributeFixForms = fixForms.Where(x => x.DistributeEquipmentAttribute == RA020.distributeEquipments[i] && x.EquipmentAttribute == RA020.equipmentAttributes[j]).ToArray();
-                var distributEquipmentData = GetDistributeEquipmentData(distributeFixForms);
-                result.AddDistributeEquipmentData(RA020.distributeEquipments[i], RA020.equipmentAttributes[j], distributEquipmentData);
-            }
-        }
-        //送配水及用水設備-其他
-        var otherDistributeFixForms = fixForms.Where(x => x.DistributeEquipmentAttribute == RA020.distributeEquipments[2]).ToArray();
-        var otherDistributEquipmentData = GetDistributeEquipmentData(otherDistributeFixForms);
-        result.AddDistributeEquipmentData(RA020.distributeEquipments[2],"", otherDistributEquipmentData);
-        //送配水及用水設備-合計
-        var totalDistributeEquipmentData = new DistributeEquipmentData(result.DistributeEquipmentDataDic.Values.ToArray());
-        result.AddDistributeEquipmentData("合計", "", totalDistributeEquipmentData);
-
-
-
-        //漏水情形
-        foreach (var situation in RA020.situations)
-        {
-            var situationFixForms = fixForms.Where(x => x.Situation == situation ).ToArray();
-            var situationData = GetSituationData(situationFixForms);
-            result.AddSituationData(situation, "", situationData);
-        }
-        var totalSituationData = new SituationData(result.SituationDataDic.Values.ToArray());
-        result.AddSituationData("合計", "", totalSituationData);
-
-
-
-        //案件來源
-        foreach (var source in RA020.sources)
-        {
-            var sourceFixForms = fixForms.Where(x => x.Source== source).ToArray();
-            var sourceData = GetSourceData(sourceFixForms);
-            result.SourceDataDic.Add(source, sourceData);
-        }
-        var totalSourceData = new SourceData(result.SourceDataDic.Values.ToArray());
-        result.SourceDataDic.Add("合計", totalSourceData);
+        AnalyzeData(result, fixForms);
+       
 
 
         
@@ -171,7 +95,7 @@ public class RA020Service : IGetService<RA020, string>
         return result;
     }
 
-    private EquipmentData GetEquipmentData(IReadOnlyCollection<FixFormSummary> fixForms)
+    private static EquipmentData GetEquipmentData(IReadOnlyCollection<FixFormSummary> fixForms)
     {
         var data = new EquipmentData();
         for(int i= 0; i < RA020.leakageReasons.Length; i++)
@@ -189,7 +113,7 @@ public class RA020Service : IGetService<RA020, string>
         return data;
     }
 
-    private DistributeEquipmentData GetDistributeEquipmentData(IReadOnlyCollection<FixFormSummary> fixForms)
+    private static DistributeEquipmentData GetDistributeEquipmentData(IReadOnlyCollection<FixFormSummary> fixForms)
     {
         var data = new DistributeEquipmentData();
         data.Count = fixForms.Count();
@@ -198,7 +122,7 @@ public class RA020Service : IGetService<RA020, string>
     }
 
 
-    private SituationData GetSituationData(IReadOnlyCollection<FixFormSummary> fixForms)
+    private static SituationData GetSituationData(IReadOnlyCollection<FixFormSummary> fixForms)
     {
         var data = new SituationData();
         data.Count = fixForms.Count();
@@ -207,7 +131,7 @@ public class RA020Service : IGetService<RA020, string>
     }
 
 
-    private SourceData GetSourceData(IReadOnlyCollection<FixFormSummary> fixForms)
+    private static SourceData GetSourceData(IReadOnlyCollection<FixFormSummary> fixForms)
     {
         var data = new SourceData();
         data.Count = fixForms.Count();
@@ -284,6 +208,89 @@ public class RA020Service : IGetService<RA020, string>
         public string Situation { get; set; }
 
     }
+
+
+    public static void AnalyzeData(RA020 ra020,  ICollection<FixFormSummary> fixForms)
+    {
+        #region 管線設備
+        //管線
+        foreach (var kind in RA020.pipeKinds)
+        {
+            var kindFixForms = fixForms.Where(x => x.EquipmentAttribute == RA020.equipmentAttributes[0] && x.PipeKind == kind).ToArray();
+            var equipmentData = GetEquipmentData(kindFixForms);
+            ra020.AddEquipmentData(RA020.equipmentAttributes[0], kind, equipmentData);
+        }
+
+        //附屬設備
+        foreach (var accessor in RA020.accessoryEquipments)
+        {
+            var accessorFixForms = fixForms.Where(x => x.EquipmentAttribute == RA020.equipmentAttributes[1] && x.AccessoryEquipment == accessor).ToArray();
+            var equipmentData = GetEquipmentData(accessorFixForms);
+            ra020.AddEquipmentData(RA020.equipmentAttributes[1], accessor, equipmentData);
+        }
+
+        //表箱另件
+        foreach (var box in RA020.boxAnnexs)
+        {
+            var boxFixForms = fixForms.Where(x => x.EquipmentAttribute == RA020.equipmentAttributes[2] && x.BoxAnnex == box).ToArray();
+            var equipmentData = GetEquipmentData(boxFixForms);
+            ra020.AddEquipmentData(RA020.equipmentAttributes[2], box, equipmentData);
+        }
+
+        //其他
+        var otherFixForms = fixForms.Where(x => x.EquipmentAttribute == RA020.equipmentAttributes[3]).ToArray();
+        var otherEquipmentData = GetEquipmentData(otherFixForms);
+        ra020.AddEquipmentData(RA020.equipmentAttributes[3], "", otherEquipmentData);
+
+        //合計
+        var totalEquipmentData = new EquipmentData(ra020.EquipmentDataDic.Values.ToArray());
+        ra020.AddEquipmentData("合計", "", totalEquipmentData);
+        #endregion
+
+
+        //送配水及用水設備 (前兩個有兩層式的,用迴圈)
+        for (var i = 0; i < 2; i++)
+        {
+            for (var j = 0; j < 2; j++)
+            {
+                var distributeFixForms = fixForms.Where(x => x.DistributeEquipmentAttribute == RA020.distributeEquipments[i] && x.EquipmentAttribute == RA020.equipmentAttributes[j]).ToArray();
+                var distributEquipmentData = GetDistributeEquipmentData(distributeFixForms);
+                ra020.AddDistributeEquipmentData(RA020.distributeEquipments[i], RA020.equipmentAttributes[j], distributEquipmentData);
+            }
+        }
+        //送配水及用水設備-其他
+        var otherDistributeFixForms = fixForms.Where(x => x.DistributeEquipmentAttribute == RA020.distributeEquipments[2]).ToArray();
+        var otherDistributEquipmentData = GetDistributeEquipmentData(otherDistributeFixForms);
+        ra020.AddDistributeEquipmentData(RA020.distributeEquipments[2], "", otherDistributEquipmentData);
+        //送配水及用水設備-合計
+        var totalDistributeEquipmentData = new DistributeEquipmentData(ra020.DistributeEquipmentDataDic.Values.ToArray());
+        ra020.AddDistributeEquipmentData("合計", "", totalDistributeEquipmentData);
+
+
+
+        //漏水情形
+        foreach (var situation in RA020.situations)
+        {
+            var situationFixForms = fixForms.Where(x => x.Situation == situation).ToArray();
+            var situationData = GetSituationData(situationFixForms);
+            ra020.AddSituationData(situation, "", situationData);
+        }
+        var totalSituationData = new SituationData(ra020.SituationDataDic.Values.ToArray());
+        ra020.AddSituationData("合計", "", totalSituationData);
+
+
+
+        //案件來源
+        foreach (var source in RA020.sources)
+        {
+            var sourceFixForms = fixForms.Where(x => x.Source == source).ToArray();
+            var sourceData = GetSourceData(sourceFixForms);
+            ra020.SourceDataDic.Add(source, sourceData);
+        }
+        var totalSourceData = new SourceData(ra020.SourceDataDic.Values.ToArray());
+        ra020.SourceDataDic.Add("合計", totalSourceData);
+    }
+
 
     public Task<DateTime> GetAsync(Guid id)
     {

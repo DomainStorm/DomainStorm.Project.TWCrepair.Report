@@ -27,10 +27,33 @@ public class RA020Service : IGetService<RA020, string>
 
     private async Task<RA020> QueryRA020(QueryRA020 condition) 
     {
-        
-        var result = new RA020();
+
+        var result = new RA020
+        {
+            DepartmentName = "第十二區處",
+            SiteName = "中和服務區",
+            DateRange = "2024年第四季"
 
 
+        };
+        var fixForms = new List<Staging.RA020Service.FixFormSummary>()
+        {
+            new ()
+            {
+                FormId = Guid.NewGuid(),
+                EquipmentAttribute = "管線",
+                PipeKind = "DIP",
+                Reason = "地盤下陷",
+                FixSituation ="脫接",
+                DailyAmount = 100,
+                TotalAmount = 3000,
+                DistributeEquipmentAttribute = "送配水管線及設備",
+                Situation = "漏出地面",
+                Source = "員工報修"
+            }
+        };
+
+        Staging.RA020Service.AnalyzeData(result, fixForms);
         return result;
     }
 

@@ -1,8 +1,5 @@
-﻿using Nest;
-using System.Net.WebSockets;
-using System.Text;
+﻿using System.Text;
 using static DomainStorm.Project.TWCrepair.Repository.CommandModel.Report.V1;
-using static Google.Api.ResourceDescriptor.Types;
 
 namespace DomainStorm.Project.TWCrepair.Report.Web.Views
 {
@@ -229,7 +226,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         public string SituationDataHtml(string level1,  bool bottomBold = false, int rowSpan = 1)
         {
             SituationData data;
-            if (EquipmentDataDic.ContainsKey(level1))
+            if (SituationDataDic.ContainsKey(level1))
             {
                 data = SituationDataDic[level1];
             }
