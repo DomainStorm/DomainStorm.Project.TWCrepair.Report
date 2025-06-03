@@ -114,6 +114,7 @@ try
         builder.Services.AddScoped<IGetService<RA019FixForm, string>, SharedStagingServices.RA019Service>();
         builder.Services.AddScoped<IGetService<RA020, string>, StagingServices.RA020Service>();
         builder.Services.AddScoped<IGetService<RA021, string>, StagingServices.RA021Service>();
+        builder.Services.AddScoped<IGetService<RA022, string>, StagingServices.RA022Service>();
         builder.Services.AddScoped<IGetService<BudgetDocResourceStatistics, Guid>, SharedStagingServices.BudgetDocResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocOutSourceResourceStatistics, Guid>, SharedStagingServices.BudgetDocOutSourceResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocContractResourceStatistics, Guid>, SharedStagingServices.BudgetDocContractResourceStatisticsService>();
@@ -161,6 +162,7 @@ try
         builder.Services.AddScoped<IGetService<RA019FixForm, string>, SharedMockService.RA019Service>();
         builder.Services.AddScoped<IGetService<RA020, string>, MockServices.RA020Service>();
         builder.Services.AddScoped<IGetService<RA021, string>, MockServices.RA021Service>();
+        builder.Services.AddScoped<IGetService<RA022, string>, MockServices.RA022Service>();
         builder.Services.AddScoped<IGetService<BudgetDocResourceStatistics, Guid>, SharedMockService.BudgetDocResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocOutSourceResourceStatistics, Guid>, SharedMockService.BudgetDocOutSourceResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocContractResourceStatistics, Guid>, SharedMockService.BudgetDocContractResourceStatisticsService>();
