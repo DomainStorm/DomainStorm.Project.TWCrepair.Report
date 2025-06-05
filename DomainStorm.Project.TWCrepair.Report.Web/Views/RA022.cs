@@ -56,7 +56,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
 
 
         /// <summary>
-        /// 設備屬性其他子選項詞庫
+        /// 設備屬性其他子選項
         /// </summary>
         public string EquipmentAttributeOther { get; set; }
 
@@ -80,7 +80,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
 
 
         /// <summary>
-        /// 表箱另件詞庫 
+        /// 表箱另件
         /// </summary>
         public string BoxAnnex { get; set; }
 
