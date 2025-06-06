@@ -694,6 +694,7 @@
             <style:text-properties style:use-window-font-color="true" style:text-outline="false" style:text-line-through-style="none" style:text-line-through-type="none" style:font-name="Verdana" fo:font-size="10pt" fo:font-style="normal" fo:text-shadow="none" style:text-underline-style="none" fo:font-weight="normal" style:font-size-asian="10pt" style:font-style-asian="normal" style:font-weight-asian="normal" style:font-size-complex="10pt" style:font-style-complex="normal" style:font-weight-complex="normal"/></style:style>
         <style:style style:name="ce17" style:family="table-cell" style:parent-style-name="Default">
             <style:table-cell-properties fo:border-bottom="0.06pt solid #000000" style:diagonal-bl-tr="none" style:diagonal-tl-br="none" fo:border-left="0.74pt solid #000000" fo:padding="0.071cm" fo:border-right="0.74pt solid #000000" style:rotation-align="none" fo:border-top="0.06pt solid #000000"/>
+            <style:paragraph-properties fo:text-align="end"></style:paragraph-properties>
             <style:text-properties style:use-window-font-color="true" style:text-outline="false" style:text-line-through-style="none" style:text-line-through-type="none" style:font-name="Verdana" fo:font-size="10pt" fo:font-style="normal" fo:text-shadow="none" style:text-underline-style="none" fo:font-weight="normal" style:font-size-asian="10pt" style:font-style-asian="normal" style:font-weight-asian="normal" style:font-size-complex="10pt" style:font-style-complex="normal" style:font-weight-complex="normal"/></style:style>
         <style:style style:name="ce18" style:family="table-cell" style:parent-style-name="Default">
             <style:table-cell-properties fo:border-bottom="0.06pt solid #000000" style:diagonal-bl-tr="none" style:diagonal-tl-br="none" fo:border-left="0.74pt solid #000000" fo:padding="0.071cm" fo:border-right="0.74pt solid #000000" style:rotation-align="none" fo:border-top="none"/>
@@ -732,6 +733,7 @@
             <style:text-properties fo:color="#000000" style:text-outline="false" style:text-line-through-style="none" style:text-line-through-type="none" style:font-name="Verdana" fo:font-size="10pt" fo:font-style="normal" fo:text-shadow="none" style:text-underline-style="none" fo:font-weight="normal" style:font-size-asian="10pt" style:font-style-asian="normal" style:font-weight-asian="normal" style:font-size-complex="10pt" style:font-style-complex="normal" style:font-weight-complex="normal"/></style:style>
         <style:style style:name="ce27" style:family="table-cell" style:parent-style-name="Default">
             <style:table-cell-properties fo:border-bottom="0.06pt solid #000000" style:diagonal-bl-tr="none" style:diagonal-tl-br="none" fo:border-left="none" fo:padding="0.071cm" fo:border-right="none" style:rotation-align="none" fo:border-top="none"/>
+            <style:paragraph-properties fo:text-align="end" > </style:paragraph-properties >
             <style:text-properties style:use-window-font-color="true" style:text-outline="false" style:text-line-through-style="none" style:text-line-through-type="none" style:font-name="Verdana" fo:font-size="10pt" fo:font-style="normal" fo:text-shadow="none" style:text-underline-style="none" fo:font-weight="normal" style:font-size-asian="10pt" style:font-style-asian="normal" style:font-weight-asian="normal" style:font-size-complex="10pt" style:font-style-complex="normal" style:font-weight-complex="normal"/></style:style>
         <style:style style:name="ce28" style:family="table-cell" style:parent-style-name="Default">
             <style:table-cell-properties style:glyph-orientation-vertical="0" fo:border-bottom="0.06pt solid #000000" fo:background-color="#ffffcc" style:diagonal-bl-tr="none" style:diagonal-tl-br="none" style:text-align-source="fix" style:repeat-content="false" fo:wrap-option="wrap" fo:border-left="none" style:direction="ltr" fo:padding="0.071cm" fo:border-right="none" style:rotation-angle="0" style:rotation-align="none" style:shrink-to-fit="false" fo:border-top="2.49pt solid #000000" style:vertical-align="middle" loext:vertical-justify="auto"/>
@@ -1083,19 +1085,106 @@
                         <table:table-cell table:style-name="ce16" office:value-type="string" calcext:value-type="string">
                             <text:p>緊急案件</text:p>
                         </table:table-cell>
-                        <table:table-cell table:style-name="ce17" office:value-type="float" office:value="@item.UnDispatch" calcext:value-type="float" table:number-columns-spanned="1" table:number-rows-spanned="2" />
-                        <table:table-cell table:style-name="ce22" office:value-type="float" office:value="@item.UrgentCase.Dispatch" calcext:value-type="float"/>
-                        <table:table-cell table:style-name="ce27" office:value-type="float" office:value="@item.UrgentCase.FinishNotOverDue" calcext:value-type="float" />
+                        
+                        @if (item.UnDispatchCacheId != null)
+                        {
+                            <table:table-cell table:style-name="ce17" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
+                                <text:p><text:a xlink:href="@($"{Model.TwcFixWebBase}/CG11/{item.UnDispatchCacheId}")" xlink:type="simple">@item.UnDispatch</text:a></text:p>
+                            </table:table-cell>
+                        }
+                        else
+                        {
+                            <table:table-cell table:style-name="ce17" office:value-type="float" office:value="@item.UnDispatch" calcext:value-type="float" table:number-columns-spanned="1" table:number-rows-spanned="2" />
+                        }
+
+
+                        @if (item.UrgentCase.DispatchCacheId != null)
+                        {
+                            <table:table-cell table:style-name="ce22" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
+                                <text:p><text:a xlink:href="@($"{Model.TwcFixWebBase}/CG11/{item.UrgentCase.DispatchCacheId}")" xlink:type="simple">@item.UnDispatch</text:a></text:p>
+                            </table:table-cell>
+                        }
+                        else
+                        {
+                            <table:table-cell table:style-name="ce22" office:value-type="float" office:value="@item.UrgentCase.Dispatch" calcext:value-type="float"/>
+                        }
+
+                        @if (item.UrgentCase.FinishNotOverDueCacheId != null)
+                        {
+                            <table:table-cell table:style-name="ce27" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
+                                <text:p><text:a xlink:href="@($"{Model.TwcFixWebBase}/CG11/{item.UrgentCase.FinishNotOverDueCacheId}")" xlink:type="simple">@item.UnDispatch</text:a></text:p>
+                            </table:table-cell>
+                        }
+                        else
+                        {
+                            <table:table-cell table:style-name="ce27" office:value-type="float" office:value="@item.UrgentCase.FinishNotOverDue" calcext:value-type="float" />
+                        }
+
                         <table:table-cell table:style-name="ce30" office:value-type="percentage" office:value="@(item.UrgentCase.FinishNotOverDuePercentage / 100)" calcext:value-type="percentage" />
-                        <table:table-cell table:style-name="ce33" office:value-type="float" office:value="@item.UrgentCase.FinishOverDue1" calcext:value-type="float" />
+
+
+                        @if (item.UrgentCase.FinishOverDue1CacheId != null)
+                        {
+                            <table:table-cell table:style-name="ce33" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
+                                <text:p><text:a xlink:href="@($"{Model.TwcFixWebBase}/CG11/{item.UrgentCase.FinishOverDue1CacheId}")" xlink:type="simple">@item.UnDispatch</text:a></text:p>
+                            </table:table-cell>
+                        }
+                        else
+                        {
+                            <table:table-cell table:style-name="ce33" office:value-type="float" office:value="@item.UrgentCase.FinishOverDue1" calcext:value-type="float" />
+                        }
+
                         <table:table-cell table:style-name="ce36" office:value-type="percentage" office:value="@(item.UrgentCase.FinishOverDue1Percentage / 100)" calcext:value-type="percentage" />
-                        <table:table-cell table:style-name="ce33" office:value-type="float" office:value="@item.UrgentCase.FinishOverDue3" calcext:value-type="float" />
+
+
+                        @if (item.UrgentCase.FinishOverDue3CacheId != null)
+                        {
+                            <table:table-cell table:style-name="ce33" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
+                                <text:p><text:a xlink:href="@($"{Model.TwcFixWebBase}/CG11/{item.UrgentCase.FinishOverDue3CacheId}")" xlink:type="simple">@item.UnDispatch</text:a></text:p>
+                            </table:table-cell>
+                        }
+                        else
+                        {
+                            <table:table-cell table:style-name="ce33" office:value-type="float" office:value="@item.UrgentCase.FinishOverDue3" calcext:value-type="float" />
+                        }                      
+                        
                         <table:table-cell table:style-name="ce36" office:value-type="percentage" office:value="@(item.UrgentCase.FinishOverDue3Percentage / 100)" calcext:value-type="percentage" />
-                        <table:table-cell table:style-name="ce33" office:value-type="float" office:value="@item.UrgentCase.FinishOverDueOver3" calcext:value-type="float"/>
+
+                        @if (item.UrgentCase.FinishOverDueOver3CacheId != null)
+                        {
+                            <table:table-cell table:style-name="ce33" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
+                                <text:p><text:a xlink:href="@($"{Model.TwcFixWebBase}/CG11/{item.UrgentCase.FinishOverDueOver3CacheId}")" xlink:type="simple">@item.UnDispatch</text:a></text:p>
+                            </table:table-cell>
+                        }
+                        else
+                        {
+                            <table:table-cell table:style-name="ce33" office:value-type="float" office:value="@item.UrgentCase.FinishOverDueOver3" calcext:value-type="float"/>
+                        }                             
                         <table:table-cell table:style-name="ce40" office:value-type="percentage" office:value="@(item.UrgentCase.FinishOverDueOver3Percentage / 100)" calcext:value-type="percentage"/>
-                        <table:table-cell table:style-name="ce27"  office:value-type="float" office:value="@item.UrgentCase.Finish" calcext:value-type="float" />
+
+
+                        @if (item.UrgentCase.FinishCacheId != null)
+                        {
+                            <table:table-cell table:style-name="ce27" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
+                                <text:p><text:a xlink:href="@($"{Model.TwcFixWebBase}/CG11/{item.UrgentCase.FinishCacheId}")" xlink:type="simple">@item.UnDispatch</text:a></text:p>
+                            </table:table-cell>
+                        }
+                        else
+                        {
+                            <table:table-cell table:style-name="ce27"  office:value-type="float" office:value="@item.UrgentCase.Finish" calcext:value-type="float" />
+                        }     
                         <table:table-cell table:style-name="ce30" office:value-type="percentage" office:value="@(item.UrgentCase.FinishPercentage / 100)" calcext:value-type="percentage" />
-                        <table:table-cell table:style-name="ce33" office:value-type="float" office:value="@item.UrgentCase.UnFinish" calcext:value-type="float" />
+
+                        @if (item.UrgentCase.UnFinishCacheId != null)
+                        {
+                            <table:table-cell table:style-name="ce33" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
+                                <text:p><text:a xlink:href="@($"{Model.TwcFixWebBase}/CG11/{item.UrgentCase.UnFinishCacheId}")" xlink:type="simple">@item.UnDispatch</text:a></text:p>
+                            </table:table-cell>
+                        }
+                        else
+                        {
+                            <table:table-cell table:style-name="ce33" office:value-type="float" office:value="@item.UrgentCase.UnFinish" calcext:value-type="float" />
+                        }                        
                         <table:table-cell table:style-name="ce40" office:value-type="percentage" office:value="@(item.UrgentCase.UnFinishPercentage / 100)" calcext:value-type="percentage" />
                         <table:table-cell table:style-name="ce43" />
                         <table:table-cell table:style-name="ce10" table:number-columns-repeated="240" />
@@ -1107,18 +1196,90 @@
                         </table:table-cell>
                         <table:covered-table-cell table:style-name="ce18" />
 
-                        <table:table-cell table:style-name="ce22" office:value-type="float" office:value="@item.UnUrgentCase.Dispatch" calcext:value-type="float" />
-                        <table:table-cell table:style-name="ce27" office:value-type="float" office:value="@item.UnUrgentCase.FinishNotOverDue" calcext:value-type="float" />
+
+                        @if (item.UnUrgentCase.DispatchCacheId != null)
+                        {
+                            <table:table-cell table:style-name="ce22" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
+                                <text:p><text:a xlink:href="@($"{Model.TwcFixWebBase}/CG11/{item.UnUrgentCase.DispatchCacheId}")" xlink:type="simple">@item.UnDispatch</text:a></text:p>
+                            </table:table-cell>
+                        }
+                        else
+                        {
+                            <table:table-cell table:style-name="ce22" office:value-type="float" office:value="@item.UnUrgentCase.Dispatch" calcext:value-type="float" />
+                        }
+
+
+                        @if (item.UnUrgentCase.FinishNotOverDueCacheId != null)
+                        {
+                            <table:table-cell table:style-name="ce27" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
+                                <text:p><text:a xlink:href="@($"{Model.TwcFixWebBase}/CG11/{item.UnUrgentCase.FinishNotOverDueCacheId}")" xlink:type="simple">@item.UnDispatch</text:a></text:p>
+                            </table:table-cell>
+                        }
+                        else
+                        {
+                            <table:table-cell table:style-name="ce27" office:value-type="float" office:value="@item.UnUrgentCase.FinishNotOverDue" calcext:value-type="float" />
+                        }                
                         <table:table-cell table:style-name="ce30" office:value-type="percentage" office:value="@(item.UnUrgentCase.FinishNotOverDuePercentage / 100)" calcext:value-type="percentage" />
-                        <table:table-cell table:style-name="ce33" office:value-type="float" office:value="@item.UnUrgentCase.FinishOverDue1" calcext:value-type="float" />
+
+                        @if (item.UnUrgentCase.FinishOverDue1CacheId != null)
+                        {
+                            <table:table-cell table:style-name="ce33" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
+                                <text:p><text:a xlink:href="@($"{Model.TwcFixWebBase}/CG11/{item.UnUrgentCase.FinishOverDue1CacheId}")" xlink:type="simple">@item.UnDispatch</text:a></text:p>
+                            </table:table-cell>
+                        }
+                        else
+                        {
+                            <table:table-cell table:style-name="ce33" office:value-type="float" office:value="@item.UnUrgentCase.FinishOverDue1" calcext:value-type="float" />
+                        }                       
                         <table:table-cell table:style-name="ce36" office:value-type="percentage" office:value="@(item.UnUrgentCase.FinishOverDue1Percentage / 100)" calcext:value-type="percentage" />
-                        <table:table-cell table:style-name="ce33" office:value-type="float" office:value="@item.UnUrgentCase.FinishOverDue3" calcext:value-type="float" />
+
+                        @if (item.UnUrgentCase.FinishOverDue3CacheId != null)
+                        {
+                            <table:table-cell table:style-name="ce33" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
+                                <text:p><text:a xlink:href="@($"{Model.TwcFixWebBase}/CG11/{item.UnUrgentCase.FinishOverDue3CacheId}")" xlink:type="simple">@item.UnDispatch</text:a></text:p>
+                            </table:table-cell>
+                        }
+                        else
+                        {
+                            <table:table-cell table:style-name="ce33" office:value-type="float" office:value="@item.UnUrgentCase.FinishOverDue3" calcext:value-type="float" />
+                        }                       
                         <table:table-cell table:style-name="ce36" office:value-type="percentage" office:value="@(item.UnUrgentCase.FinishOverDue3Percentage / 100)" calcext:value-type="percentage" />
-                        <table:table-cell table:style-name="ce33" office:value-type="float" office:value="@item.UnUrgentCase.FinishOverDueOver3" calcext:value-type="float" />
+
+                        @if (item.UnUrgentCase.FinishOverDueOver3CacheId != null)
+                        {
+                            <table:table-cell table:style-name="ce33" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
+                                <text:p><text:a xlink:href="@($"{Model.TwcFixWebBase}/CG11/{item.UnUrgentCase.FinishOverDueOver3CacheId}")" xlink:type="simple">@item.UnDispatch</text:a></text:p>
+                            </table:table-cell>
+                        }
+                        else
+                        {
+                            <table:table-cell table:style-name="ce33" office:value-type="float" office:value="@item.UnUrgentCase.FinishOverDueOver3" calcext:value-type="float" />
+                        }                        
                         <table:table-cell table:style-name="ce40" office:value-type="percentage" office:value="@(item.UnUrgentCase.FinishOverDueOver3Percentage / 100)" calcext:value-type="percentage" />
-                        <table:table-cell table:style-name="ce27" office:value-type="float" office:value="@item.UnUrgentCase.Finish" calcext:value-type="float" />
+
+                        @if (item.UnUrgentCase.FinishCacheId != null)
+                        {
+                            <table:table-cell table:style-name="ce33" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
+                                <text:p><text:a xlink:href="@($"{Model.TwcFixWebBase}/CG11/{item.UnUrgentCase.FinishCacheId}")" xlink:type="simple">@item.UnDispatch</text:a></text:p>
+                            </table:table-cell>
+                        }
+                        else
+                        {
+                            <table:table-cell table:style-name="ce27" office:value-type="float" office:value="@item.UnUrgentCase.Finish" calcext:value-type="float" />
+                        }
                         <table:table-cell table:style-name="ce30" office:value-type="percentage" office:value="@(item.UnUrgentCase.FinishPercentage / 100)" calcext:value-type="percentage" />
-                        <table:table-cell table:style-name="ce33" office:value-type="float" office:value="@item.UnUrgentCase.UnFinish" calcext:value-type="float" />
+
+                        @if (item.UnUrgentCase.UnFinishCacheId != null)
+                        {
+                            <table:table-cell table:style-name="ce33" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
+                                <text:p><text:a xlink:href="@($"{Model.TwcFixWebBase}/CG11/{item.UnUrgentCase.UnFinishCacheId}")" xlink:type="simple">@item.UnDispatch</text:a></text:p>
+                            </table:table-cell>
+                        }
+                        else
+                        {
+                            <table:table-cell table:style-name="ce33" office:value-type="float" office:value="@item.UnUrgentCase.UnFinish" calcext:value-type="float" />
+                        }
+                       
                         <table:table-cell table:style-name="ce40" office:value-type="percentage" office:value="@(item.UnUrgentCase.UnFinishPercentage / 100)" calcext:value-type="percentage" />
                         
                         <table:table-cell table:style-name="ce43" />
