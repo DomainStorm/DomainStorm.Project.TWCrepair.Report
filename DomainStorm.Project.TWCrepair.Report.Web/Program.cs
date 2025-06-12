@@ -85,7 +85,7 @@ try
         builder.Services.AddScoped<IGetService<PlotlyJson, ReportConvertRequest>, SharedStagingService.ReportService>();
         builder.Services.AddScoped<IGetService<AutoLoginToken, string>, AutoLoginTokenService>();
         builder.Services.AddScoped<IGetService<Department, string>, SharedStagingServices.DepartmentService>();
-        builder.Services.AddScoped<IGetService<Post, string>, SharedMockServices.PostService>();
+        builder.Services.AddScoped<IGetService<Post, string>, SharedStagingServices.PostService>();
         builder.Services.AddScoped<IGetService<DA001, string>, StagingServices.DA001Service>();
         builder.Services.AddScoped<IGetService<DA002, string>, StagingServices.DA002Service>();
         builder.Services.AddScoped<IGetService<DA003, string>, StagingServices.DA003Service>();
