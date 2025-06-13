@@ -4,6 +4,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using DomainStorm.Framework.Services;
+using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA002.V1;
+using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA003.V1;
+using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA004.V1;
+using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA005.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA006.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA007.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA008.V1;
@@ -30,6 +34,10 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
     [Authorize(AuthenticationSchemes = OpenIdConnectDefaults.AuthenticationScheme)]
     [Route("api/package")]
     public class PackageController(
+            IGetService<RA002, string> ra002Service,
+            IGetService<RA003, string> ra003Service,
+            IGetService<RA004, string> ra004Service,
+            IGetService<RA005, string> ra005Service,
             IGetService<RA006, string> ra006Service, 
             IGetService<RA007, string> ra007Service,
             IGetService<RA008, string> ra008Service,
@@ -129,6 +137,45 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
             var outFileName = $"{request.Id}.{request.Extension.ToString().ToLower()}";
 
             return File(stream, MediaTypeNames.Application.Octet, outFileName);
+
+        }
+
+
+        [HttpPost("dispatch")]
+        public async Task<ActionResult> Dispatch([FromBody] QueryPackage request)
+        {
+            var toMergeXmlDocumentList = new List<XmlDocument>
+            {
+                // await OutXmlDocument<IGetService<RA002, string>, RA002, QueryRA002>(
+                //     ra002Service, new QueryRA002
+                //     {
+                //         Id = request.Id,
+                //         Extension = IConvert.Extension.XML
+                //     }, reportService, "/Views/RA002.cshtml", IConvert.Extension.XML),
+                await OutXmlDocument<IGetService<RA003, string>, RA003, QueryRA003>(
+                    ra003Service, new QueryRA003
+                    {
+                        Id = request.Id,
+                        Extension = IConvert.Extension.XML
+                    }, reportService, "/Views/RA003.cshtml", IConvert.Extension.XML),
+                await OutXmlDocument<IGetService<RA004, string>, RA004, QueryRA004>(
+                    ra004Service, new QueryRA004
+                    {
+                        Id = request.Id,
+                        Extension = IConvert.Extension.XML
+                    }, reportService, "/Views/RA004.cshtml", IConvert.Extension.XML),
+                await OutXmlDocument<IGetService<RA005, string>, RA005, QueryRA005>(
+                    ra005Service, new QueryRA005
+                    {
+                        Id = request.Id,
+                        Extension = IConvert.Extension.XML
+                    }, reportService, "/Views/RA005.cshtml", IConvert.Extension.XML)
+            };
+
+            var stream = merge.Merge(toMergeXmlDocumentList, IMerge.Extension.PDF);
+            var outFileName = $"{request.Id}.{request.Extension.ToString().ToLower()}";
+
+            return File(stream, MediaTypeNames.Application.Pdf, outFileName);
 
         }
 

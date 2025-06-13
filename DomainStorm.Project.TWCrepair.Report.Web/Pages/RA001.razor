@@ -24,7 +24,7 @@
 
     protected override async Task OnParametersSetAsync()
     {
-        GetQueryParameters(_request);
+        // GetQueryParameters(_request);
 
         var ra001 = await _ra001Service.GetAsync<ReportCommandModel.RA001.V1.QueryRA001>(_request);
         var convertRequest = new ReportConvertRequest
