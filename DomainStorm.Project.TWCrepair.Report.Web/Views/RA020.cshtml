@@ -18,13 +18,13 @@
      <config:config-item config:name="ViewId" config:type="string">view1</config:config-item>
      <config:config-item-map-named config:name="Tables">
       <config:config-item-map-entry config:name="漏水原因分析表">
-       <config:config-item config:name="CursorPositionX" config:type="int">17</config:config-item>
-       <config:config-item config:name="CursorPositionY" config:type="int">39</config:config-item>
+       <config:config-item config:name="CursorPositionX" config:type="int">0</config:config-item>
+       <config:config-item config:name="CursorPositionY" config:type="int">0</config:config-item>
        <config:config-item config:name="ActiveSplitRange" config:type="short">2</config:config-item>
        <config:config-item config:name="PositionLeft" config:type="int">0</config:config-item>
        <config:config-item config:name="PositionRight" config:type="int">0</config:config-item>
        <config:config-item config:name="PositionTop" config:type="int">0</config:config-item>
-       <config:config-item config:name="PositionBottom" config:type="int">15</config:config-item>
+       <config:config-item config:name="PositionBottom" config:type="int">0</config:config-item>
        <config:config-item config:name="ZoomType" config:type="short">0</config:config-item>
        <config:config-item config:name="ZoomValue" config:type="int">75</config:config-item>
        <config:config-item config:name="PageViewZoomValue" config:type="int">60</config:config-item>
@@ -1411,7 +1411,7 @@
     <table:table-column table:style-name="co7" table:number-columns-repeated="16127"/>
     <table:table-row table:style-name="ro1">
      <table:table-cell table:style-name="ce104" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="22" table:number-rows-spanned="1">
-      <text:p>台灣自來水公司 漏水原因分析表 @Model.DateRange</text:p>
+      <text:p>台灣自來水公司 @Model.DepartmentName <text:s text:c="1" /> @Model.SiteName 漏水原因分析表 @Model.DateRange</text:p>
      </table:table-cell>
      <table:covered-table-cell table:number-columns-repeated="21" table:style-name="ce104"/>
      <table:table-cell table:style-name="ce158" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="2" table:number-rows-spanned="1">

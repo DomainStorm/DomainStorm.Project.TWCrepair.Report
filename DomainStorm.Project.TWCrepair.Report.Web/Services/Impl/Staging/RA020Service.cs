@@ -48,22 +48,25 @@ public class RA020Service : IGetService<RA020, string>
         
         var result = new RA020();
 
-
-        var department = await _departmentService.GetAsync(condition.DepartmentId.ToString());
-        result.DepartmentName = department.Name;
-
-        if (condition.SiteId.HasValue)
-        {
-            var site = await _departmentService.GetAsync(condition.SiteId.Value.ToString());
-            result.SiteName = site.Name;
-        }
-       
-
         var pb = PredicateBuilder.New<FixForm>();
-        var exp = pb.Start(x => !x.IsRetrieved && !x.Deleted && x.ResponsibleReginId == condition.DepartmentId);   //排除移辦取回
-        if (condition.SiteId.HasValue)
+        var exp = pb.Start(x => !x.IsRetrieved && !x.Deleted);   //排除移辦取回
+
+        if (condition.DepartmentId.HasValue)
         {
-            exp = pb.And(x => x.ResponsibleDepartmentId == condition.SiteId);
+            exp = pb.And(x => x.ResponsibleReginId == condition.DepartmentId);
+            var department = await _departmentService.GetAsync(condition.DepartmentId.Value.ToString());
+            result.DepartmentName = department.Name;
+
+            if (condition.SiteId.HasValue)
+            {
+                exp = pb.And(x => x.ResponsibleDepartmentId == condition.SiteId);
+                var site = await _departmentService.GetAsync(condition.SiteId.Value.ToString());
+                result.SiteName = site.Name;
+            }
+        }
+        else
+        {
+            result.DepartmentName = "總管理處";
         }
 
         condition.GetRange();
@@ -87,11 +90,6 @@ public class RA020Service : IGetService<RA020, string>
             Source = x.Source != null ? x.Source.Name : ""
         });
         AnalyzeData(result, fixForms);
-       
-
-
-        
-
         return result;
     }
 

@@ -14,9 +14,9 @@ public static class RA020
         public class QueryRA020 : ReportDateRange , IQuery
         {
             /// <summary>
-            /// 區處代碼
+            /// 區處代碼(未指定表示為總管理處查詢所有區處)
             /// </summary>
-            public Guid DepartmentId { get; set; }
+            public Guid? DepartmentId { get; set; }
 
             /// <summary>
             /// 廠所代碼
