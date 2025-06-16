@@ -355,6 +355,11 @@ try
             .AddScoped<GetRepository<IRepository<Models.Import.ImportPipe>>>(
                 c => c.GetRequiredService<IRepository<Models.Import.ImportPipe>>);
 
+        builder.Services
+           .AddTransient<IRepository<Models.TWCrepairPost>, SqlDbRepository<Models.TWCrepairPost>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.TWCrepairPost>>>(
+                c => c.GetRequiredService<IRepository<Models.TWCrepairPost>>);
 
         builder.Services.AddTransient<IUnitOfWork, SqlDbUnitOfWork>();
         builder.Services.AddScoped<GetRepository<IUnitOfWork>>(

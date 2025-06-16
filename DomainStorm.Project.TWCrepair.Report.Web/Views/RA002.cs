@@ -164,7 +164,7 @@ public class RA002 : ReportDataModel
     {
         get
         {
-            return HolidayCaseType == "日間";
+            return !string .IsNullOrEmpty(HolidayCaseType) &&  HolidayCaseType == "日間";
         }
     }
 
@@ -175,7 +175,7 @@ public class RA002 : ReportDataModel
     {
         get
         {
-            return HolidayCaseType == "夜間";
+            return !string.IsNullOrEmpty(HolidayCaseType) && HolidayCaseType == "夜間";
         }
     }
 
@@ -186,7 +186,7 @@ public class RA002 : ReportDataModel
     {
         get
         {
-            return HolidayCaseType.Contains("比例");
+            return !string.IsNullOrEmpty(HolidayCaseType) && HolidayCaseType.Contains("比例");
         }
     }
 
