@@ -49,53 +49,54 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
             IGetService<RA014, string> ra014Service,
             IGetService<RA015, string> ra015Service,
             IGetService<Stream, ReportConvertRequest> reportService,
-            IMerge merge)
+            GetMerge getMerge)
         : ControllerBase
     {
         [HttpPost("budgetDoc")]
         public async Task<ActionResult> BudgetDoc([FromBody] QueryPackage request)
         {
+            const IConvert.Extension extension = IConvert.Extension.XML;
             var toMergeXmlDocumentList = new List<XmlDocument>
             {
                 await OutXmlDocument<IGetService<RA006, string>, RA006, QueryRA006>(
                     ra006Service, new QueryRA006
                     {
                         Id = request.Id,
-                        Extension = IConvert.Extension.XML
-                    }, reportService, "/Views/RA006.cshtml", IConvert.Extension.XML),
+                        Extension = extension
+                    }, reportService, "/Views/RA006.cshtml", extension),
                 await OutXmlDocument<IGetService<RA007, string>, RA007, QueryRA007>(
                     ra007Service, new QueryRA007
                     {
                         Id = request.Id,
-                        Extension = IConvert.Extension.XML
-                    }, reportService, "/Views/RA007.cshtml", IConvert.Extension.XML),
+                        Extension = extension
+                    }, reportService, "/Views/RA007.cshtml", extension),
                 await OutXmlDocument<IGetService<RA008, string>, RA008, QueryRA008>(
                     ra008Service, new QueryRA008
                     {
                         Id = request.Id,
-                        Extension = IConvert.Extension.XML
-                    }, reportService, "/Views/RA008.cshtml", IConvert.Extension.XML),
+                        Extension = extension
+                    }, reportService, "/Views/RA008.cshtml", extension),
                 await OutXmlDocument<IGetService<RA009, string>, RA009, QueryRA009>(
                     ra009Service, new QueryRA009
                     {
                         Id = request.Id,
-                        Extension = IConvert.Extension.XML
-                    }, reportService, "/Views/RA009.cshtml", IConvert.Extension.XML),
+                        Extension = extension
+                    }, reportService, "/Views/RA009.cshtml", extension),
                 await OutXmlDocument<IGetService<RA010, string>, RA010, QueryRA010>(
                     ra010Service, new QueryRA010
                     {
                         Id = request.Id,
-                        Extension = IConvert.Extension.XML
-                    }, reportService, "/Views/RA010.cshtml", IConvert.Extension.XML),
+                        Extension = extension
+                    }, reportService, "/Views/RA010.cshtml", extension),
                 await OutXmlDocument<IGetService<RA011, string>, RA011, QueryRA011>(
                     ra011Service, new QueryRA011
                     {
                         Id = request.Id,
-                        Extension = IConvert.Extension.XML
-                    }, reportService, "/Views/RA011.cshtml", IConvert.Extension.XML)
+                        Extension = extension
+                    }, reportService, "/Views/RA011.cshtml", extension)
             };
 
-            var stream = merge.Merge(toMergeXmlDocumentList, IMerge.Extension.ODS);
+            var stream = getMerge(IMerge.Extension.ODS).Merge(toMergeXmlDocumentList, IMerge.Extension.ODS);
             var outFileName = $"{request.Id}.{request.Extension.ToString().ToLower()}";
 
             return File(stream, MediaTypeNames.Application.Octet, outFileName);
@@ -105,35 +106,36 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
         [HttpPost("budgetDocOut")]
         public async Task<ActionResult> BudgetDocOut([FromBody] QueryPackage request)
         {
+            const IConvert.Extension extension = IConvert.Extension.XML;
             var toMergeXmlDocumentList = new List<XmlDocument>
             {
                 await OutXmlDocument<IGetService<RA012, string>, RA012, QueryRA012>(
                     ra012Service, new QueryRA012
                     {
                         Id = request.Id,
-                        Extension = IConvert.Extension.XML
-                    }, reportService, "/Views/RA012.cshtml", IConvert.Extension.XML),
+                        Extension = extension
+                    }, reportService, "/Views/RA012.cshtml", extension),
                 await OutXmlDocument<IGetService<RA013, string>, RA013, QueryRA013>(
                     ra013Service, new QueryRA013
                     {
                         Id = request.Id,
-                        Extension = IConvert.Extension.XML
-                    }, reportService, "/Views/RA013.cshtml", IConvert.Extension.XML),
+                        Extension = extension
+                    }, reportService, "/Views/RA013.cshtml", extension),
                 await OutXmlDocument<IGetService<RA014, string>, RA014, QueryRA014>(
                     ra014Service, new QueryRA014
                     {
                         Id = request.Id,
-                        Extension = IConvert.Extension.XML
-                    }, reportService, "/Views/RA014.cshtml", IConvert.Extension.XML),
+                        Extension = extension
+                    }, reportService, "/Views/RA014.cshtml", extension),
                 await OutXmlDocument<IGetService<RA015, string>, RA015, QueryRA015>(
                     ra015Service, new QueryRA015
                     {   
                         Id = request.Id,
-                        Extension = IConvert.Extension.XML
-                    }, reportService, "/Views/RA015.cshtml", IConvert.Extension.XML)
+                        Extension = extension
+                    }, reportService, "/Views/RA015.cshtml", extension)
             };
 
-            var stream = merge.Merge(toMergeXmlDocumentList, IMerge.Extension.ODS);
+            var stream = getMerge(IMerge.Extension.ODS).Merge(toMergeXmlDocumentList, IMerge.Extension.ODS);
             var outFileName = $"{request.Id}.{request.Extension.ToString().ToLower()}";
 
             return File(stream, MediaTypeNames.Application.Octet, outFileName);
@@ -144,7 +146,8 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
         [HttpPost("dispatch")]
         public async Task<ActionResult> Dispatch([FromBody] QueryPackage request)
         {
-            var toMergeXmlDocumentList = new List<XmlDocument>
+            const IConvert.Extension extension = IConvert.Extension.PDF;
+            var toMergeStreamList = new List<Stream>
             {
                 // await OutXmlDocument<IGetService<RA002, string>, RA002, QueryRA002>(
                 //     ra002Service, new QueryRA002
@@ -152,27 +155,27 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
                 //         Id = request.Id,
                 //         Extension = IConvert.Extension.XML
                 //     }, reportService, "/Views/RA002.cshtml", IConvert.Extension.XML),
-                await OutXmlDocument<IGetService<RA003, string>, RA003, QueryRA003>(
+                await OutStream<IGetService<RA003, string>, RA003, QueryRA003>(
                     ra003Service, new QueryRA003
                     {
                         Id = request.Id,
-                        Extension = IConvert.Extension.XML
-                    }, reportService, "/Views/RA003.cshtml", IConvert.Extension.XML),
-                await OutXmlDocument<IGetService<RA004, string>, RA004, QueryRA004>(
+                        Extension = extension
+                    }, reportService, "/Views/RA003.cshtml", extension),
+                await OutStream<IGetService<RA004, string>, RA004, QueryRA004>(
                     ra004Service, new QueryRA004
                     {
                         Id = request.Id,
-                        Extension = IConvert.Extension.XML
-                    }, reportService, "/Views/RA004.cshtml", IConvert.Extension.XML),
-                await OutXmlDocument<IGetService<RA005, string>, RA005, QueryRA005>(
+                        Extension = extension
+                    }, reportService, "/Views/RA004.cshtml", extension),
+                await OutStream<IGetService<RA005, string>, RA005, QueryRA005>(
                     ra005Service, new QueryRA005
                     {
                         Id = request.Id,
-                        Extension = IConvert.Extension.XML
-                    }, reportService, "/Views/RA005.cshtml", IConvert.Extension.XML)
+                        Extension = extension
+                    }, reportService, "/Views/RA005.cshtml", extension)
             };
 
-            var stream = merge.Merge(toMergeXmlDocumentList, IMerge.Extension.PDF);
+            var stream = getMerge(IMerge.Extension.PDF).Merge(toMergeStreamList, IMerge.Extension.PDF);
             var outFileName = $"{request.Id}.{request.Extension.ToString().ToLower()}";
 
             return File(stream, MediaTypeNames.Application.Pdf, outFileName);
@@ -196,6 +199,22 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
             var xmlDoc = new XmlDocument();
             xmlDoc.Load(outStream);
             return xmlDoc;
+        }
+
+        private static async Task<Stream> OutStream<TService, TModel, TQuery>(
+            TService service,
+            TQuery request,
+            IGetService<Stream, ReportConvertRequest> reportService,
+            string viewName,
+            IConvert.Extension extension)
+            where TService : IGetService<TModel, string>
+            where TQuery : IQuery
+            where TModel : ReportDataModel
+        {
+            var convertRequest = await ReportConvertRequest<TService, TModel, TQuery>(
+                service, request, viewName, extension);
+
+            return await reportService.GetAsync(convertRequest);
         }
 
         private static async Task<ReportConvertRequest> ReportConvertRequest<TService, TModel, TQuery>(
