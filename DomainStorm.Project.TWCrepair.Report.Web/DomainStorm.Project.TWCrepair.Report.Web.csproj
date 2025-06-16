@@ -62,6 +62,7 @@
     <ProjectReference Include="..\DomainStorm.Framework\DomainStorm.Framework.BlazorComponent\DomainStorm.Framework.BlazorComponent.csproj" />
     <ProjectReference Include="..\DomainStorm.Framework\DomainStorm.Framework.Dapr\DomainStorm.Framework.Dapr.csproj" />
     <ProjectReference Include="..\DomainStorm.Framework\DomainStorm.Framework.LibreOffice\DomainStorm.Framework.LibreOffice.csproj" />
+    <ProjectReference Include="..\DomainStorm.Framework\DomainStorm.Framework.Pdf\DomainStorm.Framework.Pdf.csproj" />
     <ProjectReference Include="..\DomainStorm.Framework\DomainStorm.Framework.RazorEngine\DomainStorm.Framework.RazorEngine.csproj" />
     <ProjectReference Include="..\DomainStorm.Framework\DomainStorm.Framework.SqlDb\DomainStorm.Framework.SqlDb.csproj" />
     <ProjectReference Include="..\DomainStorm.Framework\DomainStorm.Framework.WebApi\DomainStorm.Framework.WebApi.csproj" />

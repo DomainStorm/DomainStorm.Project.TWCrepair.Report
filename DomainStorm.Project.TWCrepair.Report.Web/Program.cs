@@ -4,34 +4,36 @@ using DomainStorm.Framework.BlazorComponent.ViewModel;
 using DomainStorm.Framework.Caching;
 using DomainStorm.Framework.Dapr;
 using DomainStorm.Framework.LibreOffice;
+using DomainStorm.Framework.Pdf;
 using DomainStorm.Framework.RazorEngine;
 using DomainStorm.Framework.Services;
 using DomainStorm.Framework.SqlDb;
 using DomainStorm.Framework.WebApi;
-using DomainStorm.Project.TWCrepair.Report.Web.ViewModel;
 using DomainStorm.Project.TWCrepair.Report.Web;
 using DomainStorm.Project.TWCrepair.Report.Web.Services.Impl;
 using DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Mock;
 using DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging;
+using DomainStorm.Project.TWCrepair.Report.Web.ViewModel;
+using DomainStorm.Project.TWCrepair.Report.Web.Views;
+using DomainStorm.Project.TWCrepair.Report.Web.Views.Dashboards;
+using DomainStorm.Project.TWCrepair.Shared.ViewModel;
 using DotNetEnv;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Radzen;
 using Serilog;
+using static DomainStorm.Framework.BlazorComponent.CommandModel.SysManagementLog.V1;
 using static DomainStorm.Project.TWCrepair.Repository.CommandModel.Report.V1;
+using MockServices = DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Mock;
 using Models = DomainStorm.Project.TWCrepair.Repository.Models;
+using SharedMockService = DomainStorm.Project.TWCrepair.Shared.Services.Impl.Mock;
 using SharedMockServices = DomainStorm.Project.TWCrepair.Shared.Services.Impl.Mock;
+using SharedStagingService = DomainStorm.Project.TWCrepair.Shared.Services.Impl.Staging;
 using SharedStagingServices = DomainStorm.Project.TWCrepair.Shared.Services.Impl.Staging;
 using StagingServices = DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging;
-using MockServices = DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Mock;
-using DomainStorm.Project.TWCrepair.Report.Web.Views.Dashboards;
-using DomainStorm.Project.TWCrepair.Report.Web.Views;
-using Radzen;
-using DomainStorm.Project.TWCrepair.Shared.ViewModel;
-using SharedStagingService = DomainStorm.Project.TWCrepair.Shared.Services.Impl.Staging;
-using SharedMockService = DomainStorm.Project.TWCrepair.Shared.Services.Impl.Mock;
-using static DomainStorm.Framework.BlazorComponent.CommandModel.SysManagementLog.V1;
 
 
 try
@@ -172,6 +174,28 @@ try
         builder.Services.AddScoped<IGetService<BudgetDocContractResourceStatistics, Guid>, SharedMockService.BudgetDocContractResourceStatisticsService>();
         builder.Services.AddScoped<ICommandService<CreateSysManagementLog, DeleteSysManagementLog>, SharedMockServices.SysManagementLogService>();
     }
+
+    builder.Services.AddScoped<GetMerge>(
+        c =>
+        {
+            return GetMerge;
+
+            IMerge GetMerge(IMerge.Extension extension)
+            {
+                switch (extension)
+                {
+                    case IMerge.Extension.PDF:
+                        return new GotenbergMerge();
+                    case IMerge.Extension.ODS:
+                    case IMerge.Extension.ODT:
+                    case IMerge.Extension.XLSX:
+                    case IMerge.Extension.HTML:
+                    case IMerge.Extension.JSON:
+                    default:
+                        return new LibreOfficeMerge();
+                }
+            }
+        });
 
     if (!string.IsNullOrWhiteSpace(builder.Configuration["SqlDbOptions:ConnectionString"]))
     {
