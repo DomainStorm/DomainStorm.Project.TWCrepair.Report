@@ -370,7 +370,7 @@ public class RA002 : ReportDataModel
     {
         get
         {
-            return FixFormDispatch != null && FixFormDispatch.CaseAttribute.Name == "其它";
+            return FixFormDispatch != null && FixFormDispatch.CaseAttribute != null && FixFormDispatch.CaseAttribute.Name == "其它";
         }
     }
 

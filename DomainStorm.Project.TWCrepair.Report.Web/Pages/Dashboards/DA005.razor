@@ -27,7 +27,7 @@
         {
             ViewName = "/Views/Dashboards/DA005.cshtml",
             Model = DA005,
-            Extension = IConvert.Extension.JSON
+            Extension = FileExtension.JSON
         };
 
         var plotlyJson = await _reportService.GetAsync(convertRequest);

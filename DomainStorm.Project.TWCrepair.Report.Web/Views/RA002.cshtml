@@ -9,28 +9,61 @@
     <title>
 
     </title>
+    <style type="text/css">
+		form {
+			color: black;
+			font-size: 10pt;
+			font-family: 新細明體;
+		}
 
-    <style type="text/css">        BODY { FONT-SIZE: 10pt; FONT-FAMILY: 新細明體 }
-            A:link { FONT-SIZE: 10pt; TEXT-DECORATION: none; COLOR: blue; LINE-HEIGHT: 16px }
-            A:visited { FONT-SIZE: 10pt; TEXT-DECORATION: none; COLOR: blue; LINE-HEIGHT: 16px }
-            A:hover { FONT-SIZE: 10pt; TEXT-DECORATION: none; COLOR: red; LINE-HEIGHT: 16px }
-            TD { FONT-SIZE: 10pt; FONT-FAMILY: 新細明體; LINE-HEIGHT: 16px }
-            INPUT { FONT-SIZE: 10pt; FONT-FAMILY: 新細明體; LINE-HEIGHT: 16px }
-            SELECT { FONT-SIZE: 10pt; FONT-FAMILY: 新細明體; LINE-HEIGHT: 16px }
-            LABEL { FONT-SIZE: 10pt; FONT-FAMILY: 新細明體; LINE-HEIGHT: 16px }
+		a:link,
+		a:visited {
+			font-size: 10pt;
+			text-decoration: none;
+			color: blue;
+			line-height: 16px;
+		}
 
-            #Mattc tr td:first-child {
-          min-width:  200px;
-         }
-    </style>
+		a:hover {
+			font-size: 10pt;
+			text-decoration: none;
+			color: red;
+			line-height: 16px;
+		}
+
+		td,
+		input,
+		select,
+		label {
+			font-size: 10pt;
+			font-family: 新細明體;
+			line-height: 16px;
+		}
+
+		#Mattc tr td:first-child {
+			min-width: 200px;
+		}
+	</style>
     <style type="text/css">
 
-        .cPrintOnly { PAGE-BREAK-BEFORE: always; DISPLAY: none }
+        .cPrintOnly {
+            PAGE-BREAK-BEFORE: always;
+            DISPLAY: none
+        }
 
-        .cPrintAfter { PAGE-BREAK-AFTER: always; DISPLAY: block; }
+        .cPrintAfter {
+            PAGE-BREAK-AFTER: always;
+            DISPLAY: block;
+        }
 
-        .avoidBreak{page-break-inside:avoid;}
-        .avoidBreak2{page-break-inside:avoid; display:block;}
+        .avoidBreak {
+            page-break-inside: avoid;
+        }
+
+        .avoidBreak2 {
+            page-break-inside: avoid;
+            display: block;
+        }
     </style>
         <style>
 <!--
@@ -496,14 +529,8 @@ ul
 -->
 </style>
 </head>
-<body style=" margin-left:10px;margin-top:auto" onload="onload()" marginwidth="0" marginheight="0">
-    <!-- MeadCo ScriptX Control -->
-    <object style="DISPLAY: none" id="factory" codebase="http://localhost/pw/ini/smsx.cab#Version=7,6,0,10" classid="clsid:1663ed61-23eb-11d2-b92f-008048fdd814" viewastext="">
-    </object>
-
-
-
-    <form method="post" action="http://localhost/pw/assign/printreportsAllDefine.aspx?Page1=1&amp;Page2=0&amp;Page3=0&amp;Page4=0" id="form1">
+<body>
+    <form method="post" action="" id="form1" style=" margin-left:10px;margin-top:auto" onload="onload()" marginwidth="0" marginheight="0">
         
         <table id="PrintTable" cellspacing="0" cellpadding="0" style="border-color:Transparent;border-width:0px;border-style:None;width:700px;border-collapse:collapse;">
             <tbody>
@@ -524,10 +551,13 @@ ul
                                                                         <table cellspacing="0" cellpadding="0" style="border-width:0px;width:715px;border-collapse:collapse;">
                                                                             <tbody>
                                                                                 <tr>
+                                                                                    @{
+                                                                                        var isFree = string.IsNullOrWhiteSpace(Model.FixCaseNo) && Model.IsFree;
+                                                                                    }
                                                                                     <td align="left" style="border-color:Black;width:290px;white-space:nowrap;">案號：<font color="#000000">@Model.FixCaseNo<font color="#000000"></font></font></td>
                                                                                     <td align="left" style="border-color:Black;font-size:11pt;width:170px;white-space:nowrap;">修漏案件處理單</td>
                                                                                     <td align="left" style="border-color:Black;width:90px;white-space:nowrap;">@Html.CheckBoxFor(m => m.IsCharge)<label for="ctl07">收費：<font color="#000000">@Model.FinalCost_Total</font>元</label></td>
-                                                                                    <td align="left" style="border-color:Black;width:150px;white-space:nowrap;"><span style="color:#000000;">@Html.CheckBoxFor(m => m.IsFree)<label for="ctl08">免費 @Model.PrintDate.ToString("MM/dd/yyyy") 印表</label></span></td>
+                                                                                    <td align="left" style="border-color:Black;width:150px;white-space:nowrap;"><span style="color:#000000;">@(!string.IsNullOrWhiteSpace(Model.FixCaseNo) ? @Html.CheckBoxFor(m => m.IsFree) : @Html.CheckBox("IsFree", false))<label for="ctl08">免費 @(!string.IsNullOrWhiteSpace(Model.FixCaseNo) ? Model.PrintDate.ToString("MM/dd/yyyy") : "") 印表</label></span></td>
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
@@ -555,7 +585,7 @@ ul
                                                                                     <td align="left" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">報修人姓名：<font color="#000000">@Model.Reporter</font></td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td align="left" colspan="3" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">受理時間：<font color="#000000">@(Model.AcceptanceTime.Year - 1911)</font>年<font color="#000000">@Model.AcceptanceTime.ToString("MM月dd日HH時mm分")</font></td>
+                                                                                    <td align="left" colspan="3" style="border-color:Black;border-width:1px;border-style:solid;white-space:nowrap;">受理時間：<font color="#000000">@(!string.IsNullOrWhiteSpace(Model.FixCaseNo) ? Model.AcceptanceTime.Year - 1911 : "")</font>年<font color="#000000">@(!string.IsNullOrWhiteSpace(Model.FixCaseNo) ? Model.AcceptanceTime.ToString("MM月dd日HH時mm分") : "")</font></td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td align="left" colspan="1" rowspan="2" style="border-color:Black;border-width:1px;border-style:solid;width:70px;white-space:nowrap;">案件來源：</td>
@@ -565,7 +595,7 @@ ul
                                                                                                 <tr>
                                                                                                     <td>@Html.CheckBoxFor(m => m.Source_IsPeople)<label for="ctl10_0"><font color="#000000">其他民眾</font></label></td>
                                                                                                     <td>@Html.CheckBoxFor(m => m.Source_IsEmployee)<label for="ctl10_1">員工報修</label></td>
-                                                                                                    <td>@Html.CheckBoxFor(m => m.Source_IsCheckDepartment)><label for="ctl10_2">檢漏單位</label></td>
+                                                                                                    <td>@Html.CheckBoxFor(m => m.Source_IsCheckDepartment)<label for="ctl10_2">檢漏單位</label></td>
                                                                                                     <td>@Html.CheckBoxFor(m => m.Source_IsOther)<label for="ctl10_3">其它機關</label></td>
                                                                                                 </tr>
                                                                                             </tbody>
@@ -576,7 +606,7 @@ ul
                                                                                             <tbody>
                                                                                                 <tr>
                                                                                                     <td>@Html.CheckBoxFor(m => m.IsEmergency)<label for="ctl11_0">緊急</label></td>
-                                                                                                    <td>@Html.CheckBoxFor(m => m.NotEmergency)<label for="ctl11_1"><font color="#000000">非緊急</font></label></td>
+                                                                                                    <td>@(!string.IsNullOrWhiteSpace(Model.FixCaseNo) ? @Html.CheckBoxFor(m => m.NotEmergency) : @Html.CheckBox("NotEmergency", false))<label for="ctl11_1"><font color="#000000">非緊急</font></label></td>
                                                                                                 </tr>
                                                                                             </tbody>
                                                                                         </table>

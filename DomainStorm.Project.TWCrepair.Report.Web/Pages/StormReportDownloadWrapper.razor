@@ -125,7 +125,7 @@
         await OnValidSubmit.InvokeAsync();
     }
 
-    private async Task<ReportConvertRequest> BuildReportConvertRequest(IConvert.Extension? extension = default)
+    private async Task<ReportConvertRequest> BuildReportConvertRequest(FileExtension? extension = default)
     {
         var queryModel = ReportInputOutputService.InputToQueryMap(DataSet);
         var viewModel = await ReportInputOutputService.GetAsync<TQueryModel>(queryModel);
@@ -140,7 +140,7 @@
 
     private async Task OnPreviewClickAsync()
     {
-        var convertRequest = await BuildReportConvertRequest(IConvert.Extension.HTML);
+        var convertRequest = await BuildReportConvertRequest(FileExtension.HTML);
         var outStream = await ReportInputOutputService.ConvertAsync(convertRequest);
 
         using var reader = new StreamReader(outStream, Encoding.UTF8);

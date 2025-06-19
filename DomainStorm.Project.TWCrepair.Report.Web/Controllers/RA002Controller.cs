@@ -47,4 +47,20 @@ public class RA002Controller : ControllerBase
         return File(outStream, MediaTypeNames.Application.Octet, outFileName);
 
     }
+
+    [HttpPost("/api/ra002_1")]
+    public async Task<ActionResult> EmptyHtml([FromBody] QueryRA002 request)
+    {
+        var ra002Model = new RA002();
+        var convertRequest = new ReportConvertRequest
+        {
+            ViewName = "/Views/RA002.cshtml",
+            Model = ra002Model,
+            Extension = request.Extension
+        };
+        var outStream = await _reportService.GetAsync(convertRequest);
+        var outFileName = $"{System.IO.Path.GetFileNameWithoutExtension(convertRequest.ViewName)}.{convertRequest.Extension.ToString().ToLower()}";
+        return File(outStream, MediaTypeNames.Application.Octet, outFileName);
+
+    }
 }

@@ -10,7 +10,7 @@ public static class Package
         public class QueryPackage : IQuery
         {
             public Guid Id { get; set; }
-            public IConvert.Extension Extension { get; set; }
+            public FileExtension Extension { get; set; }
         }
     }
 }

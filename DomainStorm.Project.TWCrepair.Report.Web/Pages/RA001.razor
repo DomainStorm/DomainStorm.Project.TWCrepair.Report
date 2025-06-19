@@ -31,7 +31,7 @@
         {
             ViewName = "/Views/RA001.cshtml",
             Model = ra001,
-            Extension = IConvert.Extension.HTML
+            Extension = FileExtension.HTML
         };
 
         var outStream = await _reportService.GetAsync(convertRequest);

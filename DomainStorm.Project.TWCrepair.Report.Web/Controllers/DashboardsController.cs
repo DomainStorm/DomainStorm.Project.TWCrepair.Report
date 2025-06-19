@@ -47,7 +47,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
             {
                 ViewName = "/Views/Dashboards/DA001.cshtml",
                 Model = da001,
-                Extension = IConvert.Extension.JSON
+                Extension = FileExtension.JSON
             };
 
             var plotlyJson = await _reportService.GetAsync(convertRequest);
@@ -65,7 +65,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
             {
                 ViewName = "/Views/Dashboards/DA002.cshtml",
                 Model = da002,
-                Extension = IConvert.Extension.JSON
+                Extension = FileExtension.JSON
             };
 
             var plotlyJson = await _reportService.GetAsync(convertRequest);
@@ -83,7 +83,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
             {
                 ViewName = "/Views/Dashboards/DA003.cshtml",
                 Model = da003,
-                Extension = IConvert.Extension.JSON
+                Extension = FileExtension.JSON
             };
 
             var plotlyJson = await _reportService.GetAsync(convertRequest);
@@ -101,7 +101,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
             {
                 ViewName = "/Views/Dashboards/DA004.cshtml",
                 Model = da004,
-                Extension = IConvert.Extension.JSON
+                Extension = FileExtension.JSON
             };
 
             var plotlyJson = await _reportService.GetAsync(convertRequest);
@@ -119,7 +119,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
             {
                 ViewName = "/Views/Dashboards/DA005.cshtml",
                 Model = da005,
-                Extension = IConvert.Extension.JSON
+                Extension = FileExtension.JSON
             };
 
             var plotlyJson = await _reportService.GetAsync(convertRequest);

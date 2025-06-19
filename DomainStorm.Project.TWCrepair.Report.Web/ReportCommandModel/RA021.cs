@@ -23,7 +23,7 @@ public static class RA021
             /// </summary>
             public Guid? SiteId { get; set; }
 
-            public IConvert.Extension Extension { get; set; }
+            public FileExtension Extension { get; set; }
         }
     }
 }

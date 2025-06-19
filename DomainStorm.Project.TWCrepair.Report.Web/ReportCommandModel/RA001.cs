@@ -40,7 +40,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel
                 public DateTime BeforeDate { get; set; }
                 public DateTime AfterDate { get; set; }
 
-                public IConvert.Extension Extension { get; set; }
+                public FileExtension Extension { get; set; }
             }
 
             /// <summary>

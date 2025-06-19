@@ -13,7 +13,7 @@ public static class RA013
         public class QueryRA013 : IQuery
         {
             public Guid Id { get; set; }
-            public IConvert.Extension Extension { get; set; }
+            public FileExtension Extension { get; set; }
         }
     }
 }
