@@ -14,7 +14,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         /// <summary>
         /// 預算書所屬廠所名稱
         /// </summary>
-        public string SiteName { get; set; }
+        public string SiteName { get; set; } = "";
 
         /// <summary>
         /// 工程編號
