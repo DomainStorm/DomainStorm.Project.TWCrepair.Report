@@ -180,18 +180,18 @@ try
         {
             return GetMerge;
 
-            IMerge GetMerge(IMerge.Extension extension)
+            IMerge GetMerge(FileExtension extension)
             {
                 switch (extension)
                 {
-                    case IMerge.Extension.PDF:
+                    case FileExtension.PDF:
                         var invokeMethod = c.GetRequiredService<IInvokeMethod>();
                         return new GotenbergMerge(invokeMethod);
-                    case IMerge.Extension.ODS:
-                    case IMerge.Extension.ODT:
-                    case IMerge.Extension.XLSX:
-                    case IMerge.Extension.HTML:
-                    case IMerge.Extension.JSON:
+                    case FileExtension.ODS:
+                    case FileExtension.ODT:
+                    case FileExtension.XLSX:
+                    case FileExtension.HTML:
+                    case FileExtension.JSON:
                     default:
                         return new LibreOfficeMerge();
                 }

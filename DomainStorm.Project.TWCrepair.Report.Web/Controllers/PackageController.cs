@@ -49,7 +49,8 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
             IGetService<RA014, string> ra014Service,
             IGetService<RA015, string> ra015Service,
             IGetService<Stream, ReportConvertRequest> reportService,
-            GetMerge getMerge)
+            GetMerge getMerge,
+            GetConvert getConvert)
         : ControllerBase
     {
         [HttpPost("budgetDoc")]
@@ -96,10 +97,10 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
                     }, reportService, "/Views/RA011.cshtml", extension)
             };
 
-            var stream = getMerge(IMerge.Extension.ODS).Merge(toMergeXmlDocumentList, IMerge.Extension.ODS);
+            await using var stream = getMerge(extension).Merge(toMergeXmlDocumentList, extension);
             var outFileName = $"{request.Id}.{request.Extension.ToString().ToLower()}";
-
-            return File(stream, MediaTypeNames.Application.Octet, outFileName);
+            var odsStream = await getConvert(FileExtension.ODS).Convert(stream, extension, FileExtension.ODS);
+            return File(odsStream, MediaTypeNames.Application.Octet, outFileName);
 
         }
 
@@ -135,10 +136,11 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
                     }, reportService, "/Views/RA015.cshtml", extension)
             };
 
-            var stream = getMerge(IMerge.Extension.ODS).Merge(toMergeXmlDocumentList, IMerge.Extension.ODS);
+            await using var stream = getMerge(extension).Merge(toMergeXmlDocumentList, extension);
             var outFileName = $"{request.Id}.{request.Extension.ToString().ToLower()}";
+            var odsStream = await getConvert(FileExtension.ODS).Convert(stream, extension, FileExtension.ODS);
 
-            return File(stream, MediaTypeNames.Application.Octet, outFileName);
+            return File(odsStream, MediaTypeNames.Application.Octet, outFileName);
 
         }
 
@@ -180,7 +182,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
                     }, reportService, "/Views/RA005.cshtml", extension, options)
             };
 
-            var stream = getMerge(IMerge.Extension.PDF).Merge(toMergeStreamList, IMerge.Extension.PDF);
+            var stream = getMerge(extension).Merge(toMergeStreamList, extension);
             var outFileName = $"{request.Id}.{request.Extension.ToString().ToLower()}";
 
             return File(stream, MediaTypeNames.Application.Pdf, outFileName);
