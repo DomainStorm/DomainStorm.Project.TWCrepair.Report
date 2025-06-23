@@ -54,6 +54,7 @@ public class RA009Service : IGetService<RA009, string>
                 Detail_SubTotal = 25486135,
                 Detail_SafetyAndHealthAmount = 4.72M,
                 Detail_SafetyAndHealthUnitPrice = 131286,
+                Detail_SafetyAndHealthUnit = "組",
                 Detail_SafetyAndHealthPrice = 619670,
                 Detail_MaterialCustodyPrice = 30000,
                 Detail_InsuranceSubsidyForFixPercentage = 1.7M,
