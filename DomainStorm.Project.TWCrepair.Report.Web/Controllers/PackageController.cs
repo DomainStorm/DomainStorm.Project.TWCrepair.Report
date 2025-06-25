@@ -152,7 +152,8 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
             var options = new Dictionary<string, string>
             {
                 { "paperWidth", "8.27" },
-                { "paperHeight", "11.7" }
+                { "paperHeight", "11.7" },
+                { "waitDelay", "2s"}
             };
             var toMergeStreamList = new List<Stream>
             {
