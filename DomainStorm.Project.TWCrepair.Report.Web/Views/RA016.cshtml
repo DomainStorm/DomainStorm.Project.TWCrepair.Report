@@ -1327,15 +1327,9 @@
                         <table:table-cell table:style-name="ce181" office:value-type="string" calcext:value-type="string">
                             <text:p>@item.NightAmount</text:p>
                         </table:table-cell>
-                        <table:table-cell table:style-name="ce183" office:value-type="float" office:value="1898" calcext:value-type="float">
-                            <text:p>@item.DayPrice</text:p>
-                        </table:table-cell>
-                        <table:table-cell table:style-name="ce183" office:value-type="float" office:value="2895" calcext:value-type="float">
-                            <text:p>@item.NightPrice</text:p>
-                        </table:table-cell>
-                        <table:table-cell table:style-name="ce185" office:value-type="float" office:value="262175" calcext:value-type="float">
-                            <text:p>@item.TotalPrice</text:p>
-                        </table:table-cell>
+                        <table:table-cell table:style-name="ce183" office:value-type="float" office:value="@item.DayPrice" calcext:value-type="float" />
+                        <table:table-cell table:style-name="ce183" office:value-type="float" office:value="@item.NightPrice" calcext:value-type="float" />
+                        <table:table-cell table:style-name="ce185" office:value-type="float" office:value="@item.TotalPrice" calcext:value-type="float"/>
                         <table:table-cell table:style-name="ce190" office:value-type="string" calcext:value-type="string">
                             <text:p>@(item.isCombine ? "組合單價" : "")</text:p>
                         </table:table-cell>

@@ -80,7 +80,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web
             CreateMap<Models.Budget.BudgetDocContractUnitPriceMember, TWCrepair.Shared.ViewModel.BudgetDocContractUnitPriceMember>();
             CreateMap<Models.Budget.BudgetDocContractUnitPrice, TWCrepair.Shared.ViewModel.BudgetDocContractUnitPrice>();
             CreateMap<Models.Budget.BudgetDocContract, TWCrepair.Shared.ViewModel.BudgetDocContractResourceStatistics>();
-            CreateMap<Models.Budget.ResourceWorkMaterial, TWCrepair.Shared.ViewModel.BudgetDocContractResourceStatisticsItem>();
+            CreateMap<Models.Budget.ContractResourceWorkMaterial, TWCrepair.Shared.ViewModel.BudgetDocContractResourceStatisticsItem>();
             CreateMap<Models.Budget.ResourceWorkMaterial, TWCrepair.Shared.ViewModel.ResourceWorkMaterial>();
 
         }
