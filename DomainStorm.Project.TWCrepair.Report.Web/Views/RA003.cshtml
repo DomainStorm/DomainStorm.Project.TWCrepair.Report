@@ -531,196 +531,227 @@ ul
 </style>
 </head>
 <body>
-	<table id="PrintTable" cellspacing="0" cellpadding="0" marginwidth="0" marginheight="0" style="margin-left:10px;margin-top:auto border-color:Transparent;border-width:0px;border-style:None;width:700px;border-collapse:collapse;">
-        <tbody>
+<table id="PrintTable" cellspacing="0" cellpadding="0" marginwidth="0" marginheight="0" style="margin-left:10px;margin-top:auto border-color:Transparent;border-width:0px;border-style:None;width:700px;border-collapse:collapse;">
+    <tbody>
             
-            <tr>
-                <td align="left" valign="top">
-                    <table cellspacing="0" cellpadding="0" style="border-width:0px;height:1000px;width:707px;border-collapse:collapse;">
-                        <tbody>
-                            <tr class="avoidBreak">
-                                <td align="left" valign="top">
-                                    <table cellspacing="0" cellpadding="0" style="border-width:0px;height:1000px;width:700px;border-collapse:collapse;">
+    <tr>
+        <td align="left" valign="top">
+            <table cellspacing="0" cellpadding="0" style="border-width:0px;height:1000px;width:707px;border-collapse:collapse;">
+                <tbody>
+                <tr class="avoidBreak">
+                    <td align="left" valign="top">
+                        <table cellspacing="0" cellpadding="0" style="border-width:0px;height:1000px;width:700px;border-collapse:collapse;">
+                            <tbody>
+                            <tr>
+                                <td align="left" valign="middle" style="height:20px;width:273px;">案號: @Model.FixCaseNo</td>
+                                <td align="left" valign="middle" style="width:427px;">　　　　修漏案件處理單</td>
+                            </tr>
+                            <tr>
+                                <td align="left" valign="top" style="height:250px;width:273px;">
+                                    <table bordercolor="#000000" height="100%" cellspacing="0" cellpadding="0" width="100%" border="0">
+                                        <tbody><tr><td nowrap="" align="left" colspan="6"><span id="Label16">1‧管線位置示意圖：</span></td></tr>
+                                        <tr><td colspan="6"><img height="31" src="pipeloc_all_top.gif" width="250" /></td></tr>
+                                        <tr>
+                                            <td><img height="25" src="pipeloc_all_dis_1.gif" width="62" /></td>
+                                            <td width="118" height="25"> @(Model.FixFormAudit != null ? (Model.FixFormAudit.BasePoint != null ? Model.FixFormAudit.BasePoint.Name : Model.FixFormAudit.BasePointInput) : "") </td>
+                                            <td colspan="2"><img height="25" src="pipeloc_all_dis_3.gif" width="18" /></td>
+                                            <td width="41" height="25">@(Model.FixFormAudit != null && Model.FixFormAudit.HorizontalDistance.HasValue ? Model.FixFormAudit.HorizontalDistance : "")</td>
+                                            <td><img height="25" src="pipeloc_all_dis_5.gif" width="11" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6"><img height="59" src="pipeloc_all_mid.gif" width="250" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3"><img height="25" src="pipeloc_all_dep_1.gif" width="187" /></td>
+                                            <td width="52" colspan="2" height="25">@(Model.FixFormAudit != null && Model.FixFormAudit.VerticalDistance.HasValue ? Model.FixFormAudit.VerticalDistance : "" )</td>
+                                            <td><img height="25" src="pipeloc_all_dep_3.gif" width="11" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6"><img height="115" src="pipeloc_all_bot.gif" width="250" /></td>
+                                        </tr>
+                                        </tbody></table></td>
+                                <td align="left" valign="top" style="border-color:Black;border-width:1px;border-style:solid;height:170px;width:427px;">
+                                    <table cellspacing="0" cellpadding="0" style="border-color:Black;border-width:1px;border-style:solid;width:427px;border-collapse:collapse;">
                                         <tbody>
-                                            <tr>
-                                                <td align="left" valign="middle" style="height:20px;width:273px;">案號: @Model.FixCaseNo</td>
-                                                <td align="left" valign="middle" style="width:427px;">　　　　修漏案件處理單</td>
-                                            </tr>
-                                            <tr>
-                                                <td align="left" valign="top" style="height:250px;width:273px;">
-                                                <table bordercolor="#000000" height="100%" cellspacing="0" cellpadding="0" width="100%" border="0">
-                                                    <tbody><tr><td nowrap="" align="left" colspan="6"><span id="Label16">1‧管線位置示意圖：</span></td></tr>
-                                                    <tr><td colspan="6"><img height="31" src="pipeloc_all_top.gif" width="250" /></td></tr>
-                                                    <tr>
-                                                        <td><img height="25" src="pipeloc_all_dis_1.gif" width="62" /></td>
-                                                        <td width="118" height="25"> @(Model.FixFormAudit != null ? (Model.FixFormAudit.BasePoint != null ? Model.FixFormAudit.BasePoint.Name : Model.FixFormAudit.BasePointInput) : "") </td>
-                                                        <td colspan="2"><img height="25" src="pipeloc_all_dis_3.gif" width="18" /></td>
-                                                        <td width="41" height="25">@(Model.FixFormAudit != null && Model.FixFormAudit.HorizontalDistance.HasValue ? Model.FixFormAudit.HorizontalDistance : "")</td>
-                                                        <td><img height="25" src="pipeloc_all_dis_5.gif" width="11" /></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="6"><img height="59" src="pipeloc_all_mid.gif" width="250" /></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="3"><img height="25" src="pipeloc_all_dep_1.gif" width="187" /></td>
-                                                        <td width="52" colspan="2" height="25">@(Model.FixFormAudit != null && Model.FixFormAudit.VerticalDistance.HasValue ? Model.FixFormAudit.VerticalDistance : "" )</td>
-                                                        <td><img height="25" src="pipeloc_all_dep_3.gif" width="11" /></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="6"><img height="115" src="pipeloc_all_bot.gif" width="250" /></td>
-                                                    </tr>
-                                                 </tbody></table></td>
-                                                <td align="left" valign="top" style="border-color:Black;border-width:1px;border-style:solid;height:170px;width:427px;">
-                                                    <table cellspacing="0" cellpadding="0" style="border-color:Black;border-width:1px;border-style:solid;width:427px;border-collapse:collapse;">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td align="left" colspan="7" style="border-color:Black;border-width:1px;border-style:solid;">另件統計表：</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">施工項目</td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">規格1</td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">數量1</td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">規格2</td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">數量2</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">規格3</td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">數量3</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">另件安裝</td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">件</td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">件</td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">件</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">機械接頭</td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">口</td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">;</td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">口</td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">口</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">平口接頭</td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">口</td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">口</td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">口</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">伸縮接頭</td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">處</td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">處</td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">處</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">拆除另件</td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">件</td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">件</td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
-                                                                <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">件</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                                <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                            <tr>
-												<td align="left" valign="top" colspan="2" style="height:300px;width:700px;">2‧修理位置圖：@Model.Location <br /> <iframe id="frame0" src="@Model.GisWebUrl" width="700" height="300" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe> </td>
-                                            </tr>
-                                            <tr>
-                                                <td align="left" valign="top" colspan="2" style="height:180px;width:700px;">3‧另件改接示意圖：</td>
-                                            </tr>
-                                            <tr>
-                                                <td align="left" valign="top" colspan="2" style="height:130px;width:700px;"><span style="display:inline-block;width:600px;">4‧修漏案件備註說明：</span></td>
-                                            </tr>
+                                        <tr>
+                                            <td align="left" colspan="7" style="border-color:Black;border-width:1px;border-style:solid;">另件統計表：</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">施工項目</td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">規格1</td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">數量1</td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">規格2</td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">數量2</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">規格3</td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">數量3</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">另件安裝</td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">件</td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">件</td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">件</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">機械接頭</td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">口</td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">;</td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">口</td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">口</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">平口接頭</td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">口</td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">口</td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">口</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">伸縮接頭</td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">處</td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">處</td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">處</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">拆除另件</td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">件</td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">件</td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;"></td>
+                                            <td align="center" style="border-color:Black;border-width:1px;border-style:solid;">件</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                            <td style="border-color:Black;border-width:1px;border-style:solid;">　</td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </td>
                             </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-            </tr>
-            <tr class="cPrintAfter">
-                <td></td>
-            </tr>
-        </tbody>
-    </table>
+                            <tr>
+                                <td align="left" valign="top" colspan="2" style="height:300px;width:700px;">2‧修理位置圖：@Model.Location <br /> <iframe id="frame0" src="@Model.GisWebUrl" width="700" height="300" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe> </td>
+                            </tr>
+                            <tr>
+                                <td align="left" valign="top" colspan="2" style="height:180px;width:700px;">3‧另件改接示意圖：</td>
+                            </tr>
+                            <tr>
+                                <td align="left" valign="top" colspan="2" style="height:130px;width:700px;"><span style="display:inline-block;width:600px;">4‧修漏案件備註說明：</span></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+    </tr>
+    <tr class="cPrintAfter">
+        <td></td>
+    </tr>
+    </tbody>
+</table>
+<script>
+    // 頁面載入後自動發送 postMessage 給 iframe
+    window.addEventListener('DOMContentLoaded', function () {
+        debugger
+        var iframe = document.getElementById('frame0');
+        if (iframe && iframe.contentWindow) {
+            // 你要傳送的資料
+            const message = {
+                action: "RepairCasePosition",
+                payload: [
+                    {
+                        CID: "A123456789",
+                        ADDRESS: "臺中市東區中山路和中山路９６巷交叉路口",
+                        COORD_X: "220152.81680906581",
+                        COORD_Y: "2671511.606327213",
+                    }
+                ]
+            }
+
+            try {
+                iframe.contentWindow.postMessage(message, "*");
+            } catch (e) { }
+
+            iframe.onload = function () {
+                setTimeout(function() {
+                    iframe.contentWindow.postMessage(message, "*");
+                }, 500);
+            };
+        }
+    });
+</script>
 </body>
 </html>
