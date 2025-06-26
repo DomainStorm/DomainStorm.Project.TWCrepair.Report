@@ -16,6 +16,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         public string Location { get; set; }
 
         public FixFormAudit FixFormAudit { get; set; }
+        public string GisWebUrl => Environment.GetEnvironmentVariable("DomainStorm_GisWebUrl") ?? "./GisMock";
     }
 }
 
