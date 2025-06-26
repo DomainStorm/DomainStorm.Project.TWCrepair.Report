@@ -73,6 +73,9 @@
   </ItemGroup>
   
   <ItemGroup>
+    <Compile Update="Views\RA025.cs">
+      <DependentUpon>%(Filename).cshtml</DependentUpon>
+    </Compile>
     <Compile Update="Views\RA024.cs">
       <DependentUpon>%(Filename).cshtml</DependentUpon>
     </Compile>
