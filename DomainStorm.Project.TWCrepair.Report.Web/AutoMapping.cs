@@ -8,7 +8,9 @@ namespace DomainStorm.Project.TWCrepair.Report.Web
         public AutoMapping()
         {
             CreateMap<Models.FixForm, RA002>();
-            CreateMap<Models.FixForm, RA003>();
+            CreateMap<Models.FixForm, RA003>()
+                .ForMember(x => x.GPSTmX, opt => opt.MapFrom(src => src.FixFormProperty != null ? src.FixFormProperty.GPSTmX : null))
+                .ForMember(x => x.GPSTmY, opt => opt.MapFrom(src => src.FixFormProperty != null ? src.FixFormProperty.GPSTmY : null));
             CreateMap<Models.FixForm, RA004>();
             CreateMap<Models.FixForm, RA005>();
             CreateMap<Models.FixForm, TWCrepair.Shared.ViewModel.RA019FixForm>();
