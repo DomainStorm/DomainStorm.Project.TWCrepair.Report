@@ -21,6 +21,15 @@
 @code {
     private ElementReference _stormCardRef;
 
+    [Parameter, SupplyParameterFromQuery]
+    public string Location { get; set; }
+
+    [Parameter, SupplyParameterFromQuery]
+    public DateTime MeasureDate { get; set; }
+
+    [Parameter, SupplyParameterFromQuery]
+    public Guid? BeforeOrAfterWordId { get; set; }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         // if (levelOneDepartment == null)
