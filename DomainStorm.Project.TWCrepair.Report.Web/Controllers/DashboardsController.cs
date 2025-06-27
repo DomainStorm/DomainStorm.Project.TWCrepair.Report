@@ -15,6 +15,7 @@ using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA002.V
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA003.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA004.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA005.V1;
+using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA006.V1;
 using static DomainStorm.Project.TWCrepair.Repository.CommandModel.Report.V1;
 
 
@@ -125,5 +126,25 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
             var plotlyJson = await _reportService.GetAsync(convertRequest);
             return plotlyJson;
         }
+
+
+        /// <summary>
+        /// 當日水壓曲線圖
+        /// </summary>
+        [HttpPost("da006")]
+        public async Task<PlotlyJson> DA006([FromBody] QueryDA006 request, [FromServices] IGetService<Views.Dashboards.DA006, string> _da006Service)
+        {
+            var da006 = await _da006Service.GetAsync<QueryDA006>(request);
+            var convertRequest = new ReportConvertRequest
+            {
+                ViewName = "/Views/Dashboards/DA006.cshtml",
+                Model = da006,
+                Extension = FileExtension.JSON
+            };
+
+            var plotlyJson = await _reportService.GetAsync(convertRequest);
+            return plotlyJson;
+        }
+
     }
 }
