@@ -38,6 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Pages\Dashboards\DA006.razor" />
     <None Include="Pages\Dashboards\DA005.razor" />
     <None Include="Pages\Dashboards\DA004.razor" />
     <None Include="Pages\Dashboards\DA003.razor" />
