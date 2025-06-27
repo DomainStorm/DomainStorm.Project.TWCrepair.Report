@@ -723,20 +723,18 @@ ul
     </tbody>
 </table>
 <script>
-    // 頁面載入後自動發送 postMessage 給 iframe
     window.addEventListener('DOMContentLoaded', function () {
         debugger
         var iframe = document.getElementById('frame0');
         if (iframe && iframe.contentWindow) {
-            // 你要傳送的資料
             const message = {
                 action: "RepairCasePosition",
                 payload: [
                     {
-                        CID: "A123456789",
-                        ADDRESS: "臺中市東區中山路和中山路９６巷交叉路口",
-                        COORD_X: "220152.81680906581",
-                        COORD_Y: "2671511.606327213",
+						CID: @Model.FixCaseNo,
+						ADDRESS: @Model.Location,
+						COORD_X: @Model.GPSTmX,
+						COORD_Y: @Model.GPSTmY
                     }
                 ]
             }
