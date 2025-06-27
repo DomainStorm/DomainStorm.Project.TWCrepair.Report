@@ -119,6 +119,7 @@ try
         builder.Services.AddScoped<IGetService<RA022, string>, StagingServices.RA022Service>();
         builder.Services.AddScoped<IGetService<RA023, string>, StagingServices.RA023Service>();
         builder.Services.AddScoped<IGetService<RA024, string>, StagingServices.RA024Service>();
+        builder.Services.AddScoped<IGetService<RA025, string>, StagingServices.RA025Service>();
         builder.Services.AddScoped<IGetService<BudgetDocResourceStatistics, Guid>, SharedStagingServices.BudgetDocResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocOutSourceResourceStatistics, Guid>, SharedStagingServices.BudgetDocOutSourceResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocContractResourceStatistics, Guid>, SharedStagingServices.BudgetDocContractResourceStatisticsService>();
@@ -169,6 +170,7 @@ try
         builder.Services.AddScoped<IGetService<RA022, string>, MockServices.RA022Service>();
         builder.Services.AddScoped<IGetService<RA023, string>, MockServices.RA023Service>();
         builder.Services.AddScoped<IGetService<RA024, string>, MockServices.RA024Service>();
+        builder.Services.AddScoped<IGetService<RA025, string>, MockServices.RA025Service>();
         builder.Services.AddScoped<IGetService<BudgetDocResourceStatistics, Guid>, SharedMockService.BudgetDocResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocOutSourceResourceStatistics, Guid>, SharedMockService.BudgetDocOutSourceResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocContractResourceStatistics, Guid>, SharedMockService.BudgetDocContractResourceStatisticsService>();
@@ -384,6 +386,13 @@ try
         builder.Services
             .AddScoped<GetRepository<IRepository<Models.TWCrepairPost>>>(
                 c => c.GetRequiredService<IRepository<Models.TWCrepairPost>>);
+
+        builder.Services
+           .AddTransient<IRepository<Models.Check31Form>, SqlDbRepository<Models.Check31Form>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.Check31Form>>>(
+                c => c.GetRequiredService<IRepository<Models.Check31Form>>);
+
 
         builder.Services.AddTransient<IUnitOfWork, SqlDbUnitOfWork>();
         builder.Services.AddScoped<GetRepository<IUnitOfWork>>(

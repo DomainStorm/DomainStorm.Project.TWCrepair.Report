@@ -8,6 +8,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
     /// </summary>
     public class RA003 : ReportDataModel
     {
+        
         /// <summary>
         /// 修漏案號
         /// </summary>
@@ -17,6 +18,18 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
 
         public FixFormAudit FixFormAudit { get; set; }
         public string GisWebUrl => Environment.GetEnvironmentVariable("DomainStorm_GisWebUrl") ?? "./GisMock";
+
+        /// <summary>
+        /// GPS定位 TM_X 座標
+        /// </summary>
+        public double? GPSTmX { get; set; }
+
+        /// <summary>
+        /// GPS定位 TM_Y 座標
+        /// </summary>
+        public double? GPSTmY { get; set; }
+
+
     }
 }
 
