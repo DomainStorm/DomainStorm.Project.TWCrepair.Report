@@ -4,6 +4,7 @@ DA003	當日水壓曲線圖(依 Id)
 DA004	檢修漏作業水壓比較圖
 DA005	總水頭分布圖
 DA006	當日水壓曲線圖(依 Location,BeforeOrAfter,MeasureDate)
+DA007	當日流量曲線圖(依 Location,BeforeOrAfter,MeasureDate)
 -------------------------------------------
 RA001	檢修漏作業水壓比較表
 RA002	列印派工單-第一頁
