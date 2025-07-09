@@ -6,6 +6,7 @@ using DomainStorm.Framework.Services;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA002.V1;
 using static DomainStorm.Project.TWCrepair.Repository.CommandModel.Report.V1;
 using System.Net.Mime;
+using DomainStorm.Framework;
 using DomainStorm.Project.TWCrepair.Report.Web.Views;
 
 namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers;
@@ -40,7 +41,13 @@ public class RA002Controller : ControllerBase
         {
             ViewName = "/Views/RA002.cshtml",
             Model = ra002Model,
-            Extension = request.Extension
+            Extension = request.Extension,
+            Options = request.Extension == FileExtension.PDF ? new Dictionary<string, string>
+            {
+                { "paperWidth", "8.27" },
+                { "paperHeight", "11.7" },
+                { "waitDelay", "2s"}
+            }: null
         };
         var outStream = await _reportService.GetAsync(convertRequest);
         var outFileName = $"{System.IO.Path.GetFileNameWithoutExtension(convertRequest.ViewName)}.{convertRequest.Extension.ToString().ToLower()}";
