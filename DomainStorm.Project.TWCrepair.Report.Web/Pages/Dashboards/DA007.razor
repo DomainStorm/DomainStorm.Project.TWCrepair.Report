@@ -35,7 +35,12 @@
         // if (levelOneDepartment == null)
         //     return;
 
-        var request = new ReportCommandModel.DA007.V1.QueryDA007();
+        var request = new ReportCommandModel.DA007.V1.QueryDA007
+        {
+            Location = Location, 
+            MeasureDate = MeasureDate, 
+            BeforeOrAfterWordId = BeforeOrAfterWordId
+        };
         var da007 = await _da007Service.GetAsync<ReportCommandModel.DA007.V1.QueryDA007>(request);
         var convertRequest = new ReportConvertRequest
         {
