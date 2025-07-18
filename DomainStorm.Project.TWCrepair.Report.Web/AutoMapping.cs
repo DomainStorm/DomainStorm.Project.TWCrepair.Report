@@ -29,6 +29,8 @@ namespace DomainStorm.Project.TWCrepair.Report.Web
             CreateMap<Models.Budget.BudgetDocContract, RA018>();
             CreateMap<Models.YearPlan.YearPlanReport, RA028>();
             CreateMap<Models.YearPlan.YearPlanReportInstrument, RA028Instrument>();
+            CreateMap<Models.YearPlan.YearPlanReport, RA029>();
+            CreateMap<Models.YearPlan.YearPlanWorkSpace, RA029WorkSpace>();
 
             CreateMap<Models.FixFormDispatch, TWCrepair.Shared.ViewModel.FixFormDispatch>();
             CreateMap<Models.FixFormProperty, TWCrepair.Shared.ViewModel.FixFormProperty>();
