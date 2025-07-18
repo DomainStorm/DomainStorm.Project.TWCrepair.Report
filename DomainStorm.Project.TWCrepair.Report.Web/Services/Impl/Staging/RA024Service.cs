@@ -99,7 +99,7 @@ public class RA024Service : IGetService<RA024, string>
         {
             PipeKind = x.PipeCode,
             PipeDiameter = x.Width.ToString(),
-            Length = x.Length
+            Length = (int)x.Length
         });
         result.GenerateData(fixForms, importPipes);
 

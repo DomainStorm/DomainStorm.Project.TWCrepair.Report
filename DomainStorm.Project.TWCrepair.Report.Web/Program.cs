@@ -122,6 +122,9 @@ try
         builder.Services.AddScoped<IGetService<RA023, string>, StagingServices.RA023Service>();
         builder.Services.AddScoped<IGetService<RA024, string>, StagingServices.RA024Service>();
         builder.Services.AddScoped<IGetService<RA025, string>, StagingServices.RA025Service>();
+        builder.Services.AddScoped<IGetService<RA026, string>, StagingServices.RA026Service>();
+        builder.Services.AddScoped<IGetService<RA027, string>, StagingServices.RA027Service>();
+        builder.Services.AddScoped<IGetService<RA028, string>, StagingServices.RA028Service>();
         builder.Services.AddScoped<IGetService<BudgetDocResourceStatistics, Guid>, SharedStagingServices.BudgetDocResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocOutSourceResourceStatistics, Guid>, SharedStagingServices.BudgetDocOutSourceResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocContractResourceStatistics, Guid>, SharedStagingServices.BudgetDocContractResourceStatisticsService>();
@@ -175,6 +178,9 @@ try
         builder.Services.AddScoped<IGetService<RA023, string>, MockServices.RA023Service>();
         builder.Services.AddScoped<IGetService<RA024, string>, MockServices.RA024Service>();
         builder.Services.AddScoped<IGetService<RA025, string>, MockServices.RA025Service>();
+        builder.Services.AddScoped<IGetService<RA026, string>, MockServices.RA026Service>();
+        builder.Services.AddScoped<IGetService<RA027, string>, MockServices.RA027Service>();
+        builder.Services.AddScoped<IGetService<RA028, string>, MockServices.RA028Service>();
         builder.Services.AddScoped<IGetService<BudgetDocResourceStatistics, Guid>, SharedMockService.BudgetDocResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocOutSourceResourceStatistics, Guid>, SharedMockService.BudgetDocOutSourceResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocContractResourceStatistics, Guid>, SharedMockService.BudgetDocContractResourceStatisticsService>();
@@ -384,6 +390,13 @@ try
         builder.Services
             .AddScoped<GetRepository<IRepository<Models.YearPlan.YearPlanSetAllZoneItem>>>(
                 c => c.GetRequiredService<IRepository<Models.YearPlan.YearPlanSetAllZoneItem>>);
+
+        builder.Services
+           .AddTransient<IRepository<Models.YearPlan.YearPlanReport>, SqlDbRepository<Models.YearPlan.YearPlanReport>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.YearPlan.YearPlanReport>>>(
+                c => c.GetRequiredService<IRepository<Models.YearPlan.YearPlanReport>>);
+
 
         builder.Services
            .AddTransient<IRepository<Models.Import.ImportPipe>, SqlDbRepository<Models.Import.ImportPipe>>();
