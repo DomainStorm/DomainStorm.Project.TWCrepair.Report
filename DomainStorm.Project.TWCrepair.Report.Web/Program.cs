@@ -127,6 +127,7 @@ try
         builder.Services.AddScoped<IGetService<RA028, string>, StagingServices.RA028Service>();
         builder.Services.AddScoped<IGetService<RA029, string>, StagingServices.RA029Service>();
         builder.Services.AddScoped<IGetService<RA030, string>, StagingServices.RA030Service>();
+        builder.Services.AddScoped<IGetService<RA031, string>, StagingServices.RA031Service>();
         builder.Services.AddScoped<IGetService<BudgetDocResourceStatistics, Guid>, SharedStagingServices.BudgetDocResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocOutSourceResourceStatistics, Guid>, SharedStagingServices.BudgetDocOutSourceResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocContractResourceStatistics, Guid>, SharedStagingServices.BudgetDocContractResourceStatisticsService>();
@@ -185,6 +186,7 @@ try
         builder.Services.AddScoped<IGetService<RA028, string>, MockServices.RA028Service>();
         builder.Services.AddScoped<IGetService<RA029, string>, MockServices.RA029Service>();
         builder.Services.AddScoped<IGetService<RA030, string>, MockServices.RA030Service>();
+        builder.Services.AddScoped<IGetService<RA031, string>, MockServices.RA031Service>();
         builder.Services.AddScoped<IGetService<BudgetDocResourceStatistics, Guid>, SharedMockService.BudgetDocResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocOutSourceResourceStatistics, Guid>, SharedMockService.BudgetDocOutSourceResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocContractResourceStatistics, Guid>, SharedMockService.BudgetDocContractResourceStatisticsService>();
@@ -390,6 +392,13 @@ try
                 c => c.GetRequiredService<IRepository<Models.Budget.BudgetDocUnitPrice>>);
 
         builder.Services
+           .AddTransient<IRepository<Models.YearPlan.YearPlanSetAllZone>, SqlDbRepository<Models.YearPlan.YearPlanSetAllZone>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.YearPlan.YearPlanSetAllZone>>>(
+                c => c.GetRequiredService<IRepository<Models.YearPlan.YearPlanSetAllZone>>);
+
+
+        builder.Services
            .AddTransient<IRepository<Models.YearPlan.YearPlanSetAllZoneItem>, SqlDbRepository<Models.YearPlan.YearPlanSetAllZoneItem>>();
         builder.Services
             .AddScoped<GetRepository<IRepository<Models.YearPlan.YearPlanSetAllZoneItem>>>(
@@ -457,10 +466,12 @@ try
 
     //app.UseHttpsRedirection();
 
+    app.UseSwagger();
+    app.UseOAuth2SwaggerUI(builder.Configuration);
+
     if (app.Environment.IsDevelopment())
     {
-        app.UseSwagger();
-        app.UseOAuth2SwaggerUI(builder.Configuration);
+        
     }
     else
     {

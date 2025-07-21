@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DomainStorm.Project.TWCrepair.Report.Web.Views;
+using DomainStorm.Project.TWCrepair.Shared.ViewModel;
 using Models = DomainStorm.Project.TWCrepair.Repository.Models;
 namespace DomainStorm.Project.TWCrepair.Report.Web
 {
@@ -31,6 +32,8 @@ namespace DomainStorm.Project.TWCrepair.Report.Web
             CreateMap<Models.YearPlan.YearPlanReportInstrument, RA028Instrument>();
             CreateMap<Models.YearPlan.YearPlanReport, RA029>();
             CreateMap<Models.YearPlan.YearPlanWorkSpace, RA029WorkSpace>();
+            CreateMap<Models.YearPlan.YearPlanSetAllZone, YearPlanStatistics>();
+            
 
             CreateMap<Models.FixFormDispatch, TWCrepair.Shared.ViewModel.FixFormDispatch>();
             CreateMap<Models.FixFormProperty, TWCrepair.Shared.ViewModel.FixFormProperty>();
