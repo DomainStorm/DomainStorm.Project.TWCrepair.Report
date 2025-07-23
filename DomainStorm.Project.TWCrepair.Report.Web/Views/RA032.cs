@@ -3,7 +3,7 @@
 namespace DomainStorm.Project.TWCrepair.Report.Web.Views;
 
 /// <summary>
-/// 附表二、檢漏工作計劃表
+/// 年度計畫報告-附表二、檢漏工作計劃表
 /// </summary>
 public class RA032 : ReportDataModel
 {
