@@ -1,0 +1,105 @@
+﻿using AutoMapper;
+using DomainStorm.Framework;
+using DomainStorm.Framework.Services;
+using DomainStorm.Framework.SqlDb;
+using DomainStorm.Project.TWCrepair.Report.Web.Views;
+using DomainStorm.Project.TWCrepair.Repository.Models.YearPlan;
+using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA032.V1;
+
+namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging;
+
+/// <summary>
+/// 年度計畫報告-附表二、檢漏工作計劃表
+/// </summary>
+public class RA032Service : IGetService<RA032, string>
+{
+    private readonly GetRepository<IRepository<YearPlanReport>> _getRepository;
+    private readonly GetRepository<IRepository<Repository.Models.YearPlan.YearPlanSetAllZone>> _getZoneRepository;
+    private IMapper _mapper;
+
+    public RA032Service(
+        GetRepository<IRepository<YearPlanReport>> getRepository,
+        GetRepository<IRepository<Repository.Models.YearPlan.YearPlanSetAllZone>> getZoneRepository,
+        IMapper mapper
+        )
+    {
+        _getRepository = getRepository;
+        _getZoneRepository = getZoneRepository;
+        _mapper = mapper;
+    }
+
+    public Task<RA032> GetAsync(string id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RA032> GetAsync<TQuery>(IQuery condition) where TQuery : IQuery
+    {
+        return condition switch
+        {
+            QueryRA032 e => QueryRA032(e),
+            _ => throw new ArgumentOutOfRangeException(nameof(condition), condition, null)
+        };
+    }
+
+    private async Task<RA032> QueryRA032(QueryRA032 condition)
+    {
+        var planReport = await _getRepository().GetAsync(condition.Id);
+
+        var result = new RA032
+        {
+            DepartmentName = planReport.DepartmentName,
+            Year = planReport.Year - 1911,
+        };
+
+        if (planReport.YearPlanBase != null )
+        {
+            result.CurrentPeople1 = planReport.YearPlanBase.CurrentPeople1;
+            result.CurrentPeople2 = planReport.YearPlanBase.CurrentPeople2;
+            result.CurrentPeople3 = planReport.YearPlanBase.CurrentPeople3;
+
+            if (planReport.YearPlanBase.YearPlanWorkSpaces != null)
+            {
+                planReport.YearPlanBase.AppendSumItem();
+                result.Items = _mapper.Map<List<RA032Item>>(planReport.YearPlanBase.YearPlanWorkSpaces);
+                //合計列要置頂, 和CheckWeb 不一樣
+                if (result.Items.Any())
+                {
+                    result.SumItem = result.Items.Last();
+                    result.Items.Remove(result.SumItem);
+                }
+            }
+            
+        }
+        return result;
+    }
+
+    public Task<DateTime> GetAsync(Guid id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RA032[]> GetListAsync()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RA032[]> GetListAsync(string id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RA032[]> GetListAsync<TQuery>(IQuery condition) where TQuery : IQuery
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<DateTime[]> GetListAsync(Guid id)
+    {
+        throw new NotImplementedException();
+    }
+
+
+
+
+}

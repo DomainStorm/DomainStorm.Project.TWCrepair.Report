@@ -122,6 +122,14 @@ try
         builder.Services.AddScoped<IGetService<RA023, string>, StagingServices.RA023Service>();
         builder.Services.AddScoped<IGetService<RA024, string>, StagingServices.RA024Service>();
         builder.Services.AddScoped<IGetService<RA025, string>, StagingServices.RA025Service>();
+        builder.Services.AddScoped<IGetService<RA026, string>, StagingServices.RA026Service>();
+        builder.Services.AddScoped<IGetService<RA027, string>, StagingServices.RA027Service>();
+        builder.Services.AddScoped<IGetService<RA028, string>, StagingServices.RA028Service>();
+        builder.Services.AddScoped<IGetService<RA029, string>, StagingServices.RA029Service>();
+        builder.Services.AddScoped<IGetService<RA030, string>, StagingServices.RA030Service>();
+        builder.Services.AddScoped<IGetService<RA031, string>, StagingServices.RA031Service>();
+        builder.Services.AddScoped<IGetService<RA032, string>, StagingServices.RA032Service>();
+        builder.Services.AddScoped<IGetService<RA033, string>, StagingServices.RA033Service>();
         builder.Services.AddScoped<IGetService<BudgetDocResourceStatistics, Guid>, SharedStagingServices.BudgetDocResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocOutSourceResourceStatistics, Guid>, SharedStagingServices.BudgetDocOutSourceResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocContractResourceStatistics, Guid>, SharedStagingServices.BudgetDocContractResourceStatisticsService>();
@@ -175,6 +183,14 @@ try
         builder.Services.AddScoped<IGetService<RA023, string>, MockServices.RA023Service>();
         builder.Services.AddScoped<IGetService<RA024, string>, MockServices.RA024Service>();
         builder.Services.AddScoped<IGetService<RA025, string>, MockServices.RA025Service>();
+        builder.Services.AddScoped<IGetService<RA026, string>, MockServices.RA026Service>();
+        builder.Services.AddScoped<IGetService<RA027, string>, MockServices.RA027Service>();
+        builder.Services.AddScoped<IGetService<RA028, string>, MockServices.RA028Service>();
+        builder.Services.AddScoped<IGetService<RA029, string>, MockServices.RA029Service>();
+        builder.Services.AddScoped<IGetService<RA030, string>, MockServices.RA030Service>();
+        builder.Services.AddScoped<IGetService<RA031, string>, MockServices.RA031Service>();
+        builder.Services.AddScoped<IGetService<RA032, string>, MockServices.RA032Service>();
+        builder.Services.AddScoped<IGetService<RA033, string>, MockServices.RA033Service>();
         builder.Services.AddScoped<IGetService<BudgetDocResourceStatistics, Guid>, SharedMockService.BudgetDocResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocOutSourceResourceStatistics, Guid>, SharedMockService.BudgetDocOutSourceResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocContractResourceStatistics, Guid>, SharedMockService.BudgetDocContractResourceStatisticsService>();
@@ -380,10 +396,24 @@ try
                 c => c.GetRequiredService<IRepository<Models.Budget.BudgetDocUnitPrice>>);
 
         builder.Services
+           .AddTransient<IRepository<Models.YearPlan.YearPlanSetAllZone>, SqlDbRepository<Models.YearPlan.YearPlanSetAllZone>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.YearPlan.YearPlanSetAllZone>>>(
+                c => c.GetRequiredService<IRepository<Models.YearPlan.YearPlanSetAllZone>>);
+
+
+        builder.Services
            .AddTransient<IRepository<Models.YearPlan.YearPlanSetAllZoneItem>, SqlDbRepository<Models.YearPlan.YearPlanSetAllZoneItem>>();
         builder.Services
             .AddScoped<GetRepository<IRepository<Models.YearPlan.YearPlanSetAllZoneItem>>>(
                 c => c.GetRequiredService<IRepository<Models.YearPlan.YearPlanSetAllZoneItem>>);
+
+        builder.Services
+           .AddTransient<IRepository<Models.YearPlan.YearPlanReport>, SqlDbRepository<Models.YearPlan.YearPlanReport>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.YearPlan.YearPlanReport>>>(
+                c => c.GetRequiredService<IRepository<Models.YearPlan.YearPlanReport>>);
+
 
         builder.Services
            .AddTransient<IRepository<Models.Import.ImportPipe>, SqlDbRepository<Models.Import.ImportPipe>>();
@@ -440,10 +470,12 @@ try
 
     //app.UseHttpsRedirection();
 
+    app.UseSwagger();
+    app.UseOAuth2SwaggerUI(builder.Configuration);
+
     if (app.Environment.IsDevelopment())
     {
-        app.UseSwagger();
-        app.UseOAuth2SwaggerUI(builder.Configuration);
+        
     }
     else
     {
