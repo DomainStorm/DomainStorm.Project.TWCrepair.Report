@@ -95,8 +95,8 @@ public class RA023Service : IGetService<RA023, string>
             FinalCost_Total = x.FinalCost.FinalCost_Total,
             DailyAmount = x.FixFormLeakage != null ? x.FixFormLeakage.DailyAmount : null,
             TotalAmount = x.FixFormLeakage != null ? x.FixFormLeakage.TotalAmount : null,
-            StartTime = x.FixFormProperty.StartTime,
-            DispatchTime = x.FixFormProperty.DispatchTime,
+            StartTime = x.FixFormDispatch != null ? x.FixFormDispatch.StartTime : null,
+            DispatchTime = x.FixFormDispatch != null ? x.FixFormDispatch.DispatchTime : null,
             FixTime = x.FixFormProperty.FixTime
         });
 

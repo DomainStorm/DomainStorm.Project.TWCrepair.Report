@@ -83,7 +83,7 @@ public class RA021Service : IGetService<RA021, string>
             FixDescription = x.FixDescription,
             PipeDiameter = x.FixFormProperty != null && x.FixFormProperty.PipeDiameter != null ? x.FixFormProperty.PipeDiameter.Name : "",
             FixTime = x.FixFormProperty != null ? x.FixFormProperty.FixTime : null,
-            FixDeadline = x.FixFormProperty != null ? x.FixFormProperty.FixDeadline : null,
+            FixDeadline = x.FixFormDispatch != null ? x.FixFormDispatch.FixDeadline : null,
             FixUnit = x.FixFormProperty != null && x.FixFormProperty.FixUnit != null ? x.FixFormProperty.FixUnit.Name : "",
             CaseEmergency =  x.FixFormDispatch.CaseEmergency != null ? x.FixFormDispatch.CaseEmergency.Name : "",
             WorkTime = x.FixFormDispatch != null && x.FixFormDispatch.WorkTime != null ? x.FixFormDispatch.WorkTime.Name : "",
