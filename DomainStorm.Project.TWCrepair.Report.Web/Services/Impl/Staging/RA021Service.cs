@@ -85,10 +85,10 @@ public class RA021Service : IGetService<RA021, string>
             FixTime = x.FixFormProperty != null ? x.FixFormProperty.FixTime : null,
             FixDeadline = x.FixFormDispatch != null ? x.FixFormDispatch.FixDeadline : null,
             FixUnit = x.FixFormProperty != null && x.FixFormProperty.FixUnit != null ? x.FixFormProperty.FixUnit.Name : "",
-            CaseEmergency =  x.FixFormDispatch.CaseEmergency != null ? x.FixFormDispatch.CaseEmergency.Name : "",
+            CaseEmergency = x.FixFormDispatch != null && x.FixFormDispatch.CaseEmergency != null ? x.FixFormDispatch.CaseEmergency.Name : "",
             WorkTime = x.FixFormDispatch != null && x.FixFormDispatch.WorkTime != null ? x.FixFormDispatch.WorkTime.Name : "",
             ChargeAmount= x.ChargeAmount,
-            Notes = x.Notes
+            Notes = x.FixFormDispatch != null ? x.FixFormDispatch.Notes : null,
         });
         return result;
     }
