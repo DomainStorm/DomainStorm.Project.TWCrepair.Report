@@ -130,6 +130,7 @@ try
         builder.Services.AddScoped<IGetService<RA031, string>, StagingServices.RA031Service>();
         builder.Services.AddScoped<IGetService<RA032, string>, StagingServices.RA032Service>();
         builder.Services.AddScoped<IGetService<RA033, string>, StagingServices.RA033Service>();
+        builder.Services.AddScoped<IGetService<RA041, string>, StagingServices.RA041Service>();
         builder.Services.AddScoped<IGetService<BudgetDocResourceStatistics, Guid>, SharedStagingServices.BudgetDocResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocOutSourceResourceStatistics, Guid>, SharedStagingServices.BudgetDocOutSourceResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocContractResourceStatistics, Guid>, SharedStagingServices.BudgetDocContractResourceStatisticsService>();
@@ -191,6 +192,7 @@ try
         builder.Services.AddScoped<IGetService<RA031, string>, MockServices.RA031Service>();
         builder.Services.AddScoped<IGetService<RA032, string>, MockServices.RA032Service>();
         builder.Services.AddScoped<IGetService<RA033, string>, MockServices.RA033Service>();
+        builder.Services.AddScoped<IGetService<RA041, string>, MockServices.RA041Service>();
         builder.Services.AddScoped<IGetService<BudgetDocResourceStatistics, Guid>, SharedMockService.BudgetDocResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocOutSourceResourceStatistics, Guid>, SharedMockService.BudgetDocOutSourceResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocContractResourceStatistics, Guid>, SharedMockService.BudgetDocContractResourceStatisticsService>();
@@ -352,6 +354,12 @@ try
         builder.Services
             .AddScoped<GetRepository<IRepository<Models.WaterPressureCheckData>>>(
                 c => c.GetRequiredService<IRepository<Models.WaterPressureCheckData>>);
+
+        builder.Services
+           .AddTransient<IRepository<Models.WaterFlowCheck>, SqlDbRepository<Models.WaterFlowCheck>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.WaterFlowCheck>>>(
+                c => c.GetRequiredService<IRepository<Models.WaterFlowCheck>>);
 
         builder.Services
            .AddTransient<IRepository<Models.WaterFlowCheckData>, SqlDbRepository<Models.WaterFlowCheckData>>();
