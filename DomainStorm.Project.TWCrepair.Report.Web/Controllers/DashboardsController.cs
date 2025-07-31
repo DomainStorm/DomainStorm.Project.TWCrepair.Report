@@ -17,6 +17,7 @@ using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA004.V
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA005.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA006.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA007.V1;
+using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA008.V1;
 using static DomainStorm.Project.TWCrepair.Repository.CommandModel.Report.V1;
 
 
@@ -26,7 +27,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Authorize(AuthenticationSchemes = OpenIdConnectDefaults.AuthenticationScheme)]
-    [Route("api/dashboards")]
+     [Route("api/dashboards")]
     public class DashboardsController : ControllerBase
     {
         private readonly IGetService<PlotlyJson, ReportConvertRequest> _reportService;
@@ -159,6 +160,24 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
             {
                 ViewName = "/Views/Dashboards/DA007.cshtml",
                 Model = da007,
+                Extension = FileExtension.JSON
+            };
+
+            var plotlyJson = await _reportService.GetAsync(convertRequest);
+            return plotlyJson;
+        }
+
+        /// <summary>
+        /// 流量分析-(檢前總表/檢後總表)的流量曲線圖(結合在 RA041裡的圖)
+        /// </summary>
+        [HttpPost("da008")]
+        public async Task<PlotlyJson> DA008([FromBody] QueryDA008 request, [FromServices] IGetService<Views.Dashboards.DA008, string> _da008Service)
+        {
+            var da008 = await _da008Service.GetAsync<QueryDA008>(request);
+            var convertRequest = new ReportConvertRequest
+            {
+                ViewName = "/Views/Dashboards/DA008.cshtml",
+                Model = da008,
                 Extension = FileExtension.JSON
             };
 

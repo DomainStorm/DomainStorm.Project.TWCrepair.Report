@@ -1,0 +1,76 @@
+﻿
+@using DomainStorm.Framework
+@using DomainStorm.Framework.Services
+@using System.Text.Json
+@using DomainStorm.Framework.BlazorComponent.Extensions;
+@using DomainStorm.Framework.Caching
+@using DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel
+@using DomainStorm.Project.TWCrepair.Shared.ViewModel
+@using static DomainStorm.Project.TWCrepair.Repository.CommandModel.Report.V1;
+@inject IJSRuntime Js
+@inject IGetService<DomainStorm.Project.TWCrepair.Report.Web.Views.Dashboards.DA008, string> _da008Service;
+@inject IGetService<PlotlyJson, ReportConvertRequest> _reportService;
+
+@page "/DA008"
+
+<storm-card @ref="_stormCardRef" icon="leaderboard">
+    <div id="chart"></div>
+</storm-card>
+
+
+@code {
+    private ElementReference _stormCardRef;
+
+    [Parameter, SupplyParameterFromQuery]
+    public Guid BeforeOrAfterWordId { get; set; }
+
+    [Parameter, SupplyParameterFromQuery]
+    public Guid DepartmentId { get; set; }
+
+    [Parameter, SupplyParameterFromQuery]
+    public Guid? SiteId { get; set; }
+
+    [Parameter, SupplyParameterFromQuery]
+    public Guid? WaterSupplySystemId { get; set; }
+
+    [Parameter, SupplyParameterFromQuery]
+    public Guid? WorkSpaceId { get; set; }
+
+    [Parameter, SupplyParameterFromQuery]
+    public Guid? SmallRegionId { get; set; }
+
+    [Parameter, SupplyParameterFromQuery]
+    public DateTime MeasureDate { get; set; }
+
+    
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        // if (levelOneDepartment == null)
+        //     return;
+
+        var request = new ReportCommandModel.DA008.V1.QueryDA008
+        {
+            BeforeOrAfterWordId = BeforeOrAfterWordId,
+            DepartmentId = DepartmentId,
+            SiteId = SiteId,
+            WaterSupplySystemId = WaterSupplySystemId,
+            WorkSpaceId = WorkSpaceId,
+            SmallRegionId = SmallRegionId,
+            MeasureDate = MeasureDate
+        };
+        var da008 = await _da008Service.GetAsync<ReportCommandModel.DA008.V1.QueryDA008>(request);
+        var convertRequest = new ReportConvertRequest
+        {
+            ViewName = "/Views/Dashboards/DA008.cshtml",
+            Model = da008,
+            Extension = FileExtension.JSON
+        };
+
+        var plotlyJson = await _reportService.GetAsync(convertRequest);
+        await Js.SetProperty(_stormCardRef, "headline", plotlyJson.Layout.Title);
+        plotlyJson.Layout.Title = "";
+        plotlyJson.Layout.Margin.T = 10;  //T=0  第一條線會不見
+        await Js.InvokeVoidAsync("drawChart", "chart", JsonSerializer.Serialize(plotlyJson, new JsonSerializerOptions(JsonSerializerDefaults.Web)));
+    }
+}
