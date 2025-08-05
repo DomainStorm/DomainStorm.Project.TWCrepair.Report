@@ -438,7 +438,7 @@ public class RA002 : ReportDataModel
     {
         get
         {
-            return FixFormDispatch != null ? FixFormDispatch.EquipmentAttributeOther! : "";
+            return FixFormDispatch != null ? FixFormDispatch.EquipmentAttributeOtherDescription! : "";
         }
     }
     #endregion
