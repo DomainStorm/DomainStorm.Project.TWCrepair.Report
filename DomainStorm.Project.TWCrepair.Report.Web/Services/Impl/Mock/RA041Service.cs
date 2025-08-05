@@ -7,7 +7,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Mock;
 /// <summary>
 /// 流量分析-檢前總表/檢後總表
 /// </summary>
-public class RA041Service : IGetService<RA041, string>
+public class RA041Service : IGetService<RA041, string>, IGetService<RA041MeasureDate, Guid>
 {
    
 
@@ -56,7 +56,39 @@ public class RA041Service : IGetService<RA041, string>
         throw new NotImplementedException();
     }
 
+    Task<RA041MeasureDate> IGetService<RA041MeasureDate, Guid>.GetAsync(Guid id)
+    {
+        throw new NotImplementedException();
+    }
 
+    Task<RA041MeasureDate> IGetService<RA041MeasureDate, Guid>.GetAsync<TQuery>(IQuery condition)
+    {
+        throw new NotImplementedException();
+    }
 
+    Task<RA041MeasureDate[]> IGetService<RA041MeasureDate, Guid>.GetListAsync()
+    {
+        throw new NotImplementedException();
+    }
 
+    Task<RA041MeasureDate[]> IGetService<RA041MeasureDate, Guid>.GetListAsync(Guid id)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<RA041MeasureDate[]> IGetService<RA041MeasureDate, Guid>.GetListAsync<TQuery>(IQuery condition)
+    {
+        var result = new RA041MeasureDate[]
+        {
+            new RA041MeasureDate
+            {
+                MeasureDate = DateTime.Today.AddDays(-1)
+            },
+            new RA041MeasureDate
+            {
+                MeasureDate = DateTime.Today
+            }
+        };
+        return Task.FromResult(result);
+    }
 }

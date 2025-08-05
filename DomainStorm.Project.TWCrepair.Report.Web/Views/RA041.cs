@@ -61,6 +61,12 @@ public class RA041 : ReportDataModel
 
 }
 
+
+public class RA041MeasureDate
+{
+    public DateTime MeasureDate { get; set; }
+}
+
 public class RA041_Item
 {
     /// <summary>

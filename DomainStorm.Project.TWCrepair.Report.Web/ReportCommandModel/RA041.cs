@@ -11,7 +11,7 @@ public static class RA041
         /// <summary>
         /// 流量分析-檢前總表/檢後總表
         /// </summary>
-        public class QueryRA041 :  IQuery
+        public class QueryRA041 : IQuery
         {
             public FileExtension Extension { get; set; }
 
@@ -35,7 +35,7 @@ public static class RA041
             /// </summary>
             public Guid? SiteId { get; set; }
 
-            
+
             /// <summary>
             /// 供水系統代碼
             /// </summary>
@@ -58,6 +58,51 @@ public static class RA041
             /// </summary>
             public DateTime MeasureDate { get; set; }
 
+        }
+
+        /// <summary>
+        /// 查詢目前單位有上傳資料的檢修日期
+        /// </summary>
+        public class QueryRA041Date : IQuery
+        {
+
+            /// <summary>
+            /// 檢修前或檢修後詞庫代碼
+            /// </summary>
+            public Guid BeforeOrAfterWordId { get; set; }
+
+            /// <summary>
+            /// 區處代碼
+            /// </summary>
+            public Guid DepartmentId { get; set; }
+
+            /// <summary>
+            /// 年份
+            /// </summary>
+            public int? Year { get; set; }
+
+            /// <summary>
+            /// 廠所代碼
+            /// </summary>
+            public Guid? SiteId { get; set; }
+
+
+            /// <summary>
+            /// 供水系統代碼
+            /// </summary>
+            public Guid? WaterSupplySystemId { get; set; }
+
+
+            /// <summary>
+            /// 工作區代碼
+            /// </summary>
+            public Guid? WorkSpaceId { get; set; }
+
+
+            /// <summary>
+            /// 小區代碼
+            /// </summary>
+            public Guid? SmallRegionId { get; set; }
         }
     }
 }
