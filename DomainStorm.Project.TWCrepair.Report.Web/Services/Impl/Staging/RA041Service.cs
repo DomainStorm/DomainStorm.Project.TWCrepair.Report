@@ -11,7 +11,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging;
 /// <summary>
 /// 流量分析-檢前總表/檢後總表
 /// </summary>
-public class RA041Service : IGetService<RA041, string>
+public class RA041Service : IGetService<RA041, string>, IGetService<RA041MeasureDate, Guid>
 {
     private readonly GetRepository<IRepository<Repository.Models.WaterFlowCheck>> _getRepository;
     private readonly GetRepository<IRepository<Repository.Models.Word>> _getWordRepository;
@@ -148,7 +148,72 @@ public class RA041Service : IGetService<RA041, string>
         throw new NotImplementedException();
     }
 
+    Task<RA041MeasureDate> IGetService<RA041MeasureDate, Guid>.GetAsync(Guid id)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<RA041MeasureDate> IGetService<RA041MeasureDate, Guid>.GetAsync<TQuery>(IQuery condition)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<RA041MeasureDate[]> IGetService<RA041MeasureDate, Guid>.GetListAsync()
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<RA041MeasureDate[]> IGetService<RA041MeasureDate, Guid>.GetListAsync(Guid id)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<RA041MeasureDate[]> IGetService<RA041MeasureDate, Guid>.GetListAsync<TQuery>(IQuery condition)
+    {
+        return condition switch
+        {
+            QueryRA041Date e => QueryRA041Date(e),
+            _ => throw new ArgumentOutOfRangeException(nameof(condition), condition, null)
+        };
+    }
+
+    async Task<RA041MeasureDate[]> QueryRA041Date(QueryRA041Date condition)
+    {
+        var pb = PredicateBuilder.New<Repository.Models.WaterFlowCheck>();
+        //必填
+        var exp = pb.Start(x =>
+            x.DepartmentId == condition.DepartmentId
+            && x.BeforeOrAfterWordId == condition.BeforeOrAfterWordId);
+
+        if(condition.Year.HasValue)
+        {
+            exp = exp.And(x => x.MeasureDate.Year == condition.Year);
+        }
+        if (condition.SiteId.HasValue)
+        {
+            exp = exp.And(x => x.SiteId == condition.SiteId);
+        }
+        if (condition.WaterSupplySystemId.HasValue)
+        {
+            exp = exp.And(x => x.WaterSupplySystemId == condition.WaterSupplySystemId);
+        }
+        if (condition.WorkSpaceId.HasValue)
+        {
+            exp = exp.And(x => x.WorkSpaceId == condition.WorkSpaceId);
+        }
+        if (condition.SmallRegionId.HasValue)
+        {
+            exp = exp.And(x => x.SmallRegionId == condition.SmallRegionId);
+        }
 
 
-
+        var dates = (await _getRepository().GetListAsync<RA041MeasureDate>(
+            exp,
+            x => new RA041MeasureDate 
+            { 
+                MeasureDate = x.MeasureDate
+            }))
+          .Distinct().OrderBy(x => x).ToArray();
+        return dates;
+    }
 }

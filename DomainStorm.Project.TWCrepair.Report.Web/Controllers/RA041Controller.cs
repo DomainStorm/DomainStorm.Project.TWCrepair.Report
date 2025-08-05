@@ -21,13 +21,16 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers;
 public class RA041Controller : ControllerBase
 {
     private readonly IGetService<RA041, string> _ra041Service;
+    private readonly IGetService<RA041MeasureDate, Guid> _ra041DateService;
     private readonly IGetService<Stream, ReportConvertRequest> _reportService;
 
     public RA041Controller(
         IGetService<RA041, string> ra041Service,
+        IGetService<RA041MeasureDate, Guid> ra041DateService,
         IGetService<Stream, ReportConvertRequest> reportService)
     {
         _ra041Service = ra041Service;
+        _ra041DateService = ra041DateService;
         _reportService = reportService;
     }
 
@@ -45,5 +48,11 @@ public class RA041Controller : ControllerBase
         var outFileName = $"{System.IO.Path.GetFileNameWithoutExtension(convertRequest.ViewName)}.{convertRequest.Extension.ToString().ToLower()}";
         return File(outStream, MediaTypeNames.Application.Octet, outFileName);
 
+    }
+
+    [HttpPost("queryDate")]
+    public async Task<ActionResult<RA041MeasureDate[]>> QueryDate([FromBody] QueryRA041Date request)
+    {
+        return await _ra041DateService.GetListAsync<QueryRA041Date>(request);
     }
 }
