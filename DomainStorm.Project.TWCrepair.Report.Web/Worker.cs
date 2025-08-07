@@ -1,6 +1,7 @@
 ﻿using DomainStorm.Framework;
 using DomainStorm.Framework.SqlDb;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace DomainStorm.Project.TWCrepair.Report.Web
 {
@@ -8,28 +9,30 @@ namespace DomainStorm.Project.TWCrepair.Report.Web
     {
 
         private readonly IServiceProvider _serviceProvider;
+        private readonly IOptions<SqlDbOptions> _sqlOptions;
 
 
-        public Worker(IServiceProvider serviceProvider)
+        public Worker(IServiceProvider serviceProvider, IOptions<SqlDbOptions> sqlOptions)
         {
             _serviceProvider = serviceProvider;
+            _sqlOptions = sqlOptions;
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            if (Environment.GetEnvironmentVariable("DomainStorm_AutoMigrate") == "false")
-                return;
-
-            using var scope = _serviceProvider.CreateScope();
-            var context = scope.ServiceProvider.GetRequiredService<GetSession>()();
-            await Task.Run(() =>
+            if (_sqlOptions.Value.AutoMigrate)
             {
-                var pendingMigrations = context.Database.GetPendingMigrations();
-                if (pendingMigrations.Any())
+                using var scope = _serviceProvider.CreateScope();
+                var context = scope.ServiceProvider.GetRequiredService<GetSession>()();
+                await Task.Run(() =>
                 {
-                    context.Database.Migrate();
-                }
-            }, cancellationToken);
+                    var pendingMigrations = context.Database.GetPendingMigrations();
+                    if (pendingMigrations.Any())
+                    {
+                        context.Database.Migrate();
+                    }
+                }, cancellationToken);
+            }
         }
 
         public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;

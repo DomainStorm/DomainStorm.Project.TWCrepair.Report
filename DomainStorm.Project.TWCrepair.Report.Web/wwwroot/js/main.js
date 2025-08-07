@@ -22,3 +22,28 @@ window.drawChart = async (target, jsonString) => {
 
     Plotly.react(target, json.data, json.layout, { displayModeBar: false });
 }
+
+window.drawImage = (target, jsonString, dotNetHelper) =>
+{
+    var json = JSON.parse(jsonString);
+    Plotly.react(target, json.data, json.layout, { displayModeBar: false }).then(() => {
+        return Plotly.toImage(target, {
+            format: 'png',
+            scale: 1
+        });
+    }).then((dataUrl) => {
+        const img = document.createElement('img');
+        img.src = dataUrl;
+        img.alt = "Plotly 圖像";
+        img.style.border = "1px solid #ccc";
+        img.style.marginTop = "20px";
+
+        const container = document.getElementById('imageContainer');
+        container.innerHTML = '';
+        container.appendChild(img);
+
+        if (dotNetHelper) {
+            dotNetHelper.invokeMethodAsync('HandleDrawImageComplete');
+        }
+    });
+}
