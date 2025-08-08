@@ -1,12 +1,14 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using DomainStorm.Framework.Services;
+using DomainStorm.Project.TWCrepair.Report.Web.Views;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using DomainStorm.Framework.Services;
+using System.Net;
+using System.Net.Mime;
+using System.Text;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA006.V1;
 using static DomainStorm.Project.TWCrepair.Repository.CommandModel.Report.V1;
-using System.Net.Mime;
-using DomainStorm.Project.TWCrepair.Report.Web.Views;
 
 namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers;
 
@@ -54,7 +56,11 @@ public class RA006Controller : ControllerBase
         ra006Model.AccountingAccount = GetInputString("AccountingAccount", ra006Model.AccountingAccount, "text", "width: 350px");
         ra006Model.EngineeringLocation = GetInputString("EngineeringLocation", ra006Model.EngineeringLocation, "text", "width: 350px");
         ra006Model.EngineeringMethod = GetInputString("EngineeringMethod", ra006Model.EngineeringMethod, "text", "width: 350px");
-        ra006Model.EngineeringSummary = $"${{<textarea name=\"EngineeringSummary\" style=\"width: 337px; height: 267px;\">{ra006Model.EngineeringSummary}</textarea>}}";
+
+        var summary = ra006Model.EngineeringSummary ?? string.Empty;
+        var base64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(summary));
+
+        ra006Model.EngineeringSummary = $"${{<textarea name=\"EngineeringSummary\" style=\"width: 337px; height: 267px;\" data-encoded=\"true\">{base64}</textarea>}}";
         ra006Model.PlanStartDate = GetInputString("PlanStartDate", ra006Model.PlanStartDate, "date");
         ra006Model.PlanEndDate = GetInputString("PlanEndDate", ra006Model.PlanEndDate, "date");
         ra006Model.DesignDrawingAmount = GetInputString("DesignDrawingAmount", ra006Model.DesignDrawingAmount, "text", "width: 60px");
