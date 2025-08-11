@@ -48,8 +48,10 @@ public class RA018Service : IGetService<RA018, string>
         var budgetDocContract = await _getRepository().GetAsync(condition.Id);
         var result = _mapper.Map<RA018>(budgetDocContract);
         var statistic = await _getStatisticService.GetAsync(condition.Id);
-        result.BudgetDocContractResourceStatisticsItems = statistic.BudgetDocContractResourceStatisticsItems;
-
+        //預算書的資源統計表改成顯示全部(含數量=0 者),但報表不需顯示,故排除之
+        result.BudgetDocContractResourceStatisticsItems = statistic.BudgetDocContractResourceStatisticsItems.Where(
+            x => x.Category.Name != "職安類"  //只列印非職安類
+            && (x.DayAmount > 0 || x.NightAmount > 0)).ToList();
         return result;
     }
 
