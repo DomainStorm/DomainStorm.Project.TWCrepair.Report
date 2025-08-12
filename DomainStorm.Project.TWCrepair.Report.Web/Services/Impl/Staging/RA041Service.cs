@@ -213,7 +213,7 @@ public class RA041Service : IGetService<RA041, string>, IGetService<RA041Measure
             { 
                 MeasureDate = x.MeasureDate
             }))
-          .Distinct().OrderBy(x => x.MeasureDate).ToArray();
+            .DistinctBy(x => x.MeasureDate).OrderBy(x => x.MeasureDate).ToArray();
         return dates;
     }
 }

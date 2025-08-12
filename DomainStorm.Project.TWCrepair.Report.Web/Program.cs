@@ -76,7 +76,7 @@ try
             options.MinimumSameSitePolicy = SameSiteMode.None;
             options.Secure = CookieSecurePolicy.Always;
         });
-
+        builder.Services.AddScoped<IGetService<Word, Guid>, SharedStagingServices.WordService>();
         builder.Services.AddScoped<IGetService<Function, Guid>, SharedStagingServices.FunctionsService>();
         builder.Services.AddScoped<IGetService<Function?, Uri>, SharedStagingServices.FunctionsService>();
         builder.Services.AddScoped<IGetService<User, Guid>, SharedStagingServices.UserService>();
@@ -144,7 +144,6 @@ try
         builder.Services.AddScoped<ICache, MockCache>();
 
         builder.Services.AddScoped<AuthenticationStateProvider, MockAuthenticationStateProvider>();
-
         builder.Services.AddScoped<IGetService<Function, Guid>, MockServices.FunctionsService>();
         builder.Services.AddScoped<IGetService<Function?, Uri>, MockServices.FunctionsService>();
 

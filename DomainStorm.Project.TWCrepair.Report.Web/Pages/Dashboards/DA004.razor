@@ -20,12 +20,45 @@
 @code {
     private ElementReference _stormCardRef;
 
+    [Parameter, SupplyParameterFromQuery]
+    public Guid DepartmentId { get; set; }
+
+    [Parameter, SupplyParameterFromQuery]
+    public Guid? SiteId { get; set; }
+
+    [Parameter, SupplyParameterFromQuery]
+    public Guid WaterSupplySystemId { get; set; }
+
+    [Parameter, SupplyParameterFromQuery]
+    public Guid WorkSpaceId { get; set; }
+
+    [Parameter, SupplyParameterFromQuery]
+    public Guid? SmallRegionId { get; set; }
+
+    [Parameter, SupplyParameterFromQuery]
+    public DateTime BeforeDate { get; set; }
+
+    [Parameter, SupplyParameterFromQuery]
+    public DateTime AfterDate { get; set; }
+
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         // if (levelOneDepartment == null)
         //     return;
 
-        var request = new ReportCommandModel.DA004.V1.QueryDA004();
+
+        var request = new ReportCommandModel.DA004.V1.QueryDA004
+        {
+            DepartmentId = DepartmentId,
+            SiteId = SiteId,
+            WaterSupplySystemId = WaterSupplySystemId,
+            WorkSpaceId = WorkSpaceId,
+            SmallRegionId = SmallRegionId,
+            BeforeDate = BeforeDate,
+            AfterDate = AfterDate
+        };
+
         var DA004 = await _DA004Service.GetAsync<ReportCommandModel.DA004.V1.QueryDA004>(request);
         var convertRequest = new ReportConvertRequest
         {
