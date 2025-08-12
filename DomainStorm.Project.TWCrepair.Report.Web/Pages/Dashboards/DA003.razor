@@ -13,9 +13,11 @@
 
 @page "/DA003"
 
-<storm-card @ref="_stormCardRef" icon="leaderboard">
-    <div id="chart"></div>
-</storm-card>
+<StormCard @ref="_stormCardRef" icon="leaderboard">
+    <div slot="body">
+        <div id="chart"></div>
+    </div>
+</StormCard>
 
 
 @code {
