@@ -51,8 +51,10 @@ public class RA041Controller : ControllerBase
     }
 
     [HttpPost("queryDate")]
-    public async Task<ActionResult<RA041MeasureDate[]>> QueryDate([FromBody] QueryRA041Date request)
+    public async Task<ActionResult<DateTime[]>> QueryDate([FromBody] QueryRA041Date request)
     {
-        return await _ra041DateService.GetListAsync<QueryRA041Date>(request);
+        var measureDates = await _ra041DateService.GetListAsync<QueryRA041Date>(request);
+
+        return measureDates.Select(m => m.MeasureDate).ToArray();
     }
 }

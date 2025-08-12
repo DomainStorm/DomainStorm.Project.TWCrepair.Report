@@ -183,7 +183,7 @@ public class RA041Service : IGetService<RA041, string>, IGetService<RA041Measure
         //必填
         var exp = pb.Start(x =>
             x.DepartmentId == condition.DepartmentId
-            && x.BeforeOrAfterWordId == condition.BeforeOrAfterWordId);
+            && x.BeforeOrAfter.Code == condition.BeforeOrAfterWordCode);
 
         if(condition.Year.HasValue)
         {
@@ -213,7 +213,7 @@ public class RA041Service : IGetService<RA041, string>, IGetService<RA041Measure
             { 
                 MeasureDate = x.MeasureDate
             }))
-          .Distinct().OrderBy(x => x).ToArray();
+          .Distinct().OrderBy(x => x.MeasureDate).ToArray();
         return dates;
     }
 }
