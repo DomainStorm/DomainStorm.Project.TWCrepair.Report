@@ -177,7 +177,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Content Include="wwwroot\domain-storm-web-component\**\*.*" CopyToOutputDirectory="PreserveNewest" />
     <Content Update="wwwroot\img\pipeloc_all_bot.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
