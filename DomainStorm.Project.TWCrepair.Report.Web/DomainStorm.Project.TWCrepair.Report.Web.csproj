@@ -8,11 +8,11 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
     <DockerfileContext>..\..</DockerfileContext>
-	<Features>$(Features);experimental-data-section-string-literals</Features>  <!-- fix error CS8103: Combined length of user strings used by the program exceeds allowed limit -->
+	  <Features>$(Features);experimental-data-section-string-literals</Features>  <!-- fix error CS8103: Combined length of user strings used by the program exceeds allowed limit -->
 	
     <!--test github build error-->
-    <RazorCompileOnBuild>false</RazorCompileOnBuild>
-    <RazorCompileOnPublish>false</RazorCompileOnPublish>
+    <!-- <RazorCompileOnBuild>false</RazorCompileOnBuild> -->
+    <!-- <RazorCompileOnPublish>false</RazorCompileOnPublish> -->
   
   </PropertyGroup>
 
