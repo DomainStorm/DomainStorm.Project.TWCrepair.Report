@@ -19,12 +19,12 @@
     <Content Remove="Views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="Views\RA002.header.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Views\RA002.header.xml">
+    <Content Include="Views\RA003.head.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
+    </Content>
+    <Content Include="Views\RA002.head.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -183,6 +183,9 @@
   </ItemGroup>
   
   <ItemGroup>
+    <Content Update="Views\RA003.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Update="wwwroot\img\pipeloc_all_bot.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

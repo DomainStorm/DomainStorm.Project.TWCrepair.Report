@@ -1,12 +1,12 @@
 ﻿@model DomainStorm.Project.TWCrepair.Report.Web.Views.RA002
 @{
     Layout = null;
-    var stylesPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Views", "RA002.header.xml");
-    var header = await File.ReadAllTextAsync(stylesPath);
+    var stylesPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Views", "RA002.head.xml");
+    var head = await File.ReadAllTextAsync(stylesPath);
 }
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-@Html.Raw(header)
+@Html.Raw(head)
 <body>
     <form method="post" action="" id="form1" style=" margin-left:10px;margin-top:auto" onload="onload()" marginwidth="0" marginheight="0">
         
