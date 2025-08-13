@@ -15,8 +15,8 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers;
 /// 年度計畫報告-附表六、各系統管徑、管長暨附屬設備統計表
 /// </summary>
 [ApiController]
-//[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-//[Authorize(AuthenticationSchemes = OpenIdConnectDefaults.AuthenticationScheme)]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+[Authorize(AuthenticationSchemes = OpenIdConnectDefaults.AuthenticationScheme)]
 [Route("api/ra036")]
 public class RA036Controller : ControllerBase
 {
