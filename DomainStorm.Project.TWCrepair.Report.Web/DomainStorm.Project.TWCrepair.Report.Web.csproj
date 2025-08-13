@@ -8,6 +8,7 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
     <DockerfileContext>..\..</DockerfileContext>
+	<Features>$(Features);experimental-data-section-string-literals</Features>  <!-- fix error CS8103: Combined length of user strings used by the program exceeds allowed limit -->
   </PropertyGroup>
 
   <ItemGroup>
@@ -77,6 +78,9 @@
   
   <ItemGroup>
     <Compile Update="Views\RA041.cs">
+      <DependentUpon>%(Filename).cshtml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\RA036.cs">
       <DependentUpon>%(Filename).cshtml</DependentUpon>
     </Compile>
     <Compile Update="Views\RA035.cs">
