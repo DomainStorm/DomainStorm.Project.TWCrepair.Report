@@ -155,36 +155,42 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
                 { "paperHeight", "11.7" },
                 { "waitDelay", "2s"}
             };
-            var toMergeStreamList = new List<Stream>
+
+            var toMergeStreamList = new List<Stream>();
+
+            foreach (var id in request.IdList)
             {
-                await OutStream<IGetService<RA002, string>, RA002, QueryRA002>(
+                toMergeStreamList.Add(await OutStream<IGetService<RA002, string>, RA002, QueryRA002>(
                     ra002Service, new QueryRA002
                     {
-                        Id = request.Id,
+                        Id = id,
                         Extension = extension
-                    }, reportService, "/Views/RA002.cshtml", extension, options),
-                await OutStream<IGetService<RA003, string>, RA003, QueryRA003>(
+                    }, reportService, "/Views/RA002.cshtml", extension, options));
+
+                toMergeStreamList.Add(await OutStream<IGetService<RA003, string>, RA003, QueryRA003>(
                     ra003Service, new QueryRA003
                     {
-                        Id = request.Id,
+                        Id = id,
                         Extension = extension
-                    }, reportService, "/Views/RA003.cshtml", extension, options),
-                await OutStream<IGetService<RA004, string>, RA004, QueryRA004>(
+                    }, reportService, "/Views/RA003.cshtml", extension, options));
+
+                toMergeStreamList.Add(await OutStream<IGetService<RA004, string>, RA004, QueryRA004>(
                     ra004Service, new QueryRA004
                     {
-                        Id = request.Id,
+                        Id = id,
                         Extension = extension
-                    }, reportService, "/Views/RA004.cshtml", extension, options),
-                await OutStream<IGetService<RA005, string>, RA005, QueryRA005>(
+                    }, reportService, "/Views/RA004.cshtml", extension, options));
+
+                toMergeStreamList.Add(await OutStream<IGetService<RA005, string>, RA005, QueryRA005>(
                     ra005Service, new QueryRA005
                     {
-                        Id = request.Id,
+                        Id = id,
                         Extension = extension
-                    }, reportService, "/Views/RA005.cshtml", extension, options)
-            };
+                    }, reportService, "/Views/RA005.cshtml", extension, options));
+            }
 
             var stream = getMerge(extension).Merge(toMergeStreamList, extension);
-            var outFileName = $"{request.Id}.{request.Extension.ToString().ToLower()}";
+            var outFileName = $"{Guid.NewGuid()}.{request.Extension.ToString().ToLower()}";
 
             return File(stream, MediaTypeNames.Application.Pdf, outFileName);
 

@@ -10,6 +10,7 @@ public static class Package
         public class QueryPackage : IQuery
         {
             public Guid Id { get; set; }
+            public IReadOnlyList<Guid> IdList { get; set; } = new List<Guid>();
             public FileExtension Extension { get; set; }
         }
     }
