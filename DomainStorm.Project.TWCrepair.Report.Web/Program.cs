@@ -131,6 +131,7 @@ try
         builder.Services.AddScoped<IGetService<RA031, string>, StagingServices.RA031Service>();
         builder.Services.AddScoped<IGetService<RA032, string>, StagingServices.RA032Service>();
         builder.Services.AddScoped<IGetService<RA033, string>, StagingServices.RA033Service>();
+        builder.Services.AddScoped<IGetService<RA036, string>, StagingServices.RA036Service>();
         builder.Services.AddScoped<IGetService<RA041, string>, StagingServices.RA041Service>();
         builder.Services.AddScoped<IGetService<RA041MeasureDate, Guid>, StagingServices.RA041Service>();
         builder.Services.AddScoped<IGetService<RA043, string>, StagingServices.RA043Service>();
@@ -195,6 +196,7 @@ try
         builder.Services.AddScoped<IGetService<RA031, string>, MockServices.RA031Service>();
         builder.Services.AddScoped<IGetService<RA032, string>, MockServices.RA032Service>();
         builder.Services.AddScoped<IGetService<RA033, string>, MockServices.RA033Service>();
+        builder.Services.AddScoped<IGetService<RA036, string>, MockServices.RA036Service>();
         builder.Services.AddScoped<IGetService<RA041, string>, MockServices.RA041Service>();
         builder.Services.AddScoped<IGetService<RA041MeasureDate, Guid>, MockServices.RA041Service>();
         builder.Services.AddScoped<IGetService<RA043, string>, MockServices.RA043Service>();
