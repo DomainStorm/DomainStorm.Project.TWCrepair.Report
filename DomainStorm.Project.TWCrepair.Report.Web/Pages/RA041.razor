@@ -13,9 +13,11 @@
 
 @if (_previewHtml != null)
 {
-    <storm-card headline="檢修漏作業水壓比較表" icon="leaderboard">
-        @(new MarkupString(_previewHtml))
-    </storm-card>
+    <StormCard Headline="流量分析-曲線圖" Icon="leaderboard">
+        <div slot="body">
+            @(new MarkupString(_previewHtml))
+        </div>
+    </StormCard>
 }
 
 @code {
