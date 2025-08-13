@@ -13,7 +13,6 @@
     <!--test github build error-->
     <!-- <RazorCompileOnBuild>false</RazorCompileOnBuild> -->
     <!-- <RazorCompileOnPublish>false</RazorCompileOnPublish> -->
-    <EnableDefaultContentItems>false</EnableDefaultContentItems>
   </PropertyGroup>
 
   <ItemGroup>
@@ -178,31 +177,31 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Content Include="wwwroot\**\*.*" CopyToOutputDirectory="PreserveNewest" />
-    <!-- <Content Update="wwwroot\img\pipeloc_all_bot.gif"> -->
-    <!--   <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory> -->
-    <!-- </Content> -->
-    <!-- <Content Update="wwwroot\img\pipeloc_all_dep_1.gif"> -->
-    <!--   <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory> -->
-    <!-- </Content> -->
-    <!-- <Content Update="wwwroot\img\pipeloc_all_dep_3.gif"> -->
-    <!--   <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory> -->
-    <!-- </Content> -->
-    <!-- <Content Update="wwwroot\img\pipeloc_all_dis_1.gif"> -->
-    <!--   <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory> -->
-    <!-- </Content> -->
-    <!-- <Content Update="wwwroot\img\pipeloc_all_dis_3.gif"> -->
-    <!--   <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory> -->
-    <!-- </Content> -->
-    <!-- <Content Update="wwwroot\img\pipeloc_all_dis_5.gif"> -->
-    <!--   <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory> -->
-    <!-- </Content> -->
-    <!-- <Content Update="wwwroot\img\pipeloc_all_mid.gif"> -->
-    <!--   <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory> -->
-    <!-- </Content> -->
-    <!-- <Content Update="wwwroot\img\pipeloc_all_top.gif"> -->
-    <!--   <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory> -->
-    <!-- </Content> -->
+    <Content Include="wwwroot\domain-storm-web-component\**\*.*" CopyToOutputDirectory="PreserveNewest" />
+    <Content Update="wwwroot\img\pipeloc_all_bot.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\pipeloc_all_dep_1.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\pipeloc_all_dep_3.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\pipeloc_all_dis_1.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\pipeloc_all_dis_3.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\pipeloc_all_dis_5.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\pipeloc_all_mid.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\pipeloc_all_top.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
