@@ -12,13 +12,15 @@
 
 @page "/DA002"
 
-<storm-card @ref="_stormCardRef" icon="leaderboard">
-    <div id="chart"></div>
-</storm-card>
+<StormCard @ref="_stormCardRef" icon="leaderboard">
+    <div slot="body">
+        <div id="chart"></div>
+    </div>
+</StormCard>
 
 
 @code {
-    private ElementReference _stormCardRef;
+    private StormCard _stormCardRef;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -35,7 +37,7 @@
         };
 
         var plotlyJson = await _reportService.GetAsync(convertRequest);
-        await Js.SetProperty(_stormCardRef, "headline", plotlyJson.Layout.Title);
+        await _stormCardRef.SetHeadlineAsync(plotlyJson.Layout.Title);
         plotlyJson.Layout.Title = "";
         plotlyJson.Layout.Margin.T = 10;  //T=0  第一條線會不見
         await Js.InvokeVoidAsync("drawChart", "chart", JsonSerializer.Serialize(plotlyJson, new JsonSerializerOptions(JsonSerializerDefaults.Web)));

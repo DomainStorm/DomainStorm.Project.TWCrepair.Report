@@ -19,14 +19,45 @@
 
 @code {
 
-    private readonly ReportCommandModel.RA001.V1.QueryRA001 _request = new();
+    [Parameter, SupplyParameterFromQuery]
+    public Guid DepartmentId { get; set; }
+
+    [Parameter, SupplyParameterFromQuery]
+    public Guid? SiteId { get; set; }
+
+    [Parameter, SupplyParameterFromQuery]
+    public Guid WaterSupplySystemId { get; set; }
+
+    [Parameter, SupplyParameterFromQuery]
+    public Guid WorkSpaceId { get; set; }
+
+    [Parameter, SupplyParameterFromQuery]
+    public Guid? SmallRegionId { get; set; }
+
+    [Parameter, SupplyParameterFromQuery]
+    public DateTime BeforeDate { get; set; }
+
+    [Parameter, SupplyParameterFromQuery]
+    public DateTime AfterDate { get; set; }
+
     private string? _previewHtml;
 
     protected override async Task OnParametersSetAsync()
     {
         // GetQueryParameters(_request);
 
-        var ra001 = await _ra001Service.GetAsync<ReportCommandModel.RA001.V1.QueryRA001>(_request);
+        var request = new ReportCommandModel.RA001.V1.QueryRA001
+        {
+            DepartmentId = DepartmentId,
+            SiteId = SiteId,
+            WaterSupplySystemId = WaterSupplySystemId,
+            WorkSpaceId = WorkSpaceId,
+            SmallRegionId = SmallRegionId,
+            BeforeDate = BeforeDate,
+            AfterDate = AfterDate
+        };            
+
+        var ra001 = await _ra001Service.GetAsync<ReportCommandModel.RA001.V1.QueryRA001>(request);
         var convertRequest = new ReportConvertRequest
         {
             ViewName = "/Views/RA001.cshtml",

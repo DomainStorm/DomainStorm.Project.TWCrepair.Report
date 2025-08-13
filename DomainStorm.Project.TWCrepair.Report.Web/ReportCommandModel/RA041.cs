@@ -69,7 +69,7 @@ public static class RA041
             /// <summary>
             /// 檢修前或檢修後詞庫代碼
             /// </summary>
-            public Guid BeforeOrAfterWordId { get; set; }
+            public string BeforeOrAfterWordCode { get; set; }
 
             /// <summary>
             /// 區處代碼

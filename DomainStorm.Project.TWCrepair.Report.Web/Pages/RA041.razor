@@ -1,0 +1,89 @@
+﻿@inject IJSRuntime Js
+@inject IGetService<Views.RA041, string> _ra041Service;
+@inject IGetService<Stream, ReportConvertRequest> _reportService;
+@inject IGetService<Word, Guid> WordService
+
+@using DomainStorm.Framework.Services
+@using DomainStorm.Framework
+@using System.Text
+@using DomainStorm.Project.TWCrepair.Shared.ViewModel
+@using static DomainStorm.Project.TWCrepair.Repository.CommandModel.Report.V1;
+@inherits BasePage
+@page "/RA041"
+
+@if (_previewHtml != null)
+{
+    <storm-card headline="檢修漏作業水壓比較表" icon="leaderboard">
+        @(new MarkupString(_previewHtml))
+    </storm-card>
+}
+
+@code {
+
+    [Parameter, SupplyParameterFromQuery]
+    public Guid BeforeOrAfterWordId { get; set; }
+
+    [Parameter, SupplyParameterFromQuery]
+    public Guid DepartmentId { get; set; }
+
+    [Parameter, SupplyParameterFromQuery]
+    public Guid? SiteId { get; set; }
+
+    [Parameter, SupplyParameterFromQuery]
+    public Guid WaterSupplySystemId { get; set; }
+
+    [Parameter, SupplyParameterFromQuery]
+    public Guid WorkSpaceId { get; set; }
+
+    [Parameter, SupplyParameterFromQuery]
+    public Guid? SmallRegionId { get; set; }
+
+    [Parameter, SupplyParameterFromQuery]
+    public DateTime BeforeDate { get; set; }
+
+    [Parameter, SupplyParameterFromQuery]
+    public DateTime AfterDate { get; set; }
+
+    private string? _previewHtml;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        // GetQueryParameters(_request);
+        var words = await WordService.GetListAsync<Repository.CommandModel.Word.V1.QueryWord>(new Repository.CommandModel.Word.V1.QueryWord
+        {
+            Code = "CF04"
+        });
+
+        var beforeOrAfterWords = (await WordService.GetListAsync<Repository.CommandModel.Word.V1.QueryWordByParentId>(new Repository.CommandModel.Word.V1.QueryWordByParentId
+        {
+            ParentId = words.First().Id
+        }));
+
+
+        var request = new ReportCommandModel.RA041.V1.QueryRA041
+        {
+            BeforeOrAfterWordId = BeforeOrAfterWordId,
+            DepartmentId = DepartmentId,
+            SiteId = SiteId,
+            WaterSupplySystemId = WaterSupplySystemId,
+            WorkSpaceId = WorkSpaceId,
+            SmallRegionId = SmallRegionId,
+            MeasureDate = beforeOrAfterWords.First(w => w.Id == BeforeOrAfterWordId).Code == "CF0401" ? BeforeDate : AfterDate
+        };
+
+        var ra041 = await _ra041Service.GetAsync<ReportCommandModel.RA041.V1.QueryRA041>(request);
+        var convertRequest = new ReportConvertRequest
+        {
+            ViewName = "/Views/RA041.cshtml",
+            Model = ra041,
+            Extension = FileExtension.HTML
+        };
+
+        var outStream = await _reportService.GetAsync(convertRequest);
+        using var reader = new StreamReader(await _reportService.GetAsync(convertRequest), Encoding.UTF8);
+        outStream.Seek(0, SeekOrigin.Begin);
+        _previewHtml = await reader.ReadToEndAsync();
+
+        await base.OnParametersSetAsync();
+    }
+}
