@@ -76,12 +76,12 @@ public class RA022Service : IGetService<RA022, string>
         result.Items = await _getRepository().GetListAsync<RA022Item>(exp, x => new RA022Item
         {
             FixCaseNo = x.FixCaseNo,
-            CaseAttribute = x.FixFormProperty.CaseAttribute != null ? x.FixFormProperty.CaseAttribute.Name : "",
-            CaseAttributeNotLeackageOther = x.FixFormProperty.CaseAttributeNotLeackageOther != null ? x.FixFormProperty.CaseAttributeNotLeackageOther.Name : "",
-            EquipmentAttribute = x.FixFormProperty.EquipmentAttribute != null ? x.FixFormProperty.EquipmentAttribute.Name : "",
-            EquipmentAttributeOther = x.FixFormProperty.EquipmentAttributeOther != null ? x.FixFormProperty.EquipmentAttributeOther.Name : "",
-            PipeKind = x.FixFormProperty.PipeKind != null ? x.FixFormProperty.PipeKind.Name : "",
-            PipeDiameter = x.FixFormProperty.PipeDiameter != null ? x.FixFormProperty.PipeDiameter.Name : "",
+            CaseAttribute = x.FixFormDispatch.CaseAttribute != null ? x.FixFormDispatch.CaseAttribute.Name : "",
+            CaseAttributeNotLeackageOther = x.FixFormDispatch.CaseAttributeNotLeackageOther != null ? x.FixFormDispatch.CaseAttributeNotLeackageOther.Name : "",
+            EquipmentAttribute = x.FixFormDispatch.EquipmentAttribute != null ? x.FixFormDispatch.EquipmentAttribute.Name : "",
+            EquipmentAttributeOther = x.FixFormDispatch.EquipmentAttributeOther != null ? x.FixFormDispatch.EquipmentAttributeOther.Name : "",
+            PipeKind = x.FixFormDispatch.PipeKind != null ? x.FixFormDispatch.PipeKind.Name : "",
+            PipeDiameter = x.FixFormDispatch.PipeDiameter != null ? x.FixFormDispatch.PipeDiameter.Name : "",
             AccessoryEquipment = x.FixFormProperty.AccessoryEquipment != null ? x.FixFormProperty.AccessoryEquipment.Name : "",
             BoxAnnex = x.FixFormProperty.BoxAnnex != null ? x.FixFormProperty.BoxAnnex.Name : "",
             FinalCost_Outsourcing = x.FinalCost.FinalCost_Outsourcing,

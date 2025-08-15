@@ -65,9 +65,9 @@ public class RA024Service : IGetService<RA024, string>
         var pbImportPipe = PredicateBuilder.New<ImportPipe>();
 
         var exp = pb.Start(x => !x.IsRetrieved && !x.Deleted //排除移辦取回
-                && x.ResponsibleReginId == condition.DepartmentId && x.FixFormProperty != null
-                && x.FixFormProperty.CaseAttribute != null && x.FixFormProperty.CaseAttribute.Name == "漏水案件"
-                && x.FixFormProperty.EquipmentAttribute != null && x.FixFormProperty.EquipmentAttribute.Name == "管線");
+                && x.ResponsibleReginId == condition.DepartmentId && x.FixFormDispatch != null
+                && x.FixFormDispatch.CaseAttribute != null && x.FixFormDispatch.CaseAttribute.Name == "漏水案件"
+                && x.FixFormDispatch.EquipmentAttribute != null && x.FixFormDispatch.EquipmentAttribute.Name == "管線");
 
 
         var expImportPipe = pbImportPipe.Start(x => x.DepartmentId == condition.DepartmentId);
@@ -90,8 +90,8 @@ public class RA024Service : IGetService<RA024, string>
         var fixForms = await _getRepository().GetListAsync<RA024FixForm>(exp, x => new RA024FixForm
         {
             FormId =  x.FormId,
-            PipeKind = x.FixFormProperty.PipeKind != null ? x.FixFormProperty.PipeKind.Name : "",
-            PipeDiameter = x.FixFormProperty.PipeDiameter != null ? x.FixFormProperty.PipeDiameter.Name : "",
+            PipeKind = x.FixFormDispatch.PipeKind != null ? x.FixFormDispatch.PipeKind.Name : "",
+            PipeDiameter = x.FixFormDispatch.PipeDiameter != null ? x.FixFormDispatch.PipeDiameter.Name : "",
             FinalCost_Total = x.FinalCost.FinalCost_Total,
         });
 
