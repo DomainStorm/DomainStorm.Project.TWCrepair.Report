@@ -50,7 +50,7 @@ public class RA043Service : IGetService<RA043, string>
             FixCaseNo = fixForm.FixCaseNo
         };
 
-        var diameter = fixForm.FixFormProperty.PipeDiameter?.Name!;
+        var diameter = fixForm.FixFormDispatch.PipeDiameter?.Name!;
         result.Diameter = int.Parse(diameter);
         result.Material_Cost = fixForm.FinalCost.FinalCost_Material ?? 0;
         result.Outsourcing_Cost = fixForm.FinalCost.FinalCost_Outsourcing ?? 0;

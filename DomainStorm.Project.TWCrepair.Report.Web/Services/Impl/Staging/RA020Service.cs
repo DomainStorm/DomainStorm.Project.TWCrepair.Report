@@ -77,8 +77,8 @@ public class RA020Service : IGetService<RA020, string>
         var fixForms = await _getRepository().GetListAsync<FixFormSummary>(exp, x => new FixFormSummary
         {
             FormId = x.FormId,
-            EquipmentAttribute = x.FixFormProperty != null && x.FixFormProperty.EquipmentAttribute != null ? x.FixFormProperty.EquipmentAttribute.Name : "",
-            PipeKind = x.FixFormProperty != null && x.FixFormProperty.PipeKind != null ? x.FixFormProperty.PipeKind.Name : "",
+            EquipmentAttribute = x.FixFormDispatch != null && x.FixFormDispatch.EquipmentAttribute != null ? x.FixFormDispatch.EquipmentAttribute.Name : "",
+            PipeKind = x.FixFormDispatch != null && x.FixFormDispatch.PipeKind != null ? x.FixFormDispatch.PipeKind.Name : "",
             AccessoryEquipment = x.FixFormProperty != null && x.FixFormProperty.AccessoryEquipment != null ? x.FixFormProperty.AccessoryEquipment.Name : "",
             BoxAnnex = x.FixFormProperty != null && x.FixFormProperty.BoxAnnex != null ? x.FixFormProperty.BoxAnnex.Name : "",
             Reason = x.FixFormLeakage != null && x.FixFormLeakage.Reason != null ? x.FixFormLeakage.Reason.Name : "",
