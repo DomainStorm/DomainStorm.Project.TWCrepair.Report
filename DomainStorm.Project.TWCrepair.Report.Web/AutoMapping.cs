@@ -95,6 +95,9 @@ namespace DomainStorm.Project.TWCrepair.Report.Web
             CreateMap<Models.Budget.ContractResourceWorkMaterial, TWCrepair.Shared.ViewModel.BudgetDocContractResourceStatisticsItem>();
             CreateMap<Models.Budget.ResourceWorkMaterial, TWCrepair.Shared.ViewModel.ResourceWorkMaterial>();
 
+
+            CreateMap<Models.ExecuteControl, RA044_Item>();
+
         }
     }
 }

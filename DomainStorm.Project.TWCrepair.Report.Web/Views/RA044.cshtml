@@ -1,0 +1,190 @@
+﻿@using Microsoft.AspNetCore.Html
+@model DomainStorm.Project.TWCrepair.Report.Web.Views.RA044
+@{
+    Layout = null;
+    var stylesPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Views", "RA044.head.xml");
+    var head = await File.ReadAllTextAsync(stylesPath);
+}
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<office:document xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:ooo="http://openoffice.org/2004/office" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:config="urn:oasis:names:tc:opendocument:xmlns:config:1.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:rpt="http://openoffice.org/2005/report" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:ooow="http://openoffice.org/2004/writer" xmlns:oooc="http://openoffice.org/2004/calc" xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:tableooo="http://openoffice.org/2009/table" xmlns:calcext="urn:org:documentfoundation:names:experimental:calc:xmlns:calcext:1.0" xmlns:drawooo="http://openoffice.org/2010/draw" xmlns:loext="urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0" xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0" xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0" xmlns:formx="urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0" xmlns:dom="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:grddl="http://www.w3.org/2003/g/data-view#" xmlns:css3t="http://www.w3.org/TR/css3-text/" xmlns:presentation="urn:oasis:names:tc:opendocument:xmlns:presentation:1.0" office:version="1.4" office:mimetype="application/vnd.oasis.opendocument.spreadsheet">
+    @Html.Raw(head)
+    <office:body>
+        <office:spreadsheet>
+            <table:calculation-settings table:case-sensitive="false" table:automatic-find-labels="false" table:use-regular-expressions="false" table:use-wildcards="true" />
+            <table:table table:name="管控表" table:style-name="ta1">
+                <office:forms form:automatic-focus="false" form:apply-design-mode="false" />
+                <table:table-column table:style-name="co1" table:default-cell-style-name="ce4" />
+                <table:table-column table:style-name="co2" table:default-cell-style-name="ce4" />
+                <table:table-column table:style-name="co3" table:default-cell-style-name="ce6" />
+                <table:table-column table:style-name="co4" table:default-cell-style-name="ce6" />
+                <table:table-column table:style-name="co5" table:default-cell-style-name="ce6" />
+                <table:table-column table:style-name="co6" table:default-cell-style-name="ce6" />
+                <table:table-column table:style-name="co7" table:default-cell-style-name="ce6" />
+                <table:table-column table:style-name="co8" table:default-cell-style-name="ce6" />
+                <table:table-column table:style-name="co9" table:default-cell-style-name="ce6" />
+                <table:table-column table:style-name="co10" table:default-cell-style-name="ce6" />
+                <table:table-column table:style-name="co6" table:number-columns-repeated="2" table:default-cell-style-name="ce6" />
+                <table:table-column table:style-name="co11" table:default-cell-style-name="ce6" />
+                <table:table-column table:style-name="co12" table:default-cell-style-name="ce6" />
+                <table:table-column table:style-name="co13" table:default-cell-style-name="ce6" />
+                <table:table-column table:style-name="co14" table:number-columns-repeated="16369" />
+                <table:table-row table:style-name="ro1">
+                    <table:table-cell table:style-name="ce1" table:number-columns-spanned="12" table:number-rows-spanned="1" />
+                    <table:covered-table-cell table:style-name="ce1" office:value-type="string" calcext:value-type="string">
+                        <text:p>印製日期:3/14/2024</text:p>
+                    </table:covered-table-cell>
+                    <table:covered-table-cell table:number-columns-repeated="10" table:style-name="ce1" />
+                    <table:table-cell table:style-name="ce7" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="3" table:number-rows-spanned="1">
+                        <text:p>附件十五</text:p>
+                    </table:table-cell>
+                    <table:covered-table-cell table:number-columns-repeated="2" table:style-name="ce7" />
+                </table:table-row>
+                <table:table-row table:style-name="ro2">
+                    <table:table-cell table:style-name="ce2" office:value-type="string" calcext:value-type="string">
+                        <text:p>序號</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce2" office:value-type="string" calcext:value-type="string">
+                        <text:p>年度</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce2" office:value-type="string" calcext:value-type="string">
+                        <text:p>轄管廠所</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce2" office:value-type="string" calcext:value-type="string">
+                        <text:p>系統（大區）</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce2" office:value-type="string" calcext:value-type="string">
+                        <text:p>建議日期</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce2" office:value-type="string" calcext:value-type="string">
+                        <text:p>依據</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce2" office:value-type="string" calcext:value-type="string">
+                        <text:p>建議事項</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce2" office:value-type="string" calcext:value-type="string">
+                        <text:p>核准日期及文號</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce2" office:value-type="string" calcext:value-type="string">
+                        <text:p>區處執行情形</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce2" office:value-type="string" calcext:value-type="string">
+                        <text:p>承辦單位及人員</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce2" office:value-type="string" calcext:value-type="string">
+                        <text:p>預定完成日期</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce2" office:value-type="string" calcext:value-type="string">
+                        <text:p>實際完成日期</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce2" office:value-type="string" calcext:value-type="string">
+                        <text:p>防漏單位現勘複測日期及結果</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce2" office:value-type="string" calcext:value-type="string">
+                        <text:p>是否解除列管</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce2" office:value-type="string" calcext:value-type="string">
+                        <text:p>備註</text:p>
+                    </table:table-cell>
+                </table:table-row>
+                @foreach(var item in Model.Items)
+                {
+                    <table:table-row table:style-name="ro3">
+                        <table:table-cell table:style-name="ce3" office:value-type="string" calcext:value-type="string">
+                            <text:p>@item.SerialNumber</text:p>
+                        </table:table-cell>
+                        <table:table-cell table:style-name="ce3" office:value-type="string" calcext:value-type="string">
+                            <text:p>@item.Year</text:p>
+                        </table:table-cell>
+                        <table:table-cell table:style-name="ce5" office:value-type="string" calcext:value-type="string">
+                            <text:p>@item.DepartmentName @item.SiteName</text:p>
+                        </table:table-cell>
+                        <table:table-cell table:style-name="ce5" office:value-type="string" calcext:value-type="string">
+                            <text:p>@item.WaterSupplySystemName</text:p>
+                        </table:table-cell>
+                        <table:table-cell table:style-name="ce5" office:value-type="string" calcext:value-type="string">
+                            <text:p>@item.SuggestionDate!.Value.ToString("yyyy-MM-dd")</text:p>
+                        </table:table-cell>
+                        <table:table-cell table:style-name="ce5" office:value-type="string" calcext:value-type="string">
+                            <text:p>@item.BasedOn</text:p>
+                        </table:table-cell>
+                        <table:table-cell table:style-name="ce5" office:value-type="string" calcext:value-type="string">
+                            @if (!String.IsNullOrEmpty(item.Suggestions))
+                            {
+                                var paras = item.Suggestions.Split('\n');
+                                foreach (var para in paras)
+                                {
+                                    <text:p>@para</text:p>
+                                }
+                            }
+                            else
+                            {
+                                <text:p></text:p>
+                            }
+                            
+                        </table:table-cell>
+                        <table:table-cell table:style-name="ce5" office:value-type="string" calcext:value-type="string">
+                            <text:p>@item.ApproveDateAndNo</text:p>
+                        </table:table-cell>
+                        <table:table-cell table:style-name="ce5" office:value-type="string" calcext:value-type="string">
+
+                            @if (!String.IsNullOrEmpty(item.ExecuteSituation))
+                            {
+                                var paras = item.ExecuteSituation.Split('\n');
+                                foreach (var para in paras)
+                                {
+                                    <text:p>@para</text:p>
+                                }
+                            }
+                            else
+                            {
+                                <text:p></text:p>
+                            }
+                        </table:table-cell>
+                        <table:table-cell table:style-name="ce5" >
+                            <text:p>@item.InChargeDepartmentName @item.InChargePerson</text:p>
+                        </table:table-cell>
+                        <table:table-cell table:style-name="ce5">
+                            <text:p>@(item.PlanFinishDate.HasValue ?  item.PlanFinishDate.Value.ToString("yyyy-MM-dd") : "") </text:p>
+                        </table:table-cell>
+                        <table:table-cell table:style-name="ce5">
+                            <text:p>@(item.FinishDate.HasValue? item.FinishDate.Value.ToString("yyyy-MM-dd") : "") </text:p>
+                        </table:table-cell>
+                        <table:table-cell table:style-name="ce5">
+                            @if (!String.IsNullOrEmpty(item.ReviewDateAndResult))
+                            {
+                                var paras = item.ReviewDateAndResult.Split('\n');
+                                foreach (var para in paras)
+                                {
+                                    <text:p>@para</text:p>
+                                }
+                            }
+                            else
+                            {
+                                <text:p></text:p>
+                            }
+                        </table:table-cell>
+                        <table:table-cell table:style-name="ce5" office:value-type="string" calcext:value-type="string">
+                            <text:p>@(item.Delisting ? "是":"否")</text:p>
+                        </table:table-cell>
+                        <table:table-cell table:style-name="ce5" >
+                            <text:p>@item.Notes</text:p>
+                        </table:table-cell>
+                    </table:table-row>
+                }
+                
+                <table:table-row table:style-name="ro3" table:number-rows-repeated="1015">
+                    <table:table-cell table:style-name="ce3" table:number-columns-repeated="2" />
+                    <table:table-cell table:style-name="ce5" table:number-columns-repeated="13" />
+                </table:table-row>
+                <table:table-row table:style-name="ro4" table:number-rows-repeated="1047557">
+                    <table:table-cell table:number-columns-repeated="15" />
+                </table:table-row>
+                <table:table-row table:style-name="ro4">
+                    <table:table-cell table:number-columns-repeated="15" />
+                </table:table-row>
+            </table:table>
+            <table:named-expressions />
+        </office:spreadsheet>
+    </office:body>
+</office:document>
