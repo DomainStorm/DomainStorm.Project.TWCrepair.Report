@@ -54,7 +54,7 @@ public class RA005Service : IGetService<RA005, string>
 
         if(fixForm.FixFormOutsourcingCost != null && fixForm.FixFormOutsourcingCost.Contractor != null)
         {
-            result.Contractor = fixForm.FixFormOutsourcingCost.Contractor.Name;
+            result.Contractor = fixForm.FixFormOutsourcingCost.ContractorName!;
         }
         if(fixForm.FixFormDispatch != null && fixForm.FixFormDispatch.StartTime.HasValue)
         {
