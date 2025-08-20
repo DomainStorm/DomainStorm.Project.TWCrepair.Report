@@ -132,6 +132,7 @@ try
         builder.Services.AddScoped<IGetService<RA032, string>, StagingServices.RA032Service>();
         builder.Services.AddScoped<IGetService<RA033, string>, StagingServices.RA033Service>();
         builder.Services.AddScoped<IGetService<RA036, string>, StagingServices.RA036Service>();
+        builder.Services.AddScoped<IGetService<RA039, string>, StagingServices.RA039Service>();
         builder.Services.AddScoped<IGetService<RA041, string>, StagingServices.RA041Service>();
         builder.Services.AddScoped<IGetService<RA041MeasureDate, Guid>, StagingServices.RA041Service>();
         builder.Services.AddScoped<IGetService<RA043, string>, StagingServices.RA043Service>();
@@ -198,6 +199,7 @@ try
         builder.Services.AddScoped<IGetService<RA032, string>, MockServices.RA032Service>();
         builder.Services.AddScoped<IGetService<RA033, string>, MockServices.RA033Service>();
         builder.Services.AddScoped<IGetService<RA036, string>, MockServices.RA036Service>();
+        builder.Services.AddScoped<IGetService<RA039, string>, MockServices.RA039Service>();
         builder.Services.AddScoped<IGetService<RA041, string>, MockServices.RA041Service>();
         builder.Services.AddScoped<IGetService<RA041MeasureDate, Guid>, MockServices.RA041Service>();
         builder.Services.AddScoped<IGetService<RA043, string>, MockServices.RA043Service>();
@@ -399,6 +401,12 @@ try
         builder.Services
             .AddScoped<GetRepository<IRepository<Models.Word>>>(
                 c => c.GetRequiredService<IRepository<Models.Word>>);
+
+        builder.Services
+         .AddTransient<IRepository<Models.Instrument>, SqlDbRepository<Models.Instrument>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.Instrument>>>(
+                c => c.GetRequiredService<IRepository<Models.Instrument>>);
 
         builder.Services
            .AddTransient<IRepository<Models.Budget.ResourceWorkMaterial>, SqlDbRepository<Models.Budget.ResourceWorkMaterial>>();
