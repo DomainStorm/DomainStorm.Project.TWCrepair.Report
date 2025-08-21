@@ -1,0 +1,148 @@
+﻿@using Microsoft.AspNetCore.Html
+@model DomainStorm.Project.TWCrepair.Report.Web.Views.RA039
+@{
+    Layout = null;
+    var stylesPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Views", "RA039.head.xml");
+    var head = await File.ReadAllTextAsync(stylesPath);
+}
+<?xml version="1.0" encoding="UTF-8"?>
+
+<office:document xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:ooo="http://openoffice.org/2004/office" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:config="urn:oasis:names:tc:opendocument:xmlns:config:1.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:rpt="http://openoffice.org/2005/report" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:ooow="http://openoffice.org/2004/writer" xmlns:oooc="http://openoffice.org/2004/calc" xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:tableooo="http://openoffice.org/2009/table" xmlns:calcext="urn:org:documentfoundation:names:experimental:calc:xmlns:calcext:1.0" xmlns:drawooo="http://openoffice.org/2010/draw" xmlns:loext="urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0" xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0" xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0" xmlns:formx="urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0" xmlns:dom="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:grddl="http://www.w3.org/2003/g/data-view#" xmlns:css3t="http://www.w3.org/TR/css3-text/" xmlns:presentation="urn:oasis:names:tc:opendocument:xmlns:presentation:1.0" office:version="1.4" office:mimetype="application/vnd.oasis.opendocument.spreadsheet">
+    @Html.Raw(head)
+ <office:body>
+  <office:spreadsheet>
+   <table:calculation-settings table:case-sensitive="false" table:automatic-find-labels="false" table:use-regular-expressions="false" table:use-wildcards="true"/>
+   <table:table table:name="附表十、儀器需求統計" table:style-name="ta1">
+    <office:forms form:automatic-focus="false" form:apply-design-mode="false"/>
+    <table:table-column table:style-name="co1" table:default-cell-style-name="Default"/>
+    <table:table-column table:style-name="co2" table:default-cell-style-name="ce22"/>
+    <table:table-column table:style-name="co3" table:default-cell-style-name="ce22"/>
+    <table:table-column table:style-name="co4" table:default-cell-style-name="Default"/>
+    <table:table-column table:style-name="co5" table:default-cell-style-name="Default"/>
+    <table:table-column table:style-name="co6" table:default-cell-style-name="Default"/>
+    <table:table-column table:style-name="co7" table:default-cell-style-name="Default"/>
+    <table:table-column table:style-name="co8" table:default-cell-style-name="Default"/>
+    <table:table-column table:style-name="co9" table:default-cell-style-name="Default"/>
+    <table:table-column table:style-name="co10" table:default-cell-style-name="Default"/>
+    <table:table-row table:style-name="ro1">
+     <table:table-cell table:style-name="ce14" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="9" table:number-rows-spanned="1">
+      <text:p>現有/需求儀器統計表(現場作業 @Model.OnSitePeople 人)</text:p>
+     </table:table-cell>
+     <table:covered-table-cell table:number-columns-repeated="2" table:style-name="ce19"/>
+     <table:covered-table-cell table:number-columns-repeated="6" table:style-name="ce14"/>
+     <table:table-cell table:style-name="ce25" office:value-type="string" calcext:value-type="string">
+      <text:p>附10</text:p>
+     </table:table-cell>
+    </table:table-row>
+    <table:table-row table:style-name="ro2">
+     <table:table-cell table:style-name="ce15" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
+      <text:p>分類</text:p>
+     </table:table-cell>
+     <table:table-cell table:style-name="ce17" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="2" table:number-rows-spanned="1">
+      <text:p>儀器</text:p>
+     </table:table-cell>
+     <table:covered-table-cell table:style-name="ce17"/>
+     <table:table-cell table:style-name="ce15" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="4" table:number-rows-spanned="1">
+      <text:p>現有數</text:p>
+     </table:table-cell>
+     <table:covered-table-cell table:number-columns-repeated="3" table:style-name="ce15"/>
+     <table:table-cell table:style-name="ce17" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
+      <text:p>計畫數</text:p>
+     </table:table-cell>
+     <table:table-cell table:style-name="ce17" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
+      <text:p>需補數</text:p>
+     </table:table-cell>
+     <table:table-cell table:style-name="ce15" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
+      <text:p>備註</text:p>
+     </table:table-cell>
+    </table:table-row>
+    <table:table-row table:style-name="ro3">
+     <table:covered-table-cell table:style-name="ce15"/>
+     <table:table-cell table:style-name="ce17" office:value-type="string" calcext:value-type="string">
+      <text:p>名稱</text:p>
+     </table:table-cell>
+     <table:table-cell table:style-name="ce17" office:value-type="string" calcext:value-type="string">
+      <text:p>規格(加註)</text:p>
+     </table:table-cell>
+     <table:table-cell table:style-name="ce17" office:value-type="string" calcext:value-type="string">
+      <text:p>堪用(含報廢)</text:p>
+     </table:table-cell>
+     <table:table-cell table:style-name="ce17" office:value-type="string" calcext:value-type="string">
+      <text:p>損壞待修</text:p>
+     </table:table-cell>
+     <table:table-cell table:style-name="ce17" office:value-type="string" calcext:value-type="string">
+      <text:p>無法修復</text:p>
+     </table:table-cell>
+     <table:table-cell table:style-name="ce24" office:value-type="string" calcext:value-type="string">
+      <text:p>小計</text:p>
+     </table:table-cell>
+     <table:covered-table-cell table:number-columns-repeated="3" table:style-name="ce17"/>
+    </table:table-row>
+    <table:table-row table:style-name="ro2">
+     <table:table-cell table:style-name="ce16"/>
+     <table:table-cell table:style-name="ce20" office:value-type="string" calcext:value-type="string">
+      <text:p>合計</text:p>
+     </table:table-cell>
+     <table:table-cell table:style-name="ce20"/>
+     <table:table-cell table:style-name="ce23" office:value-type="float" office:value="@Model.Items.Sum(x => x.CurrentAmountUsable)" calcext:value-type="float"/>
+     <table:table-cell table:style-name="ce23" office:value-type="float" office:value="@Model.Items.Sum(x => x.CurrentAmountRepair)" calcext:value-type="float" />
+     <table:table-cell table:style-name="ce23" office:value-type="float" office:value="@Model.Items.Sum(x => x.CurrentAmountBroken)" calcext:value-type="float" />
+     <table:table-cell table:style-name="ce23" office:value-type="float" office:value="@Model.Items.Sum(x => x.CurrentAmount)" calcext:value-type="float"/>
+     <table:table-cell table:style-name="ce23" office:value-type="float" office:value="@Model.Items.Sum(x => x.PlanAmount)" calcext:value-type="float"/>
+     <table:table-cell table:style-name="ce23" office:value-type="float" office:value="@Model.Items.Sum(x => x.NeedAmount)" calcext:value-type="float"/>
+     <table:table-cell table:style-name="ce23" />
+    </table:table-row>
+    @for(var c = 0 ; c < Model.Catagories.Count; c++)
+    {
+      var items = Model.CatagoryItems(c);
+      @for(var i = 0 ;i < items.Count + 3; i++) 
+      {
+          <table:table-row table:style-name="ro2">
+              @if(i == 0)
+              {
+                  <table:table-cell table:style-name="ce17" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="@(items.Count + 2)">
+                    <text:p>@Model.Catagories[i].Name</text:p>
+                 </table:table-cell>
+              }
+              else
+              {
+                  <table:covered-table-cell table:style-name="ce17"/>
+              }
+
+             
+             <table:table-cell table:style-name="ce20" office:value-type="string" calcext:value-type="string">
+              <text:p>@(i == items.Count + 2 ? "小計" : (i < items.Count ? $"{i + 1}.{items[i].Name}" :""))</text:p>
+             </table:table-cell>
+             <table:table-cell table:style-name="ce20">
+              <text:p>@(i == items.Count + 2 ? "" : (i < items.Count ? items[i].Specification :""))</text:p>
+             </table:table-cell>
+             <table:table-cell table:style-name="ce23" office:value-type="float" office:value="@(i == items.Count + 2 ? items.Sum(x => x.CurrentAmountUsable) : (i < items.Count ? items[i].CurrentAmountUsable :""))" calcext:value-type="float" />
+             <table:table-cell table:style-name="ce23" office:value-type="float" office:value="@(i == items.Count + 2 ? items.Sum(x => x.CurrentAmountRepair) : (i < items.Count ? items[i].CurrentAmountRepair :""))" calcext:value-type="float" />
+             <table:table-cell table:style-name="ce23" office:value-type="float" office:value="@(i == items.Count + 2 ? items.Sum(x => x.CurrentAmountBroken) : (i < items.Count ? items[i].CurrentAmountBroken :""))" calcext:value-type="float" />
+             <table:table-cell table:style-name="ce23" office:value-type="float" office:value="@(i == items.Count + 2 ? items.Sum(x => x.CurrentAmount)  : (i < items.Count ? items[i].CurrentAmount :""))" calcext:value-type="float" />
+             <table:table-cell table:style-name="ce23" office:value-type="float" office:value="@(i == items.Count + 2 ? items.Sum(x => x.PlanAmount)  : (i < items.Count ? items[i].PlanAmount :""))" calcext:value-type="float" />
+             <table:table-cell table:style-name="ce23" office:value-type="float" office:value="@(i == items.Count + 2 ? items.Sum(x => x.NeedAmount)  : (i < items.Count ? items[i].NeedAmount :""))" calcext:value-type="float" />
+             <table:table-cell table:style-name="ce23" />
+        </table:table-row>
+      }
+    }
+    
+    <table:table-row table:style-name="ro4">
+     <table:table-cell table:style-name="ce15" office:value-type="string" calcext:value-type="string">
+      <text:p>說明</text:p>
+     </table:table-cell>
+     <table:table-cell table:style-name="ce21" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="9" table:number-rows-spanned="1"><text:p>1.各項儀器不分廠牌以總數量填列。</text:p><text:p>2.因達耐用年限並已核准報廢者，如尚可使用，請歸入堪用項，</text:p>
+     </table:table-cell>
+     <table:covered-table-cell table:number-columns-repeated="8" table:style-name="ce21"/>
+    </table:table-row>
+    <table:table-row table:style-name="ro2" table:number-rows-repeated="1048519">
+     <table:table-cell table:number-columns-repeated="10"/>
+    </table:table-row>
+    <table:table-row table:style-name="ro2">
+     <table:table-cell table:number-columns-repeated="10"/>
+    </table:table-row>
+   </table:table>
+   <table:named-expressions/>
+  </office:spreadsheet>
+ </office:body>
+</office:document>
