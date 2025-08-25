@@ -2,4 +2,194 @@
 @model DomainStorm.Project.TWCrepair.Report.Web.Views.RA034
 @{
     Layout = null;
+    var stylesPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Views", "RA034.head.xml");
+    var head = await File.ReadAllTextAsync(stylesPath);
 }
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<office:document xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:ooo="http://openoffice.org/2004/office" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:config="urn:oasis:names:tc:opendocument:xmlns:config:1.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:rpt="http://openoffice.org/2005/report" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:ooow="http://openoffice.org/2004/writer" xmlns:oooc="http://openoffice.org/2004/calc" xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:tableooo="http://openoffice.org/2009/table" xmlns:calcext="urn:org:documentfoundation:names:experimental:calc:xmlns:calcext:1.0" xmlns:drawooo="http://openoffice.org/2010/draw" xmlns:loext="urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0" xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0" xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0" xmlns:formx="urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0" xmlns:dom="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:grddl="http://www.w3.org/2003/g/data-view#" xmlns:css3t="http://www.w3.org/TR/css3-text/" xmlns:presentation="urn:oasis:names:tc:opendocument:xmlns:presentation:1.0" office:version="1.4" office:mimetype="application/vnd.oasis.opendocument.spreadsheet">
+    @Html.Raw(head)
+    <office:body>
+        <office:spreadsheet>
+            <table:calculation-settings table:case-sensitive="false" table:automatic-find-labels="false" table:use-regular-expressions="false" table:use-wildcards="true" />
+            <table:table table:name="附表四、檢漏作業計劃差旅費分析表" table:style-name="ta1">
+                <office:forms form:automatic-focus="false" form:apply-design-mode="false" />
+                <table:table-column table:style-name="co1" table:default-cell-style-name="ce257" />
+                <table:table-column table:style-name="co2" table:default-cell-style-name="ce257" />
+                <table:table-column table:style-name="co3" table:default-cell-style-name="ce257" />
+                <table:table-column table:style-name="co4" table:default-cell-style-name="ce257" />
+                <table:table-column table:style-name="co5" table:default-cell-style-name="ce257" />
+                <table:table-column table:style-name="co6" table:default-cell-style-name="ce257" />
+                <table:table-column table:style-name="co7" table:default-cell-style-name="ce257" />
+                <table:table-column table:style-name="co8" table:default-cell-style-name="ce257" />
+                <table:table-column table:style-name="co9" table:default-cell-style-name="ce257" />
+                <table:table-column table:style-name="co8" table:default-cell-style-name="ce257" />
+                <table:table-column table:style-name="co7" table:default-cell-style-name="ce257" />
+                <table:table-column table:style-name="co10" table:number-columns-repeated="242" table:default-cell-style-name="ce257" />
+                <table:table-column table:style-name="co10" table:number-columns-repeated="16127" table:default-cell-style-name="Default" />
+                <table:table-row table:style-name="ro1">
+                    <table:table-cell table:style-name="ce476" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="11" table:number-rows-spanned="1">
+                        <text:p>附表四</text:p>
+                    </table:table-cell>
+                    <table:covered-table-cell table:number-columns-repeated="10" table:style-name="ce424" />
+                    <table:table-cell table:number-columns-repeated="16369" />
+                </table:table-row>
+                <table:table-row table:style-name="ro1">
+                    <table:table-cell table:style-name="ce2" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="11" table:number-rows-spanned="1">
+                        <text:p>台水 @Model.DepartmentName @Model.Year 檢漏作業計劃差旅費分析表</text:p>
+                    </table:table-cell>
+                    <table:covered-table-cell table:number-columns-repeated="10" table:style-name="ce425" />
+                    <table:table-cell table:number-columns-repeated="16369" />
+                </table:table-row>
+                <table:table-row table:style-name="ro1">
+                    <table:table-cell table:style-name="ce608" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="2" table:number-rows-spanned="2">
+                        <text:p>作業人員數</text:p>
+                    </table:table-cell>
+                    <table:covered-table-cell table:style-name="ce502" />
+                    <table:table-cell table:style-name="ce608" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="6">
+                        <text:p>距辦公廳(KM)</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce14" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="6">
+                        <text:p>作業區管</text:p><text:p>長佔作業</text:p><text:p>總管長(%)</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce608" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="6">
+                        <text:p>差旅費總計</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce608" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="2" table:number-rows-spanned="2">
+                        <text:p>差旅費小計</text:p>
+                    </table:table-cell>
+                    <table:covered-table-cell table:style-name="ce502" />
+                    <table:table-cell table:style-name="ce608" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="2" table:number-rows-spanned="2">
+                        <text:p>距辦公廳30KM以下</text:p>
+                    </table:table-cell>
+                    <table:covered-table-cell table:style-name="ce643" />
+                    <table:table-cell table:style-name="ce608" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="2" table:number-rows-spanned="2">
+                        <text:p>距辦公廳30KM以上</text:p>
+                    </table:table-cell>
+                    <table:covered-table-cell table:style-name="ce643" />
+                    <table:table-cell table:number-columns-repeated="16369" />
+                </table:table-row>
+                <table:table-row table:style-name="ro1">
+                    <table:covered-table-cell table:style-name="ce500" />
+                    <table:covered-table-cell table:style-name="ce503" />
+                    <table:covered-table-cell table:style-name="ce478" />
+                    <table:covered-table-cell table:style-name="ce478" office:value-type="string" calcext:value-type="string">
+                        <text:p>長佔作業</text:p>
+                    </table:covered-table-cell>
+                    <table:covered-table-cell table:style-name="ce478" />
+                    <table:covered-table-cell table:style-name="ce500" />
+                    <table:covered-table-cell table:style-name="ce503" />
+                    <table:covered-table-cell table:style-name="ce500" />
+                    <table:covered-table-cell table:style-name="ce644" />
+                    <table:covered-table-cell table:style-name="ce500" />
+                    <table:covered-table-cell table:style-name="ce644" />
+                    <table:table-cell table:number-columns-repeated="16369" />
+                </table:table-row>
+                <table:table-row table:style-name="ro1">
+                    <table:table-cell table:style-name="ce608" office:value-type="float" office:value="9" calcext:value-type="float" table:number-columns-spanned="2" table:number-rows-spanned="2">
+                        <text:p>@Model.CurrentPeople</text:p>
+                    </table:table-cell>
+                    <table:covered-table-cell table:style-name="ce502" />
+                    <table:covered-table-cell table:style-name="ce478" />
+                    <table:covered-table-cell table:style-name="ce478" office:value-type="string" calcext:value-type="string">
+                        <text:p>總管長(%)</text:p>
+                    </table:covered-table-cell>
+                    <table:covered-table-cell table:style-name="ce478" />
+                    <table:table-cell table:style-name="ce608" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="4">
+                        <text:p>工作日</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce608" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="4">
+                        <text:p>金額</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce608" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="4">
+                        <text:p>工作日</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce14" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="4">
+                        <text:p /><text:p>200</text:p><text:p>元/日/人</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce608" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="4">
+                        <text:p>工作日</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce14" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="4">
+                        <text:p /><text:p>400</text:p><text:p>元/日/人</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:number-columns-repeated="16369" />
+                </table:table-row>
+                <table:table-row table:style-name="ro1">
+                    <table:covered-table-cell table:style-name="ce500" />
+                    <table:covered-table-cell table:style-name="ce503" />
+                    <table:covered-table-cell table:number-columns-repeated="6" table:style-name="ce478" />
+                    <table:covered-table-cell table:style-name="ce478" office:value-type="string" calcext:value-type="string">
+                        <text:p>200</text:p>
+                    </table:covered-table-cell>
+                    <table:covered-table-cell table:number-columns-repeated="2" table:style-name="ce478" />
+                    <table:table-cell table:number-columns-repeated="16369" />
+                </table:table-row>
+                <table:table-row table:style-name="ro1">
+                    <table:table-cell table:style-name="ce608" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
+                        <text:p>作業區</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce14" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
+                        <text:p>計劃作</text:p><text:p>業管長(KM)</text:p>
+                    </table:table-cell>
+                    <table:covered-table-cell table:number-columns-repeated="6" table:style-name="ce478" />
+                    <table:covered-table-cell table:style-name="ce478" office:value-type="string" calcext:value-type="string">
+                        <text:p>元/日/人</text:p>
+                    </table:covered-table-cell>
+                    <table:covered-table-cell table:style-name="ce478" />
+                    <table:covered-table-cell table:style-name="ce478" office:value-type="string" calcext:value-type="string">
+                        <text:p>元/日/人</text:p>
+                    </table:covered-table-cell>
+                    <table:table-cell table:number-columns-repeated="16369" />
+                </table:table-row>
+                <table:table-row table:style-name="ro2">
+                    <table:covered-table-cell table:style-name="ce481" />
+                    <table:covered-table-cell table:style-name="ce481" office:value-type="string" calcext:value-type="string">
+                        <text:p>業管長(KM)</text:p>
+                    </table:covered-table-cell>
+                    <table:covered-table-cell table:number-columns-repeated="9" table:style-name="ce481" />
+                    <table:table-cell table:number-columns-repeated="16369" />
+                </table:table-row>
+                @for(var i =0; i< Model.Items.Count; i++)
+                {
+                    var item = Model.Items[i];
+                    <table:table-row table:style-name="ro1">
+                        <table:table-cell table:style-name="ce165" office:value-type="string" calcext:value-type="string">
+                            <text:p>@item.OperationAreaName</text:p>
+                        </table:table-cell>
+                        <table:table-cell table:style-name="ce170"  office:value-type="float" office:value="@item.PlanPipeLength" calcext:value-type="float"/>
+                        <table:table-cell table:style-name="ce173" office:value-type="string" calcext:value-type="string">
+                            <text:p>@(i == 0 ? "" : item.Distance)</text:p>
+                        </table:table-cell>
+                        <table:table-cell table:style-name="ce175" office:value-type="float" office:value="@(item.PipeLengthPercentage/ 100.0)" calcext:value-type="float" />
+                        <table:table-cell table:style-name="ce170" office:value-type="float" office:value="@item.SubTotalTraveExpense" calcext:value-type="float" />
+                        <table:table-cell table:style-name="ce170" office:value-type="float" office:value="@item.SubTotalTraveDays" calcext:value-type="float" />
+                        <table:table-cell table:style-name="ce170" office:value-type="float" office:value="@item.SubTotalTraveExpense" calcext:value-type="float" />
+                        <table:table-cell table:style-name="ce170" office:value-type="float" office:value="@item.ShortDistanceDays" calcext:value-type="float" />
+                        <table:table-cell table:style-name="ce170" office:value-type="float" office:value="@item.ShortDistanceExpense" calcext:value-type="float" />
+                        <table:table-cell table:style-name="ce170" office:value-type="float" office:value="@item.LongDistanceDays" calcext:value-type="float" />
+                        <table:table-cell table:style-name="ce170" office:value-type="float" office:value="@item.LongDistanceExpense" calcext:value-type="float" />
+                        <table:table-cell table:number-columns-repeated="16369" />
+                    </table:table-row>
+                }
+                
+                
+                <table:table-row table:style-name="ro3">
+                    <table:table-cell table:style-name="ce166" />
+                    <table:table-cell table:style-name="ce171" />
+                    <table:table-cell table:style-name="ce173" />
+                    <table:table-cell table:style-name="ce175" />
+                    <table:table-cell table:style-name="ce171" table:number-columns-repeated="7" />
+                    <table:table-cell table:number-columns-repeated="16369" />
+                </table:table-row>
+                <table:table-row table:style-name="ro4" table:number-rows-repeated="1048559">
+                    <table:table-cell table:number-columns-repeated="16380" />
+                </table:table-row>
+                <table:table-row table:style-name="ro4">
+                    <table:table-cell table:number-columns-repeated="16380" />
+                </table:table-row>
+            </table:table>
+            <table:named-expressions />
+        </office:spreadsheet>
+    </office:body>
+</office:document>

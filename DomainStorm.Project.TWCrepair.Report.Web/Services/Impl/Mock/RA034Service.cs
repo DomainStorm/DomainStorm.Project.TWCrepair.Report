@@ -7,7 +7,7 @@ using DomainStorm.Project.TWCrepair.Repository.Models.YearPlan;
 using DomainStorm.Project.TWCrepair.Shared.ViewModel;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA034.V1;
 
-namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging;
+namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Mock;
 
 /// <summary>
 /// 年度計畫報告-附表四、檢漏作業計劃差旅費分析表
@@ -45,31 +45,12 @@ public class RA034Service : IGetService<RA034, string>
 
     private async Task<RA034> QueryRA034(QueryRA034 condition)
     {
-        var planReport = await _getRepository().GetAsync(condition.Id);
-
         var result = new RA034
         {
-            DepartmentName = planReport.DepartmentName,
-            Year = planReport.Year - 1911,
+            DepartmentName = "四區處",
+            Year = 114
         };
 
-        if (planReport.YearPlanBase != null)
-        {
-            result.CurrentPeople1 = planReport.YearPlanBase.CurrentPeople1;
-            result.CurrentPeople2 = planReport.YearPlanBase.CurrentPeople2;
-            result.CurrentPeople3 = planReport.YearPlanBase.CurrentPeople3;
-
-            
-            planReport.YearPlanBase.AppendSumItem();
-            result.Items = _mapper.Map<List<RA034Item>>(planReport.YearPlanBase.YearPlanWorkSpaces);
-            //合計列要置頂, 和CheckWeb 不一樣
-            if (result.Items.Any())
-            {
-                result.SumItem = result.Items.Last();
-                result.Items.Remove(result.SumItem);
-                result.Items.Insert(0, result.SumItem);   //合計列的 style 一樣, 塞回第一列
-            }
-        }
         return result;
     }
 

@@ -31,6 +31,9 @@
     <Content Include="Views\RA033.head.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+	<Content Include="Views\RA034.head.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Views\RA003.head.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -103,6 +106,9 @@
       <DependentUpon>%(Filename).cshtml</DependentUpon>
     </Compile>
     <Compile Update="Views\RA035.cs">
+      <DependentUpon>%(Filename).cshtml</DependentUpon>
+    </Compile>
+	<Compile Update="Views\RA034.cs">
       <DependentUpon>%(Filename).cshtml</DependentUpon>
     </Compile>
     <Compile Update="Views\RA033.cs">
