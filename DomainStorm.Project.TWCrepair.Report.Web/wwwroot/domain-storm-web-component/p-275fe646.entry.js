@@ -1,2 +1,0 @@
-import{r as s,a,h as d,H as e}from"./p-CSg1USUf.js";const c="";const t=class{constructor(a){s(this,a)}get host(){return a(this)}id="collapseExample";content="AAA";render(){return d(e,{key:"8f900f4084f5a22cddb40a1cd20298f382dcf58f"},d("div",{key:"01ea871104d91af8d1fddeddb3b26f8b04891bbf",class:"collapse",id:this.id},d("div",{key:"54427cde2bae8a587f1e13f11d5901bf950b1cb1",class:"card card-body bg-gray-200"},this.content)))}};t.style=c;export{t as storm_collapse_content};
-//# sourceMappingURL=p-275fe646.entry.js.map
