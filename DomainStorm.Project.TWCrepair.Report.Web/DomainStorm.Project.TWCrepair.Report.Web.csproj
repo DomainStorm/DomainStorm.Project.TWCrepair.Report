@@ -19,6 +19,9 @@
     <Content Remove="Views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\RA040.head.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Views\RA039.head.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -29,6 +32,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\RA033.head.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+	<Content Include="Views\RA034.head.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\RA003.head.xml">
@@ -84,6 +90,9 @@
   </ItemGroup>
   
   <ItemGroup>
+    <Compile Update="Views\RA040.cs">
+      <DependentUpon>%(Filename).cshtml</DependentUpon>
+    </Compile>
     <Compile Update="Views\RA039.cs">
       <DependentUpon>%(Filename).cshtml</DependentUpon>
     </Compile>
@@ -103,6 +112,9 @@
       <DependentUpon>%(Filename).cshtml</DependentUpon>
     </Compile>
     <Compile Update="Views\RA035.cs">
+      <DependentUpon>%(Filename).cshtml</DependentUpon>
+    </Compile>
+	<Compile Update="Views\RA034.cs">
       <DependentUpon>%(Filename).cshtml</DependentUpon>
     </Compile>
     <Compile Update="Views\RA033.cs">
