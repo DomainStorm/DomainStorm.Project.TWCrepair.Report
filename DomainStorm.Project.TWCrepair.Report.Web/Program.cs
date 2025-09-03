@@ -134,6 +134,7 @@ try
         builder.Services.AddScoped<IGetService<RA034, string>, StagingServices.RA034Service>();
         builder.Services.AddScoped<IGetService<RA036, string>, StagingServices.RA036Service>();
         builder.Services.AddScoped<IGetService<RA039, string>, StagingServices.RA039Service>();
+        builder.Services.AddScoped<IGetService<RA040, string>, StagingServices.RA040Service>();
         builder.Services.AddScoped<IGetService<RA041, string>, StagingServices.RA041Service>();
         builder.Services.AddScoped<IGetService<RA041MeasureDate, Guid>, StagingServices.RA041Service>();
         builder.Services.AddScoped<IGetService<RA043, string>, StagingServices.RA043Service>();
@@ -202,6 +203,7 @@ try
         builder.Services.AddScoped<IGetService<RA034, string>, MockServices.RA034Service>();
         builder.Services.AddScoped<IGetService<RA036, string>, MockServices.RA036Service>();
         builder.Services.AddScoped<IGetService<RA039, string>, MockServices.RA039Service>();
+        builder.Services.AddScoped<IGetService<RA040, string>, MockServices.RA040Service>();
         builder.Services.AddScoped<IGetService<RA041, string>, MockServices.RA041Service>();
         builder.Services.AddScoped<IGetService<RA041MeasureDate, Guid>, MockServices.RA041Service>();
         builder.Services.AddScoped<IGetService<RA043, string>, MockServices.RA043Service>();
@@ -465,6 +467,13 @@ try
         builder.Services
             .AddScoped<GetRepository<IRepository<Models.ExecuteControl>>>(
                 c => c.GetRequiredService<IRepository<Models.ExecuteControl>>);
+
+        builder.Services
+          .AddTransient<IRepository<Models.CheckerTarget>, SqlDbRepository<Models.CheckerTarget>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.CheckerTarget>>>(
+                c => c.GetRequiredService<IRepository<Models.CheckerTarget>>);
+
 
         builder.Services.AddTransient<IUnitOfWork, SqlDbUnitOfWork>();
         builder.Services.AddScoped<GetRepository<IUnitOfWork>>(
