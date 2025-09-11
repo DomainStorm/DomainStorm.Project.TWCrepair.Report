@@ -27,7 +27,7 @@
     <table:table-column table:style-name="co1" table:number-columns-repeated="9" table:default-cell-style-name="Default"/>
     <table:table-row table:style-name="ro1">
      <table:table-cell table:style-name="ce1" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="19" table:number-rows-spanned="1">
-         <text:p>@Model.DepartmentName @Model.Year 年檢漏計畫各系統或大區NRW明細表<text:span text:style-name="T1">(未納入之作業區均須登錄)</text:span></text:p>
+        <text:p>@Model.DepartmentName @Model.Year 年檢漏計畫各系統或大區NRW明細表<text:span text:style-name="T1">(未納入之工作區均須登錄)</text:span></text:p>
      </table:table-cell>
      <table:covered-table-cell table:number-columns-repeated="18" table:style-name="ce1"/>
      <table:table-cell table:style-name="ce1"/>
@@ -161,7 +161,7 @@
          @for(int j = 0; j < item.LastYearsHasData.Length  ; j++)
          {
              <table:table-cell table:style-name="ce7" office:value-type="string" calcext:value-type="string">
-              <text:p>@( i < Model.WorkSapces.Count - 1 && item.LastYearsHasData[j] ? "○" : "" )  </text:p>
+              <text:p>@item.LastYearsHasData[j] </text:p>
              </table:table-cell>
          }
          
