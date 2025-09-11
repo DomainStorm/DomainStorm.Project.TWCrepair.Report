@@ -17,13 +17,15 @@ public class RA037Service : IGetService<RA037, string>
     private readonly GetRepository<IRepository<Repository.Models.Import.ImportPipe>> _getImportPipeRepository;
     private readonly GetRepository<IRepository<Repository.Models.YearPlan.YearPlanSetAllZone>> _getZoneRepository;
     private readonly GetRepository<IRepository<Repository.Models.DepartmentWorkSpace>> _getWorkSpaceRepository;
-   
+    private readonly GetRepository<IRepository<Repository.Models.DepartmentWorkSpaceItem>> _getWorkSpaceItemRepository;
+
     public RA037Service(
         GetRepository<IRepository<YearPlanReport>> getRepository,
         GetRepository<IRepository<Repository.Models.Word>> getWordRepository,
         GetRepository<IRepository<Repository.Models.Import.ImportPipe>> getImportPipeRepository,
         GetRepository<IRepository<Repository.Models.YearPlan.YearPlanSetAllZone>> getZoneRepository,
-        GetRepository<IRepository<Repository.Models.DepartmentWorkSpace>> getWorkSpaceRepository
+        GetRepository<IRepository<Repository.Models.DepartmentWorkSpace>> getWorkSpaceRepository,
+        GetRepository<IRepository<Repository.Models.DepartmentWorkSpaceItem>> getWorkSpaceItemRepository
         )
     {
         _getRepository = getRepository;
@@ -31,7 +33,9 @@ public class RA037Service : IGetService<RA037, string>
         _getImportPipeRepository = getImportPipeRepository;
         _getZoneRepository = getZoneRepository;
         _getWorkSpaceRepository = getWorkSpaceRepository;
-        
+        _getWorkSpaceItemRepository = getWorkSpaceItemRepository;
+
+
     }
 
     public Task<RA037> GetAsync(string id)
@@ -53,6 +57,7 @@ public class RA037Service : IGetService<RA037, string>
         var planReport = await _getRepository().GetAsync(condition.Id);
         var zoneRepository = _getZoneRepository();
         var workSpaceRepository = _getWorkSpaceRepository();
+        var workSpaceItemRepository = _getWorkSpaceItemRepository();
         var result = new RA037
         {
             DepartmentName = planReport.DepartmentName,
@@ -98,11 +103,29 @@ public class RA037Service : IGetService<RA037, string>
                 //檢查該工作區是否有設定
                 for(var i = 0; i < result.LastYears.Length; i++)
                 {
-                    ra037ws.LastYearsHasData[i] = (await workSpaceRepository.GetListAsync(x =>
-                    x.Year == result.LastYears[i] + 1911
-                    && x.DepartmentId == planReport.YearPlanBase.DepartmentId
-                    && x.DepartmentWorkSpaceItems.Any(item => item.SiteId == ra037ws.SiteId && item.WaterSupplySystemId == ra037ws.WaterSupplySystemId)
-                      )).Any();
+                    var year = result.LastYears[i] + 1911;
+                    var wsItems = await workSpaceItemRepository.GetListAsync(x =>
+                    x.DepartmentWorkSpace.Year == year
+                    && x.DepartmentWorkSpace.DepartmentId == planReport.YearPlanBase.DepartmentId
+                    && x.SiteId == ra037ws.SiteId
+                    && x.WaterSupplySystemId == ra037ws.WaterSupplySystemId);
+
+                    if(wsItems.Any())
+                    {
+                        if(wsItems.Any(x => (x.Disabled && x.DisableTime!.Value.Year == year)
+                            || (x.DepartmentWorkSpace.Disabled && x.DepartmentWorkSpace.DisableTime!.Value.Year == year)))
+                        {
+                            ra037ws.LastYearsHasData[i] = "◎";   //年度中間停用
+                        }
+                        else
+                        {
+                            ra037ws.LastYearsHasData[i] = "○";
+                        }
+                    }
+
+
+
+                    
                 }
             }
         }

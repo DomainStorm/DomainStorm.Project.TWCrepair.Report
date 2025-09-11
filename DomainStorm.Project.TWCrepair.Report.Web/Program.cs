@@ -482,6 +482,12 @@ try
             .AddScoped<GetRepository<IRepository<Models.DepartmentWorkSpace>>>(
                 c => c.GetRequiredService<IRepository<Models.DepartmentWorkSpace>>);
 
+        builder.Services
+         .AddTransient<IRepository<Models.DepartmentWorkSpaceItem>, SqlDbRepository<Models.DepartmentWorkSpaceItem>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.DepartmentWorkSpaceItem>>>(
+                c => c.GetRequiredService<IRepository<Models.DepartmentWorkSpaceItem>>);
+
         builder.Services.AddTransient<IUnitOfWork, SqlDbUnitOfWork>();
         builder.Services.AddScoped<GetRepository<IUnitOfWork>>(
             c => c.GetRequiredService<IUnitOfWork>);

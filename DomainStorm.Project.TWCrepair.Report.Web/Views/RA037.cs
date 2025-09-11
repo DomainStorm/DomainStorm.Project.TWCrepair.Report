@@ -46,9 +46,9 @@ public class RA037WorkSapce
 
 
     /// <summary>
-    /// 前5年度及今年是否有資料
+    /// 前5年度及今年是否有資料(有工作區且 active 為 ○ ; 有工作區但該年已停用為 ◎)
     /// </summary>
-    public bool[] LastYearsHasData { get; set; } = new bool[6];
+    public string[] LastYearsHasData { get; set; } = new string[6];
 
 
     /// <summary>
