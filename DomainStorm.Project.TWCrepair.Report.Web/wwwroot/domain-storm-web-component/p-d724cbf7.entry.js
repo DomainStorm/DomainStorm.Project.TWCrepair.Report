@@ -1,0 +1,2 @@
+import{r as e,a as c,h as a,H as s}from"./p-cQoYH5t_.js";const t="";const r=class{constructor(c){e(this,c)}get host(){return c(this)}content="AAA";render(){return a(s,{key:"f3350ba877e86c9bb1cfdef29ac5cdde9b7aace0"},a("div",{key:"e4876a240984ea81fa7c9f07e75ea9c5bee0d758",class:"collapse"},a("div",{key:"760b155578c24ec1a25caadd9471c75eb22e8616",class:"card card-body bg-gray-200"},this.content)))}};r.style=t;export{r as storm_collapse_content};
+//# sourceMappingURL=p-d724cbf7.entry.js.map
