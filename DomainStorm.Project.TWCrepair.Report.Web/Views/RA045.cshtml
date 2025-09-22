@@ -1,0 +1,7 @@
+﻿@using Microsoft.AspNetCore.Html
+@model DomainStorm.Project.TWCrepair.Report.Web.Views.RA045
+@{
+    Layout = null;
+    var stylesPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Views", "RA045.head.xml");
+    var head = await File.ReadAllTextAsync(stylesPath);
+}

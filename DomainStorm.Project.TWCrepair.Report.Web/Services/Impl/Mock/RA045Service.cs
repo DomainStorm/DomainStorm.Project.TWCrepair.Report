@@ -1,0 +1,106 @@
+﻿using DomainStorm.Framework.Services;
+using DomainStorm.Project.TWCrepair.Report.Web.Views;
+using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA045.V1;
+
+namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Mock;
+    
+
+/// <summary>
+/// 工作日報表-天數檢核
+/// </summary>
+public class RA045Service : IGetService<RA045, string>
+{
+    
+
+    public Task<RA045> GetAsync(string id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RA045> GetAsync<TQuery>(IQuery condition) where TQuery : IQuery
+    {
+        return condition switch
+        {
+            QueryRA045 e => QueryRA045(e),
+            _ => throw new ArgumentOutOfRangeException(nameof(condition), condition, null)
+        };
+    }
+
+    private async Task<RA045> QueryRA045(QueryRA045 condition)
+    {
+        var result = new RA045();
+        var startDate = new DateTime(condition.Year, condition.Month, 1);
+        var endDate = startDate.AddMonths(1);
+        var startDateStr = startDate.ToString("yyyy/MM/dd");
+        var endDateStr = endDate.ToString("yyyy/MM/dd");
+
+        result.TeamMemers = new List<RA045_TeamMemer>
+        {
+            new RA045_TeamMemer
+            {
+                Name ="張三"
+            },
+            new RA045_TeamMemer
+            {
+                Name ="李四1"
+            }
+        };
+
+
+        for(var tempDate = startDate; tempDate < endDate; tempDate = tempDate.AddDays(1))
+        {
+            var item = new RA045_Item
+            {
+                Date = tempDate,
+                isHoliday = tempDate.DayOfWeek == DayOfWeek.Saturday ||
+                            tempDate.DayOfWeek == DayOfWeek.Sunday 
+                            
+            };
+
+            foreach(var member in result.TeamMemers)
+            {
+                decimal days = 0M;
+                item.TotalDays.Add(days);
+            }
+        }
+
+        return result;
+    }
+
+    public class SimpleCheckDailyReport
+    {
+        public Guid PostId { get; set; }
+
+        public string UserName { get; set; }
+
+        public decimal? DayOfLeave { get; set; }
+        public decimal? DayOfWork { get; set;  }
+
+        public DateTime ReportDate { get; set; }
+    }
+
+    public Task<DateTime> GetAsync(Guid id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RA045[]> GetListAsync()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RA045[]> GetListAsync(string id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RA045[]> GetListAsync<TQuery>(IQuery condition) where TQuery : IQuery
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<DateTime[]> GetListAsync(Guid id)
+    {
+        throw new NotImplementedException();
+    }
+}
