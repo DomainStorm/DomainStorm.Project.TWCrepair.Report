@@ -5,3 +5,69 @@
     var stylesPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Views", "RA046.head.xml");
     var head = await File.ReadAllTextAsync(stylesPath);
 }
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<office:document xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:ooo="http://openoffice.org/2004/office" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:config="urn:oasis:names:tc:opendocument:xmlns:config:1.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:rpt="http://openoffice.org/2005/report" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:ooow="http://openoffice.org/2004/writer" xmlns:oooc="http://openoffice.org/2004/calc" xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:tableooo="http://openoffice.org/2009/table" xmlns:calcext="urn:org:documentfoundation:names:experimental:calc:xmlns:calcext:1.0" xmlns:drawooo="http://openoffice.org/2010/draw" xmlns:loext="urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0" xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0" xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0" xmlns:formx="urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0" xmlns:dom="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:grddl="http://www.w3.org/2003/g/data-view#" xmlns:css3t="http://www.w3.org/TR/css3-text/" xmlns:presentation="urn:oasis:names:tc:opendocument:xmlns:presentation:1.0" office:version="1.4" office:mimetype="application/vnd.oasis.opendocument.spreadsheet">
+    @Html.Raw(head)
+    <office:body>
+        <office:spreadsheet>
+            <table:calculation-settings table:case-sensitive="false" table:automatic-find-labels="false" table:use-regular-expressions="false" table:use-wildcards="true">
+                <table:iteration table:maximum-difference="0.0001" />
+            </table:calculation-settings>
+            <table:table table:name="工作表1" table:style-name="ta1">
+                <office:forms form:automatic-focus="false" form:apply-design-mode="false" />
+                <table:table-column table:style-name="co1" table:number-columns-repeated="11" table:default-cell-style-name="Default" />
+                <table:table-column table:style-name="co1" table:number-columns-repeated="16373" />
+                <table:table-row table:style-name="ro1">
+                    <table:table-cell table:style-name="ce10" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="@(Model.TeamMemers.Count + 1)" table:number-rows-spanned="1">
+                        <text:p>工作日報表-請假天數檢核</text:p>
+                    </table:table-cell>
+                    if(Model.TeamMemers.Count > 1)
+                    {
+                    <table:covered-table-cell table:number-columns-repeated="@(Model.TeamMemers.Count - 1)" table:style-name="ce14" />
+                    }
+
+                    <table:covered-table-cell table:style-name="ce18" />
+                    <table:table-cell table:style-name="Default" table:number-columns-repeated="16373" />
+                </table:table-row>
+                <table:table-row table:style-name="ro1">
+                    <table:table-cell table:style-name="ce11" office:value-type="string" calcext:value-type="string">
+                        <text:p>日期</text:p>
+                    </table:table-cell>
+                    @foreach (var member in Model.TeamMemers)
+                    {
+                        <table:table-cell table:style-name="ce11" office:value-type="string" calcext:value-type="string">
+                            <text:p>@member.Name</text:p>
+                        </table:table-cell>
+                    }
+                    <table:table-cell table:style-name="Default" table:number-columns-repeated="16373" />
+                </table:table-row>
+                @foreach (var item in Model.Items)
+                {
+                    <table:table-row table:style-name="ro1">
+                        <table:table-cell table:style-name="@(item.isHoliday ? "ce13" : "ce12")" office:value-type="string" calcext:value-type="string">
+                            <text:p>@($"{item.Date.Year - 1911}{item.Date.ToString("/MM/dd")}") </text:p>
+                        </table:table-cell>
+                        @foreach (var days in item.TotalDays)
+                        {
+                            var style = "ce15";
+                            
+                            <table:table-cell table:style-name="@style" office:value-type="float" office:value="@(days > 0 ? days : null)" calcext:value-type="float" />
+                        }
+                        <table:table-cell table:style-name="Default" table:number-columns-repeated="16373" />
+                    </table:table-row>
+
+                }
+                <table:table-row table:style-name="ro3" table:number-rows-repeated="1048541">
+                    <table:table-cell table:number-columns-repeated="11" />
+                    <table:table-cell table:style-name="Default" table:number-columns-repeated="16373" />
+                </table:table-row>
+                <table:table-row table:style-name="ro3">
+                    <table:table-cell table:number-columns-repeated="11" />
+                    <table:table-cell table:style-name="Default" table:number-columns-repeated="16373" />
+                </table:table-row>
+            </table:table>
+            <table:named-expressions />
+        </office:spreadsheet>
+    </office:body>
+</office:document>
