@@ -40,6 +40,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web
 
 
             CreateMap<Models.FixFormDispatch, TWCrepair.Shared.ViewModel.FixFormDispatch>();
+            CreateMap<Models.Budget.BudgetDocContract, TWCrepair.Shared.ViewModel.FixFormDispatchContract>();
             CreateMap<Models.FixFormProperty, TWCrepair.Shared.ViewModel.FixFormProperty>();
             CreateMap<Models.Word, TWCrepair.Shared.ViewModel.Word >();
             CreateMap<Models.FixFormDigFillItem, TWCrepair.Shared.ViewModel.FixFormDigFillItem>();
