@@ -52,7 +52,7 @@ public class RA005Service : IGetService<RA005, string>
         result.HolidayCase = fixForm.FixFormDispatch != null && fixForm.FixFormDispatch.HolidayCase;
 
 
-        if(fixForm.FixFormOutsourcingCost != null && fixForm.FixFormOutsourcingCost.Contractor != null)
+        if(fixForm.FixFormOutsourcingCost != null && fixForm.FixFormOutsourcingCost.Contract != null)
         {
             result.Contractor = fixForm.FixFormOutsourcingCost.ContractorName!;
         }
