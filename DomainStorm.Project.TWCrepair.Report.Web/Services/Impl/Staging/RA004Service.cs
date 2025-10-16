@@ -45,7 +45,7 @@ public class RA004Service : IGetService<RA004, string>
         var fixForm = await _getRepository().GetAsync(condition.Id);
         _mapper.Map(fixForm, result);
 
-        if(fixForm.FixFormOutsourcingCost != null && fixForm.FixFormOutsourcingCost.Contractor != null)
+        if(fixForm.FixFormOutsourcingCost != null && fixForm.FixFormOutsourcingCost.Contract != null)
         {
             result.Contractor = fixForm.FixFormOutsourcingCost.ContractorName!;
         }
