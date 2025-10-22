@@ -43,7 +43,9 @@ public class RA013Service : IGetService<RA013, string>
     {
         
         var budgetDoc = await _getRepository().GetAsync(condition.Id);
-        budgetDoc.BudgetDocUnitPrices = budgetDoc.BudgetDocUnitPrices.OrderBy(x => x.Code).ToList();
+        budgetDoc.BudgetDocUnitPrices = budgetDoc.BudgetDocUnitPrices
+            .Where(x => x.DayAmount > 0 || x.NightAmount > 0)
+            .OrderBy(x => x.Code).ToList();
         var result = new RA013
         {
             PrintDate = DateTime.Today,

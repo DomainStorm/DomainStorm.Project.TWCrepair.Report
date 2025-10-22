@@ -42,7 +42,9 @@ public class RA017Service : IGetService<RA017, string>
     {
         
         var budgetDocContract = await _getRepository().GetAsync(condition.Id);
-        budgetDocContract.BudgetDocContractUnitPrices = budgetDocContract.BudgetDocContractUnitPrices.OrderBy(x => x.Code).ToList();
+        budgetDocContract.BudgetDocContractUnitPrices = budgetDocContract.BudgetDocContractUnitPrices
+            .Where(x => x.DayAmount > 0 || x.NightAmount > 0)
+            .OrderBy(x => x.Code).ToList();
         foreach(var up in budgetDocContract.BudgetDocContractUnitPrices)
         {
             up.BudgetDocContractUnitPriceMembers = up.BudgetDocContractUnitPriceMembers.OrderBy(x => x.Sort).ToList();
