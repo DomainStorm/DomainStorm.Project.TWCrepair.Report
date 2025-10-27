@@ -111,7 +111,7 @@
                     <table:table-row table:style-name="ro2">
                         <table:covered-table-cell table:style-name="ce468" />
                         <table:table-cell table:style-name="@(i == 0 ? "ce433" : "ce478")" office:value-type="string" calcext:value-type="string">
-                          <text:p>@item.OperationAreaName</text:p>
+                            <text:p>@item.WorkSpace?.WorkSpaceName</text:p>
                         </table:table-cell>
                         <table:table-cell table:style-name="@(i == 0 ? "ce451" : "ce483")" office:value-type="float" office:value="@item.ExpenseAllocate_Total" calcext:value-type="float"/>
                         <table:table-cell table:style-name="@(i == 0 ? "ce451" : "ce483")" office:value-type="float" office:value="@item.PersonnelExpense" calcext:value-type="float" />

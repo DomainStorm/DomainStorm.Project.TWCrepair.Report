@@ -37,6 +37,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web
             CreateMap<Models.YearPlan.YearPlanWorkSpace, RA034Item>();
             CreateMap<Models.YearPlan.YearPlanBase, YearPlanExpenseAllocate>();
             CreateMap<Models.YearPlan.YearPlanWorkSpace, YearPlanExpenseAllocateWorkSpace>();
+            CreateMap<Models.DepartmentWorkSpace, DepartmentWorkSpaceSimple>();
 
 
             CreateMap<Models.FixFormDispatch, TWCrepair.Shared.ViewModel.FixFormDispatch>();
