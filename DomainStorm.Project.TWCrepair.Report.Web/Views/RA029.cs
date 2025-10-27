@@ -1,4 +1,5 @@
 ﻿
+using DomainStorm.Project.TWCrepair.Shared.ViewModel;
 using static DomainStorm.Project.TWCrepair.Repository.CommandModel.Report.V1;
 
 namespace DomainStorm.Project.TWCrepair.Report.Web.Views;
@@ -58,7 +59,14 @@ public class RA029WorkSpace
     /// <summary>
     /// 作業區名稱
     /// </summary>
-    public string OperationAreaName { get; set; }
+    //public string OperationAreaName { get; set; }
+
+    public string? WorkSpaceName
+    {
+        get => WorkSpace?.WorkSpaceName;
+    }
+
+    public DepartmentWorkSpaceSimple? WorkSpace { get; set; }
 
     /// <summary>
     /// 作業區管長佔作業總管長 %

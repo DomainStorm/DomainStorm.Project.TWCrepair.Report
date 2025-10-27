@@ -1,4 +1,5 @@
-﻿using static DomainStorm.Project.TWCrepair.Repository.CommandModel.Report.V1;
+﻿using DomainStorm.Project.TWCrepair.Shared.ViewModel;
+using static DomainStorm.Project.TWCrepair.Repository.CommandModel.Report.V1;
 
 namespace DomainStorm.Project.TWCrepair.Report.Web.Views;
 
@@ -44,7 +45,14 @@ public class RA032Item
     /// <summary>
     /// 作業區名稱
     /// </summary>
-    public string OperationAreaName { get; set; }
+    //public string OperationAreaName { get; set; }
+
+    public string? WorkSpaceName
+    {
+        get => WorkSpace?.WorkSpaceName;
+    }
+
+    public DepartmentWorkSpaceSimple? WorkSpace { get; set; }
 
     /// <summary>
     /// 漏水率降低目標數(%) (最小流量率降低數)
