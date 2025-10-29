@@ -76,8 +76,8 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         /// <summary>
         /// 逾期天數
         /// </summary>
-        public int OverDueDays 
-        { 
+        public int OverDueDays
+        {
             get
             {
                 if (FixDeadline.HasValue && FixTime.HasValue && FixTime.Value.Date > FixDeadline.Value.Date)
@@ -118,10 +118,21 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
 
 
         /// <summary>
-        /// 備忘
+        /// 派工的備忘
         /// </summary>
-        public string? Notes { get; set; }
+        public string DispatchNotes { get; set; }
 
+        /// <summary>
+        /// 移轉的備註
+        /// </summary>
+        public string TransferNotes { get; set; }
 
+        /// <summary>
+        /// (Final)備忘
+        /// </summary>
+        public string? Notes
+        {
+            get => $"{DispatchNotes} {TransferNotes}";
+        }
     }
 }
