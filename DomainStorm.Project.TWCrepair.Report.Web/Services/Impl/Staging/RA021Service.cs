@@ -60,7 +60,7 @@ public class RA021Service : IGetService<RA021, string>
        
 
         var pb = PredicateBuilder.New<FixForm>();
-        var exp = pb.Start(x => !x.IsRetrieved && !x.Deleted && x.ResponsibleReginId == condition.DepartmentId);   //排除移辦取回
+        var exp = pb.Start(x =>  !x.Deleted && x.ResponsibleReginId == condition.DepartmentId);  
         if (condition.SiteId.HasValue)
         {
             exp = pb.And(x => x.ResponsibleDepartmentId == condition.SiteId);

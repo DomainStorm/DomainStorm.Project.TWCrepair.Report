@@ -60,7 +60,7 @@ public class RA022Service : IGetService<RA022, string>
        
 
         var pb = PredicateBuilder.New<FixForm>();
-        var exp = pb.Start(x => !x.IsRetrieved && !x.Deleted && x.ResponsibleReginId == condition.DepartmentId && x.FixFormProperty != null);   //排除移辦取回
+        var exp = pb.Start(x =>  !x.Deleted && x.ResponsibleReginId == condition.DepartmentId );   
         if (condition.SiteId.HasValue)
         {
             exp = pb.And(x => x.ResponsibleDepartmentId == condition.SiteId);
@@ -76,12 +76,12 @@ public class RA022Service : IGetService<RA022, string>
         result.Items = await _getRepository().GetListAsync<RA022Item>(exp, x => new RA022Item
         {
             FixCaseNo = x.FixCaseNo,
-            CaseAttribute = x.FixFormDispatch.CaseAttribute != null ? x.FixFormDispatch.CaseAttribute.Name : "",
-            CaseAttributeNotLeackageOther = x.FixFormDispatch.CaseAttributeNotLeackageOther != null ? x.FixFormDispatch.CaseAttributeNotLeackageOther.Name : "",
-            EquipmentAttribute = x.FixFormDispatch.EquipmentAttribute != null ? x.FixFormDispatch.EquipmentAttribute.Name : "",
-            EquipmentAttributeOther = x.FixFormDispatch.EquipmentAttributeOther != null ? x.FixFormDispatch.EquipmentAttributeOther.Name : "",
-            PipeKind = x.FixFormDispatch.PipeKind != null ? x.FixFormDispatch.PipeKind.Name : "",
-            PipeDiameter = x.FixFormDispatch.PipeDiameter != null ? x.FixFormDispatch.PipeDiameter.Name : "",
+            CaseAttribute = x.FixFormDispatch != null && x.FixFormDispatch.CaseAttribute != null ? x.FixFormDispatch.CaseAttribute.Name : "",
+            CaseAttributeNotLeackageOther = x.FixFormDispatch != null && x.FixFormDispatch.CaseAttributeNotLeackageOther != null ? x.FixFormDispatch.CaseAttributeNotLeackageOther.Name : "",
+            EquipmentAttribute = x.FixFormDispatch != null && x.FixFormDispatch.EquipmentAttribute != null ? x.FixFormDispatch.EquipmentAttribute.Name : "",
+            EquipmentAttributeOther = x.FixFormDispatch != null && x.FixFormDispatch.EquipmentAttributeOther != null ? x.FixFormDispatch.EquipmentAttributeOther.Name : "",
+            PipeKind = x.FixFormDispatch != null && x.FixFormDispatch.PipeKind != null ? x.FixFormDispatch.PipeKind.Name : "",
+            PipeDiameter = x.FixFormDispatch != null && x.FixFormDispatch.PipeDiameter != null ? x.FixFormDispatch.PipeDiameter.Name : "",
             AccessoryEquipment = x.FixFormProperty.AccessoryEquipment != null ? x.FixFormProperty.AccessoryEquipment.Name : "",
             BoxAnnex = x.FixFormProperty.BoxAnnex != null ? x.FixFormProperty.BoxAnnex.Name : "",
             FinalCost_Outsourcing = x.FinalCost.FinalCost_Outsourcing,
