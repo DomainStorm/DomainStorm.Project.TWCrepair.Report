@@ -48,7 +48,7 @@ public class RA021Service : IGetService<RA021, string>
         
         var result = new RA021();
 
-
+       
         var department = await _departmentService.GetAsync(condition.DepartmentId.ToString());
         result.DepartmentName = department.Name;
 
@@ -88,7 +88,8 @@ public class RA021Service : IGetService<RA021, string>
             CaseEmergency = x.FixFormDispatch != null && x.FixFormDispatch.CaseEmergency != null ? x.FixFormDispatch.CaseEmergency.Name : "",
             WorkTime = x.FixFormDispatch != null && x.FixFormDispatch.WorkTime != null ? x.FixFormDispatch.WorkTime.Name : "",
             ChargeAmount= x.ChargeAmount,
-            Notes = x.FixFormDispatch != null ? x.FixFormDispatch.Notes : null,
+            DispatchNotes = x.FixFormDispatch != null ? x.FixFormDispatch.Notes : null,
+            TransferNotes = x.TransferTargetFixForm != null ?  $"移轉廠所: {x.TransferTargetFixForm.ResponsibleDepartmentName}" : null
         });
         return result;
     }

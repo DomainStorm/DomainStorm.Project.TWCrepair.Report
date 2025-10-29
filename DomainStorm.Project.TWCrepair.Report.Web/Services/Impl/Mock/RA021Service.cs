@@ -46,7 +46,7 @@ public class RA021Service : IGetService<RA021, string>
                 CaseEmergency = "緊急",
                 WorkTime = "日間",
                 ChargeAmount = 1000,
-                Notes = "無"
+                DispatchNotes = "無"
             }
         };
         return Task.FromResult(result);
