@@ -74,26 +74,28 @@ public class RA037Service : IGetService<RA037, string>
 
         if (planReport.YearPlanBase != null)
         {
-            foreach(var ws in planReport.YearPlanBase.YearPlanWorkSpaces)
+            //取得年度設定抄見率的所有廠所-系統
+            var zones = await zoneRepository.GetListAsync(x => x.Year == planReport.YearPlanBase.Year
+             && x.DepartmentId == planReport.YearPlanBase.DepartmentId);
+
+           
+
+
+            foreach (var zone in zones)
             {
-                var ra037ws = new RA037WorkSapce
+                var ra037ws = new RA037Item
                 {
                     DepartmentId = planReport.DepartmentId,
-                    SiteId = ws.SiteId,
-                    SiteName = ws.SiteName,
-                    WaterSupplySystemId = ws.WaterSupplySystemId,
-                    WaterSupplySystemName = ws.WaterSupplySystemName,
-                    PlanPipeLength = ws.PlanPipeLength
+                    SiteId = zone.SiteId,
+                    SiteName = zone.SiteName,
+                    WaterSupplySystemId = zone.WaterSupplySystemId,
+                    WaterSupplySystemName = zone.WaterSupplySystemName,
+                    PlanPipeLength = (int)(zone.DistributionPipe ?? 0)
                 };
-                result.WorkSapces.Add(ra037ws);
+                result.Items.Add(ra037ws);
 
-                //取得該系統的抄見率相關資料
-                var zones = await zoneRepository.GetListAsync(x => x.Year == planReport.YearPlanBase.Year
-                 && x.DepartmentId == planReport.YearPlanBase.DepartmentId
-                 && x.SiteId == ws.SiteId
-                 && x.WaterSupplySystemId == ws.WaterSupplySystemId);
-
-                var items = zones.SelectMany(x => x.YearPlanSetAllZoneItems).Where(x => x.Month >=7 && x.Month <= 10).ToList();
+                
+                var items = zone.YearPlanSetAllZoneItems.Where(x => x.Month >=7 && x.Month <= 10).ToList();
                 ra037ws.ReadAmount = (int)items.Where(x => x.DataType == YearPlanSetAllZoneDataType.Read).Sum(x => x.Amount);
                 ra037ws.DistributionAmount = (int)items.Where(x => x.DataType == YearPlanSetAllZoneDataType.Distribution).Sum(x => x.Amount);
 
@@ -122,25 +124,21 @@ public class RA037Service : IGetService<RA037, string>
                             ra037ws.LastYearsHasData[i] = "○";
                         }
                     }
-
-
-
-                    
                 }
             }
         }
         
-        var sumItem = new RA037WorkSapce
+        var sumItem = new RA037Item
         {
             WaterSupplySystemName = "合計",
-            PlanPipeLength = result.WorkSapces.Sum(x => x.PlanPipeLength),
-            ReadAmount = result.WorkSapces.Sum(x => x.ReadAmount),
-            DistributionAmount = result.WorkSapces.Sum(x => x.DistributionAmount),
-            Customer = result.WorkSapces.Sum(x => x.Customer),
-            CustomerFromSubSection = result.WorkSapces.Sum(x => x.CustomerFromSubSection),
+            PlanPipeLength = result.Items.Sum(x => x.PlanPipeLength),
+            ReadAmount = result.Items.Sum(x => x.ReadAmount),
+            DistributionAmount = result.Items.Sum(x => x.DistributionAmount),
+            Customer = result.Items.Sum(x => x.Customer),
+            CustomerFromSubSection = result.Items.Sum(x => x.CustomerFromSubSection),
         };
 
-        result.WorkSapces.Add(sumItem);
+        result.Items.Add(sumItem);
         
         return result;
     }

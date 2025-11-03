@@ -4,7 +4,6 @@ using DomainStorm.Framework.Services;
 using DomainStorm.Framework.SqlDb;
 using DomainStorm.Project.TWCrepair.Report.Web.Views;
 using DomainStorm.Project.TWCrepair.Repository.Models.YearPlan;
-using System.IO.Pipelines;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA036.V1;
 
 namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging;
@@ -58,37 +57,7 @@ public class RA036Service : IGetService<RA036, string>
             DepartmentName = planReport.DepartmentName,
             Year = planReport.Year - 1911,
         };
-
-       
-
-
-        if (planReport.YearPlanBase != null)
-        {
-            foreach(var ws in planReport.YearPlanBase.YearPlanWorkSpaces)
-            {
-                result.WorkSapces.Add(new RA036WorkSapce
-                {
-                    DepartmentId = planReport.DepartmentId,
-                    SiteId = ws.SiteId,
-                    SiteName = ws.SiteName,
-                    WaterSupplySystemId = ws.WaterSupplySystemId,
-                });
-            }
-        }
         
-        
-        //至少需要有2個工作區, 否則報表格式 columnSpan 會 < 0
-        for (var i =  result.WorkSapces.Count ; i <2; i++)
-        {
-            result.WorkSapces.Add(new RA036WorkSapce
-            {
-                SiteName = "",
-                WaterSupplySystemName = "",
-                SiteId = Guid.Empty,
-                WaterSupplySystemId = Guid.Empty
-            });
-        }
-
         //取得該區處(先不分廠所)的所有匯入的管徑資料
         var startMonthYear = $"{planReport.Year}01";
         var endMonthYear = $"{planReport.Year}10";
@@ -97,13 +66,45 @@ public class RA036Service : IGetService<RA036, string>
             x => new SimpleImportPipe
             {
                 WaterSupplySystemId = x.SystemId,
+                SystemName = x.SystemName,
                 SiteId = x.SiteId,
+                SiteName = x.SiteName,
                 Width = x.Width,
                 Length = x.Length
             }
             );
-        
-        
+
+
+        //取得廠所及系統
+        var systems = importPipes.Select(x => new
+        {
+            x.SiteId,
+            x.SiteName,
+            x.SystemName,
+            x.WaterSupplySystemId
+        }).Distinct();
+        foreach(var sys in systems)
+        {
+            result.Items.Add(new RA036Item
+            {
+                DepartmentId = planReport.DepartmentId,
+                SiteId = sys.SiteId ?? Guid.Empty,
+                SiteName = sys.SiteName,
+                WaterSupplySystemId = sys.WaterSupplySystemId ?? Guid.Empty,
+            });
+        }
+        //至少需要有2個工作區, 否則報表格式 columnSpan 會 < 0
+        for (var i = result.Items.Count; i < 2; i++)
+        {
+            result.Items.Add(new RA036Item
+            {
+                SiteName = "",
+                WaterSupplySystemName = "",
+                SiteId = Guid.Empty,
+                WaterSupplySystemId = Guid.Empty
+            });
+        }
+
 
         //取得詞庫所有管徑
         var pipes = await _getWordRepository().GetListAsync(x => x.Parent.Code == "F00");
@@ -115,7 +116,7 @@ public class RA036Service : IGetService<RA036, string>
                 Name = pipe.Name
             };
 
-            foreach(var ws in result.WorkSapces)
+            foreach(var ws in result.Items)
             {
                 //目前管徑的目前廠所的管長
                 var length = importPipes.Where(x => x.WaterSupplySystemId == ws.WaterSupplySystemId && x.SiteId == ws.SiteId && x.Width == int.Parse(pipe.Name))
@@ -132,7 +133,7 @@ public class RA036Service : IGetService<RA036, string>
         {
             Name = "合計"
         };
-        for (int i = 0; i < result.WorkSapces.Count; i++)
+        for (int i = 0; i < result.Items.Count; i++)
         {
             var length = result.PiepSiteDatas.Select(x => x.Lengthes[i]).Sum();
             totalData.Lengthes.Add(length);
@@ -151,13 +152,16 @@ public class RA036Service : IGetService<RA036, string>
         /// </summary>
         public Guid? SiteId { get; set; }
 
+        public string SiteName { get; set; }
+
         /// <summary>
         /// 供水系統代碼
         /// </summary>
         public Guid? WaterSupplySystemId { get; set; }
 
-       
+        public string SystemName { get; set; }
 
+       
         public int Width { get; set;  }
 
         public double Length { get; set; }

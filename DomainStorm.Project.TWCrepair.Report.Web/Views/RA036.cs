@@ -12,7 +12,7 @@ public class RA036 : ReportDataModel
     /// </summary>
     public int Year { get; set; }
 
-    public List<RA036WorkSapce> WorkSapces { get; set; } = new List<RA036WorkSapce>();
+    public List<RA036Item> Items { get; set; } = new List<RA036Item>();
 
     /// <summary>
     /// 各管徑的統計資料, 會有一筆合計列在First()
@@ -24,7 +24,7 @@ public class RA036 : ReportDataModel
 
 }
 
-public class RA036WorkSapce
+public class RA036Item
 {
     public Guid DepartmentId { get; set; }
     /// <summary>

@@ -17,10 +17,10 @@ public class RA037 : ReportDataModel
     /// </summary>
     public int[] LastYears { get; set; } = new int[6];
 
-    public List<RA037WorkSapce> WorkSapces { get; set; } = new List<RA037WorkSapce>();
+    public List<RA037Item> Items { get; set; } = new List<RA037Item>();
 }
 
-public class RA037WorkSapce
+public class RA037Item
 {
     public Guid DepartmentId { get; set; }
     /// <summary>

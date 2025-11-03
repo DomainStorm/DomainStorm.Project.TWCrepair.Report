@@ -135,13 +135,13 @@
      <table:covered-table-cell table:style-name="ce2"/>
     </table:table-row>
 
-    @for(int i = 0 ; i< Model.WorkSapces.Count; i++)
+    @for(int i = 0 ; i< Model.Items.Count; i++)
     {
-        var item = Model.WorkSapces[i];
+        var item = Model.Items[i];
        <table:table-row table:style-name="ro3">
            @if(i==0)
            {
-               <table:table-cell table:style-name="ce3" office:value-type="string"  calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="@Model.WorkSapces.Count">
+               <table:table-cell table:style-name="ce3" office:value-type="string"  calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="@Model.Items.Count">
                   <text:p>@Model.DepartmentName</text:p>
                </table:table-cell>
            }
