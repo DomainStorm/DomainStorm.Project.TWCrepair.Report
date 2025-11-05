@@ -42,7 +42,7 @@ public class RA028Service : IGetService<RA028, string>
 
     private async Task<RA028> QueryRA028(QueryRA028 condition)
     {
-        var planReport = await _getRepository().GetAsync(condition.Id);
+        var planReport = await condition.GetModel(_getRepository());
         planReport.YearPlanReportInstruments = planReport.YearPlanReportInstruments.OrderBy(x => x.Sort).ToList();
         var result = _mapper.Map<RA028>(planReport);
         if(planReport.YearPlanBase != null && planReport.YearPlanBase.YearPlanWorkSpaces != null)

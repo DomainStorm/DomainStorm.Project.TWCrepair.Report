@@ -37,7 +37,7 @@ public class RA027Service : IGetService<RA027, string>
 
     private async Task<RA027> QueryRA027(QueryRA027 condition)
     {
-        var plan = await _getRepository().GetAsync(condition.Id);
+        var plan = await condition.GetModel(_getRepository());
         var result = new RA027
         {
             Year = plan.Year,
