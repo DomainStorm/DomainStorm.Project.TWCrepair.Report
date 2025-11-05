@@ -45,7 +45,7 @@ public class RA034Service : IGetService<RA034, string>
 
     private async Task<RA034> QueryRA034(QueryRA034 condition)
     {
-        var planReport = await _getRepository().GetAsync(condition.Id);
+        var planReport = await condition.GetModel(_getRepository());
 
         var result = new RA034
         {

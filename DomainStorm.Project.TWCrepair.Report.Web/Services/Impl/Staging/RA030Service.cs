@@ -38,7 +38,7 @@ public class RA030Service : IGetService<RA030, string>
 
     private async Task<RA030> QueryRA030(QueryRA030 condition)
     {
-        var planReport = await _getRepository().GetAsync(condition.Id);
+        var planReport = await condition.GetModel(_getRepository());
         planReport.YearPlanReportInstruments = planReport.YearPlanReportInstruments.OrderBy(x => x.Sort).ToList();
         var result = new RA030
         {
