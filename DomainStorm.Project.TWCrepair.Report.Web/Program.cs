@@ -455,6 +455,11 @@ try
             .AddScoped<GetRepository<IRepository<Models.YearPlan.YearPlanReport>>>(
                 c => c.GetRequiredService<IRepository<Models.YearPlan.YearPlanReport>>);
 
+        builder.Services
+           .AddTransient<IRepository<Models.YearPlan.YearPlanBase>, SqlDbRepository<Models.YearPlan.YearPlanBase>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.YearPlan.YearPlanBase>>>(
+                c => c.GetRequiredService<IRepository<Models.YearPlan.YearPlanBase>>);
 
         builder.Services
            .AddTransient<IRepository<Models.Import.ImportPipe>, SqlDbRepository<Models.Import.ImportPipe>>();
