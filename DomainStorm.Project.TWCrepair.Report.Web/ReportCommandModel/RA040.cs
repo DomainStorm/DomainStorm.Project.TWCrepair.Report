@@ -11,10 +11,21 @@ public static class RA040
         /// <summary>
         /// 年度計畫報告-附表十一、隊員目標
         /// </summary>
-        public class QueryRA040 : QueryRA026
+        public class QueryRA040 :IQuery
         {
-           
-           
+
+            /// <summary>
+            /// 區處代碼
+            /// </summary>
+            public Guid DepartmentId { get; set; }
+
+            /// <summary>
+            /// 年度
+            /// </summary>
+            public int Year { get; set; }
+
+            public FileExtension Extension { get; set; }
+
         }
     }
 }

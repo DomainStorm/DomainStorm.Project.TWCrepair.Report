@@ -6,6 +6,7 @@ using DomainStorm.Project.TWCrepair.Report.Web.Views;
 using DomainStorm.Project.TWCrepair.Repository.Models.YearPlan;
 using DomainStorm.Project.TWCrepair.Repository.Models;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA040.V1;
+using DomainStorm.Framework.BlazorComponent.ViewModel;
 
 namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging;
 
@@ -16,17 +17,19 @@ public class RA040Service : IGetService<RA040, string>
 {
     private readonly GetRepository<IRepository<YearPlanReport>> _getRepository;
     private readonly GetRepository<IRepository<CheckerTarget>> _getTargetRepository;
-    
+    private readonly IGetService<Department, string> _departmentService;
     private IMapper _mapper;
 
     public RA040Service(
         GetRepository<IRepository<YearPlanReport>> getRepository,
         GetRepository<IRepository<CheckerTarget>> getTargetRepository,
+        IGetService<Department, string> departmentService,
         IMapper mapper
         )
     {
         _getRepository = getRepository;
         _getTargetRepository = getTargetRepository;
+        _departmentService = departmentService;
         _mapper = mapper;
     }
 
@@ -46,14 +49,14 @@ public class RA040Service : IGetService<RA040, string>
 
     private async Task<RA040> QueryRA040(QueryRA040 condition)
     {
-        var planReport = await condition.GetModel(_getRepository());
+        var department = await _departmentService.GetAsync(condition.DepartmentId.ToString());
         var result = new RA040
         {
-            DepartmentName = planReport.DepartmentName,
-            
+            DepartmentName = department.Name
+
         };
 
-         var targets = await _getTargetRepository().GetListAsync<RA040_Item>(x => x.Year == planReport.Year && x.DepartmentId == planReport.DepartmentId,
+         var targets = await _getTargetRepository().GetListAsync<RA040_Item>(x => x.Year == condition.Year && x.DepartmentId == condition.DepartmentId,
             x => new RA040_Item
             {
                 Name = x.Name,

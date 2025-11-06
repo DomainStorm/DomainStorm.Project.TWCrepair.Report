@@ -35,6 +35,11 @@ public static class RA026
                     throw new ValidationException("Id 和 YearPlanBaseId 至少需傳入一個值");
 
             }
+
+            public async Task<Repository.Models.YearPlan.YearPlanBase?> GetPlanBaseModel(IRepository<Repository.Models.YearPlan.YearPlanBase> repository)
+            {
+                return (await repository.GetListAsync(x => x.Id == YearPlanBaseId)).FirstOrDefault();
+            }
         }
     }
 }
