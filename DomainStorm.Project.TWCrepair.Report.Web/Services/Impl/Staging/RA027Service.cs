@@ -13,12 +13,15 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging;
 public class RA027Service : IGetService<RA027, string>
 {
     private readonly GetRepository<IRepository<YearPlanReport>> _getRepository;
-    
+    private readonly GetRepository<IRepository<YearPlanBase>> _getPlanBaseRepository;
+
     public RA027Service(
-        GetRepository<IRepository<YearPlanReport>> getRepository
+        GetRepository<IRepository<YearPlanReport>> getRepository,
+        GetRepository<IRepository<YearPlanBase>> getPlanBaseRepository
         )
     {
         _getRepository = getRepository;
+        _getPlanBaseRepository = getPlanBaseRepository;
     }
 
     public Task<RA027> GetAsync(string id)
@@ -37,11 +40,12 @@ public class RA027Service : IGetService<RA027, string>
 
     private async Task<RA027> QueryRA027(QueryRA027 condition)
     {
-        var plan = await condition.GetModel(_getRepository());
-        var result = new RA027
+        var result = new RA027();
+        var plan = await condition.GetModel(_getRepository(), _getPlanBaseRepository());
+        if(plan != null) 
         {
-            Year = plan.Year,
-            DepartmentName = plan.DepartmentName
+            result.Year = plan.Year;
+            result.DepartmentName = plan.DepartmentName;
         };
         return result;
     }

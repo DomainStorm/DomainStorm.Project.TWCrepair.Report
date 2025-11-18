@@ -14,10 +14,7 @@ public static class RA039
         public class QueryRA039 : QueryRA026
         {
            
-            /// <summary>
-            /// 是否載入初始資料(報表輸出時應為 false ; editor 時為 true , 若無已儲存資料時, 會自動載入初始資料)
-            /// </summary>
-            public bool Initialize { get; set; } = false;
+            
         }
     }
 }

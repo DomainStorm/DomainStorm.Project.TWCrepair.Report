@@ -16,16 +16,19 @@ public class RA033Service : IGetService<RA033, string>
 {
     private readonly GetRepository<IRepository<YearPlanReport>> _getRepository;
     private readonly GetRepository<IRepository<Repository.Models.YearPlan.YearPlanSetAllZone>> _getZoneRepository;
+    private readonly GetRepository<IRepository<Repository.Models.YearPlan.YearPlanBase>> _getPlanBaseRepository;
     private IMapper _mapper;
 
     public RA033Service(
         GetRepository<IRepository<YearPlanReport>> getRepository,
         GetRepository<IRepository<Repository.Models.YearPlan.YearPlanSetAllZone>> getZoneRepository,
+        GetRepository<IRepository<Repository.Models.YearPlan.YearPlanBase>> getPlanBaseRepository,
         IMapper mapper
         )
     {
         _getRepository = getRepository;
         _getZoneRepository = getZoneRepository;
+        _getPlanBaseRepository = getPlanBaseRepository;
         _mapper = mapper;
     }
 
@@ -45,32 +48,33 @@ public class RA033Service : IGetService<RA033, string>
 
     private async Task<RA033> QueryRA033(QueryRA033 condition)
     {
-        var planReport = await condition.GetModel(_getRepository());
+        var result = new RA033();
+        var planReport = await condition.GetModel(_getRepository(), _getPlanBaseRepository());
 
-        var result = new RA033
+        if (planReport != null)
         {
-            DepartmentName = planReport.DepartmentName,
-            Year = planReport.Year - 1911,
-        };
+            result.DepartmentName = planReport.DepartmentName;
+            result.Year = planReport.Year - 1911;
 
-        if(planReport.YearPlanBase != null)
-        {
-            planReport.YearPlanBase.CalculateTravelExpense();
-            
-            //多加一筆合計列
-            planReport.YearPlanBase.AppendSumItem();
-            result.YearPlanExpenseAllocate = _mapper.Map<YearPlanExpenseAllocate>(planReport.YearPlanBase);
-            result.YearPlanExpenseAllocate.AddPercentageRow();
+            if (planReport.YearPlanBase != null)
+            {
+                planReport.YearPlanBase.CalculateTravelExpense();
+
+                //多加一筆合計列
+                planReport.YearPlanBase.AppendSumItem();
+                result.YearPlanExpenseAllocate = _mapper.Map<YearPlanExpenseAllocate>(planReport.YearPlanBase);
+                result.YearPlanExpenseAllocate.AddPercentageRow();
 
 
-            //原本 vm 的清單裡, 配合 UI 的結構, 最後一列是 "合計的百分比" , 倒數第二列是合計
-            //抽出百分比那一列
-            result.SumPercentageItem = result.YearPlanExpenseAllocate.YearPlanWorkSpaces.Last();
-            result.YearPlanExpenseAllocate.YearPlanWorkSpaces.Remove(result.SumPercentageItem);
+                //原本 vm 的清單裡, 配合 UI 的結構, 最後一列是 "合計的百分比" , 倒數第二列是合計
+                //抽出百分比那一列
+                result.SumPercentageItem = result.YearPlanExpenseAllocate.YearPlanWorkSpaces.Last();
+                result.YearPlanExpenseAllocate.YearPlanWorkSpaces.Remove(result.SumPercentageItem);
 
-            //再抽出合計那一列
-            result.SumItem = result.YearPlanExpenseAllocate.YearPlanWorkSpaces.Last();
-            result.YearPlanExpenseAllocate.YearPlanWorkSpaces.Remove(result.SumItem);
+                //再抽出合計那一列
+                result.SumItem = result.YearPlanExpenseAllocate.YearPlanWorkSpaces.Last();
+                result.YearPlanExpenseAllocate.YearPlanWorkSpaces.Remove(result.SumItem);
+            }
         }
         return result;
     }

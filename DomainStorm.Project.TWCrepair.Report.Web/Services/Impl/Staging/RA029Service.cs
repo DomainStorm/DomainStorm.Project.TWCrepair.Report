@@ -14,14 +14,17 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging;
 public class RA029Service : IGetService<RA029, string>
 {
     private readonly GetRepository<IRepository<YearPlanReport>> _getRepository;
+    private readonly GetRepository<IRepository<YearPlanBase>> _getPlanBaseRepository;
     private readonly IMapper _mapper;
 
     public RA029Service(
         GetRepository<IRepository<YearPlanReport>> getRepository,
+        GetRepository<IRepository<YearPlanBase>> getPlanBaseRepository,
         IMapper mapper
         )
     {
         _getRepository = getRepository;
+        _getPlanBaseRepository = getPlanBaseRepository;
         _mapper = mapper;
         
     }
@@ -42,10 +45,14 @@ public class RA029Service : IGetService<RA029, string>
 
     private async Task<RA029> QueryRA029(QueryRA029 condition)
     {
-        var planReport = await condition.GetModel(_getRepository());
-        planReport.YearPlanReportInstruments = planReport.YearPlanReportInstruments.OrderBy(x => x.Sort).ToList();
+        var planReport = await condition.GetModel(_getRepository(), _getPlanBaseRepository());
+        if (planReport != null)
+        {
+            planReport.YearPlanReportInstruments = planReport.YearPlanReportInstruments.OrderBy(x => x.Sort).ToList();
+        }
+        
         var result = _mapper.Map<RA029>(planReport);
-        if(planReport.YearPlanBase != null && planReport.YearPlanBase.YearPlanWorkSpaces != null)
+        if(planReport != null && planReport.YearPlanBase != null && planReport.YearPlanBase.YearPlanWorkSpaces != null)
         {
             result.WorkSpaces = _mapper.Map<List<RA029WorkSpace>>(planReport.YearPlanBase.YearPlanWorkSpaces);
             foreach(var ws in result.WorkSpaces)

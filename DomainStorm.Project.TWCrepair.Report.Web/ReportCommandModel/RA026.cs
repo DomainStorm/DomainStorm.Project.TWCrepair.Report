@@ -25,21 +25,43 @@ public static class RA026
 
             public FileExtension Extension { get; set; }
 
-            public async Task<Repository.Models.YearPlan.YearPlanReport?> GetModel(IRepository<Repository.Models.YearPlan.YearPlanReport> repository)
+            /// <summary>
+            /// 是否載入初始資料(報表輸出時應為 false ; editor 時為 true , 若無已儲存資料時, 會自動載入初始資料)
+            /// </summary>
+            public bool Initialize { get; set; } = false;
+
+
+            public async Task<Repository.Models.YearPlan.YearPlanReport?> GetModel(
+                IRepository<Repository.Models.YearPlan.YearPlanReport> repository,
+                IRepository<Repository.Models.YearPlan.YearPlanBase> baseRepository )
             {
+                Repository.Models.YearPlan.YearPlanReport? model;
                 if (Id.HasValue)
-                    return await repository.GetAsync(Id);
+                    model = await repository.GetAsync(Id);
                 else if (YearPlanBaseId.HasValue)
-                    return (await repository.GetListAsync(x => x.YearPlanBaseId == YearPlanBaseId)).FirstOrDefault();
+                    model = (await repository.GetListAsync(x => x.YearPlanBaseId == YearPlanBaseId)).FirstOrDefault();
                 else
                     throw new ValidationException("Id 和 YearPlanBaseId 至少需傳入一個值");
 
+                if(model == null && Initialize)
+                {
+                    model = new Repository.Models.YearPlan.YearPlanReport();
+                    var planBase = (await baseRepository.GetListAsync(x => x.Id == YearPlanBaseId)).FirstOrDefault();
+                    if(planBase != null)
+                    {
+                        model.DepartmentId = planBase.DepartmentId;
+                        model.DepartmentName = planBase.DepartmentName;
+                        model.Year = planBase.Year;
+                        model.YearPlanBase = planBase;
+                    }
+                }
+                return model;
             }
 
-            public async Task<Repository.Models.YearPlan.YearPlanBase?> GetPlanBaseModel(IRepository<Repository.Models.YearPlan.YearPlanBase> repository)
-            {
-                return (await repository.GetListAsync(x => x.Id == YearPlanBaseId)).FirstOrDefault();
-            }
+            //public async Task<Repository.Models.YearPlan.YearPlanBase?> GetPlanBaseModel(IRepository<Repository.Models.YearPlan.YearPlanBase> repository)
+            //{
+            //    return (await repository.GetListAsync(x => x.Id == YearPlanBaseId)).FirstOrDefault();
+            //}
         }
     }
 }
