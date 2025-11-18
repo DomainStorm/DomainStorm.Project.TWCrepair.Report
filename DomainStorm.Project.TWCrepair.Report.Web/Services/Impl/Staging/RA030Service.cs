@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using DomainStorm.Framework;
+﻿using DomainStorm.Framework;
 using DomainStorm.Framework.Services;
 using DomainStorm.Framework.SqlDb;
 using DomainStorm.Project.TWCrepair.Report.Web.Views;
@@ -14,12 +13,16 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging;
 public class RA030Service : IGetService<RA030, string>
 {
     private readonly GetRepository<IRepository<YearPlanReport>> _getRepository;
-    
+    private readonly GetRepository<IRepository<YearPlanBase>> _getPlanBaseRepository;
+
+
     public RA030Service(
-        GetRepository<IRepository<YearPlanReport>> getRepository
+        GetRepository<IRepository<YearPlanReport>> getRepository,
+         GetRepository<IRepository<YearPlanBase>> getPlanBaseRepository
         )
     {
         _getRepository = getRepository;
+        _getPlanBaseRepository = getPlanBaseRepository;
     }
 
     public Task<RA030> GetAsync(string id)
@@ -38,14 +41,16 @@ public class RA030Service : IGetService<RA030, string>
 
     private async Task<RA030> QueryRA030(QueryRA030 condition)
     {
-        var planReport = await condition.GetModel(_getRepository());
-        planReport.YearPlanReportInstruments = planReport.YearPlanReportInstruments.OrderBy(x => x.Sort).ToList();
-        var result = new RA030
+        var result = new RA030();
+        var planReport = await condition.GetModel(_getRepository(),_getPlanBaseRepository());
+        if(planReport != null)
         {
-            Conclusion = planReport.Conclusion,
-            Funding = $"{planReport.Funding:n0}",
-            Benefit = $"{planReport.Benefit:n0}"
-        };
+            planReport.YearPlanReportInstruments = planReport.YearPlanReportInstruments.OrderBy(x => x.Sort).ToList();
+            result.Conclusion = planReport.Conclusion;
+            result.Funding = $"{planReport.Funding:n0}";
+            result.Benefit = $"{planReport.Benefit:n0}";
+        }
+        
         return result;
     }
 

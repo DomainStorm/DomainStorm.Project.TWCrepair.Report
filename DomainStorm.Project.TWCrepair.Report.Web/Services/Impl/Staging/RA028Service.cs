@@ -14,14 +14,17 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging;
 public class RA028Service : IGetService<RA028, string>
 {
     private readonly GetRepository<IRepository<YearPlanReport>> _getRepository;
+    private readonly GetRepository<IRepository<YearPlanBase>> _getPlanBaseRepository;
     private readonly IMapper _mapper;
 
     public RA028Service(
         GetRepository<IRepository<YearPlanReport>> getRepository,
+        GetRepository<IRepository<YearPlanBase>> getPlanBaseRepository,
         IMapper mapper
         )
     {
         _getRepository = getRepository;
+        _getPlanBaseRepository = getPlanBaseRepository;
         _mapper = mapper;
         
     }
@@ -42,10 +45,17 @@ public class RA028Service : IGetService<RA028, string>
 
     private async Task<RA028> QueryRA028(QueryRA028 condition)
     {
-        var planReport = await condition.GetModel(_getRepository());
-        planReport.YearPlanReportInstruments = planReport.YearPlanReportInstruments.OrderBy(x => x.Sort).ToList();
+        var planReport = await condition.GetModel(_getRepository(), _getPlanBaseRepository());
+        if (planReport != null)
+        {
+            planReport.YearPlanReportInstruments = planReport.YearPlanReportInstruments.OrderBy(x => x.Sort).ToList();
+        }
+        
         var result = _mapper.Map<RA028>(planReport);
-        if(planReport.YearPlanBase != null && planReport.YearPlanBase.YearPlanWorkSpaces != null)
+        if(planReport != null 
+            && planReport.YearPlanBase != null 
+            && planReport.YearPlanBase.YearPlanWorkSpaces != null 
+            && planReport.YearPlanBase.YearPlanWorkSpaces.Any())
         {
             var min = planReport.YearPlanBase.YearPlanWorkSpaces.Where(x => x.LeakageLowerTarget.HasValue).Min(x => x.LeakageLowerTarget!.Value);
             var max = planReport.YearPlanBase.YearPlanWorkSpaces.Where(x => x.LeakageLowerTarget.HasValue).Max(x => x.LeakageLowerTarget!.Value);

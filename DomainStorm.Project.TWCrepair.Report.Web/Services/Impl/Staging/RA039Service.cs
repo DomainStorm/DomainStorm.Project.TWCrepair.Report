@@ -51,77 +51,71 @@ public class RA039Service : IGetService<RA039, string>
 
     private async Task<RA039> QueryRA039(QueryRA039 condition)
     {
-        var planReport = await condition.GetModel(_getRepository());
-        if(planReport == null && condition.Initialize)
+        var result = new RA039();
+        var planReport = await condition.GetModel(_getRepository(), _getPlanBaseRepository());
+        if (planReport != null)
         {
-            var planBase = await condition.GetPlanBaseModel(_getPlanBaseRepository());
-            planReport = new YearPlanReport
-            {
-                DepartmentName = planBase.DepartmentName,
-                
-            };
-        }
-        var result = new RA039
-        {
-            DepartmentName = planReport.DepartmentName,
-            OnSitePeople = planReport.OnSitePeople
-        };
-
-        var wordRepository = _getWordRepository();
+            result.DepartmentName = planReport.DepartmentName;
+            result.OnSitePeople = planReport.OnSitePeople;
 
 
-        //載入詞庫裡的"財產設備",並加上前置字元
-        string[] prefixLetters = { "A.", "B.", "C.", "D.", "E.", "F.", "G.", "H.", "I.", "J." };
-        result.Catagories = (await wordRepository.GetListAsync(x => x.Parent.Name == "財產設備"))
-            .OrderBy(x => x.Sort).Select((x, i) => new RA039_Catagory
-            {
-                Id = x.Id,
-                Name = prefixLetters[i] + x.Name,
-            }).ToList();
-            
-        
 
-        if (!planReport.YearPlanReportInstruments.Any() && condition.Initialize)
-        {
-            short sort = 0;
+            var wordRepository = _getWordRepository();
 
-            //無儀器資料, 載入初始資料(目前區處的儀器)
-            var deptInstruments = await _getInstrumentRepository().GetListAsync
-                (x => x.DepartmentId == planReport.DepartmentId);
 
-            foreach(var catagory in result.Catagories)
-            {
-                var equipmentWordIds = deptInstruments.Where(x => x.CategoryWordId!.Value == catagory.Id)
-                    .Select(x => x.EquipmentWordId)  //不是直接取得儀器, 只要取得儀器設備的代碼就好
-                    .Distinct();
-                    
-                foreach(var equipmentWordId in equipmentWordIds)
+            //載入詞庫裡的"財產設備",並加上前置字元
+            string[] prefixLetters = { "A.", "B.", "C.", "D.", "E.", "F.", "G.", "H.", "I.", "J." };
+            result.Catagories = (await wordRepository.GetListAsync(x => x.Parent.Name == "財產設備"))
+                .OrderBy(x => x.Sort).Select((x, i) => new RA039_Catagory
                 {
-                    var equipment = await wordRepository.GetAsync(equipmentWordId);
-                    var newItem = new RA039_Item
+                    Id = x.Id,
+                    Name = prefixLetters[i] + x.Name,
+                }).ToList();
+
+
+
+            if (!planReport.YearPlanReportInstruments.Any() && condition.Initialize)
+            {
+                short sort = 0;
+
+                //無儀器資料, 載入初始資料(目前區處的儀器)
+                var deptInstruments = await _getInstrumentRepository().GetListAsync
+                    (x => x.DepartmentId == planReport.DepartmentId);
+
+                foreach (var catagory in result.Catagories)
+                {
+                    var equipmentWordIds = deptInstruments.Where(x => x.CategoryWordId!.Value == catagory.Id)
+                        .Select(x => x.EquipmentWordId)  //不是直接取得儀器, 只要取得儀器設備的代碼就好
+                        .Distinct();
+
+                    foreach (var equipmentWordId in equipmentWordIds)
                     {
-                        CategoryName = catagory.Name,
-                        EquipmentWordId = equipmentWordId,
-                        Name = equipment.Name,
-                        Sort = sort++
-                    };
-                    result.Items.Add(newItem);
+                        var equipment = await wordRepository.GetAsync(equipmentWordId);
+                        var newItem = new RA039_Item
+                        {
+                            CategoryName = catagory.Name,
+                            EquipmentWordId = equipmentWordId,
+                            Name = equipment.Name,
+                            Sort = sort++
+                        };
+                        result.Items.Add(newItem);
+                    }
                 }
             }
-        }
-        else
-        {
-            foreach (var catagory in result.Catagories)
+            else
             {
-                foreach (var modelInst in planReport.YearPlanReportInstruments.Where(x => x.Equipment.ParentId == catagory.Id))
+                foreach (var catagory in result.Catagories)
                 {
-                    var newItem = _mapper.Map<RA039_Item>(modelInst);
-                    newItem.CategoryName = catagory.Name;
+                    foreach (var modelInst in planReport.YearPlanReportInstruments.Where(x => x.Equipment.ParentId == catagory.Id))
+                    {
+                        var newItem = _mapper.Map<RA039_Item>(modelInst);
+                        newItem.CategoryName = catagory.Name;
+                    }
                 }
             }
         }
 
-            return result;
+        return result;
     }
 
     public Task<DateTime> GetAsync(Guid id)

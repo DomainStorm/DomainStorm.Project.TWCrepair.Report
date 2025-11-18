@@ -14,17 +14,20 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging;
 public class RA032Service : IGetService<RA032, string>
 {
     private readonly GetRepository<IRepository<YearPlanReport>> _getRepository;
-    private readonly GetRepository<IRepository<Repository.Models.YearPlan.YearPlanSetAllZone>> _getZoneRepository;
+    private readonly GetRepository<IRepository<YearPlanBase>> _getPlanBaseRepository;
+    private readonly GetRepository<IRepository<YearPlanSetAllZone>> _getZoneRepository;
     private IMapper _mapper;
 
     public RA032Service(
         GetRepository<IRepository<YearPlanReport>> getRepository,
-        GetRepository<IRepository<Repository.Models.YearPlan.YearPlanSetAllZone>> getZoneRepository,
+        GetRepository<IRepository<YearPlanSetAllZone>> getZoneRepository,
+        GetRepository<IRepository<YearPlanBase>> getPlanBaseRepository,
         IMapper mapper
         )
     {
         _getRepository = getRepository;
         _getZoneRepository = getZoneRepository;
+        _getPlanBaseRepository = getPlanBaseRepository;
         _mapper = mapper;
     }
 
@@ -44,32 +47,32 @@ public class RA032Service : IGetService<RA032, string>
 
     private async Task<RA032> QueryRA032(QueryRA032 condition)
     {
-        var planReport = await condition.GetModel(_getRepository());
-
-        var result = new RA032
+        var result = new RA032();
+        var planReport = await condition.GetModel(_getRepository(), _getPlanBaseRepository());
+        if (planReport != null)
         {
-            DepartmentName = planReport.DepartmentName,
-            Year = planReport.Year - 1911,
-        };
+            result.DepartmentName = planReport.DepartmentName;
+            result.Year = planReport.Year - 1911;
 
-        if (planReport.YearPlanBase != null )
-        {
-            result.CurrentPeople1 = planReport.YearPlanBase.CurrentPeople1;
-            result.CurrentPeople2 = planReport.YearPlanBase.CurrentPeople2;
-            result.CurrentPeople3 = planReport.YearPlanBase.CurrentPeople3;
-
-            if (planReport.YearPlanBase.YearPlanWorkSpaces != null)
+            if (planReport.YearPlanBase != null)
             {
-                planReport.YearPlanBase.AppendSumItem();
-                result.Items = _mapper.Map<List<RA032Item>>(planReport.YearPlanBase.YearPlanWorkSpaces);
-                //合計列要置頂, 和CheckWeb 不一樣
-                if (result.Items.Any())
+                result.CurrentPeople1 = planReport.YearPlanBase.CurrentPeople1;
+                result.CurrentPeople2 = planReport.YearPlanBase.CurrentPeople2;
+                result.CurrentPeople3 = planReport.YearPlanBase.CurrentPeople3;
+
+                if (planReport.YearPlanBase.YearPlanWorkSpaces != null)
                 {
-                    result.SumItem = result.Items.Last();
-                    result.Items.Remove(result.SumItem);
+                    planReport.YearPlanBase.AppendSumItem();
+                    result.Items = _mapper.Map<List<RA032Item>>(planReport.YearPlanBase.YearPlanWorkSpaces);
+                    //合計列要置頂, 和CheckWeb 不一樣
+                    if (result.Items.Any())
+                    {
+                        result.SumItem = result.Items.Last();
+                        result.Items.Remove(result.SumItem);
+                    }
                 }
+
             }
-            
         }
         return result;
     }
