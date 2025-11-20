@@ -87,35 +87,41 @@ public class RA041Service : IGetService<RA041, string>, IGetService<RA041Measure
         var flowChecks = await _getRepository().GetListAsync(exp);
         foreach(var flowCheck in flowChecks)
         {
-            var firstData = flowCheck.WaterFlowCheckData.OrderBy(x => x.Time).FirstOrDefault();
-            var lastData = flowCheck.WaterFlowCheckData.OrderBy(x => x.Time).LastOrDefault();
-            var minData = flowCheck.WaterFlowCheckData.OrderBy(x => x.CH1Volumetric).FirstOrDefault();
+            
+            //var firstData = flowCheck.WaterFlowCheckData.OrderBy(x => x.Time).FirstOrDefault();
+            //var lastData = flowCheck.WaterFlowCheckData.OrderBy(x => x.Time).LastOrDefault();
+            //var minData = flowCheck.WaterFlowCheckData.OrderBy(x => x.CH1Volumetric).FirstOrDefault();
 
             var item = new RA041_Item
             {
                 Location = flowCheck.Location,
+                Positive = flowCheck.FlowWay != null && flowCheck.FlowWay.Name.Contains("正"),
+                StartValue = flowCheck.FirstTotal,
+                EndValue = flowCheck.LastTotal,
+                MinTime = flowCheck.LowestFlowDateTime,
+                MinValue = flowCheck.LowestFlow,
             };
 
-            if(firstData != null && lastData!= null)
-            {
-                if(firstData.CH1REVTotal > 0)    //負機流??
-                {
-                    item.StartValue =  Math.Round( firstData.CH1REVTotal.Value,2);
-                    item.EndValue = Math.Round(lastData.CH1REVTotal!.Value, 2);
-                }
-                else
-                {
-                    item.StartValue = Math.Round(firstData.CH1FWDTotal!.Value , 2);
-                    item.EndValue = Math.Round(lastData.CH1FWDTotal!.Value, 2);
-                    item.Positive = true;
-                }
-            }
+            //if(firstData != null && lastData!= null)
+            //{
+            //    if(firstData.CH1REVTotal > 0)    //負機流??
+            //    {
+            //        item.StartValue =  Math.Round( firstData.CH1REVTotal.Value,2);
+            //        item.EndValue = Math.Round(lastData.CH1REVTotal!.Value, 2);
+            //    }
+            //    else
+            //    {
+            //        item.StartValue = Math.Round(firstData.CH1FWDTotal!.Value , 2);
+            //        item.EndValue = Math.Round(lastData.CH1FWDTotal!.Value, 2);
+            //        item.Positive = true;
+            //    }
+            //}
 
-            if(minData != null)
-            {
-                item.MinTime = minData.Time;
-                item.MinValue = Math.Round(minData.CH1Volumetric!.Value, 2);
-            }
+            //if(minData != null)
+            //{
+            //    item.MinTime = minData.Time;
+            //    item.MinValue = Math.Round(minData.CH1Volumetric!.Value, 2);
+            //}
 
             result.Items.Add(item);
         }
