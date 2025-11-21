@@ -57,14 +57,24 @@ public class RA028Service : IGetService<RA028, string>
             && planReport.YearPlanBase.YearPlanWorkSpaces != null 
             && planReport.YearPlanBase.YearPlanWorkSpaces.Any())
         {
-            var min = planReport.YearPlanBase.YearPlanWorkSpaces.Where(x => x.LeakageLowerTarget.HasValue).Min(x => x.LeakageLowerTarget!.Value);
-            var max = planReport.YearPlanBase.YearPlanWorkSpaces.Where(x => x.LeakageLowerTarget.HasValue).Max(x => x.LeakageLowerTarget!.Value);
-            result.WorkSpace_LeakageLowerTarget = $"{min}%～{max}%";
+            if (planReport.YearPlanBase.YearPlanWorkSpaces.Any(x => x.LeakageLowerTarget.HasValue))
+            {
+                var min = planReport.YearPlanBase.YearPlanWorkSpaces.Where(x => x.LeakageLowerTarget.HasValue).Min(x => x.LeakageLowerTarget!.Value);
+                var max = planReport.YearPlanBase.YearPlanWorkSpaces.Where(x => x.LeakageLowerTarget.HasValue).Max(x => x.LeakageLowerTarget!.Value);
+                result.WorkSpace_LeakageLowerTarget = $"{min}%～{max}%";
+            }
 
-            result.WorkSpace_CheckOutCMD = planReport.YearPlanBase.YearPlanWorkSpaces.Where(x => x.CheckOutCMD.HasValue).Sum(x => x.CheckOutCMD!.Value);
-            result.WorkSpace_PipeLength = planReport.YearPlanBase.YearPlanWorkSpaces.Where(x => x.PlanPipeLength.HasValue).Sum(x => x.PlanPipeLength!.Value);
-            result.WorkSpace_CheckOutAmountDistributionPipe = planReport.YearPlanBase.YearPlanWorkSpaces.Where(x => x.CheckOutAmountDistributionPipe.HasValue).Sum(x => x.CheckOutAmountDistributionPipe!.Value);
-            result.WorkSpace_CheckOutAmountOutdoorPipe = planReport.YearPlanBase.YearPlanWorkSpaces.Where(x => x.CheckOutAmountOutdoorPipe.HasValue).Sum(x => x.CheckOutAmountOutdoorPipe!.Value);
+            if (planReport.YearPlanBase.YearPlanWorkSpaces.Any(x => x.CheckOutCMD.HasValue))
+                result.WorkSpace_CheckOutCMD = planReport.YearPlanBase.YearPlanWorkSpaces.Where(x => x.CheckOutCMD.HasValue).Sum(x => x.CheckOutCMD!.Value);
+            
+            if (planReport.YearPlanBase.YearPlanWorkSpaces.Any(x => x.PlanPipeLength.HasValue))
+                result.WorkSpace_PipeLength = planReport.YearPlanBase.YearPlanWorkSpaces.Where(x => x.PlanPipeLength.HasValue).Sum(x => x.PlanPipeLength!.Value);
+            
+            if (planReport.YearPlanBase.YearPlanWorkSpaces.Any(x => x.CheckOutAmountDistributionPipe.HasValue))
+                result.WorkSpace_CheckOutAmountDistributionPipe = planReport.YearPlanBase.YearPlanWorkSpaces.Where(x => x.CheckOutAmountDistributionPipe.HasValue).Sum(x => x.CheckOutAmountDistributionPipe!.Value);
+            
+            if (planReport.YearPlanBase.YearPlanWorkSpaces.Any(x => x.CheckOutAmountOutdoorPipe.HasValue))
+                result.WorkSpace_CheckOutAmountOutdoorPipe = planReport.YearPlanBase.YearPlanWorkSpaces.Where(x => x.CheckOutAmountOutdoorPipe.HasValue).Sum(x => x.CheckOutAmountOutdoorPipe!.Value);
         }
         return result;
     }

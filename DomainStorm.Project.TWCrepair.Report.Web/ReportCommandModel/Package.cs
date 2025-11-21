@@ -10,6 +10,17 @@ public static class Package
         public class QueryPackage : IQuery
         {
             public Guid Id { get; set; }
+
+            /// <summary>
+            /// 區處代碼
+            /// </summary>
+            public Guid? DepartmentId { get; set; }
+
+            /// <summary>
+            /// 年度
+            /// </summary>
+            public int? Year { get; set; }
+
             public IReadOnlyList<Guid> IdList { get; set; } = new List<Guid>();
             public FileExtension Extension { get; set; }
         }
