@@ -63,9 +63,9 @@ public class RA039Service : IGetService<RA039, string>
             var wordRepository = _getWordRepository();
 
 
-            //載入詞庫裡的"財產設備",並加上前置字元
+            //載入詞庫裡的"儀具設備種類",並加上前置字元
             string[] prefixLetters = { "A.", "B.", "C.", "D.", "E.", "F.", "G.", "H.", "I.", "J." };
-            result.Catagories = (await wordRepository.GetListAsync(x => x.Parent.Name == "財產設備"))
+            result.Catagories = (await wordRepository.GetListAsync(x => x.Parent.Name == "儀具設備種類"))
                 .OrderBy(x => x.Sort).Select((x, i) => new RA039_Catagory
                 {
                     Id = x.Id,
