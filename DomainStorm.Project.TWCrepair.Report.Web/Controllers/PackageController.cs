@@ -308,12 +308,12 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
                     {
                         SheetName = "附表九、20%小區明細(分區主辦提供)"
                     }, reportService,"/Views/RA038.cshtml", extension),
-                // await OutXmlDocument<IGetService<RA039, string>, RA039, QueryRA039>(
-                //     ra039Service, new QueryRA039
-                //     {
-                //         Id = request.Id,
-                //         Extension = extension
-                //     }, reportService, "/Views/RA039.cshtml", extension),
+                await OutXmlDocument<IGetService<RA039, string>, RA039, QueryRA039>(
+                    ra039Service, new QueryRA039
+                    {
+                        Id = request.Id,
+                        Extension = extension
+                    }, reportService, "/Views/RA039.cshtml", extension),
                 await OutXmlDocument<IGetService<RA040, string>, RA040, QueryRA040>(
                     ra040Service, new QueryRA040
                     {

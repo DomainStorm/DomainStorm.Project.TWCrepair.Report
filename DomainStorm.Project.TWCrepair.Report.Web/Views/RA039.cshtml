@@ -114,15 +114,27 @@
               <text:p>@(i == items.Count + 2 ? "小計" : (i < items.Count ? $"{i + 1}.{items[i].Name}" :""))</text:p>
              </table:table-cell>
              <table:table-cell table:style-name="ce20">
-              <text:p>@(i == items.Count + 2 ? "" : (i < items.Count ? items[i].Specification :""))</text:p>
+                 <text:p>@(i == items.Count + 2 ? "" : (i < items.Count ? items[i].Specification :""))</text:p>
              </table:table-cell>
-             <table:table-cell table:style-name="ce23" office:value-type="float" office:value="@(i == items.Count + 2 ? items.Sum(x => x.CurrentAmountUsable) : (i < items.Count ? items[i].CurrentAmountUsable :""))" calcext:value-type="float" />
-             <table:table-cell table:style-name="ce23" office:value-type="float" office:value="@(i == items.Count + 2 ? items.Sum(x => x.CurrentAmountRepair) : (i < items.Count ? items[i].CurrentAmountRepair :""))" calcext:value-type="float" />
-             <table:table-cell table:style-name="ce23" office:value-type="float" office:value="@(i == items.Count + 2 ? items.Sum(x => x.CurrentAmountBroken) : (i < items.Count ? items[i].CurrentAmountBroken :""))" calcext:value-type="float" />
-             <table:table-cell table:style-name="ce23" office:value-type="float" office:value="@(i == items.Count + 2 ? items.Sum(x => x.CurrentAmount)  : (i < items.Count ? items[i].CurrentAmount :""))" calcext:value-type="float" />
-             <table:table-cell table:style-name="ce23" office:value-type="float" office:value="@(i == items.Count + 2 ? items.Sum(x => x.PlanAmount)  : (i < items.Count ? items[i].PlanAmount :""))" calcext:value-type="float" />
-             <table:table-cell table:style-name="ce23" office:value-type="float" office:value="@(i == items.Count + 2 ? items.Sum(x => x.NeedAmount)  : (i < items.Count ? items[i].NeedAmount :""))" calcext:value-type="float" />
-             <table:table-cell table:style-name="ce23" />
+                            <table:table-cell table:style-name="ce23">
+                 <text:p>@(i == items.Count + 2 ? items.Sum(x => x.CurrentAmountUsable) : (i < items.Count ? items[i].CurrentAmountUsableStr :""))</text:p>
+             </table:table-cell>
+                            <table:table-cell table:style-name="ce23">
+                                <text:p>@(i == items.Count + 2 ? items.Sum(x => x.CurrentAmountRepair) : (i < items.Count ? items[i].CurrentAmountRepairStr : ""))</text:p>
+             </table:table-cell>
+                            <table:table-cell table:style-name="ce23">
+                                <text:p>@(i == items.Count + 2 ? items.Sum(x => x.CurrentAmountBroken) : (i < items.Count ? items[i].CurrentAmountBrokenStr : ""))</text:p>
+             </table:table-cell>
+                            <table:table-cell table:style-name="ce23">
+                 <text:p>@(i == items.Count + 2 ? items.Sum(x => x.CurrentAmount) : (i < items.Count ? items[i].CurrentAmount : ""))</text:p>
+             </table:table-cell>
+                            <table:table-cell table:style-name="ce23">
+                                <text:p>@(i == items.Count + 2 ? items.Sum(x => x.PlanAmount) : (i < items.Count ? items[i].PlanAmountStr : ""))</text:p>
+             </table:table-cell>
+                            <table:table-cell table:style-name="ce23">
+                 <text:p>@(i == items.Count + 2 ? items.Sum(x => x.NeedAmount) : (i < items.Count ? items[i].NeedAmount : ""))</text:p>
+             </table:table-cell>
+                            <table:table-cell table:style-name="ce23"></table:table-cell>
         </table:table-row>
       }
     }

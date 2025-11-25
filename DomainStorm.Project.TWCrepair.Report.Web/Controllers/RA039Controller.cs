@@ -32,8 +32,6 @@ public class RA039Controller : ControllerBase
         _ra039Service = ra039Service;
     }
 
-
-
     [HttpPost]
     public async Task<ActionResult> Post([FromBody] QueryRA039 request)
     {
@@ -47,5 +45,37 @@ public class RA039Controller : ControllerBase
         var outStream = await _reportService.GetAsync(convertRequest);
         var outFileName = $"{System.IO.Path.GetFileNameWithoutExtension(convertRequest.ViewName)}.{convertRequest.Extension.ToString().ToLower()}";
         return File(outStream, MediaTypeNames.Application.Octet, outFileName);
+    }
+
+    [HttpPost("editor")]
+    public async Task<ActionResult> PostForEditor([FromBody] QueryRA039 request)
+    {
+        var RA039Model = await _ra039Service.GetAsync<QueryRA039>(request);
+
+        foreach (var item in RA039Model.Items)
+        {
+            item.Specification = GetInputString("Specification", item.Specification, "text", "width: 105px");
+            item.CurrentAmountUsableStr = GetInputString("CurrentAmountUsable", item.CurrentAmountUsable, "text", "width: 50px; text-align: right;");
+            item.CurrentAmountRepairStr = GetInputString("CurrentAmountRepair", item.CurrentAmountRepair, "text", "width: 50px; text-align: right;");
+            item.CurrentAmountBrokenStr = GetInputString("CurrentAmountBroken", item.CurrentAmountBroken, "text", "width: 50px; text-align: right;");
+            item.PlanAmountStr = GetInputString("PlanAmount", item.PlanAmount, "text", "width: 50px; text-align: right;");
+        }
+
+
+        var convertRequest = new ReportConvertRequest
+        {
+            ViewName = "/Views/RA039.cshtml",
+            Model = RA039Model,
+            Extension = request.Extension
+        };
+        var outStream = await _reportService.GetAsync(convertRequest);
+        var outFileName = $"{System.IO.Path.GetFileNameWithoutExtension(convertRequest.ViewName)}.{convertRequest.Extension.ToString().ToLower()}";
+        return File(outStream, MediaTypeNames.Application.Octet, outFileName);
+
+    }
+
+    private static string GetInputString(string name, object? value, string type = "text", string style = "")
+    {
+        return $"${{<input name=\"{name}\" type=\"{type}\" value=\"{value}\" style=\"{style}\"></input>}}";
     }
 }
