@@ -341,47 +341,36 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
         {
             const FileExtension extension = FileExtension.FODS;
 
-
-            // var aaa = await OutStream<IGetService<DA004, string>, DA004, QueryDA004>(
-            //     da004Service, new QueryDA004
-            //     {
-            //         Extension = extension
-            //     }, reportService, "/Views/Dashboards/DA004.cshtml", extension);
-
             var toMergeXmlDocumentList = new List<XmlDocument>
             {
                 await OutXmlDocument<IGetService<RA001, string>, RA001, ReportCommandModel.RA001.V1.QueryRA001>(
                     ra001Service, request, reportService, "/Views/RA001.cshtml", extension),
-                // await OutXmlDocument<IGetService<DA004, string>, DA004, QueryDA004>(
-                //     da004Service, new QueryDA004
-                //     {
-                //         Id = request.Id,
-                //         Extension = extension
-                //     }, reportService, "/Views/Dashboards/DA004.cshtml", extension),
-                // await OutXmlDocument<IGetService<RA005, string>, RA005, QueryRA005>(
-                //     ra005Service, new QueryRA005
-                //     {
-                //         Id = request.Id,
-                //         Extension = extension
-                //     }, reportService, "/Views/RA028.cshtml", extension)
             };
           
             var DA004_Img_base64 = await cache.GetAsync<string?>($"{request.CachePrefix}-DA004");
             if (DA004_Img_base64 != null)
             {
-                var fods = await OutXmlDocument(
+                var DA004_Fods = await OutXmlDocument(
                     new RA038
                     {
-                        SheetName = "檢修漏作業水壓比較圖"
+                        SheetName = "水壓比較圖"
                     }, reportService, "/Views/RA038.cshtml", extension);
 
-                InsertBase64IntoOffice(fods, DA004_Img_base64);
+                InsertBase64IntoOffice(DA004_Fods, DA004_Img_base64);
+                toMergeXmlDocumentList.Add(DA004_Fods);
+            }
 
-                toMergeXmlDocumentList.Add(fods);
-                // var DA004_Img_Stream = new MemoryStream(bytes);
-                // DA004_Img_Stream.Position = 0;
-                //
-                // var DA004_ODS_Stream = await getConvert(FileExtension.PNG).Convert(DA004_Img_Stream, FileExtension.PNG, FileExtension.FODS);
+            var DA005_Img_base64 = await cache.GetAsync<string?>($"{request.CachePrefix}-DA005");
+            if (DA005_Img_base64 != null)
+            {
+                var DA005_Fods = await OutXmlDocument(
+                    new RA038
+                    {
+                        SheetName = "總水頭分布圖"
+                    }, reportService, "/Views/RA038.cshtml", extension);
+
+                InsertBase64IntoOffice(DA005_Fods, DA005_Img_base64);
+                toMergeXmlDocumentList.Add(DA005_Fods);
             }
 
             await using var stream = getMerge(extension).Merge(toMergeXmlDocumentList, extension);
