@@ -1,9 +1,17 @@
-﻿using System.Net.Http.Headers;
+﻿using DomainStorm.Framework;
+using DomainStorm.Framework.Caching;
+using DomainStorm.Framework.Services;
+using DomainStorm.Project.TWCrepair.Report.Web.Views;
+using DomainStorm.Project.TWCrepair.Report.Web.Views.Dashboards;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using DomainStorm.Framework.Services;
+using System.Buffers.Text;
+using System.Net.Mime;
+using System.Xml;
+using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA004.V1;
+using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.Package.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA002.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA003.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA004.V1;
@@ -34,13 +42,7 @@ using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA037.V
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA038.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA039.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA040.V1;
-
 using static DomainStorm.Project.TWCrepair.Repository.CommandModel.Report.V1;
-using System.Net.Mime;
-using DomainStorm.Framework;
-using DomainStorm.Project.TWCrepair.Report.Web.Views;
-using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.Package.V1;
-using System.Xml;
 
 namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
 {
@@ -49,6 +51,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
     [Authorize(AuthenticationSchemes = OpenIdConnectDefaults.AuthenticationScheme)]
     [Route("api/package")]
     public class PackageController(
+            IGetService<RA001, string> ra001Service,
             IGetService<RA002, string> ra002Service,
             IGetService<RA003, string> ra003Service,
             IGetService<RA004, string> ra004Service,
@@ -76,9 +79,12 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
             IGetService<RA037, string> ra037Service,
             IGetService<RA039, string> ra039Service,
             IGetService<RA040, string> ra040Service,
+            IGetService<DA004, string> da004Service,
+            IGetService<DA005, string> da005Service,
             IGetService<Stream, ReportConvertRequest> reportService,
             GetMerge getMerge,
-            GetConvert getConvert)
+            GetConvert getConvert,
+            ICache cache)
         : ControllerBase
     {
         [HttpPost("budgetDoc")]
@@ -330,6 +336,60 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
 
         }
 
+        [HttpPost("waterPressure")]
+        public async Task<ActionResult> WaterPressure([FromBody] ReportCommandModel.RA001.V1.QueryRA001 request, CancellationToken cancellationToken)
+        {
+            const FileExtension extension = FileExtension.FODS;
+
+
+            // var aaa = await OutStream<IGetService<DA004, string>, DA004, QueryDA004>(
+            //     da004Service, new QueryDA004
+            //     {
+            //         Extension = extension
+            //     }, reportService, "/Views/Dashboards/DA004.cshtml", extension);
+
+            var toMergeXmlDocumentList = new List<XmlDocument>
+            {
+                await OutXmlDocument<IGetService<RA001, string>, RA001, ReportCommandModel.RA001.V1.QueryRA001>(
+                    ra001Service, request, reportService, "/Views/RA001.cshtml", extension),
+                // await OutXmlDocument<IGetService<DA004, string>, DA004, QueryDA004>(
+                //     da004Service, new QueryDA004
+                //     {
+                //         Id = request.Id,
+                //         Extension = extension
+                //     }, reportService, "/Views/Dashboards/DA004.cshtml", extension),
+                // await OutXmlDocument<IGetService<RA005, string>, RA005, QueryRA005>(
+                //     ra005Service, new QueryRA005
+                //     {
+                //         Id = request.Id,
+                //         Extension = extension
+                //     }, reportService, "/Views/RA028.cshtml", extension)
+            };
+          
+            var DA004_Img_base64 = await cache.GetAsync<string?>($"{request.CachePrefix}-DA004");
+            if (DA004_Img_base64 != null)
+            {
+                var fods = await OutXmlDocument(
+                    new RA038
+                    {
+                        SheetName = "檢修漏作業水壓比較圖"
+                    }, reportService, "/Views/RA038.cshtml", extension);
+
+                InsertBase64IntoOffice(fods, DA004_Img_base64);
+
+                toMergeXmlDocumentList.Add(fods);
+                // var DA004_Img_Stream = new MemoryStream(bytes);
+                // DA004_Img_Stream.Position = 0;
+                //
+                // var DA004_ODS_Stream = await getConvert(FileExtension.PNG).Convert(DA004_Img_Stream, FileExtension.PNG, FileExtension.FODS);
+            }
+
+            await using var stream = getMerge(extension).Merge(toMergeXmlDocumentList, extension);
+            var outFileName = $"{Guid.NewGuid()}.{request.Extension.ToString().ToLower()}";
+            var odsStream = await getConvert(FileExtension.ODS).Convert(stream, extension, FileExtension.ODS);
+            return File(odsStream, MediaTypeNames.Application.Octet, outFileName);
+
+        }
         private static async Task<XmlDocument> OutXmlDocument<TService, TModel, TQuery>(
             TService service,
             TQuery request,
@@ -407,6 +467,112 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
                 Options = options
             };
             return convertRequest;
+        }
+
+        private void InsertBase64IntoOffice(XmlDocument doc, string base64)
+        {
+            var nsmgr = new XmlNamespaceManager(doc.NameTable);
+            nsmgr.AddNamespace("office", "urn:oasis:names:tc:opendocument:xmlns:office:1.0");
+            nsmgr.AddNamespace("draw", "urn:oasis:names:tc:opendocument:xmlns:drawing:1.0");
+            nsmgr.AddNamespace("text", "urn:oasis:names:tc:opendocument:xmlns:text:1.0");
+            nsmgr.AddNamespace("svg", "urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0");
+            nsmgr.AddNamespace("table", "urn:oasis:names:tc:opendocument:xmlns:table:1.0");
+
+            const string frameName = "檢修漏作業水壓比較圖";
+
+            // 1) 如果檔案已有 draw:image/office:binary-data，直接寫入
+            var existingNodes = doc.SelectNodes("//draw:image/office:binary-data", nsmgr);
+            if (existingNodes != null && existingNodes.Count > 0)
+            {
+                foreach (XmlNode node in existingNodes)
+                {
+                    node.InnerText = base64;
+                }
+                return;
+            }
+
+            // 建立 draw:frame 元素（共用）
+            var drawNs = nsmgr.LookupNamespace("draw");
+            var svgNs = nsmgr.LookupNamespace("svg");
+            var textNs = nsmgr.LookupNamespace("text");
+            var officeNs = nsmgr.LookupNamespace("office");
+
+            XmlElement frame = doc.CreateElement("draw", "frame", drawNs);
+            // attributes
+            var a1 = doc.CreateAttribute("draw", "z-index", drawNs); a1.Value = "0"; frame.Attributes.Append(a1);
+            var a2 = doc.CreateAttribute("draw", "name", drawNs); a2.Value = frameName; frame.Attributes.Append(a2);
+            var a3 = doc.CreateAttribute("draw", "style-name", drawNs); a3.Value = "gr1"; frame.Attributes.Append(a3);
+            var a4 = doc.CreateAttribute("draw", "text-style-name", drawNs); a4.Value = "P1"; frame.Attributes.Append(a4);
+            var s1 = doc.CreateAttribute("svg", "width", svgNs); s1.Value = "14.444cm"; frame.Attributes.Append(s1);
+            var s2 = doc.CreateAttribute("svg", "height", svgNs); s2.Value = "14.461cm"; frame.Attributes.Append(s2);
+            var s3 = doc.CreateAttribute("svg", "x", svgNs); s3.Value = "0cm"; frame.Attributes.Append(s3);
+            var s4 = doc.CreateAttribute("svg", "y", svgNs); s4.Value = "0cm"; frame.Attributes.Append(s4);
+
+            // 建立 draw:image
+            var image = doc.CreateElement("draw", "image", drawNs);
+            var m1 = doc.CreateAttribute("draw", "mime-type", drawNs); m1.Value = "image/png"; image.Attributes.Append(m1);
+
+            // office:binary-data
+            var binary = doc.CreateElement("office", "binary-data", officeNs);
+            binary.InnerText = base64;
+            image.AppendChild(binary);
+
+            // text:p
+            var tp = doc.CreateElement("text", "p", textNs);
+            image.AppendChild(tp);
+
+            frame.AppendChild(image);
+
+            // 2) 嘗試找尋特定的 table:table-cell（先找已有同名 draw:frame 的 cell）
+            XmlNode? targetCell = null;
+            try
+            {
+                targetCell = doc.SelectSingleNode($"//table:table-cell[.//draw:frame[@draw:name='{frameName}']]", nsmgr);
+            }
+            catch { targetCell = null; }
+
+            // 3) 若找不到，以含有相同文字的 cell 為目標（例如 cell 裡有該標題文字）
+            if (targetCell == null)
+            {
+                try
+                {
+                    targetCell = doc.SelectSingleNode($"//table:table-cell[.//text:p[contains(., '{frameName}')]]", nsmgr);
+                }
+                catch { targetCell = null; }
+            }
+
+            // 4) 若仍找不到，找第一個沒有 draw:image 的 table:table-cell
+            if (targetCell == null)
+            {
+                var cells = doc.SelectNodes("//table:table-cell", nsmgr);
+                if (cells != null)
+                {
+                    foreach (XmlNode c in cells)
+                    {
+                        var hasImage = c.SelectSingleNode(".//draw:image", nsmgr) != null;
+                        if (!hasImage)
+                        {
+                            targetCell = c;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // 5) 若找到 cell，就把 frame 插入該 cell 底下；否則退回到在 office:drawing 下新增
+            if (targetCell != null)
+            {
+                // 若 cell 裡已有 text:p，則把 frame 插入到該 cell（在 cell 裡直接 append 是合適的）
+                targetCell.AppendChild(frame);
+                return;
+            }
+
+            // fallback: 在 office:drawing 底下新增
+            var drawingNode = doc.SelectSingleNode("//office:body//office:drawing", nsmgr) ?? doc.DocumentElement;
+            if (drawingNode != null)
+            {
+                drawingNode.AppendChild(frame);
+            }
         }
     }
 }

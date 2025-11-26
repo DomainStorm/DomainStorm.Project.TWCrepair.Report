@@ -266,6 +266,9 @@ try
                     case FileExtension.XLSX:
                     case FileExtension.HTML:
                     case FileExtension.JSON:
+                    case FileExtension.FODS:
+                    case FileExtension.XML:
+                    case FileExtension.PNG:
                     default:
                         return new LibreOfficeConvert();
                 }

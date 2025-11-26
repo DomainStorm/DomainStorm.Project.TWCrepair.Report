@@ -7,6 +7,7 @@
 @using DomainStorm.Project.TWCrepair.Shared.ViewModel
 @using static DomainStorm.Project.TWCrepair.Repository.CommandModel.Report.V1;
 @inject IJSRuntime Js
+@inject ICache Cache
 @inject IGetService<DomainStorm.Project.TWCrepair.Report.Web.Views.Dashboards.DA004, string> _DA004Service;
 @inject IGetService<PlotlyJson, ReportConvertRequest> _reportService;
 
@@ -15,6 +16,7 @@
 <StormCard @ref="_stormCardRef" Icon="leaderboard">
     <div slot="body">
         <div id="chart"></div>
+        <div id="imageContainer"></div>
     </div>
 </StormCard>
 
@@ -43,6 +45,8 @@
     [Parameter, SupplyParameterFromQuery]
     public DateTime AfterDate { get; set; }
 
+    [Parameter, SupplyParameterFromQuery] 
+    public Guid? CachePrefix { get; set; }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -73,6 +77,15 @@
         await _stormCardRef.SetHeadlineAsync(plotlyJson.Layout.Title);
         plotlyJson.Layout.Title = "";
         plotlyJson.Layout.Margin.T = 10;  //T=0  第一條線會不見
+
         await Js.InvokeVoidAsync("drawChart", "chart", JsonSerializer.Serialize(plotlyJson, new JsonSerializerOptions(JsonSerializerDefaults.Web)));
+      
+        if (CachePrefix.HasValue)
+        {
+            var dataUrl = await Js.InvokeAsync<string>("drawImage", "imageContainer", JsonSerializer.Serialize(plotlyJson, new JsonSerializerOptions(JsonSerializerDefaults.Web)));
+            var comma = dataUrl.IndexOf(',');
+            var base64 = comma >= 0 ? dataUrl[(comma + 1)..] : dataUrl;
+            await Cache.SaveAsync($"{CachePrefix}-DA004", base64, 60 * 60 * 1);
+        }
     }
 }

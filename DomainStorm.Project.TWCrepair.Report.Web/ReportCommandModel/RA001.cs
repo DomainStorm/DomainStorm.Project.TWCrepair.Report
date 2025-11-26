@@ -41,6 +41,11 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel
                 public DateTime AfterDate { get; set; }
 
                 public FileExtension Extension { get; set; }
+
+                /// <summary>
+                /// 產製ods Cache用前綴
+                /// </summary>
+                public Guid CachePrefix { get; set; }
             }
 
             /// <summary>
