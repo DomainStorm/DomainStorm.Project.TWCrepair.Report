@@ -1,4 +1,5 @@
-﻿using DomainStorm.Framework;
+﻿using AutoMapper;
+using DomainStorm.Framework;
 using DomainStorm.Framework.Services;
 using DomainStorm.Framework.SqlDb;
 using DomainStorm.Project.TWCrepair.Report.Web.Views;
@@ -11,23 +12,21 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging;
 /// </summary>
 public class RA049Service : IGetService<RA049, string>
 {
-    private readonly GetRepository<IRepository<Repository.Models.DepartmentWorkSpace>> _getRepository;
     private readonly GetRepository<IRepository<Repository.Models.YearPlan.YearPlanBase>> _getPlanRepository;
-    private readonly GetRepository<IRepository<Repository.Models.CheckDailyReportDetail>> _getDailyReportRepository;
-    private readonly GetRepository<IRepository<Repository.Models.WaterFlowCheck>> _getFlowCheckRepository;
+    private readonly GetRepository<IRepository<Repository.Models.CheckAchievement>> _getCheckAchievementRepository;
+    private readonly IMapper _mapper;
     
 
     public RA049Service(
-       GetRepository<IRepository<Repository.Models.DepartmentWorkSpace>> getRepository,
        GetRepository<IRepository<Repository.Models.YearPlan.YearPlanBase>> getPlanRepository,
-       GetRepository<IRepository<Repository.Models.CheckDailyReportDetail>> getDailyReportRepository,
-       GetRepository<IRepository<Repository.Models.WaterFlowCheck>> getFlowCheckRepository
+       GetRepository<IRepository<Repository.Models.CheckAchievement>> getCheckAchievementRepository,
+       IMapper mapper
+
        )
     {
-        _getRepository = getRepository;
         _getPlanRepository = getPlanRepository;
-        _getDailyReportRepository = getDailyReportRepository;
-        _getFlowCheckRepository = getFlowCheckRepository;
+        _getCheckAchievementRepository = getCheckAchievementRepository;
+        _mapper = mapper;   
     }
 
     public Task<RA049> GetAsync(string id)
@@ -46,65 +45,65 @@ public class RA049Service : IGetService<RA049, string>
 
     private async Task<RA049> QueryRA049(QueryRA049 condition)
     {
-        var dailyReportRepository = _getDailyReportRepository();
-        var flowCheckRepository = _getFlowCheckRepository();
-        var workspace =  await _getRepository().GetAsync(condition.WorkSpaceId);
-        var result = new RA049
+        var checkAchivement = (await _getCheckAchievementRepository().GetListAsync(x => x.WorkSpaceId == condition.WorkSpaceId)).FirstOrDefault();
+        var result = _mapper.Map<RA049>(checkAchivement);
+        if(checkAchivement != null) 
         {
-            Year = workspace.Year,
-            DepartmentName = workspace.DepartmentName,
-            WorkSpaceName = workspace.WorkSpaceName
-        };
+            result.WorkSpaceName = checkAchivement.WorkSpace?.WorkSpaceName;
 
-        
-        var plan = (await _getPlanRepository().GetListAsync(x => x.Year == workspace.Year && x.DepartmentId == condition.WorkSpaceId))
-            .FirstOrDefault();
-        if (plan != null)
-        {
-            
-            var planWorkSpace = plan.YearPlanWorkSpaces.FirstOrDefault(x => x.WorkSpaceId == condition.WorkSpaceId);
-            if(planWorkSpace != null)
+            #region 績效分析  要計算差異及達成率,轉型成新類別報表比較好處理
+            result.Performance_UnderGroundLeakageAmount.RealAmount = checkAchivement.UnderGroundLeakageAmount;
+            result.Performance_PipeLength.PlanAmount = checkAchivement.PlanPipeLength;
+            result.Performance_PipeLength.RealAmount = checkAchivement.RealPipeLength;
+            result.Performance_CustomerAmount.PlanAmount = checkAchivement.PlanCustomerAmount;
+            result.Performance_CustomerAmount.RealAmount = checkAchivement.RealCustomerAmount;
+            var temp = checkAchivement.CheckAchievementAmountVolumes.FirstOrDefault(x => x.Name == "合計");
+            if(temp != null)
             {
-                result.OperationStartDate = planWorkSpace.OperationStartDate;
-                result.OperationEndDate = planWorkSpace.OperationEndDate;
-                result.Operators = plan.Operators;
-                result.WorkDayTotal = ( await dailyReportRepository.GetListAsync(x => x.WorkSpaceId == condition.WorkSpaceId && x.CheckDailyReport.ReportDate.Year == workspace.Year))
-                    .Sum(x => x.WorkDayTotal);
-
-
-                //流量檢查取得同年度最小的點
-                result.ThisYearMinFlowData = (await flowCheckRepository.GetListAsync<FlowData>(x => x.WorkSpaceId == condition.WorkSpaceId
-                && x.MeasureDate.Year == workspace.Year && x.BeforeOrAfter.Name == "檢修前",
-                x => new FlowData
-                {
-                    LocationNumber = x.LocationNumber,
-                    MeasureDate = x.MeasureDate,
-                    MinFlow = x.WaterFlowCheckData.Select(x => x.CH1Volumetric).Min()
-                }))
-                .OrderBy(x => x.MinFlow).FirstOrDefault();
-                if(result.ThisYearMinFlowData != null)
-                {
-                    result.LastYearMinFlowData = (await flowCheckRepository.GetListAsync<FlowData>(x => x.WorkSpaceId == condition.WorkSpaceId
-                        && x.MeasureDate.Year < workspace.Year && x.BeforeOrAfter.Name == "檢修後"
-                        && x.LocationNumber == result.ThisYearMinFlowData.LocationNumber , //找前期的要找同一地點
-                       x => new FlowData
-                       {
-                           LocationNumber = x.LocationNumber,
-                           MeasureDate = x.MeasureDate,
-                           MinFlow = x.WaterFlowCheckData.Select(x => x.CH1Volumetric).Min()
-                       }))
-                       .OrderBy(x => x.MinFlow).FirstOrDefault();
-                }
-
-
-
-
+                result.Performance_Volumn.PlanAmount =  temp.PlanVolumn; ;
+                result.Performance_Volumn.RealAmount = temp.RealVolumn;
 
             }
+            result.Performance_BenefitAmount.RealAmount = checkAchivement.BenefitAmount;
+            result.Performance_CostPerCmd.RealAmount = checkAchivement.ProductionCostPerCmd;
+            result.Performance_CostPerKm.RealAmount = checkAchivement.ProductionCostPerKm;
+
+            // "基本資料" 沒有儲存的相關欄位, 要在報表載入
+            var plan = (await _getPlanRepository().GetListAsync(x =>
+                x.DepartmentId == checkAchivement.DepartmentId  &&
+                x.Year == checkAchivement.Year)).FirstOrDefault();
+            var yearPlanWorkSpace = plan?.YearPlanWorkSpaces?.FirstOrDefault(x => x.WorkSpaceId == checkAchivement.WorkSpaceId);
+
+            
+            if(yearPlanWorkSpace != null)
+            {
+                //地下漏水件數=年度規劃分析-五.工作計劃-地下漏水檢漏件數 管線+用戶外線
+                result.Performance_UnderGroundLeakageAmount.PlanAmount = (yearPlanWorkSpace.CheckOutAmountDistributionPipe ?? 0)
+                                                 + (yearPlanWorkSpace.CheckOutAmountOutdoorPipe ?? 0);
+                //檢漏效益(元) = 年度規劃分析 - 五.工作計劃 - 效益額(元)
+                result.Performance_BenefitAmount.PlanAmount = yearPlanWorkSpace.BenefitAmount;
+                //檢漏成本(元/CMD)=年度規劃分析-五.工作計劃-檢漏成本-元/CMD
+                result.Performance_CostPerCmd.PlanAmount = yearPlanWorkSpace.CheckOutCostPerCMD;
+                //檢漏成本(元/KM)=年度規劃分析-五.工作計劃-檢漏成本-元/KM
+                result.Performance_CostPerKm.PlanAmount = yearPlanWorkSpace.CheckOutCostPerKm;
+            }
+            #endregion
+
+            #region 費用 要計算差異及達成率,轉型成新類別報表比較好處理
+            result.Expense_Personnel = new RA049_DiffAndRate(checkAchivement.PlanPersonnelExpense, checkAchivement.RealPersonnelExpense);
+            result.Expense_Travel = new RA049_DiffAndRate(checkAchivement.PlanTravelExpense, checkAchivement.RealTravelExpense);
+            result.Expense_Other = new RA049_DiffAndRate(checkAchivement.PlanOtherExpense, checkAchivement.RealOtherExpense);
+            result.Expense_CarMaintain = new RA049_DiffAndRate(checkAchivement.PlanCarMaintainExpense, checkAchivement.RealCarMaintainExpense);
+            result.Expense_ApplianceMaintain = new RA049_DiffAndRate(checkAchivement.PlanApplianceMaintainExpense, checkAchivement.RealApplianceMaintainExpense);
+            result.Expense_Depreciation = new RA049_DiffAndRate(checkAchivement.PlanDepreciationExpense, checkAchivement.RealDepreciationExpense);
+            result.Expense_Overtime = new RA049_DiffAndRate(checkAchivement.PlanOvertimeExpense, checkAchivement.RealOvertimeExpense);
+            result.Expense_CheckOutTool = new RA049_DiffAndRate(checkAchivement.PlanCheckOutToolExpense, checkAchivement.RealCheckOutToolExpense);
+            result.Expense_Fuel = new RA049_DiffAndRate(checkAchivement.PlanFuleExpense, checkAchivement.RealFuleExpense);
+            result.Expense_Total = new RA049_DiffAndRate(checkAchivement.PlanTotalExpense, checkAchivement.RealTotalExpense);
+            #endregion
+
+            result.MinFlowCompare = new RA049_DiffAndRate(checkAchivement.MinFlowBefore, checkAchivement.MinFlowAfter);
         }
-
-
-       
         return result;
     }
 

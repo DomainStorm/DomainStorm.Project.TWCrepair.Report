@@ -512,6 +512,13 @@ try
             .AddScoped<GetRepository<IRepository<Models.DepartmentWorkSpaceItem>>>(
                 c => c.GetRequiredService<IRepository<Models.DepartmentWorkSpaceItem>>);
 
+
+        builder.Services
+         .AddTransient<IRepository<Models.CheckAchievement>, SqlDbRepository<Models.CheckAchievement>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.CheckAchievement>>>(
+                c => c.GetRequiredService<IRepository<Models.CheckAchievement>>);
+        
         builder.Services.AddTransient<IUnitOfWork, SqlDbUnitOfWork>();
         builder.Services.AddScoped<GetRepository<IUnitOfWork>>(
             c => c.GetRequiredService<IUnitOfWork>);
