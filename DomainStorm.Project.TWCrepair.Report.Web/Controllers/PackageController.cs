@@ -1,4 +1,5 @@
-﻿using DomainStorm.Framework;
+﻿using AutoMapper;
+using DomainStorm.Framework;
 using DomainStorm.Framework.Caching;
 using DomainStorm.Framework.Services;
 using DomainStorm.Project.TWCrepair.Report.Web.Views;
@@ -79,6 +80,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
             IGetService<RA037, string> ra037Service,
             IGetService<RA039, string> ra039Service,
             IGetService<RA040, string> ra040Service,
+            IGetService<RA041, string> ra041Service,
             IGetService<DA004, string> da004Service,
             IGetService<DA005, string> da005Service,
             IGetService<Stream, ReportConvertRequest> reportService,
@@ -371,6 +373,55 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
 
                 InsertBase64IntoOffice(DA005_Fods, DA005_Img_base64);
                 toMergeXmlDocumentList.Add(DA005_Fods);
+            }
+
+            await using var stream = getMerge(extension).Merge(toMergeXmlDocumentList, extension);
+            var outFileName = $"{Guid.NewGuid()}.{request.Extension.ToString().ToLower()}";
+            var odsStream = await getConvert(FileExtension.ODS).Convert(stream, extension, FileExtension.ODS);
+            return File(odsStream, MediaTypeNames.Application.Octet, outFileName);
+
+        }
+
+        [HttpPost("waterFlow")]
+        public async Task<ActionResult> waterFlow([FromBody] ReportCommandModel.RA041.V1.QueryRA041 request, CancellationToken cancellationToken)
+        {
+            const FileExtension extension = FileExtension.FODS;
+            request.BeforeOrAfterWordId = request.BeforeWordId;
+            var toMergeXmlDocumentList = new List<XmlDocument>
+            {
+                await OutXmlDocument<IGetService<RA041, string>, RA041, ReportCommandModel.RA041.V1.QueryRA041>(
+                    ra041Service, request, reportService, "/Views/RA041.cshtml", extension),
+            };
+
+            var DA008_before_Img_base64 = await cache.GetAsync<string?>($"{request.CachePrefix}-DA008-{request.BeforeOrAfterWordId}");
+            if (DA008_before_Img_base64 != null)
+            {
+                var DA008_before_Fods = await OutXmlDocument(
+                    new RA038
+                    {
+                        SheetName = "檢前水壓比較圖"
+                    }, reportService, "/Views/RA038.cshtml", extension);
+
+                InsertBase64IntoOffice(DA008_before_Fods, DA008_before_Img_base64);
+                toMergeXmlDocumentList.Add(DA008_before_Fods);
+            }
+
+            request.BeforeOrAfterWordId = request.AfterWordId;
+            toMergeXmlDocumentList.Add(
+                await OutXmlDocument<IGetService<RA041, string>, RA041, ReportCommandModel.RA041.V1.QueryRA041>(
+                    ra041Service, request, reportService, "/Views/RA041.cshtml", extension));
+
+            var DA008_after_Img_base64 = await cache.GetAsync<string?>($"{request.CachePrefix}-DA008-{request.BeforeOrAfterWordId}");
+            if (DA008_after_Img_base64 != null)
+            {
+                var DA004_after_Fods = await OutXmlDocument(
+                    new RA038
+                    {
+                        SheetName = "檢後比較圖"
+                    }, reportService, "/Views/RA038.cshtml", extension);
+            
+                InsertBase64IntoOffice(DA004_after_Fods, DA008_after_Img_base64);
+                toMergeXmlDocumentList.Add(DA004_after_Fods);
             }
 
             await using var stream = getMerge(extension).Merge(toMergeXmlDocumentList, extension);
