@@ -111,13 +111,13 @@ public class RA002 : ReportDataModel
     }
 
     /// <summary>
-    /// 案件來源_其它機關(給 Html.CheckBoxFor 用)
+    /// 案件來源_其他機關(給 Html.CheckBoxFor 用)
     /// </summary>
     public bool Source_IsOther
     {
         get
         {
-            return Source != null && Source.Name.Contains("其它");
+            return Source != null && Source.Name.Contains("其他");
         }
     }
     #endregion
@@ -364,13 +364,13 @@ public class RA002 : ReportDataModel
     }
 
     /// <summary>
-    /// 案件屬性-其它
+    /// 案件屬性-其他
     /// </summary>
     public bool CaseAttribute_IsOther
     {
         get
         {
-            return FixFormDispatch != null && FixFormDispatch.CaseAttribute != null && FixFormDispatch.CaseAttribute.Name == "其它";
+            return FixFormDispatch != null && FixFormDispatch.CaseAttribute != null && FixFormDispatch.CaseAttribute.Name == "其他";
         }
     }
 
@@ -421,18 +421,18 @@ public class RA002 : ReportDataModel
     }
 
     /// <summary>
-    /// 案件屬性_設備屬性_其它
+    /// 案件屬性_設備屬性_其他
     /// </summary>
     public bool EquipmentAttribute_IsOther
     {
         get
         {
-            return FixFormDispatch != null && FixFormDispatch.EquipmentAttribute != null && FixFormDispatch.EquipmentAttribute.Name == "其它";
+            return FixFormDispatch != null && FixFormDispatch.EquipmentAttribute != null && FixFormDispatch.EquipmentAttribute.Name == "其他";
         }
     }
 
     /// <summary>
-    /// 案件屬性_設備屬性_其它說明
+    /// 案件屬性_設備屬性_其他說明
     /// </summary>
     public string EquipmentAttribute_Other
     {
@@ -491,13 +491,13 @@ public class RA002 : ReportDataModel
     }
 
     // <summary>
-    /// 案件屬性_維修單位_其它
+    /// 案件屬性_維修單位_其他
     /// </summary>
     public bool FixUnit_IsOther
     {
         get
         {
-            return FixFormDispatch != null && FixFormDispatch.FixUnit != null && FixFormDispatch.FixUnit.Name == "其它";
+            return FixFormDispatch != null && FixFormDispatch.FixUnit != null && FixFormDispatch.FixUnit.Name == "其他";
         }
     }
 

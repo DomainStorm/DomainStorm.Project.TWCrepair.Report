@@ -44,7 +44,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         public  string CaseAttribute { get; set; }
         
         /// <summary>
-        /// 案件屬性-非漏水子選項-其它子選項詞庫代碼
+        /// 案件屬性-非漏水子選項-其他子選項詞庫代碼
         /// </summary>
         public string CaseAttributeNotLeackageOther { get; set; }
 
@@ -222,11 +222,11 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
             get
             {
                 string notes1 = "", notes2 = "";
-                if(CaseAttribute == "其它" || CaseAttribute == "其他")
+                if(CaseAttribute == "其他")
                 {
                     notes1 = $"案件屬性：{CaseAttributeNotLeackageOther}";
                 }
-                if (EquipmentAttribute == "其它" || EquipmentAttribute == "其他")
+                if (EquipmentAttribute == "其他")
                 {
                     if(notes1.Length > 0)
                     {
