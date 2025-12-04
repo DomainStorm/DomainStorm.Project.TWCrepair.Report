@@ -106,10 +106,12 @@ public class RA039Service : IGetService<RA039, string>
             {
                 foreach (var catagory in result.Catagories)
                 {
-                    foreach (var modelInst in planReport.YearPlanReportInstruments.Where(x => x.Equipment.ParentId == catagory.Id))
+
+                    foreach (var modelInst in planReport.YearPlanReportInstruments.Where(x => x.Equipment.Parent.OwnerId == catagory.Id))
                     {
                         var newItem = _mapper.Map<RA039_Item>(modelInst);
                         newItem.CategoryName = catagory.Name;
+                        result.Items.Add(newItem);
                     }
                 }
             }
