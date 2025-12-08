@@ -128,11 +128,16 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         public string TransferNotes { get; set; }
 
         /// <summary>
+        /// 是否為移辦單取回
+        /// </summary>
+        public bool IsRetrieved { get; set; }
+
+        /// <summary>
         /// (Final)備忘
         /// </summary>
         public string? Notes
         {
-            get => $"{DispatchNotes} {TransferNotes}";
+            get => $"{DispatchNotes} {TransferNotes} {(IsRetrieved ? "檢漏系統取回" : "") }";
         }
     }
 }

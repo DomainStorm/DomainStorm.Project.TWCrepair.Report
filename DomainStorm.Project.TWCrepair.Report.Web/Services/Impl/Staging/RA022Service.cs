@@ -98,6 +98,7 @@ public class RA022Service : IGetService<RA022, string>
             LeakageEquipmentAttribute = x.FixFormLeakage != null && x.FixFormLeakage.EquipmentAttribute != null ? x.FixFormLeakage.EquipmentAttribute.Name : "",
             Photos = x.FixFormAudit != null ? x.FixFormAudit.FixFormAuditAttachments.Count : 0,
             SuperVisorHour = x.FixFormAudit != null ? x.FixFormAudit.FixFormAuditSupervisors.Select(v => $"{v.SupervisorUserName} {v.Hour}時").ToList() : null,
+            IsRetrieved = x.IsRetrieved
         });
         return result;
     }
