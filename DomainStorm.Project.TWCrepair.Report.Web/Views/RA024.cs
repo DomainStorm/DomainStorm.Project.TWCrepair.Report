@@ -231,7 +231,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
                 },
                 new RA024KindFilter
                 {
-                    Title = "其它管種(含已停用 管種RCP、PBP、 ACP及鉛管等",
+                    Title = "其他管種(含已停用 管種RCP、PBP、 ACP及鉛管等",
                     func = new Func<RA024BaseData, bool>(x => x.PipeKind != "DIP" && x.PipeKind != "CIP" && x.PipeKind != "SP"
                     && x.PipeKind != "SSP" && x.PipeKind != "PSCP" && x.PipeKind != "PCCP"
                     && x.PipeKind != "FRP" && x.PipeKind != "PVCP" && x.PipeKind != "PVCP/PE" 
