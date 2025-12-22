@@ -105,7 +105,7 @@
     @for(var i = 0; i < Model.BudgetDocDetail.BudgetDocDetailItems.Count; i++)
     {
         var item =  Model.BudgetDocDetail.BudgetDocDetailItems[i];
-        <table:table-row table:style-name="ro3">
+        <table:table-row table:style-name="ro9@(Model.RowStyle(item))">
          <table:table-cell table:style-name="ce483" office:value-type="float" office:value="@(i+1)" calcext:value-type="float" />
          <table:table-cell table:style-name="ce488" office:value-type="string" calcext:value-type="string">
           <text:p>@item.Code</text:p>

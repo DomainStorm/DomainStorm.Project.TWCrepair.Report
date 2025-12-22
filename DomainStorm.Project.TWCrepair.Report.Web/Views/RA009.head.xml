@@ -830,6 +830,229 @@
   <style:style style:name="ro7" style:family="table-row">
     <style:table-row-properties style:row-height="0.452cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
   </style:style>
+
+  <!--以下應用在以字數算取列高用,為程式撰寫方便, 且名稱和附註的字型不一樣, 要配合各種狀況去定義 , 第1碼為前置字元 , 第 2~3 碼為名稱的列數, 第4~5碼為附註的列數
+  例如 90102  : 名稱有一列, 附註有兩列
+  90201  : 名稱有兩列, 附註有一列
+  -->
+  <style:style style:name="ro90101" style:family="table-row">
+    <style:table-row-properties style:row-height="0.557cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90102" style:family="table-row">
+    <style:table-row-properties style:row-height="0.684cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90103" style:family="table-row">
+    <style:table-row-properties style:row-height="0.974cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90104" style:family="table-row">
+    <style:table-row-properties style:row-height="1.263cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90105" style:family="table-row">
+    <style:table-row-properties style:row-height="1.552cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90106" style:family="table-row">
+    <style:table-row-properties style:row-height="1.842cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90107" style:family="table-row">
+    <style:table-row-properties style:row-height="2.131cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90108" style:family="table-row">
+    <style:table-row-properties style:row-height="2.422cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90109" style:family="table-row">
+    <style:table-row-properties style:row-height="2.711cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90110" style:family="table-row">
+    <style:table-row-properties style:row-height="3cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+
+  <style:style style:name="ro90201" style:family="table-row">
+    <style:table-row-properties style:row-height="0.788cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90202" style:family="table-row">
+    <style:table-row-properties style:row-height="0.788cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90203" style:family="table-row">
+    <style:table-row-properties style:row-height="0.974cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90204" style:family="table-row">
+    <style:table-row-properties style:row-height="1.263cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90205" style:family="table-row">
+    <style:table-row-properties style:row-height="1.552cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90206" style:family="table-row">
+    <style:table-row-properties style:row-height="1.842cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90207" style:family="table-row">
+    <style:table-row-properties style:row-height="2.131cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90208" style:family="table-row">
+    <style:table-row-properties style:row-height="2.422cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90209" style:family="table-row">
+    <style:table-row-properties style:row-height="2.711cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90210" style:family="table-row">
+    <style:table-row-properties style:row-height="3cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+
+  <style:style style:name="ro90301" style:family="table-row">
+    <style:table-row-properties style:row-height="1.131cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90302" style:family="table-row">
+    <style:table-row-properties style:row-height="1.131cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90303" style:family="table-row">
+    <style:table-row-properties style:row-height="1.131cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90304" style:family="table-row">
+    <style:table-row-properties style:row-height="1.263cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90305" style:family="table-row">
+    <style:table-row-properties style:row-height="1.552cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90306" style:family="table-row">
+    <style:table-row-properties style:row-height="1.842cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90307" style:family="table-row">
+    <style:table-row-properties style:row-height="2.131cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90308" style:family="table-row">
+    <style:table-row-properties style:row-height="2.422cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90309" style:family="table-row">
+    <style:table-row-properties style:row-height="2.711cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90310" style:family="table-row">
+    <style:table-row-properties style:row-height="3cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+
+  <style:style style:name="ro90401" style:family="table-row">
+    <style:table-row-properties style:row-height="1.473cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90402" style:family="table-row">
+    <style:table-row-properties style:row-height="1.473cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90403" style:family="table-row">
+    <style:table-row-properties style:row-height="1.473cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90404" style:family="table-row">
+    <style:table-row-properties style:row-height="1.473cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90405" style:family="table-row">
+    <style:table-row-properties style:row-height="1.552cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90406" style:family="table-row">
+    <style:table-row-properties style:row-height="1.842cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90407" style:family="table-row">
+    <style:table-row-properties style:row-height="2.131cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90408" style:family="table-row">
+    <style:table-row-properties style:row-height="2.422cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90409" style:family="table-row">
+    <style:table-row-properties style:row-height="2.711cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90410" style:family="table-row">
+    <style:table-row-properties style:row-height="3cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+
+  <style:style style:name="ro90501" style:family="table-row">
+    <style:table-row-properties style:row-height="1.815cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90502" style:family="table-row">
+    <style:table-row-properties style:row-height="1.815cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90503" style:family="table-row">
+    <style:table-row-properties style:row-height="1.815cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90504" style:family="table-row">
+    <style:table-row-properties style:row-height="1.815cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90505" style:family="table-row">
+    <style:table-row-properties style:row-height="1.815cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90506" style:family="table-row">
+    <style:table-row-properties style:row-height="1.842cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90507" style:family="table-row">
+    <style:table-row-properties style:row-height="2.131cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90508" style:family="table-row">
+    <style:table-row-properties style:row-height="2.422cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90509" style:family="table-row">
+    <style:table-row-properties style:row-height="2.711cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90510" style:family="table-row">
+    <style:table-row-properties style:row-height="3cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+
+  <style:style style:name="ro90601" style:family="table-row">
+    <style:table-row-properties style:row-height="2.157cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90602" style:family="table-row">
+    <style:table-row-properties style:row-height="2.157cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90603" style:family="table-row">
+    <style:table-row-properties style:row-height="2.157cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90604" style:family="table-row">
+    <style:table-row-properties style:row-height="2.157cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90605" style:family="table-row">
+    <style:table-row-properties style:row-height="2.157cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90606" style:family="table-row">
+    <style:table-row-properties style:row-height="2.157cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90607" style:family="table-row">
+    <style:table-row-properties style:row-height="2.157cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90608" style:family="table-row">
+    <style:table-row-properties style:row-height="2.422cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90609" style:family="table-row">
+    <style:table-row-properties style:row-height="2.711cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90610" style:family="table-row">
+    <style:table-row-properties style:row-height="3cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+
+  <style:style style:name="ro90701" style:family="table-row">
+    <style:table-row-properties style:row-height="2.499cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90702" style:family="table-row">
+    <style:table-row-properties style:row-height="2.499cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90703" style:family="table-row">
+    <style:table-row-properties style:row-height="2.499cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90704" style:family="table-row">
+    <style:table-row-properties style:row-height="2.499cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90705" style:family="table-row">
+    <style:table-row-properties style:row-height="2.499cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90706" style:family="table-row">
+    <style:table-row-properties style:row-height="2.499cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90707" style:family="table-row">
+    <style:table-row-properties style:row-height="2.499cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90708" style:family="table-row">
+    <style:table-row-properties style:row-height="2.499cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90709" style:family="table-row">
+    <style:table-row-properties style:row-height="2.711cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  <style:style style:name="ro90710" style:family="table-row">
+    <style:table-row-properties style:row-height="3cm" fo:break-before="auto" style:use-optimal-row-height="true"/>
+  </style:style>
+  
+  
   <style:style style:name="ta1" style:family="table" style:master-page-name="PageStyle_5f_D">
     <style:table-properties table:display="true" style:writing-mode="lr-tb"/>
   </style:style>
