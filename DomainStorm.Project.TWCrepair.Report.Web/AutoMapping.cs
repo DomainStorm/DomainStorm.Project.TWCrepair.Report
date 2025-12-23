@@ -103,6 +103,10 @@ namespace DomainStorm.Project.TWCrepair.Report.Web
             CreateMap<Models.YearPlan.YearPlanReportInstrument, RA039_Item>();
             CreateMap<Models.ExecuteControl, RA044_Item>();
 
+            CreateMap<DepartmentCodeMapping, Models.DepartmentCodeMapping>()
+                .ForMember(x => x.Code, opt => opt.Ignore())  //這兩個屬性以 Ldap 為準,不要再用定義檔的
+                .ForMember(x => x.Name, opt => opt.Ignore());
+
         }
     }
 }

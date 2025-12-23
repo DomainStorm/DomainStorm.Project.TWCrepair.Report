@@ -89,7 +89,8 @@ public class RA021Service : IGetService<RA021, string>
             WorkTime = x.FixFormDispatch != null && x.FixFormDispatch.WorkTime != null ? x.FixFormDispatch.WorkTime.Name : "",
             ChargeAmount= x.ChargeAmount,
             DispatchNotes = x.FixFormDispatch != null ? x.FixFormDispatch.Notes : null,
-            TransferNotes = x.TransferTargetFixForm != null ?  $"移轉廠所: {x.TransferTargetFixForm.ResponsibleDepartmentName}" : null
+            TransferNotes = x.TransferTargetFixForm != null ?  $"移轉廠所: {x.TransferTargetFixForm.ResponsibleDepartmentName}" : null,
+            IsRetrieved = x.IsRetrieved
         });
         return result;
     }

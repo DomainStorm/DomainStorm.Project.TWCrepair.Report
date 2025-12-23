@@ -75,7 +75,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
 
         public static readonly string[] sources =
         {
-            "客服系統","抄表後送","其他民眾","檢漏單位","員工報修","其它機關","委外檢漏案件"
+            "客服系統","抄表後送","其他民眾","檢漏單位","員工報修","其他機關","委外檢漏案件"
         };
 
         #endregion

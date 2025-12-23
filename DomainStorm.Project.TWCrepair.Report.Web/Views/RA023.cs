@@ -215,8 +215,8 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
                         },
                         new RA023Filter
                         {
-                            Title = "其它閥類修理",
-                            func = new Func<RA023FixForm, bool> (x => x.EquipmentAttribute == "附屬設備" && x.AccessoryEquipment == "其它閥類修理")
+                            Title = "其他閥類修理",
+                            func = new Func<RA023FixForm, bool> (x => x.EquipmentAttribute == "附屬設備" && x.AccessoryEquipment == "其他閥類修理")
                         }
                     }
                 },
@@ -243,8 +243,8 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
                         },
                         new RA023Filter
                         {
-                            Title = "其它盒蓋修理或提升",
-                            func = new Func<RA023FixForm, bool> (x => x.EquipmentAttribute == "附屬設備" && x.AccessoryEquipmentCover == "其它")
+                            Title = "其他盒蓋修理或提升",
+                            func = new Func<RA023FixForm, bool> (x => x.EquipmentAttribute == "附屬設備" && x.AccessoryEquipmentCover == "其他")
                         }
                     }
                 },
@@ -281,8 +281,8 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
                         },
                         new RA023Filter
                         {
-                            Title = "其它",
-                            func = new Func<RA023FixForm, bool> (x =>  x.CaseAttribute == "非漏水案件" && x.CaseAttributeNotLeackage == "其它")
+                            Title = "其他",
+                            func = new Func<RA023FixForm, bool> (x =>  x.CaseAttribute == "非漏水案件" && x.CaseAttributeNotLeackage == "其他")
                         }
                     }
                 }
@@ -775,7 +775,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
             item.FixUnit_Self = forms.Count(x => x.FixUnit == "自修");
             item.FixUnit_OutSourcing = forms.Count(x => x.FixUnit == "委外");
             item.FixUnit_Warranty = forms.Count(x => x.FixUnit == "保固修理");
-            item.FixUnit_Other = forms.Count(x => x.FixUnit == "其它");
+            item.FixUnit_Other = forms.Count(x => x.FixUnit == "其他");
 
             item.FinalCost_Outsourcing = forms.Sum(x => x.FinalCost_Outsourcing ?? 0);
             item.FinalCost_Material = forms.Sum(x => x.FinalCost_Material ?? 0);

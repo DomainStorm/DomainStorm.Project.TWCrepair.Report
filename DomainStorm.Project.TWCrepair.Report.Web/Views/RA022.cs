@@ -44,7 +44,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         public  string CaseAttribute { get; set; }
         
         /// <summary>
-        /// 案件屬性-非漏水子選項-其它子選項詞庫代碼
+        /// 案件屬性-非漏水子選項-其他子選項詞庫代碼
         /// </summary>
         public string CaseAttributeNotLeackageOther { get; set; }
 
@@ -211,7 +211,10 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         /// </summary>
         public List<string> SuperVisorHour { get; set; }
 
-
+        /// <summary>
+        /// 是否為移辦單取回
+        /// </summary>
+        public bool IsRetrieved { get; set; }
 
 
         /// <summary>
@@ -221,12 +224,12 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         {
             get
             {
-                string notes1 = "", notes2 = "";
-                if(CaseAttribute == "其它" || CaseAttribute == "其他")
+                string notes1 = "", notes2 = "", notes3 = "";
+                if(CaseAttribute == "其他")
                 {
                     notes1 = $"案件屬性：{CaseAttributeNotLeackageOther}";
                 }
-                if (EquipmentAttribute == "其它" || EquipmentAttribute == "其他")
+                if (EquipmentAttribute == "其他")
                 {
                     if(notes1.Length > 0)
                     {
@@ -243,8 +246,13 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
                 {
                     notes2 = $"二.[{ string.Join('，', SuperVisorHour) }]";
                 }
-                
-                return notes1 + notes2;
+
+                if(IsRetrieved)
+                {
+                    notes3 = " 檢漏系統取回";
+                }
+
+                return notes1 + notes2 + notes3;
             }
         }
 

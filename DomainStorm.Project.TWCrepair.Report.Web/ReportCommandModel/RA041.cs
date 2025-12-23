@@ -21,6 +21,16 @@ public static class RA041
             public Guid BeforeOrAfterWordId { get; set; }
 
             /// <summary>
+            /// 檢修前詞庫代碼
+            /// </summary>
+            public Guid BeforeWordId { get; set; }
+
+            /// <summary>
+            /// 檢修後詞庫代碼
+            /// </summary>
+            public Guid AfterWordId { get; set; }
+
+            /// <summary>
             /// 區處代碼
             /// </summary>
             public Guid DepartmentId { get; set; }
@@ -57,6 +67,11 @@ public static class RA041
             /// 量測日期
             /// </summary>
             public DateTime MeasureDate { get; set; }
+
+            /// <summary>
+            /// 產製ods Cache用前綴
+            /// </summary>
+            public Guid CachePrefix { get; set; }
 
         }
 
