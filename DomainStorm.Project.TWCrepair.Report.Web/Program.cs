@@ -514,10 +514,10 @@ try
 
 
         builder.Services
-         .AddTransient<IRepository<Models.CheckAchievement>, SqlDbRepository<Models.CheckAchievement>>();
+         .AddTransient<IRepository<Models.CheckSysAchievement>, SqlDbRepository<Models.CheckSysAchievement>>();
         builder.Services
-            .AddScoped<GetRepository<IRepository<Models.CheckAchievement>>>(
-                c => c.GetRequiredService<IRepository<Models.CheckAchievement>>);
+            .AddScoped<GetRepository<IRepository<Models.CheckSysAchievement>>>(
+                c => c.GetRequiredService<IRepository<Models.CheckSysAchievement>>);
         
         builder.Services
             .AddTransient<IRepository<Models.DepartmentCodeMapping>, SqlDbRepository<Models.DepartmentCodeMapping>>();

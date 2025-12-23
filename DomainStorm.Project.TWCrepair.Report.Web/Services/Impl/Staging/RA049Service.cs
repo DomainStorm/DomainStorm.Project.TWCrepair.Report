@@ -13,19 +13,19 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging;
 public class RA049Service : IGetService<RA049, string>
 {
     private readonly GetRepository<IRepository<Repository.Models.YearPlan.YearPlanBase>> _getPlanRepository;
-    private readonly GetRepository<IRepository<Repository.Models.CheckAchievement>> _getCheckAchievementRepository;
+    private readonly GetRepository<IRepository<Repository.Models.CheckSysAchievement>> _getCheckSysAchievementRepository;
     private readonly IMapper _mapper;
     
 
     public RA049Service(
        GetRepository<IRepository<Repository.Models.YearPlan.YearPlanBase>> getPlanRepository,
-       GetRepository<IRepository<Repository.Models.CheckAchievement>> getCheckAchievementRepository,
+       GetRepository<IRepository<Repository.Models.CheckSysAchievement>> getCheckSysAchievementRepository,
        IMapper mapper
 
        )
     {
         _getPlanRepository = getPlanRepository;
-        _getCheckAchievementRepository = getCheckAchievementRepository;
+        _getCheckSysAchievementRepository = getCheckSysAchievementRepository;
         _mapper = mapper;   
     }
 
@@ -45,7 +45,7 @@ public class RA049Service : IGetService<RA049, string>
 
     private async Task<RA049> QueryRA049(QueryRA049 condition)
     {
-        var checkAchivement = (await _getCheckAchievementRepository().GetListAsync(x => x.WorkSpaceId == condition.WorkSpaceId)).FirstOrDefault();
+        var checkAchivement = (await _getCheckSysAchievementRepository().GetListAsync(x => x.WorkSpaceId == condition.WorkSpaceId)).FirstOrDefault();
         var result = _mapper.Map<RA049>(checkAchivement);
         if(checkAchivement != null) 
         {
@@ -57,7 +57,7 @@ public class RA049Service : IGetService<RA049, string>
             result.Performance_PipeLength.RealAmount = checkAchivement.RealPipeLength;
             result.Performance_CustomerAmount.PlanAmount = checkAchivement.PlanCustomerAmount;
             result.Performance_CustomerAmount.RealAmount = checkAchivement.RealCustomerAmount;
-            var temp = checkAchivement.CheckAchievementAmountVolumes.FirstOrDefault(x => x.Name == "合計");
+            var temp = checkAchivement.CheckSysAchievementAmountVolumes.FirstOrDefault(x => x.Name == "合計");
             if(temp != null)
             {
                 result.Performance_Volumn.PlanAmount =  temp.PlanVolumn; ;
