@@ -100,12 +100,12 @@ public class RA049 : ReportDataModel
     /// <summary>
     /// u.地下漏水件數
     /// </summary>
-    public int? UnderGroundLeakageAmount { get; set; }
+    public int? RealUnderGroundLeakageAmount { get; set; }
 
     /// <summary>
     /// v.漏水總件數
     /// </summary>
-    public int? LeakageAmount { get; set; }
+    public int? RealLeakageAmount { get; set; }
 
 
     /// <summary>
@@ -238,10 +238,10 @@ public class RA049 : ReportDataModel
     {
         get
         {
-            var temp = (ConfirmFailAmount ?? 0) + (LeakageAmount ?? 0);
+            var temp = (ConfirmFailAmount ?? 0) + (RealLeakageAmount ?? 0);
             if (temp > 0)
             {
-                return Math.Round(100.0 * (LeakageAmount ?? 0) / (double)temp, 2);
+                return Math.Round(100.0 * (RealLeakageAmount ?? 0) / (double)temp, 2);
             }
             else
             {
@@ -257,9 +257,9 @@ public class RA049 : ReportDataModel
     {
         get
         {
-            if (LeakageAmount.HasValue && LeakageAmount.Value > 0)
+            if (RealLeakageAmount.HasValue && RealLeakageAmount.Value > 0)
             {
-                return Math.Round(100.0 * (UnderGroundLeakageAmount ?? 0) / (double)LeakageAmount, 2);
+                return Math.Round(100.0 * (RealUnderGroundLeakageAmount ?? 0) / (double)RealLeakageAmount, 2);
             }
             else
             {
@@ -362,7 +362,18 @@ public class RA049 : ReportDataModel
     /// <summary>
     /// 檢漏件數及水量
     /// </summary>
-    public List<RA049_AmountVolumn> CheckAchievementAmountVolumes { get; set; } = new List<RA049_AmountVolumn>();
+    public List<RA049_AmountVolumn> CheckSysAchievementAmountVolumes { get; set; } = new List<RA049_AmountVolumn>();
+
+    public int? CheckAmountOf(string name)
+    {
+        return CheckSysAchievementAmountVolumes.FirstOrDefault(x => x.Name == name)?.RealAmount;
+    }
+
+    public double? CheckVolumnOf(string name)
+    {
+        return CheckSysAchievementAmountVolumes.FirstOrDefault(x => x.Name == name)?.RealVolumn;
+    }
+
 
     #region 最小流量比較
     /// <summary>
@@ -377,6 +388,11 @@ public class RA049 : ReportDataModel
 
     public RA049_DiffAndRate MinFlowCompare = new RA049_DiffAndRate();   //
     #endregion
+
+    /// <summary>
+    /// 檢討及建議
+    /// </summary>
+    public string? Recommendations { get; set; }
 }
 
 
@@ -401,24 +417,40 @@ public class RA049_DiffAndRate
         get
         {
             if (RealAmount.HasValue && PlanAmount.HasValue)
-                return RealAmount.Value - PlanAmount.Value;
+                return Math.Round( RealAmount.Value - PlanAmount.Value,2);
             else
                 return null;
         }
     }
     /// <summary>
-    /// 達成率
+    /// 達成率(不要 * 100 , 範本有用 percentage style)
     /// </summary>
     public double? Rate
     {
         get
         {
             if ( PlanAmount.HasValue && PlanAmount.Value > 0)
-                return Math.Round(100 * (RealAmount ?? 0) / PlanAmount.Value, 2);
+                return Math.Round( (RealAmount ?? 0) / PlanAmount.Value, 4);
             else
                 return null;
         }
     }
+
+    // <summary>
+    /// 差異率(不要 * 100 , 範本有用 percentage style)
+    /// </summary>
+    public double? DiffRate
+    {
+        get
+        {
+            if (PlanAmount.HasValue && PlanAmount.Value > 0)
+                return Math.Round((Diff ?? 0) / PlanAmount.Value, 4);
+            else
+                return null;
+        }
+    }
+
+
 
     public RA049_DiffAndRate()
     {
