@@ -36,14 +36,14 @@
                         <text:p><text:span text:style-name="T4">作業日期</text:span><text:span text:style-name="T5">(</text:span><text:span text:style-name="T6">起</text:span><text:span text:style-name="T5">)</text:span></text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce117" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="2" table:number-rows-spanned="1">
-                        <text:p>2022/1/1</text:p>
+                        <text:p>@Model.OperationStartDate.ToString("yyyy/MM/dd")</text:p>
                     </table:table-cell>
                     <table:covered-table-cell table:style-name="ce117" />
                     <table:table-cell table:style-name="ce131" office:value-type="string" calcext:value-type="string">
                         <text:p><text:span text:style-name="T4">作業人員</text:span></text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce342" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="4" table:number-rows-spanned="1">
-                        <text:p>   10<text:span text:style-name="T15">員</text:span></text:p>
+                        <text:p>@Model.CurrentPeople<text:span text:style-name="T15">員</text:span></text:p>
                     </table:table-cell>
                     <table:covered-table-cell table:number-columns-repeated="2" table:style-name="ce67" />
                     <table:covered-table-cell table:style-name="ce342" />
@@ -54,14 +54,14 @@
                         <text:p><text:span text:style-name="T4">作業日期</text:span><text:span text:style-name="T5">(</text:span><text:span text:style-name="T6">止</text:span><text:span text:style-name="T5">)</text:span></text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce129" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="2" table:number-rows-spanned="1">
-                        <text:p>2022/10/31</text:p>
+                        <text:p>@Model.OperationEndDate.ToString("yyyy/MM/dd")</text:p>
                     </table:table-cell>
                     <table:covered-table-cell table:style-name="ce129" />
                     <table:table-cell table:style-name="ce62" office:value-type="string" calcext:value-type="string">
                         <text:p><text:span text:style-name="T4">作業人日</text:span></text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce343" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="4" table:number-rows-spanned="1">
-                        <text:p>357人日</text:p>
+                        <text:p>@Model.RealPersonDay 人日</text:p>
                     </table:table-cell>
                     <table:covered-table-cell table:number-columns-repeated="2" table:style-name="ce68" />
                     <table:covered-table-cell table:style-name="ce343" />
@@ -72,7 +72,7 @@
                         <text:p>工作地點</text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce46" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="7" table:number-rows-spanned="1">
-                        <text:p>東勢系統</text:p>
+                        <text:p>@Model.WorkSpaceName</text:p>
                     </table:table-cell>
                     <table:covered-table-cell table:number-columns-repeated="5" table:style-name="ce55" />
                     <table:covered-table-cell table:style-name="ce69" />
@@ -98,7 +98,7 @@
                         <text:p><text:span text:style-name="T4">漏水復原率</text:span></text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>-6.42</text:p>
+                        <text:p>@Model.LeackageRecover</text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce57" office:value-type="string" calcext:value-type="string">
                         <text:p>%/<text:span text:style-name="T8">年</text:span></text:p>
@@ -125,7 +125,7 @@
                         <text:p><text:span text:style-name="T4">漏水復原量</text:span></text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>-1.52</text:p>
+                        <text:p>@Model.LeackageRecoverAmount</text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce57" office:value-type="string" calcext:value-type="string">
                         <text:p>m<text:span text:style-name="T9">3</text:span><text:span text:style-name="T10">/Km/</text:span><text:span text:style-name="T11">年</text:span></text:p>
@@ -133,18 +133,10 @@
                     <table:table-cell table:style-name="ce38" office:value-type="string" calcext:value-type="string">
                         <text:p><text:span text:style-name="T4">地下漏水件數</text:span></text:p>
                     </table:table-cell>
-                    <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>67</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>71</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce48" table:formula="of:=[.F7]-[.E7]" office:value-type="float" office:value="4" calcext:value-type="float">
-                        <text:p>4</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce70" table:formula="of:=[.F7]/[.E7]" office:value-type="percentage" office:value="1.05970149253731" calcext:value-type="percentage">
-                        <text:p>105.97%</text:p>
-                    </table:table-cell>
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Performance_UnderGroundLeakageAmount.PlanAmount" calcext:value-type="float" />
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Performance_UnderGroundLeakageAmount.RealAmount" calcext:value-type="float" />
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Performance_UnderGroundLeakageAmount.Diff" calcext:value-type="float" />
+                    <table:table-cell table:style-name="ce70" office:value-type="percentage" office:value="@Model.Performance_UnderGroundLeakageAmount.Rate" calcext:value-type="percentage" />
                     <table:table-cell table:number-columns-repeated="249" />
                 </table:table-row>
                 <table:table-row table:style-name="ro4">
@@ -152,7 +144,7 @@
                         <text:p><text:span text:style-name="T4">檢修後戶配水量</text:span></text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>0.82</text:p>
+                        <text:p>@Model.CmdPerCustomer</text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce57" office:value-type="string" calcext:value-type="string">
                         <text:p>CMD/<text:span text:style-name="T8">戶</text:span></text:p>
@@ -160,18 +152,10 @@
                     <table:table-cell table:style-name="ce38" office:value-type="string" calcext:value-type="string">
                         <text:p><text:span text:style-name="T4">檢漏管長</text:span><text:span text:style-name="T5">(KM)</text:span></text:p>
                     </table:table-cell>
-                    <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>578</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>657</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce48" table:formula="of:=[.F8]-[.E8]" office:value-type="float" office:value="79" calcext:value-type="float">
-                        <text:p>79</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce70" table:formula="of:=[.F8]/[.E8]" office:value-type="percentage" office:value="1.13667820069204" calcext:value-type="percentage">
-                        <text:p>113.67%</text:p>
-                    </table:table-cell>
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Performance_PipeLength.PlanAmount" calcext:value-type="float" />
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Performance_PipeLength.RealAmount" calcext:value-type="float" />
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Performance_PipeLength.Diff" calcext:value-type="float" />
+                    <table:table-cell table:style-name="ce70" office:value-type="percentage" office:value="@Model.Performance_PipeLength.Rate" calcext:value-type="percentage" />
                     <table:table-cell table:number-columns-repeated="249" />
                 </table:table-row>
                 <table:table-row table:style-name="ro4">
@@ -179,7 +163,7 @@
                         <text:p><text:span text:style-name="T4">檢漏速率</text:span></text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>3.9</text:p>
+                        <text:p>@Model.CheckSpeed</text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce57" office:value-type="string" calcext:value-type="string">
                         <text:p>Km/<text:span text:style-name="T8">人日</text:span></text:p>
@@ -187,18 +171,10 @@
                     <table:table-cell table:style-name="ce38" office:value-type="string" calcext:value-type="string">
                         <text:p><text:span text:style-name="T4">檢漏戶數</text:span><text:span text:style-name="T5">(</text:span><text:span text:style-name="T6">戶</text:span><text:span text:style-name="T5">)</text:span></text:p>
                     </table:table-cell>
-                    <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>29441</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>14808</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce48" table:formula="of:=[.F9]-[.E9]" office:value-type="float" office:value="-14633" calcext:value-type="float">
-                        <text:p>-14633</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce70" table:formula="of:=[.F9]/[.E9]" office:value-type="percentage" office:value="0.502972045786488" calcext:value-type="percentage">
-                        <text:p>50.30%</text:p>
-                    </table:table-cell>
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Performance_CustomerAmount.PlanAmount" calcext:value-type="float" />
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Performance_CustomerAmount.RealAmount" calcext:value-type="float" />
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Performance_CustomerAmount.Diff" calcext:value-type="float" />
+                    <table:table-cell table:style-name="ce70" office:value-type="percentage" office:value="@Model.Performance_CustomerAmount.Rate" calcext:value-type="percentage" />
                     <table:table-cell table:number-columns-repeated="249" />
                 </table:table-row>
                 <table:table-row table:style-name="ro4">
@@ -206,7 +182,7 @@
                         <text:p><text:span text:style-name="T4">篩檢率</text:span></text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>100</text:p>
+                        <text:p>@Model.FiltRate</text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce57" office:value-type="string" calcext:value-type="string">
                         <text:p>%</text:p>
@@ -214,18 +190,10 @@
                     <table:table-cell table:style-name="ce38" office:value-type="string" calcext:value-type="string">
                         <text:p><text:span text:style-name="T4">檢漏水量</text:span><text:span text:style-name="T5">(CMD)</text:span></text:p>
                     </table:table-cell>
-                    <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>4532</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>7924.41</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce48" table:formula="of:=[.F10]-[.E10]" office:value-type="float" office:value="3392.41" calcext:value-type="float">
-                        <text:p>3392.41</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce70" table:formula="of:=[.F10]/[.E10]" office:value-type="percentage" office:value="1.74854589585172" calcext:value-type="percentage">
-                        <text:p>174.85%</text:p>
-                    </table:table-cell>
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Performance_Volumn.PlanAmount" calcext:value-type="float" />
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Performance_Volumn.RealAmount" calcext:value-type="float" />
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Performance_Volumn.Diff" calcext:value-type="float" />
+                    <table:table-cell table:style-name="ce70" office:value-type="percentage" office:value="@Model.Performance_Volumn.Rate" calcext:value-type="percentage" />
                     <table:table-cell table:number-columns-repeated="249" />
                 </table:table-row>
                 <table:table-row table:style-name="ro4">
@@ -233,7 +201,7 @@
                         <text:p><text:span text:style-name="T4">確認失敗率</text:span></text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>10.31</text:p>
+                        <text:p>@Model.ConfirmFailAmountRate</text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce57" office:value-type="string" calcext:value-type="string">
                         <text:p>%</text:p>
@@ -241,18 +209,10 @@
                     <table:table-cell table:style-name="ce38" office:value-type="string" calcext:value-type="string">
                         <text:p><text:span text:style-name="T4">檢漏效益</text:span><text:span text:style-name="T5">(</text:span><text:span text:style-name="T6">元</text:span><text:span text:style-name="T5">)</text:span></text:p>
                     </table:table-cell>
-                    <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>9572763</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>18566598</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce48" table:formula="of:=[.F11]-[.E11]" office:value-type="float" office:value="8993835" calcext:value-type="float">
-                        <text:p>8993835</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce70" table:formula="of:=[.F11]/[.E11]" office:value-type="percentage" office:value="1.93952341659352" calcext:value-type="percentage">
-                        <text:p>193.95%</text:p>
-                    </table:table-cell>
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Performance_BenefitAmount.PlanAmount" calcext:value-type="float" />
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Performance_BenefitAmount.RealAmount" calcext:value-type="float" />
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Performance_BenefitAmount.Diff" calcext:value-type="float" />
+                    <table:table-cell table:style-name="ce70" office:value-type="percentage" office:value="@Model.Performance_BenefitAmount.Rate" calcext:value-type="percentage" />
                     <table:table-cell table:number-columns-repeated="249" />
                 </table:table-row>
                 <table:table-row table:style-name="ro4">
@@ -260,7 +220,7 @@
                         <text:p><text:span text:style-name="T4">地下漏水發生率</text:span></text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce49" office:value-type="string" calcext:value-type="string">
-                        <text:p>81.61</text:p>
+                        <text:p>@Model.UnderGroundLeakageAmountRate</text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce58" office:value-type="string" calcext:value-type="string">
                         <text:p>%</text:p>
@@ -268,18 +228,10 @@
                     <table:table-cell table:style-name="ce63" office:value-type="string" calcext:value-type="string">
                         <text:p><text:span text:style-name="T12">檢漏成本</text:span><text:span text:style-name="T13">(</text:span><text:span text:style-name="T14">元</text:span><text:span text:style-name="T13">/CMD)</text:span></text:p>
                     </table:table-cell>
-                    <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>326</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>95</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce48" table:formula="of:=[.F12]-[.E12]" office:value-type="float" office:value="-231" calcext:value-type="float">
-                        <text:p>-231</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce70" table:formula="of:=[.F12]/[.E12]" office:value-type="percentage" office:value="0.291411042944785" calcext:value-type="percentage">
-                        <text:p>29.14%</text:p>
-                    </table:table-cell>
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Performance_CostPerCmd.PlanAmount" calcext:value-type="float" />
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Performance_CostPerCmd.RealAmount" calcext:value-type="float" />
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Performance_CostPerCmd.Diff" calcext:value-type="float" />
+                    <table:table-cell table:style-name="ce70" office:value-type="percentage" office:value="@Model.Performance_CostPerCmd.Rate" calcext:value-type="percentage" />
                     <table:table-cell table:number-columns-repeated="249" />
                 </table:table-row>
                 <table:table-row table:style-name="ro4">
@@ -291,18 +243,10 @@
                     <table:table-cell table:style-name="ce64" office:value-type="string" calcext:value-type="string">
                         <text:p><text:span text:style-name="T12">檢漏成本</text:span><text:span text:style-name="T13">(</text:span><text:span text:style-name="T14">元</text:span><text:span text:style-name="T13">/KM)</text:span></text:p>
                     </table:table-cell>
-                    <table:table-cell table:style-name="ce49" office:value-type="string" calcext:value-type="string">
-                        <text:p>2390</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce49" office:value-type="string" calcext:value-type="string">
-                        <text:p>1149</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce48" table:formula="of:=[.F13]-[.E13]" office:value-type="float" office:value="-1241" calcext:value-type="float">
-                        <text:p>-1241</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce70" table:formula="of:=[.F13]/[.E13]" office:value-type="percentage" office:value="0.480753138075314" calcext:value-type="percentage">
-                        <text:p>48.08%</text:p>
-                    </table:table-cell>
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Performance_CostPerKm.PlanAmount" calcext:value-type="float" />
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Performance_CostPerKm.RealAmount" calcext:value-type="float" />
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Performance_CostPerKm.Diff" calcext:value-type="float" />
+                    <table:table-cell table:style-name="ce70" office:value-type="percentage" office:value="@Model.Performance_CostPerKm.Rate" calcext:value-type="percentage" />
                     <table:table-cell table:number-columns-repeated="249" />
                 </table:table-row>
                 <table:table-row table:style-name="ro4">
@@ -327,10 +271,10 @@
                         <text:p><text:span text:style-name="T4">地下漏水</text:span><text:span text:style-name="T5">(</text:span><text:span text:style-name="T6">管線</text:span><text:span text:style-name="T5">)</text:span></text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>35</text:p>
+                        <text:p>@Model.CheckAmountOf("地下漏水(管線)")</text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce60" office:value-type="string" calcext:value-type="string">
-                        <text:p>5822.33</text:p>
+                        <text:p>@Model.CheckVolumnOf("地下漏水(管線)")</text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce37" office:value-type="string" calcext:value-type="string">
                         <text:p><text:span text:style-name="T4">項目</text:span></text:p>
@@ -354,24 +298,18 @@
                         <text:p><text:span text:style-name="T4">地下漏水</text:span><text:span text:style-name="T5">(</text:span><text:span text:style-name="T6">用戶</text:span><text:span text:style-name="T5">)</text:span></text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>36</text:p>
+                        <text:p>@Model.CheckAmountOf("地下漏水(用戶)")</text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce60" office:value-type="string" calcext:value-type="string">
-                        <text:p>1699.44</text:p>
+                        <text:p>@Model.CheckVolumnOf("地下漏水(用戶)")</text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce37" office:value-type="string" calcext:value-type="string">
                         <text:p><text:span text:style-name="T4">用人費</text:span></text:p>
                     </table:table-cell>
-                    <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>775286</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>550990</text:p>
-                    </table:table-cell>
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Expense_Personnel.PlanAmount" calcext:value-type="float" />
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Expense_Personnel.RealAmount" calcext:value-type="float" />
                     <table:table-cell table:style-name="ce48" />
-                    <table:table-cell table:style-name="ce70" table:formula="of:=[.F16]/[.E16]" office:value-type="percentage" office:value="0.710692570225697" calcext:value-type="percentage">
-                        <text:p>71.07%</text:p>
-                    </table:table-cell>
+                    <table:table-cell table:style-name="ce70" office:value-type="percentage" office:value="@Model.Expense_Personnel.Rate" calcext:value-type="percentage" />
                     <table:table-cell table:number-columns-repeated="249" />
                 </table:table-row>
                 <table:table-row table:style-name="ro4">
@@ -379,24 +317,18 @@
                         <text:p><text:span text:style-name="T4">地上漏水</text:span></text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>16</text:p>
+                        <text:p>@Model.CheckAmountOf("地上漏水")</text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce60" office:value-type="string" calcext:value-type="string">
-                        <text:p>402.64</text:p>
+                        <text:p>@Model.CheckVolumnOf("地上漏水")</text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce37" office:value-type="string" calcext:value-type="string">
                         <text:p><text:span text:style-name="T4">差旅費</text:span></text:p>
                     </table:table-cell>
-                    <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>189400</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>82800</text:p>
-                    </table:table-cell>
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Expense_Travel.PlanAmount" calcext:value-type="float" />
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Expense_Travel.RealAmount" calcext:value-type="float" />
                     <table:table-cell table:style-name="ce48" />
-                    <table:table-cell table:style-name="ce70" table:formula="of:=[.F17]/[.E17]" office:value-type="percentage" office:value="0.437170010559662" calcext:value-type="percentage">
-                        <text:p>43.72%</text:p>
-                    </table:table-cell>
+                    <table:table-cell table:style-name="ce70" office:value-type="percentage" office:value="@Model.Expense_Travel.Rate" calcext:value-type="percentage" />
                     <table:table-cell table:number-columns-repeated="249" />
                 </table:table-row>
                 <table:table-row table:style-name="ro4">
@@ -404,24 +336,18 @@
                         <text:p><text:span text:style-name="T4">其他漏水</text:span></text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>0</text:p>
+                        <text:p>@Model.CheckAmountOf("其他漏水")</text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce60" office:value-type="string" calcext:value-type="string">
-                        <text:p>0</text:p>
+                        <text:p>@Model.CheckVolumnOf("其他漏水")</text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce37" office:value-type="string" calcext:value-type="string">
                         <text:p><text:span text:style-name="T4">其他事務費</text:span></text:p>
                     </table:table-cell>
-                    <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>42666</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>0</text:p>
-                    </table:table-cell>
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Expense_Other.PlanAmount" calcext:value-type="float" />
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Expense_Other.RealAmount" calcext:value-type="float" />
                     <table:table-cell table:style-name="ce48" />
-                    <table:table-cell table:style-name="ce70" table:formula="of:=[.F18]/[.E18]" office:value-type="percentage" office:value="0" calcext:value-type="percentage">
-                        <text:p>0.00%</text:p>
-                    </table:table-cell>
+                    <table:table-cell table:style-name="ce70" office:value-type="percentage" office:value="@Model.Expense_Other.Rate" calcext:value-type="percentage" />
                     <table:table-cell table:number-columns-repeated="249" />
                 </table:table-row>
                 <table:table-row table:style-name="ro4">
@@ -429,24 +355,18 @@
                         <text:p><text:span text:style-name="T4">合計</text:span></text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce49" office:value-type="string" calcext:value-type="string">
-                        <text:p>87</text:p>
+                        <text:p>@Model.CheckAmountOf("合計")</text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce61" office:value-type="string" calcext:value-type="string">
-                        <text:p>7924.41</text:p>
+                        <text:p>@Model.CheckVolumnOf("合計")</text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce37" office:value-type="string" calcext:value-type="string">
                         <text:p><text:span text:style-name="T4">車輛維護費</text:span></text:p>
                     </table:table-cell>
-                    <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>17734</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>11650</text:p>
-                    </table:table-cell>
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Expense_CarMaintain.PlanAmount" calcext:value-type="float" />
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Expense_CarMaintain.RealAmount" calcext:value-type="float" />
                     <table:table-cell table:style-name="ce48" />
-                    <table:table-cell table:style-name="ce70" table:formula="of:=[.F19]/[.E19]" office:value-type="percentage" office:value="0.656930190594339" calcext:value-type="percentage">
-                        <text:p>65.69%</text:p>
-                    </table:table-cell>
+                    <table:table-cell table:style-name="ce70" office:value-type="percentage" office:value="@Model.Expense_CarMaintain.Rate" calcext:value-type="percentage" />
                     <table:table-cell table:number-columns-repeated="249" />
                 </table:table-row>
                 <table:table-row table:style-name="ro4">
@@ -458,16 +378,10 @@
                     <table:table-cell table:style-name="ce37" office:value-type="string" calcext:value-type="string">
                         <text:p><text:span text:style-name="T4">器具維護費</text:span></text:p>
                     </table:table-cell>
-                    <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>46400</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>54507</text:p>
-                    </table:table-cell>
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Expense_ApplianceMaintain.PlanAmount" calcext:value-type="float" />
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Expense_ApplianceMaintain.RealAmount" calcext:value-type="float" />
                     <table:table-cell table:style-name="ce48" />
-                    <table:table-cell table:style-name="ce70" table:formula="of:=[.F20]/[.E20]" office:value-type="percentage" office:value="1.17471982758621" calcext:value-type="percentage">
-                        <text:p>117.47%</text:p>
-                    </table:table-cell>
+                    <table:table-cell table:style-name="ce70" office:value-type="percentage" office:value="@Model.Expense_ApplianceMaintain.Rate" calcext:value-type="percentage" />
                     <table:table-cell table:number-columns-repeated="249" />
                 </table:table-row>
                 <table:table-row table:style-name="ro4">
@@ -475,7 +389,7 @@
                         <text:p><text:span text:style-name="T4">檢修後</text:span></text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>18915.33</text:p>
+                        <text:p>@Model.MinFlowCompare.RealAmount</text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce60" office:value-type="string" calcext:value-type="string">
                         <text:p>CMD</text:p>
@@ -483,16 +397,10 @@
                     <table:table-cell table:style-name="ce37" office:value-type="string" calcext:value-type="string">
                         <text:p><text:span text:style-name="T4">儀器折舊費</text:span></text:p>
                     </table:table-cell>
-                    <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>94778</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>0</text:p>
-                    </table:table-cell>
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Expense_Depreciation.PlanAmount" calcext:value-type="float" />
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Expense_Depreciation.RealAmount" calcext:value-type="float" />
                     <table:table-cell table:style-name="ce48" />
-                    <table:table-cell table:style-name="ce70" table:formula="of:=[.F21]/[.E21]" office:value-type="percentage" office:value="0" calcext:value-type="percentage">
-                        <text:p>0.00%</text:p>
-                    </table:table-cell>
+                    <table:table-cell table:style-name="ce70" office:value-type="percentage" office:value="@Model.Expense_Depreciation.Rate" calcext:value-type="percentage" />
                     <table:table-cell table:number-columns-repeated="249" />
                 </table:table-row>
                 <table:table-row table:style-name="ro4">
@@ -500,7 +408,7 @@
                         <text:p><text:span text:style-name="T4">檢修前</text:span></text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>23111.11</text:p>
+                        <text:p>@Model.MinFlowCompare.PlanAmount</text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce60" office:value-type="string" calcext:value-type="string">
                         <text:p>CMD</text:p>
@@ -508,16 +416,10 @@
                     <table:table-cell table:style-name="ce37" office:value-type="string" calcext:value-type="string">
                         <text:p><text:span text:style-name="T4">誤費</text:span><text:span text:style-name="T5">/</text:span><text:span text:style-name="T6">加班費</text:span></text:p>
                     </table:table-cell>
-                    <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>2720</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>2487</text:p>
-                    </table:table-cell>
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Expense_Overtime.PlanAmount" calcext:value-type="float" />
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Expense_Overtime.RealAmount" calcext:value-type="float" />
                     <table:table-cell table:style-name="ce48" />
-                    <table:table-cell table:style-name="ce70" table:formula="of:=[.F22]/[.E22]" office:value-type="percentage" office:value="0.914338235294118" calcext:value-type="percentage">
-                        <text:p>91.43%</text:p>
-                    </table:table-cell>
+                    <table:table-cell table:style-name="ce70" office:value-type="percentage" office:value="@Model.Expense_Overtime.Rate" calcext:value-type="percentage" />
                     <table:table-cell table:number-columns-repeated="249" />
                 </table:table-row>
                 <table:table-row table:style-name="ro4">
@@ -525,7 +427,7 @@
                         <text:p><text:span text:style-name="T4">差異值</text:span></text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>-4195.78</text:p>
+                        <text:p>@Model.MinFlowCompare.Diff</text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce60" office:value-type="string" calcext:value-type="string">
                         <text:p>CMD</text:p>
@@ -533,16 +435,10 @@
                     <table:table-cell table:style-name="ce37" office:value-type="string" calcext:value-type="string">
                         <text:p><text:span text:style-name="T4">檢漏工具費</text:span></text:p>
                     </table:table-cell>
-                    <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>0</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>18065</text:p>
-                    </table:table-cell>
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Expense_CheckOutTool.PlanAmount" calcext:value-type="float" />
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Expense_CheckOutTool.RealAmount" calcext:value-type="float" />
                     <table:table-cell table:style-name="ce48" />
-                    <table:table-cell table:style-name="ce70" table:formula="of:=[.F23]/[.E23]" office:value-type="string" office:string-value="" calcext:value-type="error">
-                        <text:p>#DIV/0!</text:p>
-                    </table:table-cell>
+                    <table:table-cell table:style-name="ce70" office:value-type="percentage" office:value="@Model.Expense_CheckOutTool.Rate" calcext:value-type="percentage" />
                     <table:table-cell table:number-columns-repeated="249" />
                 </table:table-row>
                 <table:table-row table:style-name="ro4">
@@ -550,7 +446,7 @@
                         <text:p><text:span text:style-name="T4">差異率</text:span></text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>-18.15</text:p>
+                        <text:p>@(100 * Model.MinFlowCompare?.DiffRate)</text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce60" office:value-type="string" calcext:value-type="string">
                         <text:p>%</text:p>
@@ -558,16 +454,10 @@
                     <table:table-cell table:style-name="ce37" office:value-type="string" calcext:value-type="string">
                         <text:p><text:span text:style-name="T4">油料費</text:span></text:p>
                     </table:table-cell>
-                    <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>308175</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce48" office:value-type="string" calcext:value-type="string">
-                        <text:p>34199</text:p>
-                    </table:table-cell>
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Expense_Fuel.PlanAmount" calcext:value-type="float" />
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Expense_Fuel.RealAmount" calcext:value-type="float" />
                     <table:table-cell table:style-name="ce48" />
-                    <table:table-cell table:style-name="ce70" table:formula="of:=[.F24]/[.E24]" office:value-type="percentage" office:value="0.110972661637057" calcext:value-type="percentage">
-                        <text:p>11.10%</text:p>
-                    </table:table-cell>
+                    <table:table-cell table:style-name="ce70" office:value-type="percentage" office:value="@Model.Expense_Fuel.Rate" calcext:value-type="percentage" />
                     <table:table-cell table:number-columns-repeated="249" />
                 </table:table-row>
                 <table:table-row table:style-name="ro4">
@@ -577,16 +467,10 @@
                     <table:table-cell table:style-name="ce34" office:value-type="string" calcext:value-type="string">
                         <text:p><text:span text:style-name="T4">合計</text:span></text:p>
                     </table:table-cell>
-                    <table:table-cell table:style-name="ce49" office:value-type="string" calcext:value-type="string">
-                        <text:p>1477159</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce49" office:value-type="string" calcext:value-type="string">
-                        <text:p>754698</text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="ce49" />
-                    <table:table-cell table:style-name="ce70" table:formula="of:=[.F25]/[.E25]" office:value-type="percentage" office:value="0.510911824658009" calcext:value-type="percentage">
-                        <text:p>51.09%</text:p>
-                    </table:table-cell>
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Expense_Total.PlanAmount" calcext:value-type="float" />
+                    <table:table-cell table:style-name="ce48" office:value-type="float" office:value="@Model.Expense_Total.RealAmount" calcext:value-type="float" />
+                    <table:table-cell table:style-name="ce48" />
+                    <table:table-cell table:style-name="ce70" office:value-type="percentage" office:value="@Model.Expense_Total.Rate" calcext:value-type="percentage" />
                     <table:table-cell table:number-columns-repeated="249" />
                 </table:table-row>
                 <table:table-row table:style-name="ro5">
@@ -599,7 +483,18 @@
                 </table:table-row>
                 <table:table-row table:style-name="ro5">
                     <table:table-cell table:style-name="ce40" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="8" table:number-rows-spanned="10">
-                        <text:p>1. <text:span text:style-name="T7">於1月初即因應東勢所緊急區域機動檢漏申請開始進場作業，惟機動檢漏完成後於2月底進場作業前水壓流量架設作業。</text:span></text:p><text:p><text:span text:style-name="T7">2.計畫檢出地下漏水案件67件，實際進場檢出地下漏水案件71件，較計畫多4件。</text:span></text:p><text:p><text:span text:style-name="T7">3.檢修前最小流量23111.11CMD，檢修後最小流量18915.33CMD，減少水量4195.78CMD，降低18.15%，檢漏績效優異。</text:span></text:p><text:p><text:span text:style-name="T7">4.本次作業前1-2月份2個月售水率66.71%，檢修後7-8月份2個月售水率88.97%，增加22.26%，績效優異。</text:span></text:p>
+                        @if (!String.IsNullOrEmpty(Model.Recommendations))
+                        {
+                            var paras = Model.Recommendations.Split('\n');
+                            foreach (var para in paras)
+                            {
+                                <text:p>@para</text:p>
+                            }
+                        }
+                        else
+                        {
+                            <text:p></text:p>
+                        }
                     </table:table-cell>
                     <table:covered-table-cell table:number-columns-repeated="6" table:style-name="ce52" />
                     <table:covered-table-cell table:style-name="ce72" />
