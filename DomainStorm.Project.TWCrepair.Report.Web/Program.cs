@@ -25,6 +25,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Radzen;
 using Serilog;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 using static DomainStorm.Framework.BlazorComponent.CommandModel.SysManagementLog.V1;
 using static DomainStorm.Project.TWCrepair.Repository.CommandModel.Report.V1;
 using MockServices = DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Mock;
@@ -66,6 +68,8 @@ try
     builder.Services.AddScoped<IMerge, LibreOfficeMerge>();
     builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
     builder.Services.AddRadzenComponents();
+    builder.Services.AddSingleton<HtmlEncoder>(
+        HtmlEncoder.Create(UnicodeRanges.All));
 
     if (builder.Configuration.GetSection("ENVIRONMENT").Value == "Staging")
     {
@@ -145,6 +149,8 @@ try
         builder.Services.AddScoped<IGetService<RA047, string>, StagingServices.RA047Service>();
         builder.Services.AddScoped<IGetService<RA048, string>, StagingServices.RA048Service>();
         builder.Services.AddScoped<IGetService<RA049, string>, StagingServices.RA049Service>();
+        builder.Services.AddScoped<IGetService<RA050, string>, StagingServices.RA050Service>();
+        builder.Services.AddScoped<IGetService<RA063, string>, StagingServices.RA063Service>();
         builder.Services.AddScoped<IGetService<BudgetDocResourceStatistics, Guid>, SharedStagingServices.BudgetDocResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocOutSourceResourceStatistics, Guid>, SharedStagingServices.BudgetDocOutSourceResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocContractResourceStatistics, Guid>, SharedStagingServices.BudgetDocContractResourceStatisticsService>();
@@ -220,6 +226,8 @@ try
         builder.Services.AddScoped<IGetService<RA047, string>, MockServices.RA047Service>();
         builder.Services.AddScoped<IGetService<RA048, string>, MockServices.RA048Service>();
         builder.Services.AddScoped<IGetService<RA049, string>, MockServices.RA049Service>();
+        builder.Services.AddScoped<IGetService<RA050, string>, MockServices.RA050Service>();
+        builder.Services.AddScoped<IGetService<RA063, string>, MockServices.RA063Service>();
         builder.Services.AddScoped<IGetService<BudgetDocResourceStatistics, Guid>, SharedMockService.BudgetDocResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocOutSourceResourceStatistics, Guid>, SharedMockService.BudgetDocOutSourceResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocContractResourceStatistics, Guid>, SharedMockService.BudgetDocContractResourceStatisticsService>();
@@ -414,6 +422,13 @@ try
         builder.Services
             .AddScoped<GetRepository<IRepository<Models.Budget.BudgetDocContract>>>(
                 c => c.GetRequiredService<IRepository<Models.Budget.BudgetDocContract>>);
+
+        builder.Services
+          .AddTransient<IRepository<Models.Budget.BudgetPCCEsItem>, SqlDbRepository<Models.Budget.BudgetPCCEsItem>>();
+        builder.Services
+            .AddScoped<GetRepository<IRepository<Models.Budget.BudgetPCCEsItem>>>(
+                c => c.GetRequiredService<IRepository<Models.Budget.BudgetPCCEsItem>>);
+
 
         builder.Services
           .AddTransient<IRepository<Models.Word>, SqlDbRepository<Models.Word>>();
