@@ -5,25 +5,6 @@
     var itemNoFor9XX = Model.Detail9XXItems.Count + 2;  //施工項目 500 及 9XX 用的 no, 原版的也是故意跳一號
 }
 
-@{
-    //一般單價(非組合單價)的單價分析表,產生 xml 的部份抽出來
-    Func<DomainStorm.Project.TWCrepair.Report.Web.Views.RA063DetailItem, object> GenenalUnitPricTemplate =
-    @<WorkItem itemCode="02507D1013" itemKind="analysis" analysisOutputQuantity="1">
-				<Description language="zh-TW">@item.Name</Description>
-				<Description language="en"></Description>
-				<Unit language="zh-TW">@item.Unit</Unit>
-				<Unit language="en"></Unit>
-				<Quantity>0.11</Quantity>
-				<Price fixed="false">800</Price>
-				<Amount fixed="false">88</Amount>
-				<Remark>1.不含表箱另件及明管漏水。</Remark>
-				<Percent>0</Percent>
-				<LabourRatio>0</LabourRatio>
-				<EquipmentRatio>0</EquipmentRatio>
-				<MaterialRatio>0</MaterialRatio>
-				<MiscellaneaRatio>0</MiscellaneaRatio>
-    </WorkItem>;
-}
 
 <?xml version="1.0" encoding="UTF-8" standalone="no"?> 
 <ETenderSheet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://pcstd.pcc.gov.tw/2003/eTender" xsi:schemaLocation="http://pcstd.pcc.gov.tw/2003/eTender eTender.1.J.2004.D.xsd" xmlns:mml="http://www.w3.org/1998/Math/MathML" createdDate="@Model.PrintDate.ToString("yyyy-MM-dd")" applicationName="Pcces"  applicationVersion="4.3.1000.193"  procurementType="constructionWork"	documentType="@Model.DocumentType" > 
@@ -181,19 +162,57 @@
             {
                 var part = unitPrice.DayOrNightParts[partIndex];
                 <WorkItem itemCode="@part.Code" refItemNo="(@(partIndex+1))" itemKind="analysis" analysisOutputQuantity="1">
-			    <Description language="zh-TW">@part.Name</Description>
-			    <Description language="en"></Description>
-			    <Unit language="zh-TW">@part.Unit</Unit>
-			    <Unit language="en"></Unit>
-			    <Quantity>@part.Amount</Quantity>
-			    <Price fixed="false">@part.UnitPrice</Price>
-			    <Remark>@unitPrice.SummaryNotes</Remark>
-			    <Percent>0</Percent>
-			    <LabourRatio>0</LabourRatio>
-			    <EquipmentRatio>0</EquipmentRatio>
-			    <MaterialRatio>0</MaterialRatio>
-			    <MiscellaneaRatio>0</MiscellaneaRatio>
-            </WorkItem>
+			        <Description language="zh-TW">@part.Name</Description>
+			        <Description language="en"></Description>
+			        <Unit language="zh-TW">@part.Unit</Unit>
+			        <Unit language="en"></Unit>
+			        <Quantity>@part.Amount</Quantity>
+			        <Price fixed="false">@part.UnitPrice</Price>
+			        <Remark>@unitPrice.SummaryNotes</Remark>
+			        <Percent>0</Percent>
+			        <LabourRatio>0</LabourRatio>
+			        <EquipmentRatio>0</EquipmentRatio>
+			        <MaterialRatio>0</MaterialRatio>
+			        <MiscellaneaRatio>0</MiscellaneaRatio>
+                @*第二層,單價分析表的成員*@
+                @foreach(var member in part.UnitPriceMembers)
+                {
+                        <WorkItem itemCode="@member.ItemKind" itemKind="@member.ItemKind" analysisOutputQuantity="@member.AnalysisOutputQuantity">
+				            <Description language="zh-TW">@member.Description</Description>
+				            <Description language="en"></Description>
+				            <Unit language="zh-TW">@member.Unit</Unit>
+				            <Unit language="en"></Unit>
+				            <Quantity>@member.Quantity</Quantity>
+				            <Price fixed="false">@member.Price</Price>
+				            <Amount fixed="false">@member.Amount</Amount>
+				            <Remark>@member.Remark</Remark>
+				            <Percent>0</Percent>
+				            <LabourRatio>0</LabourRatio>
+				            <EquipmentRatio>0</EquipmentRatio>
+				            <MaterialRatio>0</MaterialRatio>
+				            <MiscellaneaRatio>0</MiscellaneaRatio>
+                            @*可能有第三層的成員(組合單價->一般單價->資源統計表)*@
+                            @foreach(var level2member in member.UnitPriceMembers)
+                            {
+                                <WorkItem itemCode="@level2member.ItemKind" itemKind="@level2member.ItemKind" analysisOutputQuantity="@level2member.AnalysisOutputQuantity">
+                                    <Description language="zh-TW">@level2member.Description</Description>
+				                    <Description language="en"></Description>
+                                    <Unit language="zh-TW">@level2member.Unit</Unit>
+				                    <Unit language="en"></Unit>
+                                    <Quantity>@level2member.Quantity</Quantity>
+                                    <Price fixed="false">@level2member.Price</Price>
+                                    <Amount fixed="false">@level2member.Amount</Amount>
+                                    <Remark>@level2member.Remark</Remark>
+				                    <Percent>0</Percent>
+				                    <LabourRatio>0</LabourRatio>
+				                    <EquipmentRatio>0</EquipmentRatio>
+				                    <MaterialRatio>0</MaterialRatio>
+				                    <MiscellaneaRatio>0</MiscellaneaRatio>
+                                </WorkItem>
+                            }
+                        </WorkItem>
+                }
+                </WorkItem>
             }
         }
 
