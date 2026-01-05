@@ -99,6 +99,13 @@ public class RA022Service : IGetService<RA022, string>
             Photos = x.FixFormAudit != null ? x.FixFormAudit.FixFormAuditAttachments.Count : 0,
             SuperVisorHour = x.FixFormAudit != null ? x.FixFormAudit.FixFormAuditSupervisors.Select(v => $"{v.SupervisorUserName} {v.Hour}時").ToList() : null,
             IsRetrieved = x.IsRetrieved
+        }, new List<OrderingExpression<FixForm, object>>()
+        {
+            new ()
+            {
+                OrderType = OrderType.OrderByAscending,
+                Expression = x => x.FixCaseNo
+            }
         });
         return result;
     }
