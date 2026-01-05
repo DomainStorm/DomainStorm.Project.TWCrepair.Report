@@ -1,9 +1,5 @@
 ﻿using DomainStorm.Project.TWCrepair.Repository.Models.Budget;
-using DomainStorm.Project.TWCrepair.Repository.Models.Budget;
 using DomainStorm.Project.TWCrepair.Shared.ViewModel;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using static DomainStorm.Project.TWCrepair.Repository.CommandModel.Report.V1;
 
 namespace DomainStorm.Project.TWCrepair.Report.Web.Views
@@ -180,18 +176,12 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         public int Detail_FinalTotal { get; set; }
 
 
-
-
-
-
-
-
-
-
         /// <summary>
         /// 將 500 及 9XX 的項目整理成物件清單
         /// </summary>
         public List<RA063Detail9XXItem> Detail9XXItems { get; set; } = new List<RA063Detail9XXItem>();
+
+        public int TailIndex = 10001;
 
     }
 
@@ -205,7 +195,8 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
 
         public void GenerateDayOrNightParts(
             List<BudgetPCCEsItem> pccItems, 
-            Repository.Models.Budget.BudgetDocUnitPrice unitPrice )
+            Repository.Models.Budget.BudgetDocUnitPrice unitPrice,
+            ref int tailIndex)
         {
             var pccItem = pccItems.FirstOrDefault(x => x.Code == Code);
             if(DayAmount > 0 )
@@ -216,7 +207,8 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
                     pccItem!,
                     unitPrice,
                     "D",
-                    pccItems
+                    pccItems,
+                    ref tailIndex
                     );
                 DayOrNightParts.Add(part);
             }
@@ -228,7 +220,8 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
                     pccItem!,
                     unitPrice,
                     "N",
-                    pccItems
+                    pccItems,
+                    ref tailIndex
                     );
                 DayOrNightParts.Add(part);
             }
@@ -263,7 +256,8 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
             BudgetPCCEsItem pccItem, 
             Repository.Models.Budget.BudgetDocUnitPrice unitPrice,  
             string dayOrNight,
-            List<BudgetPCCEsItem> pccItems)
+            List<BudgetPCCEsItem> pccItems,
+            ref int tailIndex)
         {
             BudgetDocUnitPriceId = unitPrice.Id;
             Code = $"025520{item.Code}{dayOrNight}";
@@ -296,6 +290,17 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
                 {
                     UnitPriceMembers.Add(new RA063UnitPriceMember(member, dayOrNight, pccItems)); 
                 }
+                //處理尾項
+                if(unitPrice.TailDayPrice > 0)
+                {
+                    UnitPriceMembers.Add(new RA063UnitPriceMember(
+                        unitPrice.Tail!,
+                        "D",
+                        unitPrice.TailPersentage,
+                        unitPrice.TailDayPrice,
+                        pccItems, 
+                        ref tailIndex));
+                }
             }
             else
             {
@@ -304,16 +309,19 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
                 {
                     UnitPriceMembers.Add(new RA063UnitPriceMember(member, dayOrNight, pccItems));
                 }
-
+                //處理尾項
+                if (unitPrice.TailNightPrice > 0)
+                {
+                    UnitPriceMembers.Add(new RA063UnitPriceMember(
+                        unitPrice.Tail!,
+                        "N",
+                        unitPrice.TailPersentage,
+                        unitPrice.TailNightPrice,
+                        pccItems, 
+                        ref tailIndex));
+                }
             }
-            
-
-
         }
-
-
-
-
     }
 
 
@@ -326,9 +334,6 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         public decimal Amout { get; set; }
         public int UnitPrice { get; set; }
         public int TotalPrice { get; set; }
-
-        
-
     }
 
 
@@ -368,11 +373,70 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
 
         public string Remark { get; set; }
 
+        public decimal Percent { get; set; } = 0;
+
 
 
         public List<RA063UnitPriceMember> UnitPriceMembers { get; set; } = new List<RA063UnitPriceMember>();
+
+        /// <summary>
+        /// 單價分析表的尾項用
+        /// </summary>
+        public RA063UnitPriceMember(Repository.Models.Word word,
+            string dayOrNight,
+            decimal? percent,
+            decimal? amount,
+            List<BudgetPCCEsItem> pccItems,
+            ref int tailIndex
+            )
+        {
+            ItemKind = "variableSumPercentage";
+            AnalysisOutputQuantity = 0;
+            Quantity = 1;   //數量固定都是 1
+            Price = Amount = amount ??  0;  //單價= 總價
+            Unit = "式";
+
+            //這邊只能 hard code 處理
+            if (word.Name == "其他安全衛生設施及作業費")
+            {
+                ItemCode = "W01271F0004";
+                Description = "職業安全作業費";
+                Percent = percent?? 0;
+            }
+            else if(word.Name == "單價整數調整")
+            {
+                ItemCode = "W0127100004";
+                Description = "計量與計價";
+            }
+            else if(percent.HasValue)
+            {
+                Description = $"工具損耗，約以上項目之{ percent.Value.ToString("0.0") }%";
+                Percent = percent.Value ;
+                var pccitem = pccItems.FirstOrDefault(x => x.DayName == Description);
+                if(pccitem == null)
+                {
+                    tailIndex++;
+                    Description = $"{word.Name}, { percent?? 0}, {(dayOrNight == "D" ? "(日間)" : "(夜間)")}";
+                    ItemCode = $"W02252A{tailIndex}{dayOrNight}";    
+                }
+                else
+                {
+                    ItemCode = pccitem.DayCode!;   //一對用 day   (Code 一樣)
+                }
+                    
+            }
+            else
+            {
+                throw new Exception($"尾項 [{word.Name}] 無法對應到工程會代碼");
+            }
+
+            if(ItemCode == "W0127120004" || ItemCode == "W0127110004")
+            {
+                ItemKind = "variablePrice";
+            }
+        }
         
-       
+
 
         public RA063UnitPriceMember(
             Repository.Models.Budget.BudgetDocUnitPriceMember member , 

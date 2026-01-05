@@ -186,7 +186,7 @@
 				            <Price fixed="false">@member.Price</Price>
 				            <Amount fixed="false">@member.Amount</Amount>
 				            <Remark>@member.Remark</Remark>
-				            <Percent>0</Percent>
+				            <Percent>@member.Percent.ToString("G29")</Percent>
 				            <LabourRatio>0</LabourRatio>
 				            <EquipmentRatio>0</EquipmentRatio>
 				            <MaterialRatio>0</MaterialRatio>
@@ -203,7 +203,7 @@
                                     <Price fixed="false">@level2member.Price</Price>
                                     <Amount fixed="false">@level2member.Amount</Amount>
                                     <Remark>@level2member.Remark</Remark>
-				                    <Percent>0</Percent>
+				                    <Percent>@member.Percent.ToString("G29")</Percent>
 				                    <LabourRatio>0</LabourRatio>
 				                    <EquipmentRatio>0</EquipmentRatio>
 				                    <MaterialRatio>0</MaterialRatio>
@@ -215,8 +215,11 @@
                 </WorkItem>
             }
         }
-
     </CostBreakdownList>
+    @*ResourceList*@
+    <ResourceList quantityDisplayDecimal="3" unitPriceDisplayDecimal="0" itemAmountDisplayDecimal="0"">
+
+    </ResourceList>
     <GrandTotalInformation>
         <TotalAmount currency="TWD">@Model.TotalPrice</TotalAmount>
         <TotalAmountChinese>@Model.TotalPriceStr</TotalAmountChinese>
