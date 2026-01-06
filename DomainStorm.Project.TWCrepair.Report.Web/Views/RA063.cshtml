@@ -1,15 +1,13 @@
 ﻿@model DomainStorm.Project.TWCrepair.Report.Web.Views.RA063
 @{
-    Layout = null;
-    var itemKey = 1;
-    var itemNoFor9XX = Model.Detail9XXItems.Count + 2;  //施工項目 500 及 9XX 用的 no, 原版的也是故意跳一號
+	Layout = null;
+	var itemKey = 1;
+	var itemNoFor9XX = Model.Detail9XXItems.Count + 2;  //施工項目 500 及 9XX 用的 no, 原版的也是故意跳一號
 }
-
-
-<?xml version="1.0" encoding="UTF-8" standalone="no"?> 
-<ETenderSheet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://pcstd.pcc.gov.tw/2003/eTender" xsi:schemaLocation="http://pcstd.pcc.gov.tw/2003/eTender eTender.1.J.2004.D.xsd" xmlns:mml="http://www.w3.org/1998/Math/MathML" createdDate="@Model.PrintDate.ToString("yyyy-MM-dd")" applicationName="Pcces"  applicationVersion="4.3.1000.193"  procurementType="constructionWork"	documentType="@Model.DocumentType" > 
-    @*標頭*@
-	<TenderInformation contractNo="@Model.SerialNumber">
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<ETenderSheet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://pcstd.pcc.gov.tw/2003/eTender" xsi:schemaLocation="http://pcstd.pcc.gov.tw/2003/eTender eTender.1.J.2004.D.xsd" xmlns:mml="http://www.w3.org/1998/Math/MathML" createdDate="@Model.PrintDate.ToString("yyyy-MM-dd")" applicationName="Pcces" applicationVersion="4.3.1000.193" procurementType="constructionWork" documentType="@Model.DocumentType">
+	@*標頭*@
+	<TenderInformation contractNo="@Model.EngineeringNumber">
 		<ProcuringEntity language="zh-TW">@Model.OrgName</ProcuringEntity>
 		<ProcuringEntity language="en"></ProcuringEntity>
 		<ProcuringEntityId>@Model.OrgCode</ProcuringEntityId>
@@ -18,224 +16,242 @@
 		<ContractLocation>@Model.Address</ContractLocation>
 		<ContractScale contractScaleUnit="          ">0</ContractScale>
 		<ExecuteMethod></ExecuteMethod>
-		<ContractSummary>[%%][%%][%%][%%][%%][%%][%%][%%][%%][%%][%%][%%][%%][%%][%%][%%][%%][%%][%%][%N%][%N%][%%][%########@Model.Address#1100000000111*010000111*000010000001101細明體00000111101@(Model.PrintDate.ToString("yyyy/MM/dd"))110011####1##0%][%@(Model.SerialNumber)#000000#0##03#0000000001000000000000###########%][%NNNNN%]</ContractSummary>
+		<ContractSummary>[%%][%%][%%][%%][%%][%%][%%][%%][%%][%%][%%][%%][%%][%%][%%][%%][%%][%%][%%][%N%][%N%][%%][%########@Model.Address#1100000000111*010000111*000010000001101細明體00000111101@(Model.PrintDate.ToString("yyyy/MM/dd"))110011####1##0%][%@(Model.EngineeringNumber)#000000#0##03#0000000001000000000000###########%][%NNNNN%]</ContractSummary>
 	</TenderInformation>
-    @*施工費*@
-    <DetailList canAddItem="false" quantityDisplayDecimal="3" unitPriceDisplayDecimal="0" itemAmountDisplayDecimal="0">
-        <PayItem itemKey="@itemKey" itemNo="一" refItemCode="                    " itemKind="mainItem">
+	@*施工費*@
+	<DetailList canAddItem="false" quantityDisplayDecimal="3" unitPriceDisplayDecimal="0" itemAmountDisplayDecimal="0">
+		<PayItem itemKey="@itemKey" itemNo="一" refItemCode="                    " itemKind="mainItem">
 			<Description language="zh-TW">施工費</Description>
 			<Description language="en"></Description>
 			<Unit language="zh-TW">          </Unit>
 			<Unit language="en">          </Unit>
 			<Quantity>1</Quantity>
-            <Price fixed="false">@Model.Detail_Total</Price>
-            <Amount fixed="false">@Model.Detail_Total</Amount>
+			<Price fixed="false">@Model.Detail_Total.ToString("0.00")</Price>
+			<Amount fixed="false">@Model.Detail_Total.ToString("0.00")</Amount>
 			<Remark>                                        </Remark>
 			<Percent>0</Percent>
-            @*第一層,詳細表的各項目*@
-            @for (int upIndex = 0; upIndex < Model.DetailItems.Count; upIndex++)
-            {
-                var unitPrice = Model.DetailItems[upIndex];
-                <PayItem itemKey="@(++itemKey)" itemNo="@(upIndex+1)" refItemCode="                    " itemKind="mainItem">
-                    <Description language="zh-TW">@unitPrice.Name</Description>
-				    <Description language="en"></Description>
-				    <Unit language="zh-TW">@unitPrice.Unit</Unit>
-				    <Unit language="en">          </Unit>
-				    <Quantity>@unitPrice.UnitAmount</Quantity>
-				    <Price fixed="false">@unitPrice.TotalPrice</Price>
-                    <Amount fixed="false">@unitPrice.TotalPrice</Amount>
-                    <Remark>@unitPrice.SummaryNotes</Remark>
-				    <Percent>0</Percent>
-                    @*第二層,日夜數量轉成兩筆 payItem *@
-                    @for(int partIndex = 0 ; partIndex < unitPrice.DayOrNightParts.Count; partIndex++)
-                    {
-                        var part = unitPrice.DayOrNightParts.ElementAt(partIndex);
-                        <PayItem itemKey="@(++itemKey)" itemNo="(@(partIndex+1))" refItemCode="@part.Code" itemKind="analysis">
-                            <Description language="zh-TW">@part.Name</Description>
-                            <Description language="en"></Description>
-                            <Unit language="zh-TW">@part.Unit</Unit>
-                            <Unit language="en">          </Unit>
-                            <Quantity>@part.Amount</Quantity>
-                            <Price fixed="false">@part.UnitPrice</Price>
-                            <Amount fixed="false">@part.TotalPrice</Amount>
-                            <Remark>@unitPrice.SummaryNotes</Remark>
-                            <Percent>0</Percent>
-                            <LabourRatio>0</LabourRatio>
-                            <EquipmentRatio>0</EquipmentRatio>
-                            <MaterialRatio>0</MaterialRatio>
-                            <MiscellaneaRatio>0</MiscellaneaRatio>
-                        </PayItem>
+			@*第一層,詳細表的各項目*@
+			@for (int upIndex = 0; upIndex < Model.DetailItems.Count; upIndex++)
+			{
+				var unitPrice = Model.DetailItems[upIndex];
+				<PayItem itemKey="@(++itemKey)" itemNo="@(upIndex + 1)" refItemCode="                    " itemKind="mainItem">
+					<Description language="zh-TW">@unitPrice.Name</Description>
+					<Description language="en"></Description>
+					<Unit language="zh-TW">@unitPrice.Unit</Unit>
+					<Unit language="en">          </Unit>
+					<Quantity>1</Quantity>   @*固定為 1 *@
+					<Price fixed="false">@unitPrice.TotalPrice.ToString("0.00")</Price>
+					<Amount fixed="false">@unitPrice.TotalPrice.ToString("0.00")</Amount>
+					<Remark>@unitPrice.SummaryNotes</Remark>
+					<Percent>0</Percent>
+					@*第二層,日夜數量轉成兩筆 payItem *@
+					@for (int partIndex = 0; partIndex < unitPrice.DayOrNightParts.Count; partIndex++)
+					{
+						var part = unitPrice.DayOrNightParts.ElementAt(partIndex);
+						<PayItem itemKey="@(++itemKey)" itemNo="(@(partIndex + 1))" refItemCode="@part.Code" itemKind="analysis">
+							<Description language="zh-TW">@Html.Raw(part.Name)</Description>   @*有特殊符號,例如 + *@
+							<Description language="en"></Description>
+							<Unit language="zh-TW">@part.Unit</Unit>
+							<Unit language="en">          </Unit>
+							<Quantity>@part.Quantity.ToString("0.00")</Quantity>
+							<Price fixed="false">@part.UnitPrice.ToString("G29")</Price>
+							<Amount fixed="false">@part.TotalPrice.ToString("G29")</Amount>
+							<Remark>@unitPrice.SummaryNotes</Remark>
+							<Percent>0</Percent>
+							<LabourRatio>0</LabourRatio>
+							<EquipmentRatio>0</EquipmentRatio>
+							<MaterialRatio>0</MaterialRatio>
+							<MiscellaneaRatio>0</MiscellaneaRatio>
+						</PayItem>
 
-                    }
-                </PayItem>
-            }
-            <PayItem itemKey="@(++itemKey)" itemNo="@(itemNoFor9XX++)" refItemCode="                    " itemKind="subtotal">
-                <Description language="zh-TW">小計</Description>
-                <Description language="en"></Description>
-                <Unit language="zh-TW">          </Unit>
-                <Unit language="en">          </Unit>
-                <Quantity>1</Quantity>
-                <Price fixed="false">@Model.Detail_SubTotal</Price>
-                <Amount fixed="false">@Model.Detail_SubTotal</Amount>
-                <Remark>                                        </Remark>
-                <Percent>0</Percent>
-                <mml:math>
-                    <mml:apply>
-                        <mml:plus />
-                        <mml:apply>
-                            <mml:plus />
-                            <mml:ci>1</mml:ci>
-                        </mml:apply>
-                    </mml:apply>
-                </mml:math>
-            </PayItem>
-            @*500 及 9XX 的項目*@
-            @foreach(var item in Model.Detail9XXItems)
-            {
-                <PayItem itemKey="@(++itemKey)" itemNo="@(itemNoFor9XX++)" refItemCode="                    " itemKind="subtotal">
-                    <Description language="zh-TW">@item.Name</Description>
-                    <Description language="en"></Description>
-                    <Unit language="zh-TW">          </Unit>
-                    <Unit language="en">          </Unit>
-                    <Quantity>@item.Amout</Quantity>
-                    <Price fixed="false">@item.UnitPrice</Price>
-                    <Amount fixed="false">@item.TotalPrice</Amount>
-                    <Remark>                                        </Remark>
-                    <Percent>0</Percent>
-                </PayItem>
-            }
-        </PayItem>
-        <PayItem itemKey="@(itemKey)" itemNo="二" refItemCode="                    " itemKind="subtotal">
-            <Description language="zh-TW">營業稅</Description>
-            <Description language="en"></Description>
-            <Unit language="zh-TW">          </Unit>
-            <Unit language="en">          </Unit>
-            <Quantity>1</Quantity>
-            <Price fixed="false">@Model.Detail_Tax</Price>
-            <Amount fixed="false">@Model.Detail_Tax</Amount>
-            <Remark>                                        </Remark>
-            <Percent>0</Percent>
-            <mml:math>
-                <mml:list>
-                    <mml:bvar>            <mml:ci>Amount</mml:ci>          </mml:bvar>          <mml:apply>
-                        <mml:eq />
-                        <mml:ci>Amount</mml:ci>            <mml:apply>
-                            <mml:divide />              <mml:apply>
-                                <mml:times />                <mml:apply>
-                                    <mml:plus />                  <mml:apply>                    <mml:plus />                    <mml:ci>@itemKey</mml:ci>                  </mml:apply>
-                                </mml:apply>
-                                <mml:ci>Percent</mml:ci>
-                            </mml:apply>  <mml:cn>100</mml:cn>
-                        </mml:apply>
-                    </mml:apply>
-                </mml:list>        <mml:list>
-                    <mml:bvar>
-                        <mml:ci>Percent</mml:ci>
-                    </mml:bvar>          <mml:condition>
-                        <mml:apply>
-                            <mml:eq /> <mml:ci>Percent</mml:ci>
-                            <mml:cn>5</mml:cn>
-                        </mml:apply>
-                    </mml:condition>
-                </mml:list>
-            </mml:math>
-        </PayItem>
-        <PayItem itemKey="999999" itemNo="" refItemCode="                    " itemKind="subtotal">
-            <Description language="zh-TW">總計</Description>
-            <Description language="en"></Description>
-            <Unit language="zh-TW">          </Unit>
-            <Unit language="en">          </Unit>
-            <Quantity>1</Quantity>
-            <Price fixed="false">@Model.Detail_FinalTotal</Price>
-            <Amount fixed="false">@Model.Detail_FinalTotal</Amount>
-            <Remark>                                        </Remark>
-            <Percent>0</Percent>
-        </PayItem>
-    </DetailList>
-    @*單價分析表*@
-    <CostBreakdownList quantityDisplayDecimal="3" unitPriceDisplayDecimal="2" itemAmountDisplayDecimal="2">
-        @*第0層各單價分析表(迴圈第一層, 但不產生 node )*@
-        @foreach(var unitPrice in Model.DetailItems)
-        {
-            @*第一層,單價分析表的日夜間數量的物件*@
-            @for(var partIndex = 0; partIndex < unitPrice.DayOrNightParts.Count; partIndex++)
-            {
-                var part = unitPrice.DayOrNightParts[partIndex];
-                <WorkItem itemCode="@part.Code" refItemNo="(@(partIndex+1))" itemKind="analysis" analysisOutputQuantity="1">
-			        <Description language="zh-TW">@part.Name</Description>
-			        <Description language="en"></Description>
-			        <Unit language="zh-TW">@part.Unit</Unit>
-			        <Unit language="en"></Unit>
-			        <Quantity>@part.Amount</Quantity>
-			        <Price fixed="false">@part.UnitPrice</Price>
-			        <Remark>@unitPrice.SummaryNotes</Remark>
-			        <Percent>0</Percent>
-			        <LabourRatio>0</LabourRatio>
-			        <EquipmentRatio>0</EquipmentRatio>
-			        <MaterialRatio>0</MaterialRatio>
-			        <MiscellaneaRatio>0</MiscellaneaRatio>
-                @*第二層,單價分析表的成員*@
-                @foreach(var member in part.UnitPriceMembers)
-                {
-                        <WorkItem itemCode="@member.ItemKind" itemKind="@member.ItemKind" analysisOutputQuantity="@member.AnalysisOutputQuantity">
-				            <Description language="zh-TW">@member.Description</Description>
-				            <Description language="en"></Description>
-				            <Unit language="zh-TW">@member.Unit</Unit>
-				            <Unit language="en"></Unit>
-				            <Quantity>@member.Quantity</Quantity>
-				            <Price fixed="false">@member.Price</Price>
-				            <Amount fixed="false">@member.Amount</Amount>
-				            <Remark>@member.Remark</Remark>
-				            <Percent>@member.Percent.ToString("G29")</Percent>
-				            <LabourRatio>0</LabourRatio>
-				            <EquipmentRatio>0</EquipmentRatio>
-				            <MaterialRatio>0</MaterialRatio>
-				            <MiscellaneaRatio>0</MiscellaneaRatio>
-                            @*可能有第三層的成員(組合單價->一般單價->資源統計表)*@
-                            @foreach(var level2member in member.UnitPriceMembers)
-                            {
-                                <WorkItem itemCode="@level2member.ItemKind" itemKind="@level2member.ItemKind" analysisOutputQuantity="@level2member.AnalysisOutputQuantity">
-                                    <Description language="zh-TW">@level2member.Description</Description>
-				                    <Description language="en"></Description>
-                                    <Unit language="zh-TW">@level2member.Unit</Unit>
-				                    <Unit language="en"></Unit>
-                                    <Quantity>@level2member.Quantity</Quantity>
-                                    <Price fixed="false">@level2member.Price</Price>
-                                    <Amount fixed="false">@level2member.Amount</Amount>
-                                    <Remark>@level2member.Remark</Remark>
-				                    <Percent>@member.Percent.ToString("G29")</Percent>
-				                    <LabourRatio>0</LabourRatio>
-				                    <EquipmentRatio>0</EquipmentRatio>
-				                    <MaterialRatio>0</MaterialRatio>
-				                    <MiscellaneaRatio>0</MiscellaneaRatio>
-                                </WorkItem>
-                            }
-                        </WorkItem>
-                }
-                </WorkItem>
-            }
-        }
-    </CostBreakdownList>
-    @*ResourceList*@
-    <ResourceList quantityDisplayDecimal="3" unitPriceDisplayDecimal="0" itemAmountDisplayDecimal="0"">
-
-    </ResourceList>
-    <GrandTotalInformation>
-        <TotalAmount currency="TWD">@Model.TotalPrice</TotalAmount>
-        <TotalAmountChinese>@Model.TotalPriceStr</TotalAmountChinese>
-    </GrandTotalInformation>
-    <MaterialData>
-        <Material Code="M040611" Name="水泥砂漿(M3)">1</Material>
-        <Material Code="M033101" Name="機拌混凝土(M3)">1</Material>
-        <Material Code="M033102" Name="預拌混凝土(M3)">1</Material>
-        <Material Code="M02742" Name="瀝青混凝土(M3)">1</Material>
-        <Material Code="M040610" Name="砂(M3)">1</Material>
-        <Material Code="M023192" Name="級配(M3)">1</Material>
-        <Material Code="M032100" Name="鋼筋(T)">1</Material>
-        <Material Code="M051240" Name="鋼骨(T)">1</Material>
-    </MaterialData>
-    <GPSLocation>
-        <Coordinate X="0" Y="0" />
-    </GPSLocation>
+					}
+				</PayItem>
+			}
+			<PayItem itemKey="@(++itemKey)" itemNo="@(itemNoFor9XX++)" refItemCode="                    " itemKind="subtotal">
+				<Description language="zh-TW">小計</Description>
+				<Description language="en"></Description>
+				<Unit language="zh-TW">          </Unit>
+				<Unit language="en">          </Unit>
+				<Quantity>1</Quantity>
+				<Price fixed="false">@Model.Detail_SubTotal.ToString("G29")</Price>
+				<Amount fixed="false">@Model.Detail_SubTotal.ToString("G29")</Amount>
+				<Remark>                                        </Remark>
+				<Percent>0</Percent>
+				<mml:math>
+					<mml:apply>
+						<mml:plus />
+						<mml:apply>
+							<mml:plus />
+							<mml:ci>1</mml:ci>
+						</mml:apply>
+					</mml:apply>
+				</mml:math>
+			</PayItem>
+			@*500 及 9XX 的項目*@
+			@foreach (var item in Model.Detail9XXItems)
+			{
+				<PayItem itemKey="@(++itemKey)" itemNo="@(itemNoFor9XX++)" refItemCode="                    " itemKind="subtotal">
+					<Description language="zh-TW">@item.Name</Description>
+					<Description language="en"></Description>
+					<Unit language="zh-TW">          </Unit>
+					<Unit language="en">          </Unit>
+					<Quantity>@item.Amout</Quantity>
+					<Price fixed="false">@item.UnitPrice.ToString("G29")</Price>
+					<Amount fixed="false">@item.TotalPrice.ToString("G29")</Amount>
+					<Remark>                                        </Remark>
+					<Percent>0</Percent>
+				</PayItem>
+			}
+		</PayItem>
+		<PayItem itemKey="@(itemKey)" itemNo="二" refItemCode="                    " itemKind="subtotal">
+			<Description language="zh-TW">營業稅</Description>
+			<Description language="en"></Description>
+			<Unit language="zh-TW">          </Unit>
+			<Unit language="en">          </Unit>
+			<Quantity>1</Quantity>
+			<Price fixed="false">@Model.Detail_Tax</Price>
+			<Amount fixed="false">@Model.Detail_Tax</Amount>
+			<Remark>                                        </Remark>
+			<Percent>0</Percent>
+			<mml:math>
+				<mml:list>
+					<mml:bvar>            <mml:ci>Amount</mml:ci>          </mml:bvar>          <mml:apply>
+						<mml:eq />
+						<mml:ci>Amount</mml:ci>            <mml:apply>
+							<mml:divide />              <mml:apply>
+								<mml:times />                <mml:apply>
+									<mml:plus />                  <mml:apply>                    <mml:plus />                    <mml:ci>@itemKey</mml:ci>                  </mml:apply>
+								</mml:apply>
+								<mml:ci>Percent</mml:ci>
+							</mml:apply>  <mml:cn>100</mml:cn>
+						</mml:apply>
+					</mml:apply>
+				</mml:list>        <mml:list>
+					<mml:bvar>
+						<mml:ci>Percent</mml:ci>
+					</mml:bvar>          <mml:condition>
+						<mml:apply>
+							<mml:eq /> <mml:ci>Percent</mml:ci>
+							<mml:cn>5</mml:cn>
+						</mml:apply>
+					</mml:condition>
+				</mml:list>
+			</mml:math>
+		</PayItem>
+		<PayItem itemKey="999999" itemNo="" refItemCode="                    " itemKind="subtotal">
+			<Description language="zh-TW">總計</Description>
+			<Description language="en"></Description>
+			<Unit language="zh-TW">          </Unit>
+			<Unit language="en">          </Unit>
+			<Quantity>1</Quantity>
+			<Price fixed="false">@Model.Detail_FinalTotal</Price>
+			<Amount fixed="false">@Model.Detail_FinalTotal</Amount>
+			<Remark>                                        </Remark>
+			<Percent>0</Percent>
+		</PayItem>
+	</DetailList>
+	@*單價分析表*@
+	<CostBreakdownList quantityDisplayDecimal="3" unitPriceDisplayDecimal="2" itemAmountDisplayDecimal="2">
+		@*第0層各單價分析表(迴圈第一層, 但不產生 node )*@
+		@foreach (var unitPrice in Model.DetailItems)
+		{
+			@*第一層,單價分析表的日夜間數量的物件*@
+			@for (var partIndex = 0; partIndex < unitPrice.DayOrNightParts.Count; partIndex++)
+			{
+				var part = unitPrice.DayOrNightParts[partIndex];
+				<WorkItem itemCode="@part.Code" refItemNo="(@(partIndex + 1))" itemKind="analysis" analysisOutputQuantity="1">
+					<Description language="zh-TW">@Html.Raw(part.Name)</Description>
+					<Description language="en"></Description>
+					<Unit language="zh-TW">@part.Unit</Unit>
+					<Unit language="en"></Unit>
+					<Quantity>@part.Quantity.ToString("0.00")</Quantity>
+					<Price fixed="false">@part.UnitPrice</Price>
+					<Remark>@unitPrice.SummaryNotes</Remark>
+					<Percent>0</Percent>
+					<LabourRatio>0</LabourRatio>
+					<EquipmentRatio>0</EquipmentRatio>
+					<MaterialRatio>0</MaterialRatio>
+					<MiscellaneaRatio>0</MiscellaneaRatio>
+					@*第二層,單價分析表的成員*@
+					@foreach (var member in part.UnitPriceMembers)
+					{
+						<WorkItem itemCode="@member.ItemCode" itemKind="@member.ItemKind" analysisOutputQuantity="@member.AnalysisOutputQuantity.ToString("G29")">
+							<Description language="zh-TW">@Html.Raw(member.Description)</Description>
+							<Description language="en"></Description>
+							<Unit language="zh-TW">@member.Unit</Unit>
+							<Unit language="en"></Unit>
+							<Quantity>@member.Quantity.ToString("G29")</Quantity>
+							<Price fixed="false">@member.Price.ToString("G29")</Price>
+							<Amount fixed="false">@member.Amount.ToString("G29")</Amount>
+							<Remark>@member.Remark</Remark>
+							<Percent>@member.Percent.ToString("G29")</Percent>
+							<LabourRatio>0</LabourRatio>
+							<EquipmentRatio>0</EquipmentRatio>
+							<MaterialRatio>0</MaterialRatio>
+							<MiscellaneaRatio>0</MiscellaneaRatio>
+							@*可能有第三層的成員(組合單價->一般單價->資源統計表)*@
+							@foreach (var level2member in member.UnitPriceMembers)
+							{
+								<WorkItem itemCode="@level2member.ItemCode" itemKind="@level2member.ItemKind" analysisOutputQuantity="@level2member.AnalysisOutputQuantity.ToString("G29")">
+									<Description language="zh-TW">@Html.Raw(level2member.Description)</Description>
+									<Description language="en"></Description>
+									<Unit language="zh-TW">@level2member.Unit</Unit>
+									<Unit language="en"></Unit>
+									<Quantity>@level2member.Quantity.ToString("G29")</Quantity>
+									<Price fixed="false">@level2member.Price.ToString("G29")</Price>
+									<Amount fixed="false">@level2member.Amount.ToString("G29")</Amount>
+									<Remark>@level2member.Remark</Remark>
+									<Percent>@level2member.Percent.ToString("G29")</Percent>
+									<LabourRatio>0</LabourRatio>
+									<EquipmentRatio>0</EquipmentRatio>
+									<MaterialRatio>0</MaterialRatio>
+									<MiscellaneaRatio>0</MiscellaneaRatio>
+								</WorkItem>
+							}
+						</WorkItem>
+					}
+				</WorkItem>
+			}
+		}
+	</CostBreakdownList>
+	@*資源統計表*@
+	<ResourceList quantityDisplayDecimal="3" unitPriceDisplayDecimal="0" itemAmountDisplayDecimal="0">
+		@foreach (var item in Model.ResourceItems)
+		{
+			<WorkItem itemCode="@item.ItemCode" itemKind="@item.ItemKind">
+				<Description language="zh-TW">@Html.Raw(item.Description)</Description>
+				<Description language="en"></Description>
+				<Unit language="zh-TW">@item.Unit</Unit>
+				<Unit language="en"></Unit>
+				<Quantity>@Math.Round(item.Quantity, 3, MidpointRounding.AwayFromZero)</Quantity>
+				<Price fixed="false">@item.Price.ToString("G29")</Price>
+				<Amount fixed="false">@item.Amount</Amount>
+				<Remark></Remark>
+				<Percent>0</Percent>
+				<LabourRatio>0</LabourRatio>
+				<EquipmentRatio>0</EquipmentRatio>
+				<MaterialRatio>0</MaterialRatio>
+				<MiscellaneaRatio>0</MiscellaneaRatio>
+			</WorkItem>
+		}
+	</ResourceList>
+	<GrandTotalInformation>
+		<TotalAmount currency="TWD">@Model.TotalPrice</TotalAmount>
+		<TotalAmountChinese>@Model.TotalPriceStr</TotalAmountChinese>
+	</GrandTotalInformation>
+	@*寫入其餘資料,固定值*@
+	<MaterialData>
+		<Material Code="M040611" Name="水泥砂漿(M3)">1</Material>
+		<Material Code="M033101" Name="機拌混凝土(M3)">1</Material>
+		<Material Code="M033102" Name="預拌混凝土(M3)">1</Material>
+		<Material Code="M02742" Name="瀝青混凝土(M3)">1</Material>
+		<Material Code="M040610" Name="砂(M3)">1</Material>
+		<Material Code="M023192" Name="級配(M3)">1</Material>
+		<Material Code="M032100" Name="鋼筋(T)">1</Material>
+		<Material Code="M051240" Name="鋼骨(T)">1</Material>
+	</MaterialData>
+	<GPSLocation>
+		<Coordinate X="0" Y="0" />
+	</GPSLocation>
 
 </ETenderSheet>

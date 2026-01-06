@@ -1,5 +1,6 @@
 ﻿using DomainStorm.Project.TWCrepair.Repository.Models.Budget;
 using DomainStorm.Project.TWCrepair.Shared.ViewModel;
+using Nest;
 using static DomainStorm.Project.TWCrepair.Repository.CommandModel.Report.V1;
 
 namespace DomainStorm.Project.TWCrepair.Report.Web.Views
@@ -27,26 +28,11 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         /// </summary>
         public string? Address { get; set; }
 
-
-
-
-
-        /// <summary>
-        /// 預算書所屬區處名稱
-        /// </summary>
-        public string DepartmentName { get; set; }
-
-        /// <summary>
-        /// 預算書所屬廠所名稱
-        /// </summary>
-        public string SiteName { get; set; }
-
         /// <summary>
         /// 預算書編號
         /// </summary>
         public string? SerialNumber { get; set; }
 
-        
         /// <summary>
         /// 工程編號
         /// </summary>
@@ -56,37 +42,6 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         /// 工程名稱
         /// </summary>
         public string EngineeringName { get; set; }
-
-        /// <summary>
-        /// 工程地點
-        /// </summary>
-        public string? EngineeringLocation { get; set; }
-
-        /// <summary>
-        /// 施工方法
-        /// </summary>
-        public string? EngineeringMethod { get; set; }
-
-        /// <summary>
-        /// 工程概要
-        /// </summary>
-        public string? EngineeringSummary { get; set; }
-
-        /// <summary>
-        /// 會計科目
-        /// </summary>
-        public string? AccountingAccount { get; set; }
-
-        /// <summary>
-        /// 預計開工日期
-        /// </summary>
-        public string? PlanStartDate { get; set; }
-
-        /// <summary>
-        /// 預計完工日期
-        /// </summary>
-        public string? PlanEndDate { get; set; }
-
 
         /// <summary>
         /// 工程費用
@@ -119,38 +74,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         /// </summary>
         public string? TotalPriceStr { get; set; }
 
-        
-        /// <summary>
-        /// 設計圖張數
-        /// </summary>
-        public string? DesignDrawingAmount { get; set; }
-
-        /// <summary>
-        /// 說明書頁數
-        /// </summary>
-        public string? ManualAmount { get; set; }
-
-        /// <summary>
-        /// 計算書頁數
-        /// </summary>
-        public string? CalculationBookAmount { get; set; }
-
-        /// <summary>
-        /// 詳細表頁數
-        /// </summary>
-        public string? DetailTableAmount { get; set; }
-
-        /// <summary>
-        /// 單價分析表頁數
-        /// </summary>
-        public string? UnitPriceAmount { get; set; }
-
-        /// <summary>
-        /// 備註
-        /// </summary>
-        public string? Notes { get; set; }
-
-
+       
         
         public List<RA063DetailItem> DetailItems { get; set; }
 
@@ -181,7 +105,12 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         /// </summary>
         public List<RA063Detail9XXItem> Detail9XXItems { get; set; } = new List<RA063Detail9XXItem>();
 
-        public int TailIndex = 10001;
+        public List<RA063WorkItem> ResourceItems { get; set; } = new List<RA063WorkItem>();
+
+        //尾項用, 舊系統的尾項會有代碼 ,例如 A00048 ,xml 會產生<WorkItem itemCode="W02252A00048D">  但轉檔時未轉入, 且新資料也沒有
+        //在此給每個項目動態編碼用
+        public int TailIndex = 10001;  
+
 
     }
 
@@ -196,7 +125,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         public void GenerateDayOrNightParts(
             List<BudgetPCCEsItem> pccItems, 
             Repository.Models.Budget.BudgetDocUnitPrice unitPrice,
-            ref int tailIndex)
+            RA063 ra063)
         {
             var pccItem = pccItems.FirstOrDefault(x => x.Code == Code);
             if(DayAmount > 0 )
@@ -208,7 +137,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
                     unitPrice,
                     "D",
                     pccItems,
-                    ref tailIndex
+                    ra063
                     );
                 DayOrNightParts.Add(part);
             }
@@ -221,7 +150,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
                     unitPrice,
                     "N",
                     pccItems,
-                    ref tailIndex
+                    ra063
                     );
                 DayOrNightParts.Add(part);
             }
@@ -238,14 +167,19 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         public string? Name { get; set; }
         public string? Unit { get; set; }
 
-        public decimal Amount { get; set ; } 
+        /// <summary>
+        /// 數量
+        /// </summary>
+        public decimal Quantity { get; set ; } 
+
+
         public int UnitPrice { get; set; }
         public decimal TotalPrice
         {
-            get => Amount * UnitPrice;
+            get => Quantity * UnitPrice;
         }
 
-        public List<RA063UnitPriceMember> UnitPriceMembers { get; set; } = new List<RA063UnitPriceMember>();
+        public List<RA063WorkItem> UnitPriceMembers { get; set; } = new List<RA063WorkItem>();
 
 
         public Guid BudgetDocUnitPriceId { get; set; }
@@ -257,69 +191,101 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
             Repository.Models.Budget.BudgetDocUnitPrice unitPrice,  
             string dayOrNight,
             List<BudgetPCCEsItem> pccItems,
-            ref int tailIndex)
+            RA063 ra063)
         {
             BudgetDocUnitPriceId = unitPrice.Id;
-            Code = $"025520{item.Code}{dayOrNight}";
-            Name = item.Name;
+            Code = $"022520{item.Code}{dayOrNight}";
+            Name = $"{item.Name}, {(dayOrNight == "D" ? "(日間)" : "(夜間)")}";
             Unit = item.Unit ;
-            Amount = amount;
-
-
+            Quantity = amount;
+            
             //若有定義工程會的代碼,轉換成工程會的
-            if (pccItem != null)
+            if (pccItem != null)// && !string.IsNullOrEmpty(pccItem.DayCode))    //若工程會代碼空白,不用它的( 以 DayCode 判斷就好)
             {
-                Unit = pccItem.Unit;
+				if(!string.IsNullOrEmpty(pccItem.Unit))
+				{
+					Unit = pccItem.Unit;
+				}
+                
                 if (dayOrNight == "D")
                 {
-                    Code = pccItem.DayCode;
-                    Name = pccItem.DayName;
+                    Code = pccItem.DayCode;  //從 xml 來看, code 可能換成工程會空白的
+                    if(!string.IsNullOrEmpty(pccItem.DayName))   //但若 name 空白, 維持用上面的 name
+                    {
+                        Name = pccItem.DayName;
+                    }
+                    
                 }
                 else
                 {
-                    Code = pccItem.NightCode;
-                    Name = pccItem.NightName;
+                    Code = pccItem.NightCode; //從 xml 來看, code 可能換成工程會空白的
+                    if (!string.IsNullOrEmpty(pccItem.NightName))   //但若 name 空白, 維持用上面的 name
+                    {
+                        Name = pccItem.NightName;
+                    }
                 }
             }
+            
+
+            if ((unitPrice.TailDayPrice > 0 || unitPrice.TailNightPrice > 0) && unitPrice.Tail == null)
+            {
+                throw new Exception($"單價分析表{unitPrice.Code}查無尾項詞庫");   //舊資料尾項亂碼,對應不到詞庫
+            }
+
 
             //處理成員
             if(dayOrNight == "D")
             {
-                var members = unitPrice.BudgetDocUnitPriceMembers.Where(x => x.DayAmount > 0);
+                UnitPrice = (int)Math.Round( (unitPrice.TotalDayPrice / unitPrice.UnitAmount), 0);
+                var members = unitPrice.BudgetDocUnitPriceMembers
+                    //.Where(x => x.DayAmount > 0)  從 xml 看來, 數量為 0 的也要產出
+                    .OrderBy(x => x.Sort);
                 foreach(var member in members)
                 {
-                    UnitPriceMembers.Add(new RA063UnitPriceMember(member, dayOrNight, pccItems)); 
+                    UnitPriceMembers.Add(new RA063WorkItem(
+                        member, 
+                        dayOrNight, 
+                        pccItems,
+                        ra063)); 
                 }
                 //處理尾項
-                if(unitPrice.TailDayPrice > 0)
-                {
-                    UnitPriceMembers.Add(new RA063UnitPriceMember(
+                //if(unitPrice.TailDayPrice > 0)
+                //{
+
+                    UnitPriceMembers.Add(new RA063WorkItem(
                         unitPrice.Tail!,
                         "D",
                         unitPrice.TailPersentage,
                         unitPrice.TailDayPrice,
                         pccItems, 
-                        ref tailIndex));
-                }
+                        ra063));
+                //}
             }
             else
             {
-                var members = unitPrice.BudgetDocUnitPriceMembers.Where(x => x.NightAmount > 0);
+                UnitPrice = (int)Math.Round((unitPrice.TotalNightPrice / unitPrice.UnitAmount), 0);
+                var members = unitPrice.BudgetDocUnitPriceMembers
+                    //.Where(x => x.NightAmount > 0) 從 xml 看來, 數量為 0 的也要產出
+                    .OrderBy(x => x.Sort);
                 foreach (var member in members)
                 {
-                    UnitPriceMembers.Add(new RA063UnitPriceMember(member, dayOrNight, pccItems));
+                    UnitPriceMembers.Add(new RA063WorkItem(
+                        member, 
+                        dayOrNight, 
+                        pccItems, 
+                        ra063));
                 }
                 //處理尾項
-                if (unitPrice.TailNightPrice > 0)
-                {
-                    UnitPriceMembers.Add(new RA063UnitPriceMember(
+                //if (unitPrice.TailNightPrice > 0)
+                //{
+                    UnitPriceMembers.Add(new RA063WorkItem(
                         unitPrice.Tail!,
                         "N",
                         unitPrice.TailPersentage,
                         unitPrice.TailNightPrice,
                         pccItems, 
-                        ref tailIndex));
-                }
+                        ra063));
+                //}
             }
         }
     }
@@ -337,7 +303,10 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
     }
 
 
-    public class RA063UnitPriceMember
+    /// <summary>
+    /// (單價分析表,單價分析表成員,資源統計表)共用的物件
+    /// </summary>
+    public class RA063WorkItem
     {
         public string ItemCode { get; set; }
 
@@ -377,17 +346,19 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
 
 
 
-        public List<RA063UnitPriceMember> UnitPriceMembers { get; set; } = new List<RA063UnitPriceMember>();
+        public List<RA063WorkItem> UnitPriceMembers { get; set; } = new List<RA063WorkItem>();
 
         /// <summary>
         /// 單價分析表的尾項用
         /// </summary>
-        public RA063UnitPriceMember(Repository.Models.Word word,
+        public RA063WorkItem(
+
+            Repository.Models.Word word,
             string dayOrNight,
             decimal? percent,
             decimal? amount,
             List<BudgetPCCEsItem> pccItems,
-            ref int tailIndex
+            RA063 ra063
             )
         {
             ItemKind = "variableSumPercentage";
@@ -395,6 +366,9 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
             Quantity = 1;   //數量固定都是 1
             Price = Amount = amount ??  0;  //單價= 總價
             Unit = "式";
+
+
+           
 
             //這邊只能 hard code 處理
             if (word.Name == "其他安全衛生設施及作業費")
@@ -415,9 +389,9 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
                 var pccitem = pccItems.FirstOrDefault(x => x.DayName == Description);
                 if(pccitem == null)
                 {
-                    tailIndex++;
+                    ra063.TailIndex++;
                     Description = $"{word.Name}, { percent?? 0}, {(dayOrNight == "D" ? "(日間)" : "(夜間)")}";
-                    ItemCode = $"W02252A{tailIndex}{dayOrNight}";    
+                    ItemCode = $"W02252A{ra063.TailIndex}{dayOrNight}";    
                 }
                 else
                 {
@@ -438,11 +412,13 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         
 
 
-        public RA063UnitPriceMember(
+        public RA063WorkItem(
             Repository.Models.Budget.BudgetDocUnitPriceMember member , 
             string dayOrNight,
             List<BudgetPCCEsItem> pccItems,
-            int level = 1) 
+            RA063 ra063,
+            int level = 1
+            ) 
         {
             if(dayOrNight == "D")
             {
@@ -474,22 +450,177 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
                     member.BudgetDocUnitPrice,
                     dayOrNight,
                     level,
-                    pccItems
+                    pccItems,
+                    ra063
                     );
             }
         }
 
-      
+        /// <summary>
+        /// 資源統計表物件用
+        /// </summary>
+        public RA063WorkItem(
+            BudgetDocResourceStatisticsItem resource,
+            string dayOrNight,
+            List<BudgetPCCEsItem> pccItems
+            )
+        {
+            if(dayOrNight == "D")
+            {
+                Quantity = resource.DayAmount;
+                Price = resource.DayUnitPrice;
+                Amount = resource.DayPrice;
+            }
+            else
+            {
+                Quantity = resource.NightAmount;
+                Price = resource.NightUnitPrice;
+                Amount = resource.NightPrice;
+            }
+            
+            LoadData(
+                resource.Code!,
+                resource.Unit,
+                resource.Name,
+                resource.Description,
+                dayOrNight,
+                -1,
+                pccItems
+                );
+        }
+
+
 
         public void LoadData(
             Repository.Models.Budget.BudgetDocUnitPrice unitPrice,
             string dayOrNight,
             int level,
-            List<BudgetPCCEsItem> pccItems)
+            List<BudgetPCCEsItem> pccItems,
+            RA063 ra063)
         {
-            var pccItem = pccItems.FirstOrDefault(x => x.Code == unitPrice.Code);
+
+			Unit = unitPrice.Unit;
+			Description = $"{unitPrice.Name}, {(dayOrNight == "D" ? "(日間)" : "(夜間)")}";
+			ItemCode = $"022520{unitPrice.Code}{dayOrNight}";
+
+
+			var pccItem = pccItems.FirstOrDefault(x => x.Code == unitPrice.Code);
             if (pccItem != null)
             {
+                if (!string.IsNullOrEmpty(pccItem.Unit))
+                {
+                    Unit = pccItem.Unit!;
+                }
+                
+                if (dayOrNight == "D")
+                {
+                    ItemCode = pccItem.DayCode!;  //從 xml 來看, code 可能換成工程會空白的
+                    if (!string.IsNullOrEmpty(pccItem.DayName))   //但若 name 空白, 維持用原本的 Description
+                    {
+                        Description = pccItem.DayName;
+                    }
+
+                }
+                else
+                {
+                    ItemCode = pccItem.NightCode!;  //從 xml 來看, code 可能換成工程會空白的
+                    if (!string.IsNullOrEmpty(pccItem.NightName))   //但若 name 空白, 維持用原本的 Description
+                    {
+                        Description = pccItem.NightName;
+                    }
+                }
+            }
+            else
+            {
+
+            }
+
+             ItemKind = "analysis";
+            AnalysisOutputQuantity = unitPrice.UnitAmount;
+
+            //以 C7113043 為例, 001 的單價分析表有 042 人工挖方  , 047 殘土處理,   但 047 不在詳細表裡 (數量為0) 
+            //所以042-的 workitem 還有 child , 047 只載入第一層
+            bool loadChild = ra063.DetailItems.Any(x => x.Code == unitPrice.Code);
+            
+
+            if (loadChild)
+            {
+                foreach (var member in unitPrice.BudgetDocUnitPriceMembers.OrderBy(x => x.Sort))
+                {
+                    var childMember = new RA063WorkItem(
+                        member,
+                        dayOrNight,
+                        pccItems,
+                        ra063,
+                        level + 1
+                        );
+
+                    UnitPriceMembers.Add(childMember);
+
+                }
+
+                if ((unitPrice.TailDayPrice > 0 || unitPrice.TailNightPrice > 0) && unitPrice.Tail == null)
+                {
+                    throw new Exception($"單價分析表{unitPrice.Code}查無尾項詞庫");   //舊資料尾項亂碼,對應不到詞庫
+                }
+
+                //處理尾項
+                if (dayOrNight == "D" ) //&& unitPrice.TailDayPrice > 0)
+                {
+
+                    UnitPriceMembers.Add(new RA063WorkItem(
+                           unitPrice.Tail!,
+                           dayOrNight,
+                           unitPrice.TailPersentage,
+                           unitPrice.TailDayPrice,
+                           pccItems,
+                           ra063));
+                }
+                else if (dayOrNight == "N") // && unitPrice.TailNightPrice > 0)
+                {
+
+                    UnitPriceMembers.Add(new RA063WorkItem(
+                           unitPrice.Tail!,
+                           dayOrNight,
+                           unitPrice.TailPersentage,
+                           unitPrice.TailNightPrice,
+                           pccItems,
+                           ra063));
+                }
+            }
+        }
+
+
+        public void LoadData(  
+            Repository.Models.Budget.ResourceWorkMaterial material, 
+            string dayOrNight, 
+            int level, 
+            List<BudgetPCCEsItem> pccItems)
+        {
+            LoadData(
+                material.Code,
+                material.Unit,
+                material.Name,
+                material.Description!,
+                dayOrNight,
+                level,
+                pccItems
+                );
+        }
+
+        public void LoadData(
+            string code,
+            string unit,
+            string name,
+            string notes,
+            string dayOrNight,
+            int level,
+            List<BudgetPCCEsItem> pccItems)
+        {
+            var pccItem = pccItems.FirstOrDefault(x => x.Code == code);
+            if (pccItem != null)
+            {
+
                 Unit = pccItem.Unit!;
                 if (dayOrNight == "D")
                 {
@@ -502,50 +633,11 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
                     Description = pccItem.NightName!;
                 }
             }
-
-            ItemKind = "analysis";
-            AnalysisOutputQuantity = unitPrice.UnitAmount;
-            foreach (var member in unitPrice.BudgetDocUnitPriceMembers)
-            {
-                var childMember = new RA063UnitPriceMember(
-                    member,
-                    dayOrNight,
-                    pccItems,
-                    level + 1
-                    );
-
-                UnitPriceMembers.Add( childMember );
-
-            }
-        }
-
-
-        public void LoadData(  
-            Repository.Models.Budget.ResourceWorkMaterial material, 
-            string dayOrNight, 
-            int level, 
-            List<BudgetPCCEsItem> pccItems)
-        {
-            var pccItem = pccItems.FirstOrDefault(x => x.Code == material.Code);
-            if (pccItem != null)
-            {
-                Unit = pccItem.Unit!;
-                if(dayOrNight =="D")
-                {
-                    ItemCode = pccItem.DayCode!;
-                    Description = pccItem.DayName!;
-                }
-                else
-                {
-                    ItemCode = pccItem.NightCode!;
-                    Description = pccItem.NightName!;
-                }
-            }
             else
             {
-                Unit = material.Unit!;
-                Description = material.Name;
-                ItemCode = material.Code;
+                Unit = unit!;
+                Description = $"{name}, {notes}, {(dayOrNight == "D" ? "(日間)" : "(夜間)")}";
+                ItemCode = code;
                 var prfix = ItemCode.Substring(0, 1);
                 if (prfix == "O")
                     prfix = "M";  //將其它歸納至材料類
@@ -555,17 +647,20 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
                     prfix = "W";  //將其它歸納至耗損類
                 ItemCode = $"{prfix}02252{ItemCode}{dayOrNight}";
             }
-                
+
             ItemKind = "general";
-            if(level == 1)
+            if (level == 1)
             {
                 AnalysisOutputQuantity = 1;
             }
-            else //level = 2 表示組合單價的單價分析表,參照到一般單價的單價分析表,然後它的成員有資源統計表
+            //level = 2 表示組合單價的單價分析表,參照到一般單價的單價分析表,然後它的成員有資源統計表 ;
+            //level = -1 資源統計表不需此屬性
+            else
             {
                 AnalysisOutputQuantity = 0;
             }
         }
+
     }
 
 

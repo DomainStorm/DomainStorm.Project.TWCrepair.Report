@@ -5,6 +5,7 @@ using DomainStorm.Framework.Services;
 using DomainStorm.Framework.SqlDb;
 using DomainStorm.Project.TWCrepair.Report.Web.Views;
 using DomainStorm.Project.TWCrepair.Repository.Models.Budget;
+using DomainStorm.Project.TWCrepair.Shared.ViewModel;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA063.V1;
 
 namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging;
@@ -18,17 +19,20 @@ public class RA063Service : IGetService<RA063, string>
     private readonly IMapper _mapper;
     private readonly IGetService<Department, string> _departmentService;
     private readonly GetRepository<IRepository<BudgetPCCEsItem>> _getPCCRepository;
+    private readonly IGetService<BudgetDocResourceStatistics, Guid> _getStatisticService;
 
     public RA063Service(
         GetRepository<IRepository<BudgetDoc>> getRepository,
         IMapper mapper,
         IGetService<Department, string> departmentService,
-        GetRepository<IRepository<BudgetPCCEsItem>> getPCCRepository)
+        GetRepository<IRepository<BudgetPCCEsItem>> getPCCRepository,
+        IGetService<BudgetDocResourceStatistics, Guid> getStatisticService)
     {
         _getRepository = getRepository;
         _mapper = mapper;
         _departmentService = departmentService;
         _getPCCRepository = getPCCRepository;
+        _getStatisticService = getStatisticService;
     }
 
     public Task<RA063> GetAsync(string id)
@@ -48,7 +52,11 @@ public class RA063Service : IGetService<RA063, string>
     private async Task<RA063> QueryRA063(QueryRA063 condition) 
     {
         var budgetDoc = await _getRepository().GetAsync(condition.Id);
+        budgetDoc.BudgetDocUnitPrices = budgetDoc.BudgetDocUnitPrices
+            .Where(x => x.DayAmount > 0 || x.NightAmount > 0)
+            .OrderBy(x => x.Sort).ToList();
         var result = _mapper.Map<RA063>(budgetDoc);
+        
 
         if(condition.XmlKind == "1")
         {
@@ -82,10 +90,17 @@ public class RA063Service : IGetService<RA063, string>
         result.OrgCode = department.OrgCode!;
         result.Address = department.Address!;
 
+        //移除 500 項目
+        result.DetailItems!.RemoveAll(x => x.Code == "500");
+
+        
         //將詳細表的日夜間數字轉成物件
-        foreach(var item in result.DetailItems)
+        foreach (var item in result.DetailItems)
         {
-            item.GenerateDayOrNightParts(pccItems, budgetDoc.BudgetDocUnitPrices.FirstOrDefault(x => x.Code == item.Code));
+            item.GenerateDayOrNightParts(
+                pccItems, 
+                budgetDoc.BudgetDocUnitPrices.FirstOrDefault(x => x.Code == item.Code),
+                result);
         }
 
         //將 500 , 及 9XX 的項目轉成物件清單,xml 比較好處理 
@@ -146,8 +161,35 @@ public class RA063Service : IGetService<RA063, string>
             UnitPrice = budgetDoc.Detail_ProfitPrice,
             TotalPrice = budgetDoc.Detail_ProfitPrice
         });
-        
 
+        //取得資源統計表
+        var statistic = await _getStatisticService.GetAsync(condition.Id);
+        //預算書的資源統計表改成顯示全部(含數量=0 者),但報表不需顯示,故排除之
+        var statisticsItems = statistic.BudgetDocResourceStatisticsItems.Where(
+            x => x.Category.Name != "職安類"  //只列印非職安類
+            && (x.DayAmount > 0 || x.NightAmount > 0)).ToList();
+        
+        foreach(var statisticsItem in statisticsItems)
+        {
+            //日夜間要作成不同的兩筆資料
+            if(statisticsItem.DayAmount > 0)
+            {
+                result.ResourceItems.Add(new RA063WorkItem(
+                    statisticsItem,
+                    "D",
+                    pccItems
+                    ));
+            }
+            if (statisticsItem.NightAmount > 0)
+            {
+                result.ResourceItems.Add(new RA063WorkItem(
+                    statisticsItem,
+                    "N",
+                    pccItems
+                    ));
+            }
+
+        }
 
 
 
