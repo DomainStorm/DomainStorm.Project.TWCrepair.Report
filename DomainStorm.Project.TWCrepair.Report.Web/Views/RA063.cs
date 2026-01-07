@@ -120,7 +120,13 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
     public class RA063DetailItem : BudgetDocDetailItem
     {
         public decimal UnitAmount { get; set; }
-        public List<RA063DetailItemDayOrNightPart> DayOrNightParts { get; set; } = new List<RA063DetailItemDayOrNightPart>();
+
+		public int DayUnitPrice { get; set; }
+
+		public int NightUnitPrice { get; set; }
+
+
+		public List<RA063DetailItemDayOrNightPart> DayOrNightParts { get; set; } = new List<RA063DetailItemDayOrNightPart>();
 
         public void GenerateDayOrNightParts(
             List<BudgetPCCEsItem> pccItems, 
@@ -172,6 +178,10 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         /// </summary>
         public decimal Quantity { get; set ; } 
 
+		/// <summary>
+		/// 單位數量
+		/// </summary>
+		public decimal UnitAmount { get; set; }
 
         public int UnitPrice { get; set; }
         public decimal TotalPrice
@@ -195,9 +205,10 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         {
             BudgetDocUnitPriceId = unitPrice.Id;
             Code = $"022520{item.Code}{dayOrNight}";
-            Name = $"{item.Name}, {(dayOrNight == "D" ? "(日間)" : "(夜間)")}";
+            Name = $"{item.Name}，{(dayOrNight == "D" ? "(日間)" : "(夜間)")}";
             Unit = item.Unit ;
             Quantity = amount;
+			UnitAmount = item.UnitAmount;
             
             //若有定義工程會的代碼,轉換成工程會的
             if (pccItem != null)// && !string.IsNullOrEmpty(pccItem.DayCode))    //若工程會代碼空白,不用它的( 以 DayCode 判斷就好)
@@ -390,8 +401,9 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
                 if(pccitem == null)
                 {
                     ra063.TailIndex++;
-                    Description = $"{word.Name}, { percent?? 0}, {(dayOrNight == "D" ? "(日間)" : "(夜間)")}";
-                    ItemCode = $"W02252A{ra063.TailIndex}{dayOrNight}";    
+                    Description = $"{word.Name}， { (percent.HasValue? percent.Value.ToString("0.0") + "%" : "") }， {(dayOrNight == "D" ? "(日間)" : "(夜間)")}";
+                    ItemCode = $"W02252A{ra063.TailIndex}{dayOrNight}";
+					Unit = "全";
                 }
                 else
                 {
@@ -500,7 +512,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         {
 
 			Unit = unitPrice.Unit;
-			Description = $"{unitPrice.Name}, {(dayOrNight == "D" ? "(日間)" : "(夜間)")}";
+			Description = $"{unitPrice.Name}，{(dayOrNight == "D" ? "(日間)" : "(夜間)")}";
 			ItemCode = $"022520{unitPrice.Code}{dayOrNight}";
 
 
@@ -536,11 +548,15 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
             }
 
              ItemKind = "analysis";
-            AnalysisOutputQuantity = unitPrice.UnitAmount;
+			//如果該項目在詳細表的總價大於 0, 則使用單位數量,否則用 1
+			if (ra063.DetailItems.Any(x => x.Code == unitPrice.Code && x.TotalPrice > 0))
+				AnalysisOutputQuantity = unitPrice.UnitAmount;
+			else
+				AnalysisOutputQuantity = 1;
 
-            //以 C7113043 為例, 001 的單價分析表有 042 人工挖方  , 047 殘土處理,   但 047 不在詳細表裡 (數量為0) 
-            //所以042-的 workitem 還有 child , 047 只載入第一層
-            bool loadChild = ra063.DetailItems.Any(x => x.Code == unitPrice.Code);
+			//以 C7113043 為例, 001 的單價分析表有 042 人工挖方  , 047 殘土處理,   但 047 不在詳細表裡 (數量為0) 
+			//所以042-的 workitem 還有 child , 047 只載入第一層
+			bool loadChild = ra063.DetailItems.Any(x => x.Code == unitPrice.Code);
             
 
             if (loadChild)
@@ -636,7 +652,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
             else
             {
                 Unit = unit!;
-                Description = $"{name}, {notes}, {(dayOrNight == "D" ? "(日間)" : "(夜間)")}";
+                Description = $"{name}， {notes}， {(dayOrNight == "D" ? "(日間)" : "(夜間)")}";
                 ItemCode = code;
                 var prfix = ItemCode.Substring(0, 1);
                 if (prfix == "O")

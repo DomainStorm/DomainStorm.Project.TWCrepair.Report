@@ -2,7 +2,7 @@
 @{
 	Layout = null;
 	var itemKey = 1;
-	var itemNoFor9XX = Model.Detail9XXItems.Count + 2;  //施工項目 500 及 9XX 用的 no, 原版的也是故意跳一號
+	var itemNoFor9XX = Model.DetailItems.Count + 2;  //施工項目 500 及 9XX 用的 no, 原版的也是故意跳一號
 }
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <ETenderSheet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://pcstd.pcc.gov.tw/2003/eTender" xsi:schemaLocation="http://pcstd.pcc.gov.tw/2003/eTender eTender.1.J.2004.D.xsd" xmlns:mml="http://www.w3.org/1998/Math/MathML" createdDate="@Model.PrintDate.ToString("yyyy-MM-dd")" applicationName="Pcces" applicationVersion="4.3.1000.193" procurementType="constructionWork" documentType="@Model.DocumentType">
@@ -95,7 +95,7 @@
 					<Description language="en"></Description>
 					<Unit language="zh-TW">          </Unit>
 					<Unit language="en">          </Unit>
-					<Quantity>@item.Amout</Quantity>
+					<Quantity>@item.Amout.ToString("G29")</Quantity>
 					<Price fixed="false">@item.UnitPrice.ToString("G29")</Price>
 					<Amount fixed="false">@item.TotalPrice.ToString("G29")</Amount>
 					<Remark>                                        </Remark>
@@ -159,7 +159,7 @@
 			@for (var partIndex = 0; partIndex < unitPrice.DayOrNightParts.Count; partIndex++)
 			{
 				var part = unitPrice.DayOrNightParts[partIndex];
-				<WorkItem itemCode="@part.Code" refItemNo="(@(partIndex + 1))" itemKind="analysis" analysisOutputQuantity="1">
+				<WorkItem itemCode="@part.Code" refItemNo="(@(partIndex + 1))" itemKind="analysis" analysisOutputQuantity="@part.UnitAmount.ToString("G29")">
 					<Description language="zh-TW">@Html.Raw(part.Name)</Description>
 					<Description language="en"></Description>
 					<Unit language="zh-TW">@part.Unit</Unit>
