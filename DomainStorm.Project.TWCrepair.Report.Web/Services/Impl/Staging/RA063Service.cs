@@ -84,7 +84,7 @@ public class RA063Service : IGetService<RA063, string>
 
         //基本資料
         result.PrintDate = DateTime.Today;
-        result.TotalPriceStr = GetMoneyStr(result.TotalPrice ?? "");
+        result.TotalPriceStr = GetMoneyStr(result.TotalPrice?.ToString() ?? "");
         var department = await _departmentService.GetAsync(budgetDoc.DepartmentId.ToString());
         result.OrgName = department.OrgName!;
         result.OrgCode = department.OrgCode!;

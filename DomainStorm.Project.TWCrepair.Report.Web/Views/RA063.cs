@@ -66,7 +66,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         /// <summary>
         /// 總計
         /// </summary>
-        public string? TotalPrice { get; set; }
+        public int? TotalPrice { get; set; }
 
 
         /// <summary>
