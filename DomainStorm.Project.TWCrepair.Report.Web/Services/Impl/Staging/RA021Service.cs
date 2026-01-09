@@ -91,6 +91,13 @@ public class RA021Service : IGetService<RA021, string>
             DispatchNotes = x.FixFormDispatch != null ? x.FixFormDispatch.Notes : null,
             TransferNotes = x.TransferTargetFixForm != null ?  $"移轉廠所: {x.TransferTargetFixForm.ResponsibleDepartmentName}" : null,
             IsRetrieved = x.IsRetrieved
+        }, new List<OrderingExpression<FixForm, object>>()
+        {
+            new ()
+            {
+                OrderType = OrderType.OrderByAscending,
+                Expression = x => x.FixCaseNo
+            }
         });
         return result;
     }
