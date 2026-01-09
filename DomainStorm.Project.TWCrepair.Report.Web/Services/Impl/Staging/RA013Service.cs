@@ -44,6 +44,7 @@ public class RA013Service : IGetService<RA013, string>
         
         var budgetDoc = await _getRepository().GetAsync(condition.Id);
         budgetDoc.BudgetDocUnitPrices = budgetDoc.BudgetDocUnitPrices
+            .Where(x => int.Parse(x.Code) <= 495 || (int.Parse(x.Code) >= 501 && int.Parse(x.Code) <= 899))  //應和 FixWeb 詳細表一致
             .Where(x => x.DayAmount > 0 || x.NightAmount > 0)
             .OrderBy(x => x.Code).ToList();
         var result = new RA013

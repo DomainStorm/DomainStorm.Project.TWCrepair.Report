@@ -26,6 +26,8 @@ namespace DomainStorm.Project.TWCrepair.Report.Web
             CreateMap<Models.Budget.BudgetDoc, RA012>();
             CreateMap<Models.Budget.BudgetDoc, RA014>();
             CreateMap<Models.Budget.BudgetDoc, RA015>();
+            CreateMap<Models.Budget.BudgetDoc, RA063>()
+                .ForMember(vm => vm.DetailItems, opt => opt.MapFrom(m => m.BudgetDocUnitPrices));
             CreateMap<Models.Budget.BudgetDocContract, RA017>();
             CreateMap<Models.Budget.BudgetDocContract, RA018>();
             CreateMap<Models.YearPlan.YearPlanReport, RA028>();
@@ -73,6 +75,10 @@ namespace DomainStorm.Project.TWCrepair.Report.Web
             CreateMap<Models.Budget.BudgetDocUnitPrice, TWCrepair.Shared.ViewModel.BudgetDocDetailItem>()
                 .ForMember(vm => vm.DayPrice, opt => opt.MapFrom(m => m.TotalDayPrice))
                 .ForMember(vm => vm.NightPrice, opt => opt.MapFrom(m => m.TotalNightPrice));
+            CreateMap<Models.Budget.BudgetDocUnitPrice, RA063DetailItem>()
+                .IncludeBase<Models.Budget.BudgetDocUnitPrice, TWCrepair.Shared.ViewModel.BudgetDocDetailItem>();
+
+            
             CreateMap<Models.Budget.BudgetDoc, TWCrepair.Shared.ViewModel.BudgetDocDetail>()
                 .ForMember(vm => vm.BudgetDocDetailItems, opt => opt.MapFrom(m => m.BudgetDocUnitPrices));
             CreateMap<Models.Budget.BudgetDocUnitPriceMember, TWCrepair.Shared.ViewModel.BudgetDocUnitPriceMember>();

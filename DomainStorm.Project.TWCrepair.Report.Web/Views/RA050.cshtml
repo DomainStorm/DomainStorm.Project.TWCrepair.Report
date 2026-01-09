@@ -1,0 +1,346 @@
+﻿@using Microsoft.AspNetCore.Html
+@model DomainStorm.Project.TWCrepair.Report.Web.Views.RA050
+@{
+    Layout = null;
+    var stylesPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Views", "RA050.head.xml");
+    var head = await File.ReadAllTextAsync(stylesPath);
+}
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<office:document xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:ooo="http://openoffice.org/2004/office" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:config="urn:oasis:names:tc:opendocument:xmlns:config:1.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:rpt="http://openoffice.org/2005/report" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:ooow="http://openoffice.org/2004/writer" xmlns:oooc="http://openoffice.org/2004/calc" xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:tableooo="http://openoffice.org/2009/table" xmlns:calcext="urn:org:documentfoundation:names:experimental:calc:xmlns:calcext:1.0" xmlns:drawooo="http://openoffice.org/2010/draw" xmlns:loext="urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0" xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0" xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0" xmlns:formx="urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0" xmlns:dom="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:grddl="http://www.w3.org/2003/g/data-view#" xmlns:css3t="http://www.w3.org/TR/css3-text/" xmlns:presentation="urn:oasis:names:tc:opendocument:xmlns:presentation:1.0" office:version="1.4" office:mimetype="application/vnd.oasis.opendocument.spreadsheet">
+    @Html.Raw(head)
+    
+    <office:body>
+        <office:spreadsheet>
+            <table:calculation-settings table:case-sensitive="false" table:automatic-find-labels="false" table:use-regular-expressions="false" table:use-wildcards="true" />
+            <table:table table:name="二.檢修漏成果計算統計表" table:style-name="ta1">
+                <office:forms form:automatic-focus="false" form:apply-design-mode="false" />
+                <table:table-column table:style-name="co1" table:default-cell-style-name="ce80" />
+                <table:table-column table:style-name="co2" table:default-cell-style-name="ce80" />
+                <table:table-column table:style-name="co3" table:default-cell-style-name="ce80" />
+                <table:table-column table:style-name="co4" table:number-columns-repeated="254" table:default-cell-style-name="ce80" />
+                <table:table-column table:style-name="co4" table:number-columns-repeated="16127" />
+                <table:table-row table:style-name="ro1">
+                    <table:table-cell table:style-name="ce1" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="3" table:number-rows-spanned="1">
+                        <text:p><text:span text:style-name="T1">二</text:span><text:span text:style-name="T2">.</text:span><text:span text:style-name="T3">檢修漏成果計算統計表</text:span></text:p>
+                    </table:table-cell>
+                    <table:covered-table-cell table:number-columns-repeated="2" table:style-name="ce75" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro2">
+                    <table:table-cell table:style-name="ce76" office:value-type="string" calcext:value-type="string">
+                        <text:p><text:span text:style-name="T4">計算式</text:span></text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce81" office:value-type="string" calcext:value-type="string">
+                        <text:p><text:span text:style-name="T4">計算值</text:span></text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce88" office:value-type="string" calcext:value-type="string">
+                        <text:p><text:span text:style-name="T4">備註</text:span></text:p>
+                    </table:table-cell>
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro2">
+                    <table:table-cell table:style-name="ce77" office:value-type="string" calcext:value-type="string">
+                        <text:p><text:span text:style-name="T4">一、漏水復原率</text:span><text:span text:style-name="T5">(% / </text:span><text:span text:style-name="T6">年</text:span><text:span text:style-name="T5">)</text:span><text:span text:style-name="T6">：</text:span></text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce82" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
+                        <text:p>-6.42%</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce131" table:number-columns-spanned="1" table:number-rows-spanned="2" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro2">
+                    <table:table-cell table:style-name="ce78" office:value-type="string" calcext:value-type="string">
+                        <text:p>((a-b)/(i*(e/d)))*100%</text:p>
+                    </table:table-cell>
+                    <table:covered-table-cell table:style-name="ce83" />
+                    <table:covered-table-cell table:style-name="ce90" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro2">
+                    <table:table-cell table:style-name="ce77" office:value-type="string" calcext:value-type="string">
+                        <text:p><text:span text:style-name="T4">二、漏水復原量</text:span><text:span text:style-name="T5">(m3 /KM / </text:span><text:span text:style-name="T6">年</text:span><text:span text:style-name="T5">)</text:span><text:span text:style-name="T6">：</text:span></text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce82" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
+                        <text:p>-1.52</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce131" table:number-columns-spanned="1" table:number-rows-spanned="2" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro2">
+                    <table:table-cell table:style-name="ce78" office:value-type="string" calcext:value-type="string">
+                        <text:p>(a-b)/((f+h*g)*i)</text:p>
+                    </table:table-cell>
+                    <table:covered-table-cell table:style-name="ce83" />
+                    <table:covered-table-cell table:style-name="ce90" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro2">
+                    <table:table-cell table:style-name="ce77" office:value-type="string" calcext:value-type="string">
+                        <text:p><text:span text:style-name="T4">三、漏水量效益額</text:span><text:span text:style-name="T5">(</text:span><text:span text:style-name="T6">元</text:span><text:span text:style-name="T5">)</text:span><text:span text:style-name="T6">：</text:span></text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce82" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
+                        <text:p>18566598</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce131" table:number-columns-spanned="1" table:number-rows-spanned="2" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro2">
+                    <table:table-cell table:style-name="ce78" office:value-type="string" calcext:value-type="string">
+                        <text:p>j*365*1*l-m</text:p>
+                    </table:table-cell>
+                    <table:covered-table-cell table:style-name="ce83" />
+                    <table:covered-table-cell table:style-name="ce90" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro2">
+                    <table:table-cell table:style-name="ce77" office:value-type="string" calcext:value-type="string">
+                        <text:p><text:span text:style-name="T4">四、夜間最小流量效益額</text:span><text:span text:style-name="T5">(</text:span><text:span text:style-name="T6">元</text:span><text:span text:style-name="T5">)</text:span><text:span text:style-name="T6">：</text:span></text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce82" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
+                        <text:p>9475453</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce131" table:number-columns-spanned="1" table:number-rows-spanned="2" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro2">
+                    <table:table-cell table:style-name="ce78" office:value-type="string" calcext:value-type="string">
+                        <text:p>k*365*1*l-m</text:p>
+                    </table:table-cell>
+                    <table:covered-table-cell table:style-name="ce83" />
+                    <table:covered-table-cell table:style-name="ce90" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro3">
+                    <table:table-cell table:style-name="ce77" office:value-type="string" calcext:value-type="string">
+                        <text:p><text:span text:style-name="T4">五、檢漏成本實際數：</text:span></text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce84" office:value-type="string" calcext:value-type="string">
+                        <text:p /><text:p>95.24</text:p><text:p>1148.7</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce131" table:number-columns-spanned="1" table:number-rows-spanned="3" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro2">
+                    <table:table-cell table:style-name="ce79" office:value-type="string" calcext:value-type="string">
+                        <text:p>m/j (<text:span text:style-name="T4">元</text:span><text:span text:style-name="T5">/CMD)</text:span></text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce85" />
+                    <table:covered-table-cell table:style-name="ce91" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro2">
+                    <table:table-cell table:style-name="ce78" office:value-type="string" calcext:value-type="string">
+                        <text:p>m/n (<text:span text:style-name="T4">元</text:span><text:span text:style-name="T5">/KM)</text:span></text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce86" />
+                    <table:covered-table-cell table:style-name="ce90" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro2">
+                    <table:table-cell table:style-name="ce77" office:value-type="string" calcext:value-type="string">
+                        <text:p><text:span text:style-name="T4">六、作業進度</text:span><text:span text:style-name="T5">( % )</text:span><text:span text:style-name="T6">：</text:span></text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce82" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
+                        <text:p /><text:p>89.25%</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce131" table:number-columns-spanned="1" table:number-rows-spanned="2" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro2">
+                    <table:table-cell table:style-name="ce78" office:value-type="string" calcext:value-type="string">
+                        <text:p>p/o*100%</text:p>
+                    </table:table-cell>
+                    <table:covered-table-cell table:style-name="ce83" />
+                    <table:covered-table-cell table:style-name="ce90" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro4">
+                    <table:table-cell table:style-name="ce77" office:value-type="string" calcext:value-type="string">
+                        <text:p><text:span text:style-name="T4">七、最小流量率</text:span><text:span text:style-name="T5">( % ):</text:span><text:span text:style-name="T6">：</text:span></text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce84" office:value-type="string" calcext:value-type="string">
+                        <text:p /><text:p>81.47%</text:p><text:p>77.04%</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce131" table:number-columns-spanned="1" table:number-rows-spanned="3" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro2">
+                    <table:table-cell table:style-name="ce79" office:value-type="string" calcext:value-type="string">
+                        <text:p><text:span text:style-name="T4">檢修前</text:span></text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce87" />
+                    <table:covered-table-cell table:style-name="ce91" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro2">
+                    <table:table-cell table:style-name="ce78" office:value-type="string" calcext:value-type="string">
+                        <text:p><text:span text:style-name="T4">檢修後</text:span></text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce86" />
+                    <table:covered-table-cell table:style-name="ce90" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro4">
+                    <table:table-cell table:style-name="ce77" office:value-type="string" calcext:value-type="string">
+                        <text:p><text:span text:style-name="T4">八、容許漏水量</text:span><text:span text:style-name="T5">(m3/D/KM-2kg/cm2):</text:span></text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce84" office:value-type="string" calcext:value-type="string">
+                        <text:p /><text:p>33.1</text:p><text:p>27.55</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce131" table:number-columns-spanned="1" table:number-rows-spanned="3" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro2">
+                    <table:table-cell table:style-name="ce79" office:value-type="string" calcext:value-type="string">
+                        <text:p><text:span text:style-name="T4">檢修前</text:span><text:span text:style-name="T5">:a/(f+h*g)*(2/s)^0.5</text:span></text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce87" />
+                    <table:covered-table-cell table:style-name="ce91" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro2">
+                    <table:table-cell table:style-name="ce78" office:value-type="string" calcext:value-type="string">
+                        <text:p><text:span text:style-name="T4">檢修後</text:span><text:span text:style-name="T5">:c/(f+h*g)*(2/t)^0.5</text:span></text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce86" />
+                    <table:covered-table-cell table:style-name="ce90" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro5">
+                    <table:table-cell table:style-name="ce77" office:value-type="string" calcext:value-type="string">
+                        <text:p><text:span text:style-name="T4">九</text:span><text:span text:style-name="T5">.</text:span><text:span text:style-name="T6">檢漏速率</text:span><text:span text:style-name="T5">(km/</text:span><text:span text:style-name="T6">人日</text:span><text:span text:style-name="T5">):</text:span></text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce82" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
+                        <text:p /><text:p>3.9</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce131" table:number-columns-spanned="1" table:number-rows-spanned="2" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro2">
+                    <table:table-cell table:style-name="ce78" office:value-type="string" calcext:value-type="string">
+                        <text:p>n/z</text:p>
+                    </table:table-cell>
+                    <table:covered-table-cell table:style-name="ce83" />
+                    <table:covered-table-cell table:style-name="ce90" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro2">
+                    <table:table-cell table:style-name="ce77" office:value-type="string" calcext:value-type="string">
+                        <text:p><text:span text:style-name="T4">十</text:span><text:span text:style-name="T5">.</text:span><text:span text:style-name="T6">篩檢率</text:span><text:span text:style-name="T5">(%):</text:span></text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce82" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
+                        <text:p /><text:p>100%</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce131" table:number-columns-spanned="1" table:number-rows-spanned="2" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro2">
+                    <table:table-cell table:style-name="ce78" office:value-type="string" calcext:value-type="string">
+                        <text:p>x/(x+y)*100%</text:p>
+                    </table:table-cell>
+                    <table:covered-table-cell table:style-name="ce83" />
+                    <table:covered-table-cell table:style-name="ce90" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro2">
+                    <table:table-cell table:style-name="ce77" office:value-type="string" calcext:value-type="string">
+                        <text:p><text:span text:style-name="T4">十一</text:span><text:span text:style-name="T5">.</text:span><text:span text:style-name="T6">確認失敗率</text:span><text:span text:style-name="T5">( % ):</text:span></text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce82" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
+                        <text:p /><text:p>10.31%</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce131" table:number-columns-spanned="1" table:number-rows-spanned="2" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro2">
+                    <table:table-cell table:style-name="ce78" office:value-type="string" calcext:value-type="string">
+                        <text:p>w/(w+v)*100%</text:p>
+                    </table:table-cell>
+                    <table:covered-table-cell table:style-name="ce83" />
+                    <table:covered-table-cell table:style-name="ce90" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro2">
+                    <table:table-cell table:style-name="ce77" office:value-type="string" calcext:value-type="string">
+                        <text:p><text:span text:style-name="T4">十二</text:span><text:span text:style-name="T5">.</text:span><text:span text:style-name="T6">地下漏水發生率</text:span><text:span text:style-name="T5">( % ):</text:span></text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce82" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
+                        <text:p /><text:p>81.61%</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce131" table:number-columns-spanned="1" table:number-rows-spanned="2" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro6">
+                    <table:table-cell table:style-name="ce78" office:value-type="string" calcext:value-type="string">
+                        <text:p>u/v*100%</text:p>
+                    </table:table-cell>
+                    <table:covered-table-cell table:style-name="ce83" />
+                    <table:covered-table-cell table:style-name="ce90" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro7">
+                    <table:table-cell table:style-name="ce77" office:value-type="string" calcext:value-type="string">
+                        <text:p><text:span text:style-name="T4">十三</text:span><text:span text:style-name="T5">.UARL</text:span><text:span text:style-name="T6">不可避免之真正漏水量</text:span><text:span text:style-name="T5">(liters/day)</text:span></text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce84" office:value-type="string" calcext:value-type="string">
+                        <text:p /><text:p>641353.62</text:p><text:p>620439.91</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce131" table:number-columns-spanned="1" table:number-rows-spanned="3" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro2">
+                    <table:table-cell table:style-name="ce79" office:value-type="string" calcext:value-type="string">
+                        <text:p><text:span text:style-name="T7">檢修前</text:span><text:span text:style-name="T8">:((18 × f) + (0.8× ad) + (25 × ad/1000)) ×(Sx10)</text:span></text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce85" />
+                    <table:covered-table-cell table:style-name="ce91" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro2">
+                    <table:table-cell table:style-name="ce78" office:value-type="string" calcext:value-type="string">
+                        <text:p><text:span text:style-name="T7">檢修後</text:span><text:span text:style-name="T5">:</text:span><text:span text:style-name="T9">((18 × f) + (0.8× ae) + (25 × ae/1000)) ×(Tx10)</text:span></text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce86" />
+                    <table:covered-table-cell table:style-name="ce90" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro7">
+                    <table:table-cell table:style-name="ce77" office:value-type="string" calcext:value-type="string">
+                        <text:p><text:span text:style-name="T4">十四</text:span><text:span text:style-name="T5">.ILI</text:span><text:span text:style-name="T6">設施漏水量指標</text:span></text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce84" office:value-type="string" calcext:value-type="string">
+                        <text:p /><text:p>25.33</text:p><text:p>20.05</text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce131" table:number-columns-spanned="1" table:number-rows-spanned="3" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro2">
+                    <table:table-cell table:style-name="ce79" office:value-type="string" calcext:value-type="string">
+                        <text:p><text:span text:style-name="T4">檢修前</text:span><text:span text:style-name="T5">:(q-af-(q*2.15%))*1000/</text:span><text:span text:style-name="T6">檢修前</text:span><text:span text:style-name="T5">UARL</text:span></text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce85" />
+                    <table:covered-table-cell table:style-name="ce91" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro2">
+                    <table:table-cell table:style-name="ce78" office:value-type="string" calcext:value-type="string">
+                        <text:p><text:span text:style-name="T4">檢修後</text:span><text:span text:style-name="T5">::(r-af-(r*2.15%))*1000/</text:span><text:span text:style-name="T6">檢修後</text:span><text:span text:style-name="T5">UARL</text:span></text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="ce86" />
+                    <table:covered-table-cell table:style-name="ce90" />
+                    <table:table-cell table:number-columns-repeated="254" />
+                </table:table-row>
+                <table:table-row table:style-name="ro8" table:number-rows-repeated="1048540">
+                    <table:table-cell table:number-columns-repeated="257" />
+                </table:table-row>
+                <table:table-row table:style-name="ro8">
+                    <table:table-cell table:number-columns-repeated="257" />
+                </table:table-row>
+            </table:table>
+            <table:named-expressions />
+        </office:spreadsheet>
+    </office:body>
+</office:document>

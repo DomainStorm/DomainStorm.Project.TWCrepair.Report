@@ -51,7 +51,7 @@ public class RA025Service : IGetService<RA025, string>
             x => new FormData
             {
                 DepartmentId = x.DepartmentId,
-                CaseEstablished = x.CaseEstablished,
+                CaseEstablished = x.Check3XFormFootnote != null ? x.Check3XFormFootnote.OnSiteWork.CaseEstablished : null,
                 CloseTime = x.CloseTime
             }
         );
