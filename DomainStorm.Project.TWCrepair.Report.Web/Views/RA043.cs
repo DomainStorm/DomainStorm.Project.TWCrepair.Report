@@ -194,7 +194,7 @@ public class RA043DiamterMapToUnit
     {
         new ()
         {
-            Diameter = 3,
+            Diameter = 13,
             UnitOfWater = 3
         },
         new ()
