@@ -16,7 +16,7 @@ public static class RA063
 
 
             /// <summary>
-            ///  xml 的 documentType ,  1: budget  2:request 3:submig
+            ///  xml 的 documentType ,  1: budget  2:request 3:submit
             /// </summary>
             public string XmlKind { get; set; } = "1";
             public FileExtension Extension { get; set; } = FileExtension.XML;
