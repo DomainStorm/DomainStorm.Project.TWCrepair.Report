@@ -59,13 +59,22 @@ public class RA031Service : IGetService<RA031, string>
 
             if (planReport.YearPlanBase != null)
             {
-                //附表一:要限系統及大區, 排除機動支援 , 和 CheckWeb 的 YearPlanSetAllZoneService 有點不一樣, 不使用 service
+				//附表一:要限系統及大區, 排除機動支援 , 和 CheckWeb 的 YearPlanSetAllZoneService 有點不一樣, 不使用 service
+				var yearPlanBaseWorkSpaceItems = planReport.YearPlanBase.YearPlanWorkSpaces
+					.Select(x => x.WorkSpace)
+					.SelectMany(w => w.DepartmentWorkSpaceItems)
+					.Select(item => new { item.SiteId, item.WaterSupplySystemId })
+					.ToList();
 
-                //設定抄見率和年度計畫目前沒有關聯,要重查
-                var zones = await _getZoneRepository().GetListAsync(x => x.DepartmentId == planReport.YearPlanBase.DepartmentId
-                && x.Year == planReport.YearPlanBase.Year);
 
-                foreach (var zone in zones)
+				//設定抄見率和年度計畫目前沒有關聯,要重查
+				var zones = await _getZoneRepository().GetListAsync(x => x.DepartmentId == planReport.YearPlanBase.DepartmentId
+				&& x.Year == planReport.YearPlanBase.Year - 1);  //前一年度的抄見率
+				//再次篩選,只限定原本工作區內的廠所及系統 (沒辦法在 sql 層限制條件)
+				zones = zones.Where(x => yearPlanBaseWorkSpaceItems.Any(item => item.SiteId == x.SiteId && item.WaterSupplySystemId == x.WaterSupplySystemId)).ToArray();
+
+
+				foreach (var zone in zones)
                 {
                     //if (zone.WaterSupplySystemName.Contains("機動")) continue;  
 

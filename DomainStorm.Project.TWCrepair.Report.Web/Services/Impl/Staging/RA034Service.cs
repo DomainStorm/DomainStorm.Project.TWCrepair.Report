@@ -57,11 +57,8 @@ public class RA034Service : IGetService<RA034, string>
 
             if (planReport.YearPlanBase != null)
             {
-                result.CurrentPeople1 = planReport.YearPlanBase.CurrentPeople1;
-                result.CurrentPeople2 = planReport.YearPlanBase.CurrentPeople2;
-                result.CurrentPeople3 = planReport.YearPlanBase.CurrentPeople3;
-
-
+                result.CurrentPeople = planReport.YearPlanBase.CurrentPeople;
+                
                 planReport.YearPlanBase.AppendSumItem();
                 result.Items = _mapper.Map<List<RA034Item>>(planReport.YearPlanBase.YearPlanWorkSpaces);
                 //合計列要置頂, 和CheckWeb 不一樣

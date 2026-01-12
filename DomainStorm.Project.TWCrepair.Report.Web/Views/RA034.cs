@@ -11,27 +11,10 @@ public class RA034 : ReportDataModel
 {
     public int Year { get; set; }
 
-    /// <summary>
-    /// 現有人員數-師
-    /// </summary>
-    public int? CurrentPeople1 { get; set; }
+    
 
-    /// <summary>
-    /// 現有人員數-員
-    /// </summary>
-    public int? CurrentPeople2 { get; set; }
-
-    /// <summary>
-    /// 現有人員數-士
-    /// </summary>
-    public int? CurrentPeople3 { get; set; }
-
-    public int CurrentPeople
-    {
-        get => (CurrentPeople1 ?? 0)
-            + (CurrentPeople2 ?? 0)
-            + (CurrentPeople3 ?? 0);
-    }
+    public int CurrentPeople { get; set; }
+    
 
     public List<RA034Item> Items { get; set; } = new List<RA034Item>();
     public RA034Item SumItem { get; set; } = new RA034Item();

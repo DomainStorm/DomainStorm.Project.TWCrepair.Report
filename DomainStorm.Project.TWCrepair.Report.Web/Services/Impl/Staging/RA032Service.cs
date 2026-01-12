@@ -56,10 +56,8 @@ public class RA032Service : IGetService<RA032, string>
 
             if (planReport.YearPlanBase != null)
             {
-                result.CurrentPeople1 = planReport.YearPlanBase.CurrentPeople1;
-                result.CurrentPeople2 = planReport.YearPlanBase.CurrentPeople2;
-                result.CurrentPeople3 = planReport.YearPlanBase.CurrentPeople3;
-
+                result.CurrentPeople = planReport.YearPlanBase.CurrentPeople;
+               
                 if (planReport.YearPlanBase.YearPlanWorkSpaces != null)
                 {
                     planReport.YearPlanBase.AppendSumItem();
