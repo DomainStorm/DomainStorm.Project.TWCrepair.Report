@@ -16,20 +16,27 @@ public class RA032 : ReportDataModel
     public RA032Item SumItem { get; set; }
     public List<RA032Item> Items { get; set; } = new List<RA032Item>();
 
-    /// <summary>
-    /// 現有人員數-師
-    /// </summary>
-    public int? CurrentPeople1 { get; set; }
+	///// <summary>
+	///// 現有人員數-師
+	///// </summary>
+	//public int? CurrentPeople1 { get; set; }
 
-    /// <summary>
-    /// 現有人員數-員
-    /// </summary>
-    public int? CurrentPeople2 { get; set; }
+	///// <summary>
+	///// 現有人員數-員
+	///// </summary>
+	//public int? CurrentPeople2 { get; set; }
 
-    /// <summary>
-    /// 現有人員數-士
-    /// </summary>
-    public int? CurrentPeople3 { get; set; }
+	///// <summary>
+	///// 現有人員數-士
+	///// </summary>
+	//public int? CurrentPeople3 { get; set; }
+
+	/// <summary>
+	/// 現有人員數
+	/// </summary>
+	public int? CurrentPeople { get; set; }
+
+	
 }
 
 
