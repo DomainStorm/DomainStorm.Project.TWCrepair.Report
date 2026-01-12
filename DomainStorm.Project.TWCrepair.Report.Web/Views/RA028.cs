@@ -18,51 +18,24 @@ public class RA028 : ReportDataModel
     public string? CurrentSituation { get; set; }
 
     /// <summary>
-    /// 現有員額-師
+    /// 現有員額
     /// </summary>
-    public int CurrentPost1 { get; set; }
+    public int CurrentPost { get; set; }
+
+   
 
     /// <summary>
-    /// 現有員額-員
+    /// 計畫員額
     /// </summary>
-    public int CurrentPost2 { get; set; }
+    public int PlanPost { get; set; }
 
+    
     /// <summary>
-    /// 現有員額-士
+    /// 需補員額
     /// </summary>
-    public int CurrentPost3 { get; set; }
+    public int NeedPost { get; set; }
 
-    /// <summary>
-    /// 計畫員額-師
-    /// </summary>
-    public int PlanPost1 { get; set; }
-
-    /// <summary>
-    /// 計畫員額-員
-    /// </summary>
-    public int PlanPost2 { get; set; }
-
-    /// <summary>
-    /// 計畫員額-士
-    /// </summary>
-    public int PlanPost3 { get; set; }
-
-
-    /// <summary>
-    /// 需補員額-師
-    /// </summary>
-    public int NeedPost1 { get; set; }
-
-    /// <summary>
-    /// 需補員額-員
-    /// </summary>
-    public int NeedPost2 { get; set; }
-
-    /// <summary>
-    /// 需補員額-士
-    /// </summary>
-    public int NeedPost3 { get; set; }
-
+    
     /// <summary>
     /// 現況分析_備註
     /// </summary>
