@@ -15,8 +15,8 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers;
 /// 檢漏系統-年度計畫-系統成果報告書-二.檢修漏成果計算統計表
 /// </summary>
 [ApiController]
-//[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-//[Authorize(AuthenticationSchemes = OpenIdConnectDefaults.AuthenticationScheme)]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+[Authorize(AuthenticationSchemes = OpenIdConnectDefaults.AuthenticationScheme)]
 [Route("api/ra050")]
 public class RA050Controller : ControllerBase
 {
