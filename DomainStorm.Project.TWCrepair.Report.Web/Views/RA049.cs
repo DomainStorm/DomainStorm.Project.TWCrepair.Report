@@ -144,45 +144,13 @@ public class RA049 : ReportDataModel
     /// <summary>
     /// 漏水復原率 (a.本期檢修前最小流量-b. 前期檢修後最小流量 )/ (i.兩次間隔年數 * e.兩期間隔總配水量 / d.兩期間隔天數) * 100;
     /// </summary>
-    public double? LeackageRecover
-    {
-        get
-        {
-            if (InervalYears.HasValue && InervalYears > 0
-                && IntervalWaterAmount.HasValue && IntervalWaterAmount > 0
-                && IntervalDays.HasValue && IntervalDays > 0)
-            {
-                var temp = 100 * ((MinFlowBefore ?? 0) - (MinFlowAfter ?? 0))
-                         / (InervalYears.Value * IntervalWaterAmount.Value / IntervalDays.Value);
-                return Math.Round(temp, 2);
-            }
-            else
-            {
-                return null;
-            }
-        }
-    }
-
+    public double? LeackageRecover { get; set; }
+   
     /// <summary>
     /// 漏水復原量 (a.本期檢修前最小流量- b. 前期檢修後最小流量)/ ((f.檢漏管長(KM) + h.每戶間隔數(KM) * g.檢修後用戶數) * i.兩次間隔年數)
     /// </summary>
-    public double? LeackageRecoverAmount
-    {
-        get
-        {
-            var temp = (PlanPipeLength ?? 0) + (double)(DistanceBetweenHouses ?? 0M) * (CustomerAmountAfter ?? 0);
-            if (temp > 0
-                && InervalYears.HasValue && InervalYears.Value > 0)
-            {
-                return ((MinFlowBefore ?? 0) - (MinFlowAfter ?? 0))
-                         / (temp * InervalYears);
-            }
-            else
-            {
-                return null;
-            }
-        }
-    }
+    public double? LeackageRecoverAmount { get; set; }
+    
 
     /// <summary>
     /// 檢修後戶配水量 r.檢修後日配水量/ g.檢修後用戶數。
@@ -201,79 +169,33 @@ public class RA049 : ReportDataModel
     /// <summary>
     /// 檢漏速率  n.實際檢漏作業管長/ z.管線聽音人日
     /// </summary>
-    public double? CheckSpeed
-    {
-        get
-        {
-            if (ListenDay.HasValue && ListenDay.Value > 0)
-                return Math.Round((RealPipeLength ?? 0) / (double)ListenDay.Value, 2);
-            else
-                return null;
-        }
-    }
+    public double? CheckSpeed { get; set; }
+    
 
     /// <summary>
     /// 篩檢率   x.確認漏水件數/ x.確認漏水件數+ y.確認無漏件數
     /// </summary>
-    public double? FiltRate
-    {
-        get
-        {
-            var temp = (ConfirmLeakageAmount ?? 0) + (ConfirmNoLeakageAmount ?? 0);
-            if (temp > 0 )
-            {
-                return Math.Round(100.0 * (ConfirmLeakageAmount ?? 0) /(double)temp, 2);
-            }
-            else
-            {
-                return null;
-            }
-        }
-    }
+    public double? FiltRate { get; set; }
 
-    /// <summary>
-    /// 確認失敗率  (w.確認失敗件數(無漏及超限)/ (w.確認失敗件數(無漏及超限)+ v.漏水總件數)) * 100
-    /// </summary>
-    public double? ConfirmFailAmountRate
-    {
-        get
-        {
-            var temp = (ConfirmFailAmount ?? 0) + (RealLeakageAmount ?? 0);
-            if (temp > 0)
-            {
-                return Math.Round(100.0 * (RealLeakageAmount ?? 0) / (double)temp, 2);
-            }
-            else
-            {
-                return null;
-            }
-        }
-    }
 
-    /// <summary>
-    /// 地下漏水發生率 u.地下漏水件數/ v.漏水總件數
-    /// </summary>
-    public double? UnderGroundLeakageAmountRate
-    {
-        get
-        {
-            if (RealLeakageAmount.HasValue && RealLeakageAmount.Value > 0)
-            {
-                return Math.Round(100.0 * (RealUnderGroundLeakageAmount ?? 0) / (double)RealLeakageAmount, 2);
-            }
-            else
-            {
-                return null;
-            }
-        }
-    }
-    #endregion
+	/// <summary>
+	/// 確認失敗率  (w.確認失敗件數(無漏及超限)/ (w.確認失敗件數(無漏及超限)+ v.漏水總件數)) * 100
+	/// </summary>
+	public double? ConfirmFailAmountRate { get; set; }
 
-    #region 作業績效分析
-    /// <summary>
-    /// 地下漏下件數
-    /// </summary>
-    public RA049_DiffAndRate Performance_UnderGroundLeakageAmount { get; set; } = new RA049_DiffAndRate();
+
+	/// <summary>
+	/// 地下漏水發生率 u.地下漏水件數/ v.漏水總件數
+	/// </summary>
+	public double? UnderGroundLeakageAmountRate { get; set; }
+
+	#endregion
+
+	#region 作業績效分析
+	/// <summary>
+	/// 地下漏下件數
+	/// </summary>
+	public RA049_DiffAndRate Performance_UnderGroundLeakageAmount { get; set; } = new RA049_DiffAndRate();
 
     /// <summary>
     /// 檢漏管長
