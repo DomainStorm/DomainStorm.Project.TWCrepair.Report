@@ -84,7 +84,8 @@ public class RA031Service : IGetService<RA031, string>
                 }
 
                 //加一個總計資料
-                result.Items.Add(YearPlanStatistics.GenerateSumAllSites(result.Items));
+                if(result.Items.Any())
+                    result.Items.Add(YearPlanStatistics.GenerateSumAllSites(result.Items));
 
                 //總計資料置頂
                 result.Items = result.Items.OrderByDescending(x => x.SortOrder).ToList();
