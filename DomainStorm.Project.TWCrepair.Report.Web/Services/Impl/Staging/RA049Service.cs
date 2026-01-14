@@ -87,9 +87,9 @@ public class RA049Service : IGetService<RA049, string>
                 //檢漏效益(元) = 年度規劃分析 - 五.工作計劃 - 效益額(元)
                 //result.Performance_BenefitAmount.PlanAmount = yearPlanWorkSpace.BenefitAmount;
                 //檢漏成本(元/CMD)=年度規劃分析-五.工作計劃-檢漏成本-元/CMD
-                result.Performance_CostPerCmd.PlanAmount = yearPlanWorkSpace.CheckOutCostPerCMD;
+                result.Performance_CostPerCmd.PlanAmount = (decimal?)yearPlanWorkSpace.CheckOutCostPerCMD;
                 //檢漏成本(元/KM)=年度規劃分析-五.工作計劃-檢漏成本-元/KM
-                result.Performance_CostPerKm.PlanAmount = yearPlanWorkSpace.CheckOutCostPerKm;
+                result.Performance_CostPerKm.PlanAmount = (decimal?)yearPlanWorkSpace.CheckOutCostPerKm;
             }
             #endregion
 

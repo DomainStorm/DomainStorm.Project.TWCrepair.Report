@@ -25,13 +25,13 @@ public class RA050 : ReportDataModel
 	/// <summary>
 	/// 漏水復原率 (a.本期檢修前最小流量-b. 前期檢修後最小流量 )/ (i.兩次間隔年數 * e.兩期間隔總配水量 / d.兩期間隔天數) * 100;
 	/// </summary>
-	public double? LeackageRecover { get; set; }
+	public decimal? LeackageRecover { get; set; }
 
 
 	/// <summary>
 	/// 漏水復原量 (a.本期檢修前最小流量- b. 前期檢修後最小流量)/ ((f.檢漏管長(KM) + h.每戶間隔數(KM) * g.檢修後用戶數) * i.兩次間隔年數)
 	/// </summary>
-	public double? LeackageRecoverAmount { get; set; }
+	public decimal? LeackageRecoverAmount { get; set; }
 
 
 	/// <summary>
@@ -48,13 +48,13 @@ public class RA050 : ReportDataModel
 	/// <summary>
 	/// 檢漏成本 (元/CMD)  m/j
 	/// </summary>
-	public double? CheckCostPerCmd { get; set; }
+	public decimal? CheckCostPerCmd { get; set; }
 
 
 	/// <summary>
 	/// 檢漏成本 (元/km)  m/n
 	/// </summary>
-	public double? CheckCostPerKm { get; set; }
+	public decimal? CheckCostPerKm { get; set; }
 
 
 	/// <summary>
@@ -65,72 +65,72 @@ public class RA050 : ReportDataModel
 	/// <summary>
 	/// 最小流量率(檢修前)
 	/// </summary>
-	public double? MinFlowRateBefore { get; set; }
+	public decimal? MinFlowRateBefore { get; set; }
 
 	/// <summary>
 	/// 最小流量率(檢修後)
 	/// </summary>
-	public double? MinFlowRateAfter { get; set; }
+	public decimal? MinFlowRateAfter { get; set; }
 
 
 	/// <summary>
 	/// 容許漏水量檢修前 a/(f+h*g)*(2/s)^0.5
 	/// </summary>
-	public double? AllowLeakageWaterAmountBefore { get; set; }
+	public decimal? AllowLeakageWaterAmountBefore { get; set; }
 	
 	/// <summary>
 	/// 容許漏水量檢修後 c/(f+h*g)*(2/t)^0.5
 	/// </summary>
-	public double? AllowLeakageWaterAmountAfter { get; set; }
+	public decimal? AllowLeakageWaterAmountAfter { get; set; }
 	
 
 
 	/// <summary>
 	/// 檢漏速率  n.實際檢漏作業管長/ z.管線聽音人日
 	/// </summary>
-	public double? CheckSpeed { get; set; }
+	public decimal? CheckSpeed { get; set; }
 
 
 	/// <summary>
 	/// 篩檢率   x.確認漏水件數/ x.確認漏水件數+ y.確認無漏件數
 	/// </summary>
-	public double? FiltRate { get; set; }
+	public decimal? FiltRate { get; set; }
 
 
 	/// <summary>
 	/// 確認失敗率  (w.確認失敗件數(無漏及超限)/ (w.確認失敗件數(無漏及超限)+ v.漏水總件數)) * 100
 	/// </summary>
-	public double? ConfirmFailAmountRate { get; set; }
+	public decimal? ConfirmFailAmountRate { get; set; }
 
 
 	/// <summary>
 	/// 地下漏水發生率 u.地下漏水件數/ v.漏水總件數
 	/// </summary>
-	public double? UnderGroundLeakageAmountRate { get; set; }
+	public decimal? UnderGroundLeakageAmountRate { get; set; }
 
 
 	/// <summary>
 	/// UARL不可避免之真正漏水量(liters/day) 檢修前  ((18 × f) + (0.8× ad) + (25 × ad/1000)) ×(Sx10)
 	/// </summary>
-	public double? UARLLeakageAmountBefore { get; set; }
+	public decimal? UARLLeakageAmountBefore { get; set; }
 
 
 
 	/// <summary>
 	/// UARL不可避免之真正漏水量(liters/day) 檢修後  ((18 × f) + (0.8× ae) + (25 × ae/1000)) ×(Tx10)
 	/// </summary>
-	public double? UARLLeakageAmountAfter { get; set; }
+	public decimal? UARLLeakageAmountAfter { get; set; }
 
 
 	/// <summary>
 	/// ILI設施漏水量指標 檢修前 (q-af-(q*2.15%))*1000/檢修前UARL
 	/// </summary>
-	public double ILILeakageIndexBefore {  get; set; }
+	public decimal ILILeakageIndexBefore {  get; set; }
 
 	/// <summary>
 	/// ILI設施漏水量指標 檢修後  (r-af-(r*2.15%))*1000/檢修後UARL
 	/// </summary>
-	public double ILILeakageIndexAfter { get; set; }
+	public decimal ILILeakageIndexAfter { get; set; }
 
 }
 

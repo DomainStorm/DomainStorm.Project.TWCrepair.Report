@@ -150,7 +150,8 @@ try
         builder.Services.AddScoped<IGetService<RA048, string>, StagingServices.RA048Service>();
         builder.Services.AddScoped<IGetService<RA049, string>, StagingServices.RA049Service>();
         builder.Services.AddScoped<IGetService<RA050, string>, StagingServices.RA050Service>();
-        builder.Services.AddScoped<IGetService<RA063, string>, StagingServices.RA063Service>();
+		builder.Services.AddScoped<IGetService<RA051, string>, StagingServices.RA051Service>();
+		builder.Services.AddScoped<IGetService<RA063, string>, StagingServices.RA063Service>();
         builder.Services.AddScoped<IGetService<BudgetDocResourceStatistics, Guid>, SharedStagingServices.BudgetDocResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocOutSourceResourceStatistics, Guid>, SharedStagingServices.BudgetDocOutSourceResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocContractResourceStatistics, Guid>, SharedStagingServices.BudgetDocContractResourceStatisticsService>();
@@ -227,7 +228,8 @@ try
         builder.Services.AddScoped<IGetService<RA048, string>, MockServices.RA048Service>();
         builder.Services.AddScoped<IGetService<RA049, string>, MockServices.RA049Service>();
         builder.Services.AddScoped<IGetService<RA050, string>, MockServices.RA050Service>();
-        builder.Services.AddScoped<IGetService<RA063, string>, MockServices.RA063Service>();
+		builder.Services.AddScoped<IGetService<RA051, string>, MockServices.RA051Service>();
+		builder.Services.AddScoped<IGetService<RA063, string>, MockServices.RA063Service>();
         builder.Services.AddScoped<IGetService<BudgetDocResourceStatistics, Guid>, SharedMockService.BudgetDocResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocOutSourceResourceStatistics, Guid>, SharedMockService.BudgetDocOutSourceResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocContractResourceStatistics, Guid>, SharedMockService.BudgetDocContractResourceStatisticsService>();
