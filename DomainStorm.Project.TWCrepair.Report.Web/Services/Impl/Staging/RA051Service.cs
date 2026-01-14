@@ -3,20 +3,20 @@ using DomainStorm.Framework;
 using DomainStorm.Framework.Services;
 using DomainStorm.Framework.SqlDb;
 using DomainStorm.Project.TWCrepair.Report.Web.Views;
-using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA050.V1;
+using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA051.V1;
 
 namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging;
 
 /// <summary>
-/// 檢漏系統-年度計畫-系統成果報告書-二.檢修漏成果計算統計表
+/// 檢漏系統-年度計畫-系統成果報告書-三.檢修漏成果計算資料表
 /// </summary>
-public class RA050Service : IGetService<RA050, string>
+public class RA051Service : IGetService<RA051, string>
 {
     private readonly GetRepository<IRepository<Repository.Models.CheckSysAchievement>> _getCheckSysAchievementRepository;
     private readonly IMapper _mapper;
     
 
-    public RA050Service(
+    public RA051Service(
        GetRepository<IRepository<Repository.Models.CheckSysAchievement>> getCheckSysAchievementRepository,
        IMapper mapper
 
@@ -26,32 +26,32 @@ public class RA050Service : IGetService<RA050, string>
         _mapper = mapper;   
     }
 
-    public Task<RA050> GetAsync(string id)
+    public Task<RA051> GetAsync(string id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<RA050> GetAsync<TQuery>(IQuery condition) where TQuery : IQuery
+    public Task<RA051> GetAsync<TQuery>(IQuery condition) where TQuery : IQuery
     {
         return condition switch
         {
-            QueryRA050 e => QueryRA050(e),
+            QueryRA051 e => QueryRA051(e),
             _ => throw new ArgumentOutOfRangeException(nameof(condition), condition, null)
         };
     }
 
-    private async Task<RA050> QueryRA050(QueryRA050 condition)
+    private async Task<RA051> QueryRA051(QueryRA051 condition)
     {
-        RA050 result;
+        RA051 result;
         var checkAchivement = (await _getCheckSysAchievementRepository().GetListAsync(x => x.WorkSpaceId == condition.WorkSpaceId)).FirstOrDefault();
         if(checkAchivement != null) 
         {
-            result = _mapper.Map<RA050>(checkAchivement);
+            result = _mapper.Map<RA051>(checkAchivement);
             result.WorkSpaceName = checkAchivement.WorkSpace?.WorkSpaceName;
         }
         else
         {
-            result = new RA050();
+            result = new RA051();
         }
         return result;
     }
@@ -63,17 +63,17 @@ public class RA050Service : IGetService<RA050, string>
         throw new NotImplementedException();
     }
 
-    public Task<RA050[]> GetListAsync()
+    public Task<RA051[]> GetListAsync()
     {
         throw new NotImplementedException();
     }
 
-    public Task<RA050[]> GetListAsync(string id)
+    public Task<RA051[]> GetListAsync(string id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<RA050[]> GetListAsync<TQuery>(IQuery condition) where TQuery : IQuery
+    public Task<RA051[]> GetListAsync<TQuery>(IQuery condition) where TQuery : IQuery
     {
         throw new NotImplementedException();
     }

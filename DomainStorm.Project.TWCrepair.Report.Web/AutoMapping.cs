@@ -39,7 +39,9 @@ namespace DomainStorm.Project.TWCrepair.Report.Web
             CreateMap<Models.YearPlan.YearPlanWorkSpace, RA034Item>();
             CreateMap<Models.CheckSysAchievement, RA049>();
             CreateMap<Models.CheckSysAchievementAmountVolume, RA049_AmountVolumn>();
-            CreateMap<Models.YearPlan.YearPlanBase, YearPlanExpenseAllocate>();
+			CreateMap<Models.CheckSysAchievement, RA050>();
+			CreateMap<Models.CheckSysAchievement, RA051>();
+			CreateMap<Models.YearPlan.YearPlanBase, YearPlanExpenseAllocate>();
             CreateMap<Models.YearPlan.YearPlanWorkSpace, YearPlanExpenseAllocateWorkSpace>();
             CreateMap<Models.DepartmentWorkSpace, DepartmentWorkSpaceSimple>();
 

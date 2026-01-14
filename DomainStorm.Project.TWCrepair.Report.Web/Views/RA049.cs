@@ -42,17 +42,17 @@ public class RA049 : ReportDataModel
     /// <summary>
     /// a.本期檢修前最小流量
     /// </summary>
-    public double? MinFlowBefore { get; set; }
+    public decimal? MinFlowBefore { get; set; }
 
     /// <summary>
     /// b.前期檢修後最小流量
     /// </summary>
-    public double? LastMinFlowAfter { get; set; }
+    public decimal? LastMinFlowAfter { get; set; }
 
     /// <summary>
     ///c.本期檢修後最小流量
     /// </summary>
-    public double? MinFlowAfter { get; set; }
+    public decimal? MinFlowAfter { get; set; }
     
     /// <summary>
     /// d.兩期間隔天數
@@ -67,7 +67,7 @@ public class RA049 : ReportDataModel
     /// <summary>
     /// f.檢漏管長(km)
     /// </summary>
-    public double? PlanPipeLength { get; set; }
+    public decimal? PlanPipeLength { get; set; }
 
     /// <summary>
     /// g.檢修後用戶數
@@ -83,7 +83,7 @@ public class RA049 : ReportDataModel
     /// <summary>
     /// n.實際檢漏作業管長(KM)
     /// </summary>
-    public double? RealPipeLength { get; set; }
+    public decimal? RealPipeLength { get; set; }
 
 
     /// <summary>
@@ -95,7 +95,7 @@ public class RA049 : ReportDataModel
     /// <summary>
     /// r.檢修後日配水量
     /// </summary>
-    public double? DayDistributeAmountAfter { get; set; }
+    public decimal? DayDistributeAmountAfter { get; set; }
 
     /// <summary>
     /// u.地下漏水件數
@@ -139,55 +139,23 @@ public class RA049 : ReportDataModel
     /// <summary>
     /// i.兩次間隔年數
     /// </summary>
-    public double? InervalYears { get; set; }
+    public decimal? InervalYears { get; set; }
 
     /// <summary>
     /// 漏水復原率 (a.本期檢修前最小流量-b. 前期檢修後最小流量 )/ (i.兩次間隔年數 * e.兩期間隔總配水量 / d.兩期間隔天數) * 100;
     /// </summary>
-    public double? LeackageRecover
-    {
-        get
-        {
-            if (InervalYears.HasValue && InervalYears > 0
-                && IntervalWaterAmount.HasValue && IntervalWaterAmount > 0
-                && IntervalDays.HasValue && IntervalDays > 0)
-            {
-                var temp = 100 * ((MinFlowBefore ?? 0) - (MinFlowAfter ?? 0))
-                         / (InervalYears.Value * IntervalWaterAmount.Value / IntervalDays.Value);
-                return Math.Round(temp, 2);
-            }
-            else
-            {
-                return null;
-            }
-        }
-    }
-
+    public decimal? LeackageRecover { get; set; }
+   
     /// <summary>
     /// 漏水復原量 (a.本期檢修前最小流量- b. 前期檢修後最小流量)/ ((f.檢漏管長(KM) + h.每戶間隔數(KM) * g.檢修後用戶數) * i.兩次間隔年數)
     /// </summary>
-    public double? LeackageRecoverAmount
-    {
-        get
-        {
-            var temp = (PlanPipeLength ?? 0) + (double)(DistanceBetweenHouses ?? 0M) * (CustomerAmountAfter ?? 0);
-            if (temp > 0
-                && InervalYears.HasValue && InervalYears.Value > 0)
-            {
-                return ((MinFlowBefore ?? 0) - (MinFlowAfter ?? 0))
-                         / (temp * InervalYears);
-            }
-            else
-            {
-                return null;
-            }
-        }
-    }
+    public decimal? LeackageRecoverAmount { get; set; }
+    
 
     /// <summary>
     /// 檢修後戶配水量 r.檢修後日配水量/ g.檢修後用戶數。
     /// </summary>
-    public double? CmdPerCustomer
+    public decimal? CmdPerCustomer
     {
         get
         {
@@ -201,79 +169,33 @@ public class RA049 : ReportDataModel
     /// <summary>
     /// 檢漏速率  n.實際檢漏作業管長/ z.管線聽音人日
     /// </summary>
-    public double? CheckSpeed
-    {
-        get
-        {
-            if (ListenDay.HasValue && ListenDay.Value > 0)
-                return Math.Round((RealPipeLength ?? 0) / (double)ListenDay.Value, 2);
-            else
-                return null;
-        }
-    }
+    public decimal? CheckSpeed { get; set; }
+    
 
     /// <summary>
     /// 篩檢率   x.確認漏水件數/ x.確認漏水件數+ y.確認無漏件數
     /// </summary>
-    public double? FiltRate
-    {
-        get
-        {
-            var temp = (ConfirmLeakageAmount ?? 0) + (ConfirmNoLeakageAmount ?? 0);
-            if (temp > 0 )
-            {
-                return Math.Round(100.0 * (ConfirmLeakageAmount ?? 0) /(double)temp, 2);
-            }
-            else
-            {
-                return null;
-            }
-        }
-    }
+    public decimal? FiltRate { get; set; }
 
-    /// <summary>
-    /// 確認失敗率  (w.確認失敗件數(無漏及超限)/ (w.確認失敗件數(無漏及超限)+ v.漏水總件數)) * 100
-    /// </summary>
-    public double? ConfirmFailAmountRate
-    {
-        get
-        {
-            var temp = (ConfirmFailAmount ?? 0) + (RealLeakageAmount ?? 0);
-            if (temp > 0)
-            {
-                return Math.Round(100.0 * (RealLeakageAmount ?? 0) / (double)temp, 2);
-            }
-            else
-            {
-                return null;
-            }
-        }
-    }
 
-    /// <summary>
-    /// 地下漏水發生率 u.地下漏水件數/ v.漏水總件數
-    /// </summary>
-    public double? UnderGroundLeakageAmountRate
-    {
-        get
-        {
-            if (RealLeakageAmount.HasValue && RealLeakageAmount.Value > 0)
-            {
-                return Math.Round(100.0 * (RealUnderGroundLeakageAmount ?? 0) / (double)RealLeakageAmount, 2);
-            }
-            else
-            {
-                return null;
-            }
-        }
-    }
-    #endregion
+	/// <summary>
+	/// 確認失敗率  (w.確認失敗件數(無漏及超限)/ (w.確認失敗件數(無漏及超限)+ v.漏水總件數)) * 100
+	/// </summary>
+	public decimal? ConfirmFailAmountRate { get; set; }
 
-    #region 作業績效分析
-    /// <summary>
-    /// 地下漏下件數
-    /// </summary>
-    public RA049_DiffAndRate Performance_UnderGroundLeakageAmount { get; set; } = new RA049_DiffAndRate();
+
+	/// <summary>
+	/// 地下漏水發生率 u.地下漏水件數/ v.漏水總件數
+	/// </summary>
+	public decimal? UnderGroundLeakageAmountRate { get; set; }
+
+	#endregion
+
+	#region 作業績效分析
+	/// <summary>
+	/// 地下漏下件數
+	/// </summary>
+	public RA049_DiffAndRate Performance_UnderGroundLeakageAmount { get; set; } = new RA049_DiffAndRate();
 
     /// <summary>
     /// 檢漏管長
@@ -369,7 +291,7 @@ public class RA049 : ReportDataModel
         return CheckSysAchievementAmountVolumes.FirstOrDefault(x => x.Name == name)?.RealAmount;
     }
 
-    public double? CheckVolumnOf(string name)
+    public decimal? CheckVolumnOf(string name)
     {
         return CheckSysAchievementAmountVolumes.FirstOrDefault(x => x.Name == name)?.RealVolumn;
     }
@@ -379,12 +301,12 @@ public class RA049 : ReportDataModel
     /// <summary>
     /// 最小流量率(檢修前)
     /// </summary>
-    public double? MinFlowRateBefore { get; set; }
+    public decimal? MinFlowRateBefore { get; set; }
 
     /// <summary>
     /// 最小流量率(檢修後)
     /// </summary>
-    public double? MinFlowRateAfter { get; set; }
+    public decimal? MinFlowRateAfter { get; set; }
 
     public RA049_DiffAndRate MinFlowCompare = new RA049_DiffAndRate();   //
     #endregion
@@ -404,15 +326,15 @@ public class RA049_DiffAndRate
     /// <summary>
     /// 計畫數
     /// </summary>
-    public double? PlanAmount { get; set; }
+    public decimal? PlanAmount { get; set; }
     /// <summary>
     /// 實際數
     /// </summary>
-    public double ? RealAmount { get; set; }
+    public decimal ? RealAmount { get; set; }
     /// <summary>
     /// 差異
     /// </summary>
-    public double? Diff
+    public decimal? Diff
     {
         get
         {
@@ -425,7 +347,7 @@ public class RA049_DiffAndRate
     /// <summary>
     /// 達成率(不要 * 100 , 範本有用 percentage style)
     /// </summary>
-    public double? Rate
+    public decimal? Rate
     {
         get
         {
@@ -439,7 +361,7 @@ public class RA049_DiffAndRate
     // <summary>
     /// 差異率(不要 * 100 , 範本有用 percentage style)
     /// </summary>
-    public double? DiffRate
+    public decimal? DiffRate
     {
         get
         {
@@ -457,7 +379,7 @@ public class RA049_DiffAndRate
     
     }
 
-    public RA049_DiffAndRate(double? planAmount, double? realAmount)
+    public RA049_DiffAndRate(decimal? planAmount, decimal? realAmount)
     {
         PlanAmount = planAmount;
         RealAmount = realAmount;
@@ -490,12 +412,12 @@ public class RA049_AmountVolumn
     /// <summary>
     /// 計畫檢漏水量
     /// </summary>
-    public double? PlanVolumn { get; set; }
+    public decimal? PlanVolumn { get; set; }
 
     /// <summary>
     /// 實際檢漏水量
     /// </summary>
-    public double? RealVolumn { get; set; }
+    public decimal? RealVolumn { get; set; }
 
 
 }
