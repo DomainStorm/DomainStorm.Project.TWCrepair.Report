@@ -18,6 +18,7 @@ using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA005.V
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA006.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA007.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA008.V1;
+using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA009.V1;
 using static DomainStorm.Project.TWCrepair.Repository.CommandModel.Report.V1;
 
 
@@ -185,5 +186,23 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
             return plotlyJson;
         }
 
-    }
+		/// <summary>
+		/// 流量分析-(檢前總表/檢後總表)的流量曲線圖(結合在 RA041裡的圖)
+		/// </summary>
+		[HttpPost("da009")]
+		public async Task<PlotlyJson> DA009([FromBody] QueryDA009 request, [FromServices] IGetService<Views.Dashboards.DA009, string> _da009Service)
+		{
+			var da009 = await _da009Service.GetAsync<QueryDA009>(request);
+			var convertRequest = new ReportConvertRequest
+			{
+				ViewName = "/Views/Dashboards/DA009.cshtml",
+				Model = da009,
+				Extension = FileExtension.JSON
+			};
+
+			var plotlyJson = await _reportService.GetAsync(convertRequest);
+			return plotlyJson;
+		}
+
+	}
 }
