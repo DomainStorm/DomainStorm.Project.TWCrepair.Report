@@ -167,7 +167,7 @@ public class RA036Service : IGetService<RA036, string>
        
         public int Width { get; set;  }
 
-        public double Length { get; set; }
+        public decimal Length { get; set; }
     }
 
     public Task<DateTime> GetAsync(Guid id)

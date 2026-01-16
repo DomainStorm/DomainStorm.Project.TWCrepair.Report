@@ -64,12 +64,12 @@ public class RA036PiepSiteData
     /// <summary>
     /// 該管徑的各廠所的計劃管長
     /// </summary>
-    public List<double> Lengthes { get; set; } = new List<double>();
+    public List<decimal> Lengthes { get; set; } = new List<decimal>();
 
     /// <summary>
     /// 小計
     /// </summary>
-    public double SubTotal
+    public decimal SubTotal
     {
         get => Lengthes.Sum();
     }

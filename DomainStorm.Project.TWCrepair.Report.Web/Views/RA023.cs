@@ -43,7 +43,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         /// <summary>
         /// 線總長度(M)
         /// </summary>
-        public double PipeLength { get; set; }
+        public decimal PipeLength { get; set; }
 
 
         /// <summary>
@@ -54,14 +54,14 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         /// <summary>
         /// 管線每公里漏水件數
         /// </summary>
-        public double CaseAmountPerKm
+        public decimal CaseAmountPerKm
         {
             get
             {
                 if (PipeLength == 0)
                     return 0;
                 else
-                    return Math.Round((double)TotalItem.TotalCase / PipeLength / 1000, 6, MidpointRounding.AwayFromZero);
+                    return Math.Round(TotalItem.TotalCase / PipeLength / 1000, 6, MidpointRounding.AwayFromZero);
             }
         }
 
@@ -73,21 +73,21 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         /// <summary>
         /// 用戶表箱每萬戶修漏件數
         /// </summary>
-        public double BoxAmountPerCustomer
+        public decimal BoxAmountPerCustomer
         {
             get
             {
                 if (CustomerAmount == 0)
                     return 0;
                 else
-                    return Math.Round((double)BoxCaseAmount / CustomerAmount / 10000, 6, MidpointRounding.AwayFromZero);
+                    return Math.Round(BoxCaseAmount / CustomerAmount / 10000.0M, 6, MidpointRounding.AwayFromZero);
             }
         }
 
         /// <summary>
         /// 抑制漏水流量(CMD)
         /// </summary>
-        public double TotalLeakageWater { get; set; }
+        public decimal TotalLeakageWater { get; set; }
 
 
 
@@ -295,7 +295,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         public void GenerateData(ICollection<RA023FixForm> allForms)
         {
             BoxCaseAmount = allForms.Count(x => x.EquipmentAttribute == "表箱另件");
-            TotalLeakageWater = allForms.Where(x => x.CaseAttribute == "漏水案件").Sum(x => (double)(x.DailyAmount ?? 0));
+            TotalLeakageWater = allForms.Where(x => x.CaseAttribute == "漏水案件").Sum(x =>(x.DailyAmount ?? 0));
 
             foreach (var group in FilterGroups)
             {
@@ -413,17 +413,17 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         /// <summary>
         /// 漏水案件修理時間(小時)
         /// </summary>
-        public double Leakage_FixHours { get; set; }
+        public decimal Leakage_FixHours { get; set; }
 
         /// <summary>
         /// 漏水案件平均修理時間(小時)
         /// </summary>
-        public double Leakage_FixAverageHours
+        public decimal Leakage_FixAverageHours
         {
             get
             {
                 if (Leakage_Case == 0)
-                    return 0.00;
+                    return 0.00M;
                 else
                 {
                     return Math.Round(Leakage_FixHours / Leakage_Case, 2, MidpointRounding.AwayFromZero);
@@ -785,7 +785,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
             item.FinalCost_Total = forms.Sum(x => x.FinalCost_Total ?? 0);
 
             item.Leakage_Case = forms.Count(x => x.CaseAttribute == "漏水案件");
-            item.Leakage_FixHours = forms.Where(x => x.CaseAttribute == "漏水案件" && x.StartTime.HasValue && x.FixTime.HasValue).Sum(x => (x.FixTime!.Value - x.StartTime!.Value).TotalHours);
+            item.Leakage_FixHours = (decimal)forms.Where(x => x.CaseAttribute == "漏水案件" && x.StartTime.HasValue && x.FixTime.HasValue).Sum(x => (x.FixTime!.Value - x.StartTime!.Value).TotalHours);
             item.Leakage_ProcessHours = forms.Where(x => x.CaseAttribute == "漏水案件" && x.DispatchTime.HasValue && x.FixTime.HasValue).Sum(x => (x.FixTime!.Value - x.DispatchTime!.Value).TotalHours);
 
             item.NotLeakage_Case = forms.Count(x => x.CaseAttribute == "非漏水案件");

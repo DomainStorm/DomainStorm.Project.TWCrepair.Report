@@ -129,7 +129,7 @@ public class RA023Service : IGetService<RA023, string>
 
     public class YearPlanItemData
     {
-        public double Amount { get; set; }
+        public decimal Amount { get; set; }
 
         public YearPlanSetAllZoneDataType DataType { get; set; }
     }
