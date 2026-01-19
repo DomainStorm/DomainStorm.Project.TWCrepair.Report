@@ -28,6 +28,8 @@ using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA013.V
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA014.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA015.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA016.V1;
+using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA017.V1;
+using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA018.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA026.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA027.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA028.V1;
@@ -67,6 +69,9 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
             IGetService<RA013, string> ra013Service,
             IGetService<RA014, string> ra014Service,
             IGetService<RA015, string> ra015Service,
+            IGetService<RA016, string> ra016Service,
+            IGetService<RA017, string> ra017Service,
+            IGetService<RA018, string> ra018Service,
             IGetService<RA026, string> ra026Service,
             IGetService<RA027, string> ra027Service,
             IGetService<RA028, string> ra028Service,
@@ -170,6 +175,40 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
                         Id = request.Id,
                         Extension = extension
                     }, reportService, "/Views/RA015.cshtml", extension)
+            };
+
+            await using var stream = getMerge(extension).Merge(toMergeXmlDocumentList, extension);
+            var outFileName = $"{request.Id}.{request.Extension.ToString().ToLower()}";
+            var odsStream = await getConvert(FileExtension.ODS).Convert(stream, extension, FileExtension.ODS);
+
+            return File(odsStream, MediaTypeNames.Application.Octet, outFileName);
+
+        }
+
+        [HttpPost("budgetDocContract")]
+        public async Task<ActionResult> BudgetDocContract([FromBody] QueryPackage request)
+        {
+            const FileExtension extension = FileExtension.FODS;
+            var toMergeXmlDocumentList = new List<XmlDocument>
+            {
+                await OutXmlDocument<IGetService<RA016, string>, RA016, QueryRA016>(
+                    ra016Service, new QueryRA016
+                    {
+                        Id = request.Id,
+                        Extension = extension
+                    }, reportService, "/Views/RA016.cshtml", extension),
+                await OutXmlDocument<IGetService<RA017, string>, RA017, QueryRA017>(
+                    ra017Service, new QueryRA017
+                    {
+                        Id = request.Id,
+                        Extension = extension
+                    }, reportService, "/Views/RA017.cshtml", extension),
+                await OutXmlDocument<IGetService<RA018, string>, RA018, QueryRA018>(
+                    ra018Service, new QueryRA018
+                    {
+                        Id = request.Id,
+                        Extension = extension
+                    }, reportService, "/Views/RA018.cshtml", extension)
             };
 
             await using var stream = getMerge(extension).Merge(toMergeXmlDocumentList, extension);
