@@ -1,0 +1,63 @@
+﻿@using DomainStorm.Framework
+@using DomainStorm.Framework.Services
+@using System.Text.Json
+@using DomainStorm.Framework.Caching
+@using DomainStorm.Project.TWCrepair.Shared.ViewModel
+@using static DomainStorm.Project.TWCrepair.Repository.CommandModel.Report.V1;
+@inject IJSRuntime Js
+@inject ICache Cache
+@inject IGetService<DomainStorm.Project.TWCrepair.Report.Web.Views.Dashboards.DA011, string> _da011Service;
+@inject IGetService<PlotlyJson, ReportConvertRequest> _reportService;
+
+
+@page "/DA011"
+
+<StormCard @ref="_stormCardRef" Icon="leaderboard">
+    <div slot="body">
+        <div id="chart"></div>
+        <div id="imageContainer"></div>
+    </div>
+</StormCard>
+
+
+@code {
+    private StormCard _stormCardRef;
+
+    [Parameter, SupplyParameterFromQuery]
+    public Guid WorkSpaceId { get; set; }
+
+	[Parameter, SupplyParameterFromQuery] 
+    public Guid? CachePrefix { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+       
+        var request = new ReportCommandModel.DA011.V1.QueryDA011
+        {
+            WorkSpaceId = WorkSpaceId
+        };
+        var da011 = await _da011Service.GetAsync<ReportCommandModel.DA011.V1.QueryDA011>(request);
+        var convertRequest = new ReportConvertRequest
+        {
+            ViewName = "/Views/Dashboards/DA011.cshtml",
+            Model = da011,
+            Extension = FileExtension.JSON
+        };
+
+        var plotlyJson = await _reportService.GetAsync(convertRequest);
+        await _stormCardRef.SetHeadlineAsync(plotlyJson.Layout.Title);
+        plotlyJson.Layout.Title = "";
+        plotlyJson.Layout.Margin.T = 10;  //T=0  第一條線會不見
+        
+        await Js.InvokeVoidAsync("drawChart", "chart", JsonSerializer.Serialize(plotlyJson, new JsonSerializerOptions(JsonSerializerDefaults.Web)));
+
+		if (CachePrefix.HasValue)
+        {
+            var dataUrl = await Js.InvokeAsync<string>("drawImage", "imageContainer", JsonSerializer.Serialize(plotlyJson, new JsonSerializerOptions(JsonSerializerDefaults.Web)));
+            var comma = dataUrl.IndexOf(',');
+            var base64 = comma >= 0 ? dataUrl[(comma + 1)..] : dataUrl;
+            await Cache.SaveAsync($"{CachePrefix}-DA011", base64, 60 * 60 * 1);
+        }
+       
+    }
+}
