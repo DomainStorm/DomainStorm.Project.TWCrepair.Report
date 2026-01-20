@@ -19,6 +19,8 @@ using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA006.V
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA007.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA008.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA009.V1;
+using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA010.V1;
+using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA011.V1;
 using static DomainStorm.Project.TWCrepair.Repository.CommandModel.Report.V1;
 
 
@@ -197,6 +199,42 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
 			{
 				ViewName = "/Views/Dashboards/DA009.cshtml",
 				Model = da009,
+				Extension = FileExtension.JSON
+			};
+
+			var plotlyJson = await _reportService.GetAsync(convertRequest);
+			return plotlyJson;
+		}
+
+		/// <summary>
+		/// 檢漏系統-年度計畫-系統成果報告書-五.作業前後水壓比較表-水壓比較圖(結合在 RA053裡的圖)
+		/// </summary>
+		[HttpPost("da010")]
+		public async Task<PlotlyJson> DA010([FromBody] QueryDA010 request, [FromServices] IGetService<Views.Dashboards.DA010, string> _da010Service)
+		{
+			var da010 = await _da010Service.GetAsync<QueryDA010>(request);
+			var convertRequest = new ReportConvertRequest
+			{
+				ViewName = "/Views/Dashboards/DA010.cshtml",
+				Model = da010,
+				Extension = FileExtension.JSON
+			};
+
+			var plotlyJson = await _reportService.GetAsync(convertRequest);
+			return plotlyJson;
+		}
+
+		/// <summary>
+		/// 檢漏系統-年度計畫-系統成果報告書-五.作業前後水壓比較表-總水頭分布圖(結合在 RA053裡的圖)
+		/// </summary>
+		[HttpPost("da011")]
+		public async Task<PlotlyJson> DA011([FromBody] QueryDA011 request, [FromServices] IGetService<Views.Dashboards.DA011, string> _da011Service)
+		{
+			var da011 = await _da011Service.GetAsync<QueryDA011>(request);
+			var convertRequest = new ReportConvertRequest
+			{
+				ViewName = "/Views/Dashboards/DA011.cshtml",
+				Model = da011,
 				Extension = FileExtension.JSON
 			};
 
