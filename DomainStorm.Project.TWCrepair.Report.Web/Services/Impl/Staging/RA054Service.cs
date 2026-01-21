@@ -49,10 +49,17 @@ public class RA054Service : IGetService<RA054, string>
     {
 		RA054 result = new RA054();
 
+		var checkAchivement = (await _getCheckSysAchievementRepository().GetListAsync(x => x.WorkSpaceId == condition.WorkSpaceId)).FirstOrDefault();
+		if (checkAchivement == null )
+		{
+			return result;
+		}
+
 
 		//找流量檢查
 		var FlowChecks = (await _getFlowCheckRepository().GetListAsync(x => x.WorkSpaceId == condition.WorkSpaceId
-			  && (x.LowestFlowAfterReport!.Value || x.LowestFlowBeforeReport!.Value)))
+			  && ( (x.MeasureDate == checkAchivement.LowestFlowDateBefore && x.BeforeOrAfter.Name == "檢修前")
+			       || (x.MeasureDate == checkAchivement.LowestFlowDateAfter && x.BeforeOrAfter.Name == "檢修後"))))
 			 .ToArray()
 			 .OrderByDescending(x => x.MeasureDate);
 
@@ -64,7 +71,7 @@ public class RA054Service : IGetService<RA054, string>
 				MeasureDate = flowCheck.MeasureDate,
 				LowestFlow = Math.Round((decimal)flowCheck.LowestFlow!,2 , MidpointRounding.AwayFromZero),
 				DistributeAmount = Math.Round((decimal)((flowCheck.LastTotal ?? 0) - (flowCheck.FirstTotal ?? 0)), 2, MidpointRounding.AwayFromZero),
-				BeforeOrAfter = (flowCheck.LowestFlowAfterReport ?? false) ? "檢修後" : "檢修前",
+				BeforeOrAfter = flowCheck.BeforeOrAfter.Name
 			};
 
 			var setAllZoneItem = (await setAllZoneItemRepository.GetListAsync(
