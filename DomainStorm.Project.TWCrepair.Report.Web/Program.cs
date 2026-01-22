@@ -29,6 +29,7 @@ using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using static DomainStorm.Framework.BlazorComponent.CommandModel.SysManagementLog.V1;
 using static DomainStorm.Project.TWCrepair.Repository.CommandModel.Report.V1;
+using static DomainStorm.Project.TWCrepair.Repository.CommandModel.YearPlanBase.V1;
 using MockServices = DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Mock;
 using Models = DomainStorm.Project.TWCrepair.Repository.Models;
 using SharedMockService = DomainStorm.Project.TWCrepair.Shared.Services.Impl.Mock;
@@ -91,7 +92,9 @@ try
         builder.Services.AddScoped<IGetService<PlotlyJson, ReportConvertRequest>, SharedStagingService.ReportService>();
         builder.Services.AddScoped<IGetService<AutoLoginToken, string>, AutoLoginTokenService>();
         builder.Services.AddScoped<IGetService<Department, string>, SharedStagingServices.DepartmentService>();
-        builder.Services.AddScoped<IGetService<Post, string>, SharedStagingServices.PostService>();
+		builder.Services.AddScoped<IGetService<DomainStorm.Project.TWCrepair.Shared.ViewModel.DepartmentWorkSpace, Guid>, SharedStagingServices.DepartmentWorkSpaceService>();
+		builder.Services.AddScoped<ICommandService<CreateYearPlanBase, DeleteYearPlanBase>, SharedStagingServices.YearPlanBaseService>();
+		builder.Services.AddScoped<IGetService<Post, string>, SharedStagingServices.PostService>();
         builder.Services.AddScoped<IGetService<DA001, string>, StagingServices.DA001Service>();
         builder.Services.AddScoped<IGetService<DA002, string>, StagingServices.DA002Service>();
         builder.Services.AddScoped<IGetService<DA003, string>, StagingServices.DA003Service>();
@@ -157,7 +160,8 @@ try
 		builder.Services.AddScoped<IGetService<RA051, string>, StagingServices.RA051Service>();
 		builder.Services.AddScoped<IGetService<RA052, string>, StagingServices.RA052Service>();
 		builder.Services.AddScoped<IGetService<RA053, string>, StagingServices.RA053Service>();
-		builder.Services.AddScoped<IGetService<RA054, string>, StagingServices.RA054Service>();    
+		builder.Services.AddScoped<IGetService<RA054, string>, StagingServices.RA054Service>();
+		builder.Services.AddScoped<IGetService<RA055, string>, StagingServices.RA055Service>();  
 		builder.Services.AddScoped<IGetService<RA063, string>, StagingServices.RA063Service>();
         builder.Services.AddScoped<IGetService<BudgetDocResourceStatistics, Guid>, SharedStagingServices.BudgetDocResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocOutSourceResourceStatistics, Guid>, SharedStagingServices.BudgetDocOutSourceResourceStatisticsService>();
@@ -174,8 +178,9 @@ try
 
         builder.Services.AddScoped<IGetService<Department, string>, SharedMockServices.DepartmentService>();
         builder.Services.AddScoped<IGetService<Post, string>, SharedMockServices.PostService>();
-
-        builder.Services.AddScoped<IGetService<Stream, ReportConvertRequest>, SharedMockService.ReportService>();
+		builder.Services.AddScoped<IGetService<DomainStorm.Project.TWCrepair.Shared.ViewModel.DepartmentWorkSpace, Guid>, SharedMockServices.DepartmentWorkSpaceService>();
+		builder.Services.AddScoped<ICommandService<CreateYearPlanBase, DeleteYearPlanBase>, SharedMockServices.YearPlanBaseService>();
+		builder.Services.AddScoped<IGetService<Stream, ReportConvertRequest>, SharedMockService.ReportService>();
         builder.Services.AddScoped<IGetService<PlotlyJson, ReportConvertRequest>, SharedMockService.ReportService>();
         builder.Services.AddScoped<IGetService<DA001, string>, MockServices.DA001Service>();
         builder.Services.AddScoped<IGetService<DA002, string>, MockServices.DA002Service>();
@@ -243,6 +248,7 @@ try
 		builder.Services.AddScoped<IGetService<RA052, string>, MockServices.RA052Service>();
 		builder.Services.AddScoped<IGetService<RA053, string>, MockServices.RA053Service>();
 		builder.Services.AddScoped<IGetService<RA054, string>, MockServices.RA054Service>();
+		builder.Services.AddScoped<IGetService<RA055, string>, MockServices.RA055Service>();
 		builder.Services.AddScoped<IGetService<RA063, string>, MockServices.RA063Service>();
         builder.Services.AddScoped<IGetService<BudgetDocResourceStatistics, Guid>, SharedMockService.BudgetDocResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocOutSourceResourceStatistics, Guid>, SharedMockService.BudgetDocOutSourceResourceStatisticsService>();
