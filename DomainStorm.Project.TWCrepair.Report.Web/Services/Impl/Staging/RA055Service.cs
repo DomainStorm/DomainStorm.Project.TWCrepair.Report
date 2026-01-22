@@ -76,9 +76,9 @@ public class RA055Service : IGetService<RA055, string>
 			var item = new RA055_Item
 			{
 				Location = flowCheck.Location,
-				MinFlowBefore = (decimal) Math.Round( flowCheck.LowestFlow ?? 0 , 2, MidpointRounding.AwayFromZero),
+				MinFlowBefore = (decimal) Math.Round( flowCheck.LowestFlowCmd ?? 0 , 2, MidpointRounding.AwayFromZero),
 				DayDistributeAmountBefore = (decimal)Math.Round((flowCheck.LastTotal ?? 0) - (flowCheck.FirstTotal?? 0), 2, MidpointRounding.AwayFromZero),
-				MinFlowAfter = (decimal)Math.Round(afterFlowCheck.LowestFlow ?? 0, 2, MidpointRounding.AwayFromZero),
+				MinFlowAfter = (decimal)Math.Round(afterFlowCheck.LowestFlowCmd ?? 0, 2, MidpointRounding.AwayFromZero),
 				DayDistributeAmountAfter = (decimal)Math.Round((afterFlowCheck.LastTotal ?? 0) - (afterFlowCheck.FirstTotal ?? 0), 2, MidpointRounding.AwayFromZero),
 			};
 

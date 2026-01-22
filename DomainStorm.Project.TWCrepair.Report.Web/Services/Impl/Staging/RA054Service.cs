@@ -15,24 +15,16 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging;
 public class RA054Service : IGetService<RA054, string>
 {
     private readonly GetRepository<IRepository<Repository.Models.CheckSysAchievement>> _getCheckSysAchievementRepository;
-	private readonly GetRepository<IRepository<Repository.Models.WaterFlowCheck>> _getFlowCheckRepository;
-	private readonly GetRepository<IRepository<Repository.Models.YearPlan.YearPlanSetAllZoneItem>> _getSetAllZoneItemRepository;
-	private readonly IMapper _mapper;
+	
 	private readonly IGetService<DepartmentWorkSpace, Guid> _departmentWorkSpaceService;
 
 
 	public RA054Service(
        GetRepository<IRepository<Repository.Models.CheckSysAchievement>> getCheckSysAchievementRepository,
-	   GetRepository<IRepository<Repository.Models.WaterFlowCheck>> getFlowCheckRepository,
-	   GetRepository<IRepository<Repository.Models.YearPlan.YearPlanSetAllZoneItem>> getSetAllZoneItemRepository,
-	   IMapper mapper,
 	   IGetService<DepartmentWorkSpace, Guid> departmentWorkSpaceService
 	   )
     {
         _getCheckSysAchievementRepository = getCheckSysAchievementRepository;
-		_getFlowCheckRepository = getFlowCheckRepository;
-		_getSetAllZoneItemRepository = getSetAllZoneItemRepository;
-		_mapper = mapper;
 		_departmentWorkSpaceService = departmentWorkSpaceService;
 
 	}
@@ -54,8 +46,6 @@ public class RA054Service : IGetService<RA054, string>
     private async Task<RA054> QueryRA054(QueryRA054 condition)
     {
 		RA054 result = new RA054();
-
-		
 
 
 		var historyWorkSpaces = await _departmentWorkSpaceService.GetListAsync<QueryHistoryDepartmentWorkSpace>(new QueryHistoryDepartmentWorkSpace
