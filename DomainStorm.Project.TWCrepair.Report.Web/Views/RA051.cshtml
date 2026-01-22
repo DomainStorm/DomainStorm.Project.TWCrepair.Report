@@ -205,7 +205,7 @@
 						<text:p>@Model.DayDistributeAmountBefore</text:p>
 					</table:table-cell>
 					<table:table-cell table:style-name="ce99" office:value-type="string" calcext:value-type="string">
-						<text:p>@Model.DayDistributeAmountBeforeBeginDate?.ToString("yyyy/MM/dd")~@Model.DayDistributeAmountBeforeEndDate?.ToString("yyyy/MM/dd")</text:p>
+						<text:p>@Model.LowestFlowDateBefore?.ToString("yyyy/MM/dd")~@Model.LowestFlowDateBefore?.AddDays(1).ToString("yyyy/MM/dd")</text:p>
 					</table:table-cell>
 					<table:table-cell table:number-columns-repeated="254" />
 				</table:table-row>
@@ -217,7 +217,7 @@
 						<text:p>@Model.DayDistributeAmountAfter</text:p>
 					</table:table-cell>
 					<table:table-cell table:style-name="ce99" office:value-type="string" calcext:value-type="string">
-						<text:p>@Model.DayDistributeAmountAfterBeginDate?.ToString("yyyy/MM/dd") ~@Model.DayDistributeAmountAfterEndDate?.ToString("yyyy/MM/dd")</text:p>
+						<text:p>@Model.LowestFlowDateAfter?.ToString("yyyy/MM/dd") ~@Model.LowestFlowDateAfter?.AddDays(1).ToString("yyyy/MM/dd")</text:p>
 					</table:table-cell>
 					<table:table-cell table:number-columns-repeated="254" />
 				</table:table-row>
@@ -229,7 +229,7 @@
 						<text:p>@Model.AveragePressureBefore</text:p>
 					</table:table-cell>
 					<table:table-cell table:style-name="ce99" office:value-type="string" calcext:value-type="string">
-						<text:p>@Model.AveragePressureBeforeBeginDate?.ToString("yyyy/MM/dd")~@Model.AveragePressureBeforeEndDate?.ToString("yyyy/MM/dd")</text:p>
+						<text:p>@Model.HighestPressureDateBefore?.ToString("yyyy/MM/dd")~@Model.HighestPressureDateBefore?.AddDays(1).ToString("yyyy/MM/dd")</text:p>
 					</table:table-cell>
 					<table:table-cell table:number-columns-repeated="254" />
 				</table:table-row>
@@ -241,7 +241,7 @@
 						<text:p>@Model.AveragePressureAfter</text:p>
 					</table:table-cell>
 					<table:table-cell table:style-name="ce99" office:value-type="string" calcext:value-type="string">
-						<text:p>@Model.AveragePressureAfterBeginDate?.ToString("yyyy/MM/dd")~@Model.AveragePressureAfterEndDate?.ToString("yyyy/MM/dd")</text:p>
+						<text:p>@Model.HighestPressureDateAfter?.ToString("yyyy/MM/dd")~@Model.HighestPressureDateAfter?.AddDays(1).ToString("yyyy/MM/dd")</text:p>
 					</table:table-cell>
 					<table:table-cell table:number-columns-repeated="254" />
 				</table:table-row>

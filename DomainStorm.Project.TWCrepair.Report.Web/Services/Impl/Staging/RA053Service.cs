@@ -55,12 +55,12 @@ public class RA053Service : IGetService<RA053, string>
 
 		//找壓力檢查
 		var pressureChecks = (await _getPressureCheckRepository().GetListAsync(x => x.WorkSpaceId == checkAchivement!.WorkSpaceId
-			  && x.MeasureDate >= checkAchivement.OperationStartDate
-			  && x.MeasureDate <= checkAchivement.OperationEndDate
-			  && (x.HighestPressureBeforeReport!.Value || x.HighestPressureAfterReport!.Value))).ToArray();
+			  && ( (x.MeasureDate  == checkAchivement.HighestPressureDateAfter && x.BeforeOrAfter.Name == "檢修後")
+			      || (x.MeasureDate == checkAchivement.HighestPressureDateBefore && x.BeforeOrAfter.Name == "檢修前"))
+			  )).ToArray();
 
 
-		var beforeChecks = pressureChecks.Where(x => x.HighestPressureBeforeReport ?? false);
+		var beforeChecks = pressureChecks.Where(x => x.BeforeOrAfter.Name == "檢修前");
 		var beforeDates = beforeChecks.Select(x => x.MeasureDate).Distinct();
 		if(!beforeDates.Any())
 		{
@@ -72,7 +72,7 @@ public class RA053Service : IGetService<RA053, string>
 		}
 		result.BeforeDate = beforeDates.First();
 
-		var afterChecks = pressureChecks.Where(x => x.HighestPressureAfterReport ?? false);
+		var afterChecks = pressureChecks.Where(x => x.BeforeOrAfter.Name == "檢修後");
 		var afterDates = beforeChecks.Select(x => x.MeasureDate).Distinct();
 		if (!afterDates.Any())
 		{

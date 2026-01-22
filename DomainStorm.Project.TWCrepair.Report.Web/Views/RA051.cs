@@ -126,15 +126,7 @@ public class RA051 : ReportDataModel
 	/// </summary>
 	public decimal? DayDistributeAmountBefore { get; set; }
 
-	/// <summary>
-	/// 檢修前日配水量的檢測日期起
-	/// </summary>
-	public DateTime? DayDistributeAmountBeforeBeginDate { get; set; }
-	/// <summary>
-	/// 檢修前日配水量的檢測日期訖
-	/// </summary>
-	public DateTime? DayDistributeAmountBeforeEndDate { get; set; }
-
+	
 
 
 	/// <summary>
@@ -142,15 +134,7 @@ public class RA051 : ReportDataModel
 	/// </summary>
 	public decimal? DayDistributeAmountAfter { get; set; }
 
-	/// <summary>
-	/// 檢修後日配水量的檢測日期起
-	/// </summary>
-
-	public DateTime? DayDistributeAmountAfterBeginDate { get; set; }
-	/// <summary>
-	/// 檢修後日配水量的檢測日期訖
-	/// </summary>
-	public DateTime? DayDistributeAmountAfterEndDate { get; set; }
+	
 
 
 
@@ -159,15 +143,6 @@ public class RA051 : ReportDataModel
 	/// </summary>
 	public decimal? AveragePressureBefore { get; set; }
 
-	/// <summary>
-	/// 檢修前平均水壓的日期起
-	/// </summary>
-	public DateTime? AveragePressureBeforeBeginDate { get; set; }
-	/// <summary>
-	/// 檢修前平均水壓的日期訖
-	/// </summary>
-	public DateTime? AveragePressureBeforeEndDate { get; set; }
-
 
 
 	/// <summary>
@@ -175,16 +150,7 @@ public class RA051 : ReportDataModel
 	/// </summary>
 	public decimal? AveragePressureAfter { get; set; }
 
-
-
-	/// <summary>
-	/// 檢修後平均水壓的日期起
-	/// </summary>
-	public DateTime? AveragePressureAfterBeginDate { get; set; }
-	/// <summary>
-	/// 檢修後平均水壓的日期訖
-	/// </summary>
-	public DateTime? AveragePressureAfterEndDate { get; set; }
+		
 
 
 	/// <summary>
@@ -256,6 +222,27 @@ public class RA051 : ReportDataModel
 
 
 
-	
+	/// <summary>
+	/// 檢修前最小流量日
+	/// </summary>
+	public DateTime? LowestFlowDateBefore { get; set; }
+
+	/// <summary>
+	/// 檢修後最小流量日
+	/// </summary>
+	/// 
+	public DateTime? LowestFlowDateAfter { get; set; }
+
+
+	/// <summary>
+	/// 檢修前最大水壓日
+	/// </summary>
+	public DateTime? HighestPressureDateBefore { get; set; }
+
+	/// <summary>
+	/// 檢修後最大水壓日
+	/// </summary>
+	public DateTime? HighestPressureDateAfter { get; set; }
+
 }
 

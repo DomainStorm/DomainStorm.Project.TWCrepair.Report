@@ -21,6 +21,7 @@ using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA008.V
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA009.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA010.V1;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA011.V1;
+using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.DA012.V1;
 using static DomainStorm.Project.TWCrepair.Repository.CommandModel.Report.V1;
 
 
@@ -30,7 +31,7 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Authorize(AuthenticationSchemes = OpenIdConnectDefaults.AuthenticationScheme)]
-     [Route("api/dashboards")]
+    [Route("api/dashboards")]
     public class DashboardsController : ControllerBase
     {
         private readonly IGetService<PlotlyJson, ReportConvertRequest> _reportService;
@@ -242,5 +243,22 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers
 			return plotlyJson;
 		}
 
+		/// <summary>
+		/// 檢漏系統-年度計畫-系統成果報告書-六.最小流量比較表-最小流量比圖(結合在 RA054 裡的圖)
+		/// </summary>
+		[HttpPost("da012")]
+		public async Task<PlotlyJson> DA012([FromBody] QueryDA012 request, [FromServices] IGetService<Views.Dashboards.DA012, string> _da012Service)
+		{
+			var da012 = await _da012Service.GetAsync<QueryDA012>(request);
+			var convertRequest = new ReportConvertRequest
+			{
+				ViewName = "/Views/Dashboards/DA012.cshtml",
+				Model = da012,
+				Extension = FileExtension.JSON
+			};
+
+			var plotlyJson = await _reportService.GetAsync(convertRequest);
+			return plotlyJson;
+		}
 	}
 }
