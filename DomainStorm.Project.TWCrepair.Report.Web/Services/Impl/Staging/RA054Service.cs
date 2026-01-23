@@ -3,7 +3,9 @@ using DomainStorm.Framework;
 using DomainStorm.Framework.Services;
 using DomainStorm.Framework.SqlDb;
 using DomainStorm.Project.TWCrepair.Report.Web.Views;
+using DomainStorm.Project.TWCrepair.Shared.ViewModel;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA054.V1;
+using static DomainStorm.Project.TWCrepair.Repository.CommandModel.DepartmentWorkSpace.V1;
 
 namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging;
 
@@ -13,23 +15,19 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Services.Impl.Staging;
 public class RA054Service : IGetService<RA054, string>
 {
     private readonly GetRepository<IRepository<Repository.Models.CheckSysAchievement>> _getCheckSysAchievementRepository;
-	private readonly GetRepository<IRepository<Repository.Models.WaterFlowCheck>> _getFlowCheckRepository;
-	private readonly GetRepository<IRepository<Repository.Models.YearPlan.YearPlanSetAllZoneItem>> _getSetAllZoneItemRepository;
-	private readonly IMapper _mapper;
-    
+	
+	private readonly IGetService<DepartmentWorkSpace, Guid> _departmentWorkSpaceService;
 
-    public RA054Service(
+
+	public RA054Service(
        GetRepository<IRepository<Repository.Models.CheckSysAchievement>> getCheckSysAchievementRepository,
-	   GetRepository<IRepository<Repository.Models.WaterFlowCheck>> getFlowCheckRepository,
-	   GetRepository<IRepository<Repository.Models.YearPlan.YearPlanSetAllZoneItem>> getSetAllZoneItemRepository,
-	   IMapper mapper
-       )
+	   IGetService<DepartmentWorkSpace, Guid> departmentWorkSpaceService
+	   )
     {
         _getCheckSysAchievementRepository = getCheckSysAchievementRepository;
-		_getFlowCheckRepository = getFlowCheckRepository;
-		_getSetAllZoneItemRepository = getSetAllZoneItemRepository;
-		_mapper = mapper;   
-    }
+		_departmentWorkSpaceService = departmentWorkSpaceService;
+
+	}
 
     public Task<RA054> GetAsync(string id)
     {
@@ -49,51 +47,49 @@ public class RA054Service : IGetService<RA054, string>
     {
 		RA054 result = new RA054();
 
-		var checkAchivement = (await _getCheckSysAchievementRepository().GetListAsync(x => x.WorkSpaceId == condition.WorkSpaceId)).FirstOrDefault();
-		if (checkAchivement == null )
+
+		var historyWorkSpaces = await _departmentWorkSpaceService.GetListAsync<QueryHistoryDepartmentWorkSpace>(new QueryHistoryDepartmentWorkSpace
 		{
-			return result;
-		}
+			WorkSpaceId = condition.WorkSpaceId
+		});
 
+		var historyWorkSapceIds = historyWorkSpaces.Select(x => x.Id).ToList();
+		historyWorkSapceIds.Add(condition.WorkSpaceId);
 
-		//找流量檢查
-		var FlowChecks = (await _getFlowCheckRepository().GetListAsync(x => x.WorkSpaceId == condition.WorkSpaceId
-			  && ( (x.MeasureDate == checkAchivement.LowestFlowDateBefore && x.BeforeOrAfter.Name == "檢修前")
-			       || (x.MeasureDate == checkAchivement.LowestFlowDateAfter && x.BeforeOrAfter.Name == "檢修後"))))
-			 .ToArray()
-			 .OrderByDescending(x => x.MeasureDate);
+		var achievements = (await _getCheckSysAchievementRepository().GetListAsync(x =>
+				historyWorkSapceIds.Contains(x.WorkSpaceId)))
+			.OrderByDescending(x => x.Year);
 
-		var setAllZoneItemRepository = _getSetAllZoneItemRepository();
-		foreach (var flowCheck in FlowChecks)
+		foreach(var achievement in achievements)
 		{
-			var item = new RA054_Item
+			//同一年度的先處後檢修後
+			if(achievement.LowestFlowDateAfter.HasValue)
 			{
-				MeasureDate = flowCheck.MeasureDate,
-				LowestFlow = Math.Round((decimal)flowCheck.LowestFlow!,2 , MidpointRounding.AwayFromZero),
-				DistributeAmount = Math.Round((decimal)((flowCheck.LastTotal ?? 0) - (flowCheck.FirstTotal ?? 0)), 2, MidpointRounding.AwayFromZero),
-				BeforeOrAfter = flowCheck.BeforeOrAfter.Name
-			};
-
-			var setAllZoneItem = (await setAllZoneItemRepository.GetListAsync(
-				x => x.Month == flowCheck.MeasureDate.Month
-				&& x.DataType == Repository.Models.YearPlan.YearPlanSetAllZoneDataType.Customer
-				&& x.YearPlanSetAllZone.Year == flowCheck.MeasureDate.Year
-				&& x.YearPlanSetAllZone.WorkSpace.Id == condition.WorkSpaceId
-				&& x.YearPlanSetAllZone.SiteId == flowCheck.SiteId
-				&& x.YearPlanSetAllZone.WaterSupplySystemId == flowCheck.WaterSupplySystemId
-				&& x.YearPlanSetAllZone.SmallRegionId == flowCheck.SmallRegionId
-				)).FirstOrDefault();
-			if(setAllZoneItem != null)
-			{
-				item.CustomerAmount = (int)setAllZoneItem.Amount;
+				var item = new RA054_Item
+				{
+					MeasureDate = achievement.LowestFlowDateAfter.Value,
+					LowestFlow = achievement.MinFlowAfter,
+					DistributeAmount = achievement.DayDistributeAmountAfter,
+					CustomerAmount = achievement.CustomerAmountAfter ?? 0,
+					BeforeOrAfter = "檢修後"
+				};
+				result.Items.Add(item);
 			}
 
-			result.Items.Add(item);
+			//再處理檢修前
+			if (achievement.LowestFlowDateBefore.HasValue)
+			{
+				var item = new RA054_Item
+				{
+					MeasureDate = achievement.LowestFlowDateBefore.Value,
+					LowestFlow = achievement.MinFlowBefore,
+					DistributeAmount = achievement.DayDistributeAmountBefore,
+					CustomerAmount = achievement.CustomerAmountBefore ?? 0,
+					BeforeOrAfter = "檢修前"
+				};
+				result.Items.Add(item);
+			}
 		}
-
-
-
-		
 		return result;
     }
 
