@@ -84,7 +84,7 @@ public class RA039Service : IGetService<RA039, string>
 
                 foreach (var catagory in result.Catagories)
                 {
-                    var equipmentWordIds = deptInstruments.Where(x => x.CategoryWordId!.Value == catagory.Id)
+                    var equipmentWordIds = deptInstruments.Where(x => x.CategoryWordId != null && x.CategoryWordId.Value == catagory.Id)
                         .Select(x => x.EquipmentWordId)  //不是直接取得儀器, 只要取得儀器設備的代碼就好
                         .Distinct();
 
