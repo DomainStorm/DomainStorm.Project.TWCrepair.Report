@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using DomainStorm.Framework.Services;
+using DomainStorm.Project.TWCrepair.Report.Web.Views;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using DomainStorm.Framework.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Mvc;
+using System.Net.Mime;
 using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA007.V1;
 using static DomainStorm.Project.TWCrepair.Repository.CommandModel.Report.V1;
-using System.Net.Mime;
-using DomainStorm.Project.TWCrepair.Report.Web.Views;
 using static Google.Api.ResourceDescriptor.Types;
 
 namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers;
@@ -50,7 +51,8 @@ public class RA007Controller : ControllerBase
     public async Task<ActionResult> PostForEditor([FromBody] QueryRA007 request)
     {
         var ra007Model = await _ra007Service.GetAsync<QueryRA007>(request);
-        ra007Model.MaterialPrice = GetInputString("MaterialPrice", ra007Model.MaterialPrice, "text", "width: 120px");
+        ra007Model.IsEditor = true;
+        ra007Model.MaterialPrice = GetInputString("MaterialPrice", ra007Model.MaterialPrice, "text", "width: 120px; text-align: right;");
         ra007Model.MaterialPriceMemo = $"${{<p>{ra007Model.MaterialPriceMemo}</p><button id=\"button_InAllMaterialPrice\">帶入全部材料費</button><p>【{ra007Model.DepartmentName}全部區域材料費<br>※材料費：$<span id=\"span_InAllMaterialPrice\"></span>】</p>}}";
         ra007Model.SubTotalPrice = GetSpanString("SubTotalPrice", ra007Model.SubTotalPrice);
         ra007Model.Tax = GetSpanString("Tax", ra007Model.Tax);

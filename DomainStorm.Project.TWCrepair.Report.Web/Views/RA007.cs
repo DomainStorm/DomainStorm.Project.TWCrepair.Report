@@ -64,8 +64,11 @@ namespace DomainStorm.Project.TWCrepair.Report.Web.Views
         /// </summary>
         public string? TotalPrice { get; set; }
 
-       
 
+        /// <summary>
+        /// Editor使用
+        /// </summary>
+        public bool IsEditor { get; set; }
     }
 }
 

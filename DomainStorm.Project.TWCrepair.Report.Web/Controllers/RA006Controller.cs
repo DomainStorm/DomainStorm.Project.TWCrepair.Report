@@ -63,11 +63,11 @@ public class RA006Controller : ControllerBase
         ra006Model.EngineeringSummary = $"${{<textarea name=\"EngineeringSummary\" style=\"width: 337px; height: 267px;\" data-encoded=\"true\">{base64}</textarea>}}";
         ra006Model.PlanStartDate = GetInputString("PlanStartDate", ra006Model.PlanStartDate, "date");
         ra006Model.PlanEndDate = GetInputString("PlanEndDate", ra006Model.PlanEndDate, "date");
-        ra006Model.DesignDrawingAmount = GetInputString("DesignDrawingAmount", ra006Model.DesignDrawingAmount, "text", "width: 60px");
-        ra006Model.ManualAmount = GetInputString("ManualAmount", ra006Model.ManualAmount, "text", "width: 60px");
-        ra006Model.CalculationBookAmount = GetInputString("CalculationBookAmount", ra006Model.CalculationBookAmount, "text", "width: 60px");
-        ra006Model.DetailTableAmount = GetInputString("DetailTableAmount", ra006Model.DetailTableAmount, "text", "width: 60px");
-        ra006Model.UnitPriceAmount = GetInputString("UnitPriceAmount", ra006Model.UnitPriceAmount, "text", "width: 60px");
+        ra006Model.DesignDrawingAmount = GetInputString("DesignDrawingAmount", ra006Model.DesignDrawingAmount, "text", "width: 60px; text-align: right;");
+        ra006Model.ManualAmount = GetInputString("ManualAmount", ra006Model.ManualAmount, "text", "width: 60px; text-align: right;");
+        ra006Model.CalculationBookAmount = GetInputString("CalculationBookAmount", ra006Model.CalculationBookAmount, "text", "width: 60px; text-align: right;");
+        ra006Model.DetailTableAmount = GetInputString("DetailTableAmount", ra006Model.DetailTableAmount, "text", "width: 60px; text-align: right;");
+        ra006Model.UnitPriceAmount = GetInputString("UnitPriceAmount", ra006Model.UnitPriceAmount, "text", "width: 60px; text-align: right;");
         ra006Model.Notes = GetInputString("Notes", ra006Model.Notes, "text", "width: 700px");
 
         ra006Model.Notes += GetInputString("_IsTemplate", ra006Model.IsTemplate, "hidden");

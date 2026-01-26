@@ -1455,7 +1455,16 @@
       <text:p>1</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="ce453"/>
-     <table:table-cell table:style-name="ce461" office:value-type="float" office:value="@Model.MaterialPrice" calcext:value-type="float" />
+     @if (Model.IsEditor)
+     {
+         <table:table-cell table:style-name="ce461" office:value-type="string" calcext:value-type="string">
+             <text:p>@Model.MaterialPrice</text:p>
+         </table:table-cell>
+     }
+     else
+     {
+         <table:table-cell table:style-name="ce461" office:value-type="float" office:value="@Model.MaterialPrice" calcext:value-type="float" />
+     }
      <table:table-cell table:style-name="ce468" office:value-type="string" calcext:value-type="string">
          <text:p>@Model.MaterialPriceMemo</text:p>
      </table:table-cell>
