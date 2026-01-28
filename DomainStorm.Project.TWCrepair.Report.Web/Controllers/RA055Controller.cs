@@ -12,7 +12,7 @@ using static DomainStorm.Project.TWCrepair.Report.Web.ReportCommandModel.RA055.V
 namespace DomainStorm.Project.TWCrepair.Report.Web.Controllers;
 
 /// <summary>
-/// 檢漏系統-年度計畫-系統成果報告書-六.最小流量比較表
+/// 檢漏系統-年度計畫-系統成果報告書-六A.各計量點水量比較表
 /// </summary>
 [ApiController]
 [Route("api/ra055")]
