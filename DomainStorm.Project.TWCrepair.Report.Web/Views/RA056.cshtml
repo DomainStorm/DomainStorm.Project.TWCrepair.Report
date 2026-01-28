@@ -1,0 +1,388 @@
+﻿@using Microsoft.AspNetCore.Html
+@model DomainStorm.Project.TWCrepair.Report.Web.Views.RA056
+@{
+	Layout = null;
+	var stylesPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Views", "RA056.head.xml");
+	var head = await File.ReadAllTextAsync(stylesPath);
+}
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<office:document xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:ooo="http://openoffice.org/2004/office" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:config="urn:oasis:names:tc:opendocument:xmlns:config:1.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:rpt="http://openoffice.org/2005/report" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:ooow="http://openoffice.org/2004/writer" xmlns:oooc="http://openoffice.org/2004/calc" xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:tableooo="http://openoffice.org/2009/table" xmlns:calcext="urn:org:documentfoundation:names:experimental:calc:xmlns:calcext:1.0" xmlns:drawooo="http://openoffice.org/2010/draw" xmlns:loext="urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0" xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0" xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0" xmlns:formx="urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0" xmlns:dom="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:grddl="http://www.w3.org/2003/g/data-view#" xmlns:css3t="http://www.w3.org/TR/css3-text/" xmlns:presentation="urn:oasis:names:tc:opendocument:xmlns:presentation:1.0" office:version="1.4" office:mimetype="application/vnd.oasis.opendocument.spreadsheet">
+	@Html.Raw(head)
+	<office:body>
+		<office:spreadsheet>
+			<table:calculation-settings table:case-sensitive="false" table:automatic-find-labels="false" table:use-regular-expressions="false" table:use-wildcards="true" />
+			<table:table table:name="七.系統暨成本費用工作報表" table:style-name="ta1">
+				<office:forms form:automatic-focus="false" form:apply-design-mode="false" />
+				<table:table-column table:style-name="co1" table:default-cell-style-name="ce80" />
+				<table:table-column table:style-name="co2" table:number-columns-repeated="8" table:default-cell-style-name="ce80" />
+				<table:table-column table:style-name="co3" table:number-columns-repeated="6" table:default-cell-style-name="ce80" />
+				<table:table-column table:style-name="co4" table:number-columns-repeated="12" table:default-cell-style-name="ce80" />
+				<table:table-column table:style-name="co5" table:default-cell-style-name="ce80" />
+				<table:table-column table:style-name="co6" table:default-cell-style-name="ce80" />
+				<table:table-column table:style-name="co7" table:number-columns-repeated="228" table:default-cell-style-name="ce80" />
+				<table:table-column table:style-name="co7" table:number-columns-repeated="16127" />
+				<table:table-header-rows>
+					<table:table-row table:style-name="ro1">
+						<table:table-cell table:style-name="ce1" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="24" table:number-rows-spanned="1">
+							<text:p><text:span text:style-name="T1">台灣自來水公司</text:span><text:span text:style-name="T2"> </text:span><text:span text:style-name="T3">@Model.DepartmentName</text:span><text:span text:style-name="T2">          </text:span><text:span text:style-name="T3">漏水防治單位</text:span><text:span text:style-name="T2"> </text:span><text:span text:style-name="T3">從</text:span><text:span text:style-name="T2">@Model.OperationStartDate.ToString("yyyy/MM/dd")</text:span><text:span text:style-name="T3">至</text:span><text:span text:style-name="T2">@Model.OperationEndDate.ToString("yyyy/MM/dd")</text:span><text:span text:style-name="T3">系統暨成本費用工作報表</text:span></text:p>
+						</table:table-cell>
+						<table:covered-table-cell table:number-columns-repeated="22" table:style-name="ce1" />
+						<table:covered-table-cell table:style-name="ce1" office:value-type="string" calcext:value-type="string">
+							<text:p></text:p>
+						</table:covered-table-cell>
+						<table:table-cell table:style-name="ce190" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="5" table:number-rows-spanned="1">
+							<text:p><text:span text:style-name="T5">印製日期</text:span><text:span text:style-name="T6">:@Model.PrintDate.ToString("yyyy/MM/dd") </text:span><text:span text:style-name="T7">第</text:span><text:span text:style-name="T6">1</text:span><text:span text:style-name="T7">頁共</text:span><text:span text:style-name="T6">1</text:span><text:span text:style-name="T7">頁</text:span></text:p>
+						</table:table-cell>
+						<table:covered-table-cell table:number-columns-repeated="4" table:style-name="ce190" />
+						<table:table-cell table:number-columns-repeated="228" />
+					</table:table-row>
+				</table:table-header-rows>
+				<table:table-row table:style-name="ro2">
+					<table:table-cell table:style-name="ce12" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
+						<text:p><text:span text:style-name="T4">系統</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce12" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="9" table:number-rows-spanned="1">
+						<text:p><text:span text:style-name="T4">工作日</text:span></text:p>
+					</table:table-cell>
+					<table:covered-table-cell table:number-columns-repeated="7" table:style-name="ce202" />
+					<table:covered-table-cell table:style-name="ce242" />
+					<table:table-cell table:style-name="ce12" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="6" table:number-rows-spanned="1">
+						<text:p><text:span text:style-name="T4">檢漏作業</text:span></text:p>
+					</table:table-cell>
+					<table:covered-table-cell table:number-columns-repeated="4" table:style-name="ce202" />
+					<table:covered-table-cell table:style-name="ce242" />
+					<table:table-cell table:style-name="ce12" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="2" table:number-rows-spanned="1">
+						<text:p><text:span text:style-name="T4">系統確認</text:span></text:p>
+					</table:table-cell>
+					<table:covered-table-cell table:style-name="ce242" />
+					<table:table-cell table:style-name="ce12" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="10" table:number-rows-spanned="1">
+						<text:p><text:span text:style-name="T4">管線隊費用</text:span></text:p>
+					</table:table-cell>
+					<table:covered-table-cell table:number-columns-repeated="8" table:style-name="ce202" />
+					<table:covered-table-cell table:style-name="ce242" />
+					<table:table-cell table:style-name="ce264" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
+						<text:p><text:span text:style-name="T4">備註</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:number-columns-repeated="228" />
+				</table:table-row>
+				<table:table-row table:style-name="ro2">
+					<table:covered-table-cell table:style-name="ce232" />
+					<table:table-cell table:style-name="ce256" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">檢漏作業</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">確認作業</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">水壓調查</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">計量調查</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">其它現場</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">資料整備</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">圖面整備</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">其它事項</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce243" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">小計</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce256" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">配水管</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">給水管</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">止水栓</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">制水閥</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">救火栓</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce243" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">管線聽音日數</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce256" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">確認漏水</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce262" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">確認無漏</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce256" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">差旅費</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">車輛油料費</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">人事費</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">其它事務費</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">車輛維護費</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">器具維護費</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">儀器折舊費</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">加班費</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">檢漏工具費</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce243" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">小計</text:span></text:p>
+					</table:table-cell>
+					<table:covered-table-cell table:style-name="ce265" />
+					<table:table-cell table:number-columns-repeated="228" />
+				</table:table-row>
+				@for(var i = 0 ; i< Model.MonthItems.Count; i++)
+				{
+					var item = Model.MonthItems[i];
+					<table:table-row table:style-name="ro3">
+
+						<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce252" : "ce253")" office:value-type="string" calcext:value-type="string">
+							<text:p><text:span text:style-name="T5">@item.Name</text:span></text:p>
+						</table:table-cell>
+						@if (item.HasData)
+						{
+
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce234" : "ce257")" office:value-type="float" office:value="@item.WorkDays[0]" calcext:value-type="float" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.WorkDays[1]" calcext:value-type="float" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.WorkDays[2]" calcext:value-type="float" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.WorkDays[3]" calcext:value-type="float" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.WorkDays[4]" calcext:value-type="float" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.WorkDays[5]" calcext:value-type="float" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.WorkDays[6]" calcext:value-type="float" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.WorkDays[7]" calcext:value-type="float" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce206" : "ce260")" office:value-type="float" office:value="@item.WorkDaysSum: null)" calcext:value-type="float" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce234" : "ce257")" office:value-type="float" office:value="@item.Checks[0]" calcext:value-type="float" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.Checks[1]" calcext:value-type="float" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce197" : "ce259")"  office:value-type="float" office:value="@item.Checks[2]" calcext:value-type="float" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce197" : "ce259")"  office:value-type="float" office:value="@item.Checks[3]" calcext:value-type="float" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.Checks[4]" calcext:value-type="float" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce206" : "ce260")" office:value-type="float" office:value="@item.Checks[5]" calcext:value-type="float" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce234" : "ce257")" office:value-type="float" office:value="@item.SysteConfirms[0]" calcext:value-type="float" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce206" : "ce260")" office:value-type="float" office:value="@item.SysteConfirms[1]" calcext:value-type="float" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce234" : "ce257")" office:value-type="float" office:value="@item.Costs[0]" calcext:value-type="float" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.Costs[1]" calcext:value-type="float" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.Costs[2]" calcext:value-type="float" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.Costs[3]" calcext:value-type="float" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.Costs[4]" calcext:value-type="float" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.Costs[5]" calcext:value-type="float" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.Costs[6]" calcext:value-type="float" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.Costs[7]" calcext:value-type="float" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.Costs[8]" calcext:value-type="float" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce206" : "ce260")" office:value-type="float" office:value="@item.CostsSum" calcext:value-type="float" />
+						}
+						else  @* 月份若沒資料, 不要印出 0 , 整列空白 *@
+						{
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce234" : "ce257")" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce197" : "ce259")" table:number-columns-repeated="7"  />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce206" : "ce260")" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce234" : "ce257")" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce197" : "ce259")" table:number-columns-repeated="4" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce206" : "ce260")" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce234" : "ce257")" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce206" : "ce260")" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce234" : "ce257")" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce197" : "ce259")" table:number-columns-repeated="8" />
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce206" : "ce260")" office:value-type="float" office:value="@item.CostsSum" calcext:value-type="float" />
+						}
+
+						@if (i == 0)
+						{
+							<table:table-cell table:style-name="@( i !=  Model.MonthItems.Count - 1 ? "ce266" : "ce260")" table:number-columns-spanned="1" table:number-rows-spanned="@(Model.MonthItems.Count + 2 + Model.SystemItems.Count)" />
+						}
+						else
+						{
+							<table:covered-table-cell table:style-name="ce267" />
+						}
+						<table:table-cell table:number-columns-repeated="228" />
+					</table:table-row>
+				}
+
+
+				<table:table-row table:style-name="ro2">
+					<table:table-cell table:style-name="ce12" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="1" table:number-rows-spanned="2">
+						<text:p><text:span text:style-name="T4">系統</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce12" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="9" table:number-rows-spanned="1">
+						<text:p><text:span text:style-name="T4">工作日</text:span></text:p>
+					</table:table-cell>
+					<table:covered-table-cell table:number-columns-repeated="7" table:style-name="ce202" />
+					<table:covered-table-cell table:style-name="ce242" />
+					<table:table-cell table:style-name="ce12" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="6" table:number-rows-spanned="1">
+						<text:p><text:span text:style-name="T4">檢漏作業</text:span></text:p>
+					</table:table-cell>
+					<table:covered-table-cell table:number-columns-repeated="4" table:style-name="ce202" />
+					<table:covered-table-cell table:style-name="ce242" />
+					<table:table-cell table:style-name="ce12" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="2" table:number-rows-spanned="1">
+						<text:p><text:span text:style-name="T4">系統確認</text:span></text:p>
+					</table:table-cell>
+					<table:covered-table-cell table:style-name="ce242" />
+					<table:table-cell table:style-name="ce12" office:value-type="string" calcext:value-type="string" table:number-columns-spanned="10" table:number-rows-spanned="1">
+						<text:p><text:span text:style-name="T4">管線隊費用</text:span></text:p>
+					</table:table-cell>
+					<table:covered-table-cell table:number-columns-repeated="8" table:style-name="ce202" />
+					<table:covered-table-cell table:style-name="ce242" />
+					<table:covered-table-cell table:style-name="ce267" />
+					<table:table-cell table:number-columns-repeated="228" />
+				</table:table-row>
+				<table:table-row table:style-name="ro2">
+					<table:covered-table-cell table:style-name="ce232" />
+					<table:table-cell table:style-name="ce256" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">檢漏作業</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">確認作業</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">水壓調查</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">計量調查</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">其它現場</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">資料整備</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">圖面整備</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">其它事項</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce243" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">小計</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce256" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">配水管</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">給水管</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">止水栓</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">制水閥</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">救火栓</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce261" office:value-type="string" calcext:value-type="string">
+						<text:p>管線聽音 <text:s />日數</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce256" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">確認漏水</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce262" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">確認無漏</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce256" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">差旅費</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">車輛油料費</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">人事費</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">其它事務費</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">車輛維護費</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">器具維護費</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">儀器折舊費</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">加班費</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce258" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">檢漏工具費</text:span></text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="ce243" office:value-type="string" calcext:value-type="string">
+						<text:p><text:span text:style-name="T4">小計</text:span></text:p>
+					</table:table-cell>
+					<table:covered-table-cell table:style-name="ce267" />
+					<table:table-cell table:number-columns-repeated="228" />
+				</table:table-row>
+
+
+				@for (var i = 0; i < Model.SystemItems.Count; i++)
+				{
+					var item = Model.SystemItems[i];
+					<table:table-row table:style-name="ro4">
+
+						<table:table-cell table:style-name="@( i !=  Model.SystemItems.Count - 1 ? "ce252" : "ce253")" office:value-type="string" calcext:value-type="string">
+							<text:p><text:span text:style-name="T5">@item.Name</text:span></text:p>
+						</table:table-cell>
+						<table:table-cell table:style-name="@( i !=  Model.SystemItems.Count - 1 ? "ce234" : "ce257")" office:value-type="float" office:value="@item.WorkDays[0]" calcext:value-type="float" />
+						<table:table-cell table:style-name="@( i !=  Model.SystemItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.WorkDays[1]" calcext:value-type="float" />
+						<table:table-cell table:style-name="@( i !=  Model.SystemItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.WorkDays[2]" calcext:value-type="float" />
+						<table:table-cell table:style-name="@( i !=  Model.SystemItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.WorkDays[3]" calcext:value-type="float" />
+						<table:table-cell table:style-name="@( i !=  Model.SystemItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.WorkDays[4]" calcext:value-type="float" />
+						<table:table-cell table:style-name="@( i !=  Model.SystemItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.WorkDays[5]" calcext:value-type="float" />
+						<table:table-cell table:style-name="@( i !=  Model.SystemItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.WorkDays[6]" calcext:value-type="float" />
+						<table:table-cell table:style-name="@( i !=  Model.SystemItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.WorkDays[7]" calcext:value-type="float" />
+						<table:table-cell table:style-name="@( i !=  Model.SystemItems.Count - 1 ? "ce206" : "ce260")" office:value-type="float" office:value="@item.WorkDaysSum: null)" calcext:value-type="float" />
+						<table:table-cell table:style-name="@( i !=  Model.SystemItems.Count - 1 ? "ce234" : "ce257")" office:value-type="float" office:value="@item.Checks[0]" calcext:value-type="float" />
+						<table:table-cell table:style-name="@( i !=  Model.SystemItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.Checks[1]" calcext:value-type="float" />
+						<table:table-cell table:style-name="@( i !=  Model.SystemItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.Checks[2]" calcext:value-type="float" />
+						<table:table-cell table:style-name="@( i !=  Model.SystemItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.Checks[3]" calcext:value-type="float" />
+						<table:table-cell table:style-name="@( i !=  Model.SystemItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.Checks[4]" calcext:value-type="float" />
+						<table:table-cell table:style-name="@( i !=  Model.SystemItems.Count - 1 ? "ce206" : "ce260")" office:value-type="float" office:value="@item.Checks[5]" calcext:value-type="float" />
+						<table:table-cell table:style-name="@( i !=  Model.SystemItems.Count - 1 ? "ce234" : "ce257")" office:value-type="float" office:value="@item.SysteConfirms[0]" calcext:value-type="float" />
+						<table:table-cell table:style-name="@( i !=  Model.SystemItems.Count - 1 ? "ce206" : "ce260")" office:value-type="float" office:value="@item.SysteConfirms[1]" calcext:value-type="float" />
+						<table:table-cell table:style-name="@( i !=  Model.SystemItems.Count - 1 ? "ce234" : "ce257")" office:value-type="float" office:value="@item.Costs[0]" calcext:value-type="float" />
+						<table:table-cell table:style-name="@( i !=  Model.SystemItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.Costs[1]" calcext:value-type="float" />
+						<table:table-cell table:style-name="@( i !=  Model.SystemItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.Costs[2]" calcext:value-type="float" />
+						<table:table-cell table:style-name="@( i !=  Model.SystemItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.Costs[3]" calcext:value-type="float" />
+						<table:table-cell table:style-name="@( i !=  Model.SystemItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.Costs[4]" calcext:value-type="float" />
+						<table:table-cell table:style-name="@( i !=  Model.SystemItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.Costs[5]" calcext:value-type="float" />
+						<table:table-cell table:style-name="@( i !=  Model.SystemItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.Costs[6]" calcext:value-type="float" />
+						<table:table-cell table:style-name="@( i !=  Model.SystemItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.Costs[7]" calcext:value-type="float" />
+						<table:table-cell table:style-name="@( i !=  Model.SystemItems.Count - 1 ? "ce197" : "ce259")" office:value-type="float" office:value="@item.Costs[8]" calcext:value-type="float" />
+						<table:table-cell table:style-name="@( i !=  Model.SystemItems.Count - 1 ? "ce206" : "ce260")" office:value-type="float" office:value="@item.CostsSum" calcext:value-type="float" />
+						<table:covered-table-cell table:style-name="ce267" />
+						<table:table-cell table:number-columns-repeated="228" />
+					</table:table-row>
+				}
+				<table:table-row table:style-name="ro2" table:number-rows-repeated="1048548">
+					<table:table-cell table:number-columns-repeated="257" />
+				</table:table-row>
+				<table:table-row table:style-name="ro2">
+					<table:table-cell table:number-columns-repeated="257" />
+				</table:table-row>
+				<table:named-expressions>
+					<table:named-range table:name="Excel_BuiltIn_Print_Titles" table:base-cell-address="$&apos;七.系統暨成本費用工作報表&apos;.$A$1" table:cell-range-address="$&apos;七.系統暨成本費用工作報表&apos;.$1:.$1" table:range-usable-as="repeat-column repeat-row" />
+				</table:named-expressions>
+			</table:table>
+			<table:named-expressions />
+		</office:spreadsheet>
+	</office:body>
+</office:document>

@@ -161,7 +161,8 @@ try
 		builder.Services.AddScoped<IGetService<RA052, string>, StagingServices.RA052Service>();
 		builder.Services.AddScoped<IGetService<RA053, string>, StagingServices.RA053Service>();
 		builder.Services.AddScoped<IGetService<RA054, string>, StagingServices.RA054Service>();
-		builder.Services.AddScoped<IGetService<RA055, string>, StagingServices.RA055Service>();  
+		builder.Services.AddScoped<IGetService<RA055, string>, StagingServices.RA055Service>();
+		builder.Services.AddScoped<IGetService<RA056, string>, StagingServices.RA056Service>();
 		builder.Services.AddScoped<IGetService<RA063, string>, StagingServices.RA063Service>();
         builder.Services.AddScoped<IGetService<BudgetDocResourceStatistics, Guid>, SharedStagingServices.BudgetDocResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocOutSourceResourceStatistics, Guid>, SharedStagingServices.BudgetDocOutSourceResourceStatisticsService>();
@@ -249,6 +250,7 @@ try
 		builder.Services.AddScoped<IGetService<RA053, string>, MockServices.RA053Service>();
 		builder.Services.AddScoped<IGetService<RA054, string>, MockServices.RA054Service>();
 		builder.Services.AddScoped<IGetService<RA055, string>, MockServices.RA055Service>();
+		builder.Services.AddScoped<IGetService<RA056, string>, MockServices.RA056Service>();
 		builder.Services.AddScoped<IGetService<RA063, string>, MockServices.RA063Service>();
         builder.Services.AddScoped<IGetService<BudgetDocResourceStatistics, Guid>, SharedMockService.BudgetDocResourceStatisticsService>();
         builder.Services.AddScoped<IGetService<BudgetDocOutSourceResourceStatistics, Guid>, SharedMockService.BudgetDocOutSourceResourceStatisticsService>();
@@ -391,7 +393,13 @@ try
             .AddScoped<GetRepository<IRepository<Models.HR.HRSalary>>>(
                 c => c.GetRequiredService<IRepository<Models.HR.HRSalary>>);
 
-        builder.Services
+		builder.Services
+			.AddTransient<IRepository<Models.CommonCost>, SqlDbRepository<Models.CommonCost>>();
+		builder.Services
+			.AddScoped<GetRepository<IRepository<Models.CommonCost>>>(
+				c => c.GetRequiredService<IRepository<Models.CommonCost>>);
+
+		builder.Services
             .AddTransient<IRepository<Models.AttachmentFile>, SqlDbRepository<Models.AttachmentFile>>();
         builder.Services
             .AddScoped<GetRepository<IRepository<Models.AttachmentFile>>>(
